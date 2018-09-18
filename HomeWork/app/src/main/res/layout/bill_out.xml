@@ -17,8 +17,8 @@
         app:layout_constraintBottom_toTopOf="@+id/horizonal1"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageButton
-            android:id="@+id/imageButton"
+        <Button
+            android:id="@+id/bill_out_exit"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginBottom="48dp"
@@ -26,7 +26,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:background="#00000000"
-            android:src="@android:drawable/ic_menu_set_as"
+            android:text="取消"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/vertical_right"
@@ -54,8 +54,8 @@
         android:layout_height="match_parent"
         android:foregroundGravity="center">
 
-        <TableLayout
-            android:id="@+id/tableLayout"
+        <LinearLayout
+            android:id="@+id/LinearLaout1"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginEnd="8dp"
@@ -63,66 +63,47 @@
             android:layout_marginTop="8dp"
             android:background="@drawable/bill_my_background"
             android:gravity="top"
-            android:stretchColumns="*"
+            android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@+id/horizontal_parent2"
             app:layout_constraintEnd_toStartOf="@+id/vertial_parent2"
             app:layout_constraintStart_toStartOf="@+id/vertial_parent1"
             app:layout_constraintTop_toTopOf="@+id/horizontal_parent1">
 
-            <TableRow
+            <TextView
+                android:id="@+id/textView5"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:text="常用"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
-                <TextView
-                    android:id="@+id/textView5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="常用"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-
-            </TableRow>
-
-            <TableRow
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="86dp">
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-                <finalhomework.tcl.com.finalhomework.Utils.ImageButtonWithText xmlns:custom="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/CommonlyUsed1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="35dp"
-                    android:text="常用(1)"
-                    custom:picture="@mipmap/ic_launcher_round">
+                <!--<finalhomework.tcl.com.finalhomework.Utils.ImageButtonWithText-->
+                <!--android:id="@+id/CommonlyUsed1"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:text="常用(1)"-->
+                <!--app:picture="@drawable/menu">-->
 
-                </finalhomework.tcl.com.finalhomework.Utils.ImageButtonWithText>
+                <!--</finalhomework.tcl.com.finalhomework.Utils.ImageButtonWithText>-->
 
-                <finalhomework.tcl.com.finalhomework.Utils.ImageButtonWithText xmlns:custom="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/CommonlyUsed2"
+                <GridView
+                    android:id="@+id/grid01"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="常用(2)"
-                    custom:picture="@mipmap/ic_launcher_round">
+                    android:gravity="center"
+                    android:horizontalSpacing="1dp"
+                    android:numColumns="4"
+                    android:verticalSpacing="1dp">
+                </GridView>
 
-                </finalhomework.tcl.com.finalhomework.Utils.ImageButtonWithText>
 
-                <finalhomework.tcl.com.finalhomework.Utils.ImageButtonWithText xmlns:custom="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/CommonlyUsed3"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="常用(3)"
-                    custom:picture="@mipmap/ic_launcher_round">
+            </LinearLayout>
 
-                </finalhomework.tcl.com.finalhomework.Utils.ImageButtonWithText>
-
-                <finalhomework.tcl.com.finalhomework.Utils.ImageButtonWithText xmlns:custom="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/CommonlyUsed4"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="常用(4)"
-                    custom:picture="@mipmap/ic_launcher_round">
-
-                </finalhomework.tcl.com.finalhomework.Utils.ImageButtonWithText>
-            </TableRow>
-        </TableLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -137,16 +118,15 @@
             app:layout_constraintStart_toStartOf="@+id/vertial_parent1"
             app:layout_constraintTop_toTopOf="@+id/horizontal_parent2">
 
-
-            <finalhomework.tcl.com.finalhomework.Utils.ImageButtonWithText xmlns:custom="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/imgbtn_company"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:scaleX="0.8"
-                android:text="添加列表"
-                custom:picture="@mipmap/ic_launcher_round">
-
-            </finalhomework.tcl.com.finalhomework.Utils.ImageButtonWithText>
+            <GridView
+                android:id="@+id/grid02"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:horizontalSpacing="1dp"
+                android:numColumns="4"
+                android:verticalSpacing="1dp">
+            </GridView>
 
         </LinearLayout>
 
@@ -162,7 +142,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.33" />
+            app:layout_constraintGuide_percent="0.38" />
 
         <android.support.constraint.Guideline
             android:id="@+id/vertial_parent1"
@@ -196,11 +176,11 @@
             app:layout_constraintStart_toStartOf="@+id/vertical_head1"
             app:layout_constraintTop_toTopOf="@+id/horizontal_head1">
 
-            <TextView
-                android:id="@+id/textView7"
+            <Spinner
+                android:id="@+id/changeType"
+                android:prompt="@string/default_money"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="下拉框" />
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
         <android.support.constraint.Guideline

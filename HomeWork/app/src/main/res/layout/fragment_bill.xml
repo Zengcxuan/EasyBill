@@ -8,60 +8,14 @@
 
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/constraintLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@drawable/shape_color_blue"
-        app:layout_constraintBottom_toTopOf="@+id/horizonal1"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageButton
-            android:id="@+id/bill_menu"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:src="@drawable/menu"
-            android:background="#00000000"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:gravity="center"
-            android:text="@string/title_bill"
-            android:textColor="@android:color/white"
-            android:textSize="24sp"
-            android:textStyle="normal|bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imageButton"
-            app:layout_constraintStart_toEndOf="@+id/bill_menu"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:background="#00000000"
-            android:src="@android:drawable/ic_menu_search"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
-
-    </android.support.constraint.ConstraintLayout>
-
-    <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="130dp"
         android:background="@drawable/shape_color_blue"
         app:layout_constraintBottom_toTopOf="@+id/horizontal4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
+        app:layout_constraintTop_toTopOf="parent">
 
         <EditText
             android:id="@+id/bill_time_year"
@@ -71,7 +25,7 @@
             android:cursorVisible="false"
             android:focusable="false"
             android:focusableInTouchMode="false"
-            android:gravity="center"
+            android:gravity="center|bottom"
             android:text="2018"
             android:textAppearance="@style/TextAppearance.AppCompat.Inverse"
             android:textColor="@android:color/white"
@@ -103,7 +57,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:gravity="bottom|left"
+            android:gravity="bottom|bottom"
             android:text="@string/type_out"
             android:textAlignment="inherit"
             android:textAllCaps="false"
@@ -185,7 +139,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.41" />
+            app:layout_constraintGuide_percent="0.72" />
 
         <android.support.constraint.Guideline
             android:id="@+id/vertical3"
@@ -197,30 +151,23 @@
     </android.support.constraint.ConstraintLayout>
 
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:gravity="center"
-        android:text="来呀，快活呀"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/horizonal1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.107583776" />
-
     <android.support.constraint.Guideline
         android:id="@+id/horizontal4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.25" />
+        app:layout_constraintGuide_percent="0.06" />
+
+    <ImageButton
+        android:id="@+id/bill_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/nullcolor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/add" />
 
 
 </android.support.constraint.ConstraintLayout>

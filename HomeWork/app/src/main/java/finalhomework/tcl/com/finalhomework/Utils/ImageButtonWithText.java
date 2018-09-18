@@ -31,9 +31,9 @@ public class ImageButtonWithText extends LinearLayout {
         a.recycle();
         imageView = new ImageView(context, attrs);
         imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-        imageView.setLayoutParams(new ViewGroup.LayoutParams(60,
-                 60));
-        imageView.setPadding(10, 0, 10, 0);
+        imageView.setLayoutParams(new ViewGroup.LayoutParams(70,
+                 70));
+        imageView.setPadding(10, 10, 10, 10);
         /**
          * Sets a drawable as the content of this ImageView.
          * This does Bitmap reading and decoding on the UI
@@ -55,7 +55,7 @@ public class ImageButtonWithText extends LinearLayout {
         textView.setGravity(android.view.Gravity.CENTER_HORIZONTAL);
         textView.setPadding(0, 0, 0, 0);
         textView.setLayoutParams(new ViewGroup.LayoutParams(60,
-                30));
+                40));
         setClickable(true);
         setFocusable(true);
         setOrientation(LinearLayout.VERTICAL);

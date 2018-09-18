@@ -7,4 +7,7 @@
     <color name="Indigo_colorPrimaryDark">#303f9f</color>
     <color name="Indigo_colorPrimary">#3f51b5</color>
     <color name="Indigo_nav_color">#4675FF</color>
+    <color name="center_color">#4850B1</color>
+    <color name="startColor">#4076B3</color>
+    <color name="endColor">#308599</color>
 </resources>

@@ -1,5 +1,8 @@
 package finalhomework.tcl.com.finalhomework.fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,7 +11,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.Toast;
+
 import com.liuwan.customdatepicker.widget.CustomDatePicker;
 
 import java.text.SimpleDateFormat;
@@ -17,11 +24,12 @@ import java.util.Locale;
 
 import finalhomework.tcl.com.finalhomework.R;
 import finalhomework.tcl.com.finalhomework.Utils.meng_MyUtils;
+import finalhomework.tcl.com.finalhomework.activity.AddBill;
 
 public class bill_fragment extends Fragment implements View.OnClickListener {
     private CustomDatePicker customDatePicker1, customDatePicker2;
-
     private EditText currentDate, currentYear;
+    private ImageButton addBillBtn;
     meng_MyUtils meng_util = new meng_MyUtils();
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //引用创建好的xml布局
@@ -34,15 +42,18 @@ public class bill_fragment extends Fragment implements View.OnClickListener {
         super.onActivityCreated(savedInstanceState);
         currentDate=(EditText)getActivity().findViewById(R.id.bill_time_month);
         currentYear=(EditText)getActivity().findViewById(R.id.bill_time_year);
-
+        addBillBtn = getActivity().findViewById(R.id.bill_add);
         currentDate.setOnClickListener(this);
+        addBillBtn.setOnClickListener(this);
         initDatePicker();
     }
     @Override
     public void onClick(View v) {
-         if(v== currentDate){
+         if(v == currentDate){
             setTime();
-        }
+        }else if(v == addBillBtn){
+             addBill();
+         }
     }
 
     /*id = R.id.bill_time setTime on the editext*/
@@ -77,5 +88,9 @@ public class bill_fragment extends Fragment implements View.OnClickListener {
 
     }
 
+    private void addBill() {
+        Intent intent = new Intent(getActivity(), AddBill.class);
+        startActivity(intent);
+    }
 
 }
