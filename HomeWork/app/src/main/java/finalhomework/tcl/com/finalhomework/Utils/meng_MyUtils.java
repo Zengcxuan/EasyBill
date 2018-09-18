@@ -1,4 +1,4 @@
-package finalhomework.tcl.com.finalhomework.main;
+package finalhomework.tcl.com.finalhomework.Utils;
 
 public class meng_MyUtils {
     public String getMonth(String month){

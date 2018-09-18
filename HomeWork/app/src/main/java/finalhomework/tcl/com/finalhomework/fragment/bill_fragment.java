@@ -16,7 +16,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import finalhomework.tcl.com.finalhomework.R;
-import finalhomework.tcl.com.finalhomework.main.meng_MyUtils;
+import finalhomework.tcl.com.finalhomework.Utils.meng_MyUtils;
 
 public class bill_fragment extends Fragment implements View.OnClickListener {
     private CustomDatePicker customDatePicker1, customDatePicker2;

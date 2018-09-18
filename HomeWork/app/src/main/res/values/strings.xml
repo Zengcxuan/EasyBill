@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 <string name="app_name">finalHomeWork</string>
+    <string name="open">打开</string>
+    <string name="close">关闭</string>
     <!--<string name="date_font"><Data><![CDATA[<font size="20dp"><xliff:g id="alarm" example="Fri 8:30 AM">%1$s</xliff:g></font>8<font size="16dp">月</font> ]]></Data></string>-->
     <!--<string name="date_font"><![CDATA[<font size="16"><xliff:g id="alarm" example="Fri 8:30 AM">%1$s</xliff:g></font>-->
         <!--<font size="14">月</font>]]></string>-->
     <!--<string name="date_font"><xliff:g id="alarm" example="Fri 8:30 AM">%1$s</xliff:g>月</string>-->
+    <string name="record_deals">记录总笔数</string>
+    <string name="record_days">记录总天数</string>
+    <string name="record_money">结余</string>
 </resources>
