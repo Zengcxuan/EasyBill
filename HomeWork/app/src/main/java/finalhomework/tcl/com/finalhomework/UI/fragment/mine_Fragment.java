@@ -1,4 +1,4 @@
-package finalhomework.tcl.com.finalhomework.fragment;
+package finalhomework.tcl.com.finalhomework.UI.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

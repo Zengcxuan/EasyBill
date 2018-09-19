@@ -1,4 +1,4 @@
-package finalhomework.tcl.com.finalhomework.activity;
+package finalhomework.tcl.com.finalhomework.UI.activity;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
@@ -8,11 +8,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
-import android.widget.ImageButton;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 
-import com.liuwan.customdatepicker.MainActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,7 +22,7 @@ import finalhomework.tcl.com.finalhomework.R;
 public class AddBill extends AppCompatActivity implements View.OnClickListener {
     private GridView grid1, grid2;
     private Button exitBtn;
-    private String[] datasource=new String[]{"支出","收入"};
+    private String[] dataSource =new String[]{"支出","收入"};
     private Spinner changeType;
     private int[] typeIcon1 = new int[]{
             R.drawable.add, R.drawable.add, R.drawable.add, R.drawable.add
@@ -57,7 +55,7 @@ public class AddBill extends AppCompatActivity implements View.OnClickListener {
 
         exitBtn.setOnClickListener(this);
         changeType = findViewById(R.id.changeType);
-        changeType.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,datasource));
+        changeType.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_list_item_1, dataSource));
 
     }
 

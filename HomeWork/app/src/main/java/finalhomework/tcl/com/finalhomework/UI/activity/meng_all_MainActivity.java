@@ -1,4 +1,4 @@
-package finalhomework.tcl.com.finalhomework.main;
+package finalhomework.tcl.com.finalhomework.UI.activity;
 
 
 import android.graphics.Color;
@@ -14,9 +14,9 @@ import android.widget.Button;
 import android.widget.ListView;
 import finalhomework.tcl.com.finalhomework.R;
 import finalhomework.tcl.com.finalhomework.Utils.meng_MyUtils;
-import finalhomework.tcl.com.finalhomework.fragment.bill_fragment;
-import finalhomework.tcl.com.finalhomework.fragment.chart_Fragment;
-import finalhomework.tcl.com.finalhomework.fragment.mine_Fragment;
+import finalhomework.tcl.com.finalhomework.UI.fragment.bill_fragment;
+import finalhomework.tcl.com.finalhomework.UI.fragment.chart_Fragment;
+import finalhomework.tcl.com.finalhomework.UI.fragment.mine_Fragment;
 
 /**
  *     Create by xiangtian.meng@tcl on 2018-8-28

@@ -110,6 +110,7 @@
             android:layout_height="0dp"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/bill_my_background"
             android:orientation="vertical"
@@ -125,8 +126,7 @@
                 android:gravity="center"
                 android:horizontalSpacing="1dp"
                 android:numColumns="4"
-                android:verticalSpacing="1dp">
-            </GridView>
+                android:verticalSpacing="1dp"></GridView>
 
         </LinearLayout>
 
@@ -149,7 +149,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.052083332" />
+            app:layout_constraintGuide_percent="0.05" />
 
         <android.support.constraint.Guideline
             android:id="@+id/vertial_parent2"
@@ -167,7 +167,7 @@
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="133dp"
+            android:layout_height="112dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:orientation="vertical"
@@ -178,9 +178,12 @@
 
             <Spinner
                 android:id="@+id/changeType"
-                android:prompt="@string/default_money"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:dropDownWidth="wrap_content"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:paddingRight="10dp"/>
         </LinearLayout>
 
         <android.support.constraint.Guideline
@@ -188,28 +191,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.37" />
+            app:layout_constraintGuide_percent="0.35" />
 
         <android.support.constraint.Guideline
             android:id="@+id/vertical_head2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.63" />
+            app:layout_constraintGuide_percent="0.65" />
 
         <android.support.constraint.Guideline
             android:id="@+id/horizontal_head1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.09" />
+            app:layout_constraintGuide_percent="0.0" />
 
         <android.support.constraint.Guideline
             android:id="@+id/horizontal_head2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.26" />
+            app:layout_constraintGuide_percent="0.35" />
     </android.support.constraint.ConstraintLayout>
 
 </FrameLayout>

@@ -10,13 +10,6 @@
         android:layout_weight="1"
         android:orientation="horizontal">
 
-        <ImageButton
-            android:id="@+id/bill_menu"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:src="@drawable/menu" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -26,11 +19,6 @@
             android:textColor="@android:color/background_dark"
             android:textSize="24sp"
             android:textStyle="normal|bold" />
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
 
     </LinearLayout>
     <View

@@ -1,7 +1,5 @@
-package finalhomework.tcl.com.finalhomework.fragment;
+package finalhomework.tcl.com.finalhomework.UI.fragment;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,10 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.liuwan.customdatepicker.widget.CustomDatePicker;
 
@@ -24,7 +20,7 @@ import java.util.Locale;
 
 import finalhomework.tcl.com.finalhomework.R;
 import finalhomework.tcl.com.finalhomework.Utils.meng_MyUtils;
-import finalhomework.tcl.com.finalhomework.activity.AddBill;
+import finalhomework.tcl.com.finalhomework.UI.activity.AddBill;
 
 public class bill_fragment extends Fragment implements View.OnClickListener {
     private CustomDatePicker customDatePicker1, customDatePicker2;
