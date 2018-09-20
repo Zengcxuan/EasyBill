@@ -347,6 +347,10 @@
                     android:text="完成"
                     android:textColor="#000000"
                     android:textSize="20sp" />
+
+                <View
+                    style="@style/horizontal_decoration_style"
+                    android:background="#8c8c8c" />
             </LinearLayout>
 
             <View

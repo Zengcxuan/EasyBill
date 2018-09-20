@@ -5,7 +5,7 @@
     android:layout_gravity="center"
     android:orientation="vertical" >
 
-    <ImageView
+    <finalhomework.tcl.com.finalhomework.UI.widget.RoundImageView
         android:id="@+id/img"
         android:layout_width="60dp"
         android:layout_height="60dp"
