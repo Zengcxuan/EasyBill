@@ -11,7 +11,7 @@ import finalhomework.tcl.com.finalhomework.R;
 public class mine_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //引用创建好的xml布局
-        View view = inflater.inflate(R.layout.zeng_person_msg,container,false);
+        View view = inflater.inflate(R.layout.fragment_persionalMsg,container,false);
         return view;
 
     }

@@ -1,4 +1,4 @@
-package finalhomework.tcl.com.finalhomework.Utils;
+package finalhomework.tcl.com.finalhomework.UI.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;

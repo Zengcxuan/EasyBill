@@ -1,13 +1,22 @@
 package finalhomework.tcl.com.finalhomework.UI.activity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 
@@ -18,12 +27,12 @@ import java.util.List;
 import java.util.Map;
 
 import finalhomework.tcl.com.finalhomework.R;
+import finalhomework.tcl.com.finalhomework.UI.widget.Keyboard;
 
 public class AddBill extends AppCompatActivity implements View.OnClickListener {
-    private GridView grid1, grid2;
     private Button exitBtn;
+    private Keyboard dialog;
     private String[] dataSource =new String[]{"支出","收入"};
-    private Spinner changeType;
     private int[] typeIcon1 = new int[]{
             R.drawable.add, R.drawable.add, R.drawable.add, R.drawable.add
     };
@@ -47,14 +56,16 @@ public class AddBill extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bill_out);
+        GridView grid1 = findViewById(R.id.grid01);
+        GridView grid2 = findViewById(R.id.grid02);
+        Spinner changeType = findViewById(R.id.changeType);
+
         exitBtn = findViewById(R.id.bill_out_exit);
-        grid1 = findViewById(R.id.grid01);
-        grid2 = findViewById(R.id.grid02);
         initData(typeIcon1, name1, grid1);
         initData(typeIcon2, name2, grid2);
 
+
         exitBtn.setOnClickListener(this);
-        changeType = findViewById(R.id.changeType);
         changeType.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_list_item_1, dataSource));
 
     }
@@ -86,11 +97,14 @@ public class AddBill extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
                                     long arg3) {
-                AlertDialog.Builder builder= new AlertDialog.Builder(AddBill.this);
-                builder.setTitle("提示").setMessage(dataList.get(arg2).get("text").toString()).create().show();
+                dialog = new Keyboard(AddBill.this);
+                dialog.show();
+//                AlertDialog.Builder builder= new AlertDialog.Builder(AddBill.this);
+//                builder.setTitle("提示").setMessage(dataList.get(arg2).get("text").toString()).create().show();
             }
         });
     }
+
 
 
 }

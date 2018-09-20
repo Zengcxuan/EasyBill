@@ -197,7 +197,7 @@
             app:layout_constraintStart_toStartOf="@+id/vertical_head1"
             app:layout_constraintTop_toTopOf="@+id/horizontal_head1">
 
-            <finalhomework.tcl.com.finalhomework.Utils.RoundImageView
+            <finalhomework.tcl.com.finalhomework.UI.widget.RoundImageView
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

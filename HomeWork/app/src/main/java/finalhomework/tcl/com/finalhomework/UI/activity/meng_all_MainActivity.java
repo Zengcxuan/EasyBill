@@ -2,6 +2,7 @@ package finalhomework.tcl.com.finalhomework.UI.activity;
 
 
 import android.graphics.Color;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -11,7 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
+
 import finalhomework.tcl.com.finalhomework.R;
 import finalhomework.tcl.com.finalhomework.Utils.meng_MyUtils;
 import finalhomework.tcl.com.finalhomework.UI.fragment.bill_fragment;
@@ -32,7 +33,7 @@ public class meng_all_MainActivity extends AppCompatActivity implements View.OnC
     private Toolbar toolbar;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
-    private ListView lvLeftMenu;
+    private NavigationView lvLeftMenu;
     private String[] lvs = {"List Item 01", "List Item 02", "List Item 03", "List Item 04"};
     private ArrayAdapter arrayAdapter;
 
@@ -42,7 +43,7 @@ public class meng_all_MainActivity extends AppCompatActivity implements View.OnC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.bill_bottom);
+        setContentView(R.layout.parent);
 
         foot1 = (Button)findViewById(R.id.zhangdan);
         foot2 = (Button)findViewById(R.id.tubiao);
@@ -71,9 +72,11 @@ public class meng_all_MainActivity extends AppCompatActivity implements View.OnC
         /**
          * set  toolbar  and show
          * */
+        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
+        navigationView.setItemIconTintList(null);
         toolbar = (Toolbar) findViewById(R.id.tl_custom);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.dl_left);
-        lvLeftMenu = (ListView) findViewById(R.id.lv_left_menu);
+        lvLeftMenu = (NavigationView) findViewById(R.id.navigation_view);
         toolbar.setTitle("Toolbar");//设置Toolbar标题
         toolbar.setTitleTextColor(Color.parseColor("#ffffff")); //设置标题颜色
         setSupportActionBar(toolbar);
@@ -95,8 +98,6 @@ public class meng_all_MainActivity extends AppCompatActivity implements View.OnC
         mDrawerToggle.syncState();
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         //设置菜单列表
-        arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, lvs);
-        lvLeftMenu.setAdapter(arrayAdapter);
     }
 
     /*the method of change the main fragment of the app*/

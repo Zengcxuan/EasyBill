@@ -10,12 +10,14 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="0dp"
-        android:layout_height="130dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/shape_color_blue"
-        app:layout_constraintBottom_toTopOf="@+id/horizontal4"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.328">
 
         <EditText
             android:id="@+id/bill_time_year"
@@ -27,8 +29,8 @@
             android:focusableInTouchMode="false"
             android:gravity="center|bottom"
             android:text="2018"
-            android:textAppearance="@style/TextAppearance.AppCompat.Inverse"
             android:textColor="@android:color/white"
+            android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/horizotal2"
             app:layout_constraintEnd_toStartOf="@+id/vertical"
             app:layout_constraintHorizontal_bias="1.0"
@@ -52,6 +54,18 @@
             app:layout_constraintEnd_toStartOf="@+id/vertical"
             app:layout_constraintStart_toStartOf="@+id/vertical1"
             app:layout_constraintTop_toTopOf="@+id/horizotal2" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="8dp"
+            android:background="#DCDCDC"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/vertical"
+            app:layout_constraintStart_toEndOf="@+id/bill_time_year"
+            app:layout_constraintTop_toTopOf="parent"></View>
 
         <TextView
             android:layout_width="0dp"
@@ -132,14 +146,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.09375" />
+            app:layout_constraintGuide_percent="0.04" />
 
         <android.support.constraint.Guideline
             android:id="@+id/horizotal2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.72" />
+            app:layout_constraintGuide_percent="0.5" />
 
         <android.support.constraint.Guideline
             android:id="@+id/vertical3"
@@ -151,13 +165,6 @@
     </android.support.constraint.ConstraintLayout>
 
 
-    <android.support.constraint.Guideline
-        android:id="@+id/horizontal4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.06" />
-
     <ImageButton
         android:id="@+id/bill_add"
         android:layout_width="wrap_content"
@@ -168,6 +175,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/add" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.13" />
 
 
 </android.support.constraint.ConstraintLayout>
