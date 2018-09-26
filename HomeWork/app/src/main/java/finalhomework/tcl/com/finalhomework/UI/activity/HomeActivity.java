@@ -48,9 +48,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        toolbar = (Toolbar) findViewById(R.id.tl_custom);
-        searchBtn = (ImageButton) findViewById(R.id.search_parent);
-        searchBtn.setOnClickListener(this);
+//        toolbar = (Toolbar) findViewById(R.id.tl_custom);
+//        searchBtn = (ImageButton) findViewById(R.id.search_parent);
+//        searchBtn.setOnClickListener(this);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(
@@ -60,15 +60,15 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                         switch (item.getItemId()) {
                             case R.id.item_bill:
                                 viewPager.setCurrentItem(0);
-                                toolbar.setBackground(getDrawable(R.drawable.shape_color_blue));
+//                                toolbar.setBackground(getDrawable(R.drawable.shape_color_blue));
                                 break;
                             case R.id.item_chart:
                                 viewPager.setCurrentItem(1);
-                                toolbar.setBackground(getDrawable(R.drawable.shape_color_blue));
+//                                toolbar.setBackground(getDrawable(R.drawable.shape_color_blue));
                                 break;
                             case R.id.item_mine:
                                 viewPager.setCurrentItem(2);
-                                toolbar.setBackground(getDrawable(R.drawable.up_background));
+//                                toolbar.setBackground(getDrawable(R.drawable.up_background));
                                 break;
                         }
                         return false;
@@ -106,7 +106,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 //        });
 
         setupViewPager(viewPager);
-        myToolbar();
+//        myToolbar();
     }
 
     @Override
@@ -143,8 +143,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 // mAnimationDrawable.start();
             }
         };
-        mDrawerToggle.setHomeAsUpIndicator(R.drawable.menu);
-        mDrawerToggle.setDrawerIndicatorEnabled(false);
+//        mDrawerToggle.setHomeAsUpIndicator(R.drawable.menu);
+//        mDrawerToggle.setDrawerIndicatorEnabled(false);
         mDrawerToggle.syncState();
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         //设置菜单列表

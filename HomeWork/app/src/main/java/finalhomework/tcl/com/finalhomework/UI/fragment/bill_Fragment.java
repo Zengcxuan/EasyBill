@@ -1,9 +1,15 @@
 package finalhomework.tcl.com.finalhomework.UI.fragment;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,6 +34,7 @@ public class bill_Fragment extends Fragment implements View.OnClickListener {
     private EditText currentDate, currentYear;
     private ImageButton addBillBtn;
     private ImageView nullBillBtn;
+    private ImageButton searchBtn;
     meng_MyUtils meng_util = new meng_MyUtils();
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //引用创建好的xml布局
@@ -52,6 +59,7 @@ public class bill_Fragment extends Fragment implements View.OnClickListener {
         nullBillBtn.setOnClickListener(this);
         currentDate.setOnClickListener(this);
         addBillBtn.setOnClickListener(this);
+        myToolbar();
         initDatePicker();
     }
     @Override
@@ -100,4 +108,39 @@ public class bill_Fragment extends Fragment implements View.OnClickListener {
         startActivity(intent);
     }
 
+
+    public void myToolbar(){
+        /**
+         * set  toolbar  and show
+         * */
+        NavigationView navigationView = (NavigationView) getActivity().findViewById(R.id.navigation_view);
+        navigationView.setItemIconTintList(null);
+        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.tl_custom);
+        DrawerLayout mDrawerLayout = (DrawerLayout) getActivity().findViewById(R.id.dl_left);
+        toolbar.setTitle("");//设置Toolbar标题
+        toolbar.setTitleTextColor(Color.parseColor("#ffffff")); //设置标题颜色
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //创建返回键，并实现打开关/闭监听
+        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(getActivity(), mDrawerLayout,
+                toolbar, R.string.open, R.string.close) {
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                //mAnimationDrawable.stop();
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+                // mAnimationDrawable.start();
+            }
+        };
+//        mDrawerToggle.setHomeAsUpIndicator(R.drawable.menu);
+//        mDrawerToggle.setDrawerIndicatorEnabled(false);
+        mDrawerToggle.syncState();
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        //设置菜单列表
+    }
 }

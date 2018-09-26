@@ -31,7 +31,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".UI.activity.AddBill" android:screenOrientation="portrait"/>
-        <activity android:name=".UI.activity.meng_all_MainActivity"/>
 
     </application>
 
