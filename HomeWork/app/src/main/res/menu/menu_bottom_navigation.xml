@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/item_bill"
+        android:icon="@mipmap/bill"
+        android:title="账单" />
+    <item
+        android:id="@+id/item_chart"
+        android:icon="@mipmap/ic_library_gray"
+        android:title="图表" />
+
+    <item
+        android:id="@+id/item_mine"
+        android:icon="@mipmap/mine"
+        android:title="我的" />
+
+
+</menu>

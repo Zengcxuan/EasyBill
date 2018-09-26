@@ -3,11 +3,13 @@
     <color name="colorPrimary">#4076B3</color>
     <color name="colorPrimaryDark">#203F9F</color>
     <color name="colorAccent">#308599</color>
-    <color name="colorForBackground">#FFFFCC</color>
+    <color name="colorForBackground">#FFFFDD</color>
     <color name="Indigo_colorPrimaryDark">#303f9f</color>
     <color name="Indigo_colorPrimary">#3f51b5</color>
     <color name="Indigo_nav_color">#4675FF</color>
-    <color name="center_color">#4850B1</color>
-    <color name="startColor">#4076B3</color>
-    <color name="endColor">#308599</color>
+    <color name="center_color">#5455F3</color>
+    <color name="endColor">#8842F5</color>
+    <color name="startColor">#387CEC</color>
+    <color name="tab_checked">#3F51B5</color>
+    <color name="tab_unchecked">#757575</color>
 </resources>

@@ -49,7 +49,7 @@ public class Keyboard extends Dialog implements View.OnClickListener{
         super(context, R.style.ActionSheetDialogStyle);
         setOwnerActivity((Activity) context);
         setContentView(R.layout.keyboard);
-        currentDate = findViewById(R.id.tb_calc_day);
+        currentDate = (TextView) findViewById(R.id.tb_calc_day);
         currentDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

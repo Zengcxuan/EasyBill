@@ -56,11 +56,11 @@ public class AddBill extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bill_out);
-        GridView grid1 = findViewById(R.id.grid01);
-        GridView grid2 = findViewById(R.id.grid02);
-        Spinner changeType = findViewById(R.id.changeType);
+        GridView grid1 = (GridView) findViewById(R.id.grid01);
+        GridView grid2 = (GridView) findViewById(R.id.grid02);
+        Spinner changeType = (Spinner) findViewById(R.id.changeType);
 
-        exitBtn = findViewById(R.id.bill_out_exit);
+        exitBtn = (Button) findViewById(R.id.bill_out_exit);
         initData(typeIcon1, name1, grid1);
         initData(typeIcon2, name2, grid2);
 

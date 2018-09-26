@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.liuwan.customdatepicker.widget.CustomDatePicker;
 
@@ -22,15 +23,23 @@ import finalhomework.tcl.com.finalhomework.R;
 import finalhomework.tcl.com.finalhomework.Utils.meng_MyUtils;
 import finalhomework.tcl.com.finalhomework.UI.activity.AddBill;
 
-public class bill_fragment extends Fragment implements View.OnClickListener {
+public class bill_Fragment extends Fragment implements View.OnClickListener {
     private CustomDatePicker customDatePicker1, customDatePicker2;
     private EditText currentDate, currentYear;
     private ImageButton addBillBtn;
+    private ImageView nullBillBtn;
     meng_MyUtils meng_util = new meng_MyUtils();
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //引用创建好的xml布局
         View view = inflater.inflate(R.layout.fragment_bill,container,false);
         return view;
+    }
+    public static bill_Fragment newInstance(String info) {
+        Bundle args = new Bundle();
+        bill_Fragment fragment = new bill_Fragment();
+        args.putString("info", info);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
@@ -38,7 +47,9 @@ public class bill_fragment extends Fragment implements View.OnClickListener {
         super.onActivityCreated(savedInstanceState);
         currentDate=(EditText)getActivity().findViewById(R.id.bill_time_month);
         currentYear=(EditText)getActivity().findViewById(R.id.bill_time_year);
-        addBillBtn = getActivity().findViewById(R.id.bill_add);
+        addBillBtn = (ImageButton) getActivity().findViewById(R.id.bill_add);
+        nullBillBtn = (ImageView) getActivity().findViewById(R.id.bill_null);
+        nullBillBtn.setOnClickListener(this);
         currentDate.setOnClickListener(this);
         addBillBtn.setOnClickListener(this);
         initDatePicker();
@@ -47,7 +58,7 @@ public class bill_fragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
          if(v == currentDate){
             setTime();
-        }else if(v == addBillBtn){
+        }else if(v == addBillBtn || v == nullBillBtn){
              addBill();
          }
     }

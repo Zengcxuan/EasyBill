@@ -50,6 +50,15 @@ public class chart_Fragment extends Fragment {
         return view;
 
     }
+
+    public static chart_Fragment newInstance(String info) {
+        Bundle args = new Bundle();
+        chart_Fragment fragment = new chart_Fragment();
+        args.putString("info", info);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);

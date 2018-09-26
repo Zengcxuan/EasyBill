@@ -15,7 +15,7 @@ import android.widget.Button;
 
 import finalhomework.tcl.com.finalhomework.R;
 import finalhomework.tcl.com.finalhomework.Utils.meng_MyUtils;
-import finalhomework.tcl.com.finalhomework.UI.fragment.bill_fragment;
+import finalhomework.tcl.com.finalhomework.UI.fragment.bill_Fragment;
 import finalhomework.tcl.com.finalhomework.UI.fragment.chart_Fragment;
 import finalhomework.tcl.com.finalhomework.UI.fragment.mine_Fragment;
 
@@ -27,7 +27,7 @@ import finalhomework.tcl.com.finalhomework.UI.fragment.mine_Fragment;
 public class meng_all_MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private mine_Fragment f3;
-    private bill_fragment f1;
+    private bill_Fragment f1;
     private chart_Fragment f2;
     private Button foot1,foot2,foot3;
     private Toolbar toolbar;
@@ -105,7 +105,7 @@ public class meng_all_MainActivity extends AppCompatActivity implements View.OnC
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
         if (f1 == null){
-            f1 = new bill_fragment();
+            f1 = new bill_Fragment();
             transaction.add(R.id.main_frame_layout,f1);
         }
         hideFragment(transaction);
