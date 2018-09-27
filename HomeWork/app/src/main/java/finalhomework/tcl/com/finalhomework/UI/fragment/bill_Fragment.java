@@ -9,25 +9,37 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.liuwan.customdatepicker.widget.CustomDatePicker;
+
+import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
 import finalhomework.tcl.com.finalhomework.R;
+import finalhomework.tcl.com.finalhomework.UI.activity.SearchAll;
 import finalhomework.tcl.com.finalhomework.Utils.meng_MyUtils;
 import finalhomework.tcl.com.finalhomework.UI.activity.AddBill;
+
+import static android.view.Gravity.CENTER;
 
 public class bill_Fragment extends Fragment implements View.OnClickListener {
     private CustomDatePicker customDatePicker1, customDatePicker2;
@@ -61,6 +73,7 @@ public class bill_Fragment extends Fragment implements View.OnClickListener {
         addBillBtn.setOnClickListener(this);
         myToolbar();
         initDatePicker();
+        setHasOptionsMenu(true);
     }
     @Override
     public void onClick(View v) {
@@ -113,18 +126,34 @@ public class bill_Fragment extends Fragment implements View.OnClickListener {
         /**
          * set  toolbar  and show
          * */
-        NavigationView navigationView = (NavigationView) getActivity().findViewById(R.id.navigation_view);
-        navigationView.setItemIconTintList(null);
-        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.tl_custom);
+        View viewToolbar = getActivity().findViewById(R.id.include_toolbar);
+
+        Toolbar toolbar = (Toolbar) viewToolbar.findViewById(R.id.tl_custom);
+        NavigationView navigationView = (NavigationView)getActivity().findViewById(R.id.navigation_view);
         DrawerLayout mDrawerLayout = (DrawerLayout) getActivity().findViewById(R.id.dl_left);
+
+        TextView title = new TextView(getActivity());
+        title.setText("账单");
+        title.setTextSize(22);
+        title.setTextColor(getResources().getColor(R.color.white));
+        title.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT));
+        title.setLayoutParams(new Toolbar.LayoutParams(CENTER));
+        toolbar.addView(title);
+        title.setGravity(CENTER);
+        navigationView.setItemIconTintList(null);
+
         toolbar.setTitle("");//设置Toolbar标题
         toolbar.setTitleTextColor(Color.parseColor("#ffffff")); //设置标题颜色
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         //创建返回键，并实现打开关/闭监听
         ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(getActivity(), mDrawerLayout,
                 toolbar, R.string.open, R.string.close) {
+
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
@@ -135,12 +164,35 @@ public class bill_Fragment extends Fragment implements View.OnClickListener {
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
                 // mAnimationDrawable.start();
+
             }
         };
-//        mDrawerToggle.setHomeAsUpIndicator(R.drawable.menu);
-//        mDrawerToggle.setDrawerIndicatorEnabled(false);
+        mDrawerToggle.setHomeAsUpIndicator(R.drawable.menu);
         mDrawerToggle.syncState();
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         //设置菜单列表
     }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
+    {
+        inflater.inflate(R.menu.menu_main, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case R.id.action_edit:
+                Intent intent = new Intent(getActivity(), SearchAll.class);
+                startActivity(intent);
+                break;
+                default:
+                    break;
+        }
+        return true;
+    }
+
+
 }

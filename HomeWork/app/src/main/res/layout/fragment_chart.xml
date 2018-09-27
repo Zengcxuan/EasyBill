@@ -4,23 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
+    <include
+        layout="@layout/parent_toobar"
+        android:id="@+id/toolbar_chart"
         android:layout_width="match_parent"
-        android:layout_height="11dp"
-        android:layout_weight="1"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
+    </include>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="5"
-            android:gravity="center"
-            android:text="账单"
-            android:textColor="@android:color/background_dark"
-            android:textSize="24sp"
-            android:textStyle="normal|bold" />
-
-    </LinearLayout>
     <View
         android:layout_width="fill_parent"
         android:layout_marginTop="10dp"

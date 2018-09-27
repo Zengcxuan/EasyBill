@@ -12,4 +12,5 @@
     <color name="startColor">#387CEC</color>
     <color name="tab_checked">#3F51B5</color>
     <color name="tab_unchecked">#757575</color>
+    <color name="white">#ffffff</color>
 </resources>

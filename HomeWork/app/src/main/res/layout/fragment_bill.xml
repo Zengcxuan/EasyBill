@@ -1,219 +1,220 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/constrainLayout_parent"
+    android:id="@+id/relative_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white">
 
 
     <include
-        android:id="@+id/include2"
-        layout="@layout/parent_toobar">
+        android:id="@+id/include_toolbar"
+        layout="@layout/parent_toobar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true">
     </include>
 
-    <include
-        android:id="@+id/include1"
-        layout="@layout/parent_navigationview"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/constraintLayout">
-    </include>
-    <ImageView
-        android:id="@+id/bill_null"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline"
-        app:srcCompat="@mipmap/none_bill" />
+    <android.support.v4.widget.DrawerLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/dl_left"
+        android:layout_below="@id/include_toolbar">
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/shape_color_blue"
-        app:layout_constraintBottom_toTopOf="@+id/guideline"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include2">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <EditText
-            android:id="@+id/bill_time_year"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@null"
-            android:cursorVisible="false"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:gravity="center|bottom"
-            android:text="2018"
-            android:textColor="@android:color/white"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/horizotal2"
-            app:layout_constraintEnd_toStartOf="@+id/vertical"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/vertical1"
-            app:layout_constraintTop_toTopOf="parent" />
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/constraintLayout"
+                android:layout_width="match_parent"
+                android:layout_height="103dp"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/shape_color_blue">
 
-        <EditText
-            android:id="@+id/bill_time_month"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@null"
-            android:cursorVisible="false"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:gravity="center"
-            android:textColor="@android:color/white"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/vertical"
-            app:layout_constraintStart_toStartOf="@+id/vertical1"
-            app:layout_constraintTop_toTopOf="@+id/horizotal2" />
+                <EditText
+                    android:id="@+id/bill_time_year"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@null"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:gravity="center|bottom"
+                    android:text="2018"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toTopOf="@+id/horizotal2"
+                    app:layout_constraintEnd_toStartOf="@+id/vertical"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="@+id/vertical1"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <View
-            android:layout_width="1dp"
-            android:layout_height="50dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginStart="35dp"
-            android:layout_marginTop="8dp"
-            android:background="#DCDCDC"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/vertical"
-            app:layout_constraintStart_toEndOf="@+id/bill_time_year"
-            app:layout_constraintTop_toTopOf="parent"></View>
+                <EditText
+                    android:id="@+id/bill_time_month"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:gravity="center"
+                    android:textColor="@android:color/white"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/vertical"
+                    app:layout_constraintStart_toStartOf="@+id/vertical1"
+                    app:layout_constraintTop_toTopOf="@+id/horizotal2" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center|bottom"
-            android:text="@string/type_out"
-            android:textAlignment="inherit"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            android:textSize="20sp"
-            android:textStyle="normal|bold"
-            app:layout_constraintBottom_toTopOf="@+id/horizotal2"
-            app:layout_constraintEnd_toStartOf="@+id/vertical3"
-            app:layout_constraintStart_toEndOf="@+id/bill_time_year"
-            app:layout_constraintTop_toTopOf="parent" />
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginTop="8dp"
+                    android:background="#DCDCDC"
+                    app:layout_constraintBottom_toTopOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/vertical"
+                    app:layout_constraintStart_toEndOf="@+id/bill_time_year"
+                    app:layout_constraintTop_toTopOf="parent">
+                </View>
 
-        <EditText
-            android:id="@+id/money_in"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@null"
-            android:cursorVisible="false"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:gravity="center"
-            android:text="@string/default_money"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            android:textColor="@android:color/white"
-            android:textSize="21sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/vertical3"
-            app:layout_constraintStart_toStartOf="@+id/vertical"
-            app:layout_constraintTop_toTopOf="@+id/horizotal2" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center|bottom"
+                    android:text="@string/type_out"
+                    android:textAlignment="inherit"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp"
+                    android:textStyle="normal|bold"
+                    app:layout_constraintBottom_toTopOf="@+id/horizotal2"
+                    app:layout_constraintEnd_toStartOf="@+id/vertical3"
+                    app:layout_constraintStart_toEndOf="@+id/bill_time_year"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="bottom|center"
-            android:text="@string/type_in"
-            android:textColor="@android:color/white"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/horizotal2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/vertical3"
-            app:layout_constraintTop_toTopOf="parent" />
+                <EditText
+                    android:id="@+id/money_in"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:gravity="center"
+                    android:text="@string/default_money"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                    android:textColor="@android:color/white"
+                    android:textSize="21sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/vertical3"
+                    app:layout_constraintStart_toStartOf="@+id/vertical"
+                    app:layout_constraintTop_toTopOf="@+id/horizotal2" />
 
-        <EditText
-            android:id="@+id/money_out"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:autoText="false"
-            android:background="@null"
-            android:cursorVisible="false"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:gravity="center"
-            android:text="@string/default_money"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            android:textColor="@android:color/white"
-            android:textSize="21sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/money_in"
-            app:layout_constraintTop_toTopOf="@+id/horizotal2" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="bottom|center"
+                    android:text="@string/type_in"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/horizotal2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/vertical3"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <android.support.constraint.Guideline
-            android:id="@+id/vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.28" />
+                <EditText
+                    android:id="@+id/money_out"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:autoText="false"
+                    android:background="@null"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:gravity="center"
+                    android:text="@string/default_money"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                    android:textColor="@android:color/white"
+                    android:textSize="21sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/money_in"
+                    app:layout_constraintTop_toTopOf="@+id/horizotal2" />
 
-        <android.support.constraint.Guideline
-            android:id="@+id/vertical1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.0" />
+                <android.support.constraint.Guideline
+                    android:id="@+id/vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.28" />
 
-        <android.support.constraint.Guideline
-            android:id="@+id/horizotal2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.5" />
+                <android.support.constraint.Guideline
+                    android:id="@+id/vertical1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.0" />
 
-        <android.support.constraint.Guideline
-            android:id="@+id/vertical3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.67" />
+                <android.support.constraint.Guideline
+                    android:id="@+id/horizotal2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.46" />
 
-    </android.support.constraint.ConstraintLayout>
+                <android.support.constraint.Guideline
+                    android:id="@+id/vertical3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.67" />
 
 
-    <ImageButton
-        android:id="@+id/bill_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="@color/nullcolor"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/add" />
+            </android.support.constraint.ConstraintLayout>
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.23" />
+            <ImageButton
+                android:id="@+id/bill_add"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                app:srcCompat="@drawable/add"
+                android:background="@color/nullcolor" />
+
+            <ImageView
+                android:id="@+id/bill_null"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerInParent="true"
+                android:background="@mipmap/none_bill" />
+        </RelativeLayout>
+
+        <android.support.design.widget.NavigationView
+            android:id="@+id/navigation_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="left"
+            android:fitsSystemWindows="true"
+            app:headerLayout="@layout/bill_drawerlayout_header"
+            app:menu="@menu/bill_drawerlayout_menu"
+            tools:layout_editor_absoluteX="0dp">
+
+        </android.support.design.widget.NavigationView>
+
+    </android.support.v4.widget.DrawerLayout>
 
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>
