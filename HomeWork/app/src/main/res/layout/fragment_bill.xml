@@ -9,8 +9,8 @@
 
 
     <include
-        android:id="@+id/include_toolbar"
-        layout="@layout/parent_toobar"
+        android:id="@+id/toolbar_bill"
+        layout="@layout/toolbar_parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true">
@@ -19,8 +19,8 @@
     <android.support.v4.widget.DrawerLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/dl_left"
-        android:layout_below="@id/include_toolbar">
+        android:id="@+id/drawerlayout_bill"
+        android:layout_below="@id/toolbar_bill">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -194,14 +194,14 @@
 
             <ImageView
                 android:id="@+id/bill_null"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:layout_centerInParent="true"
                 android:background="@mipmap/none_bill" />
         </RelativeLayout>
 
         <android.support.design.widget.NavigationView
-            android:id="@+id/navigation_view"
+            android:id="@+id/navigationview_bill"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"

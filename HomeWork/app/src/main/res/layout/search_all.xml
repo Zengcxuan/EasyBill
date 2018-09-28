@@ -26,7 +26,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:gravity="bottom"
+        android:gravity="center_horizontal|left"
         android:text="请输入查找内容"
         android:textSize="20sp"
         android:background="@drawable/bill_my_background"

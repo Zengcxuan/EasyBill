@@ -67,4 +67,11 @@
         <item name="android:windowEnterAnimation">@anim/anim_dialog_bottom_in</item>
         <item name="android:windowExitAnimation">@anim/anim_dialog_bottom_out</item>
     </style>
+
+    <style name="TranslucentTheme" parent="Base.Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <!--Android 5.x开始需要把颜色设置透明，否则导航栏会呈现系统默认的浅灰色-->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
 </resources>

@@ -1,18 +1,24 @@
 package finalhomework.tcl.com.finalhomework.UI.fragment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+
+import butterknife.OnClick;
 import finalhomework.tcl.com.finalhomework.R;
+import finalhomework.tcl.com.finalhomework.UI.activity.SearchAll;
 import lecho.lib.hellocharts.gesture.ZoomType;
 import lecho.lib.hellocharts.listener.LineChartOnValueSelectListener;
 import lecho.lib.hellocharts.model.Axis;
@@ -23,8 +29,11 @@ import lecho.lib.hellocharts.model.Viewport;
 import lecho.lib.hellocharts.util.ChartUtils;
 import lecho.lib.hellocharts.view.LineChartView;
 
+import static android.view.Gravity.CENTER;
 
-public class chart_Fragment extends Fragment {
+
+public class chart_Fragment extends BaseFragment implements View.OnClickListener{
+    private Button weekBtn, monthBtn, yearBtn;
     private lecho.lib.hellocharts.view.LineChartView chart;  //显示线条的自定义View
     private lecho.lib.hellocharts.model.LineChartData data;  //折线图封装的数据类
     private int numberOfLines = 1;   // number of lines
@@ -44,12 +53,6 @@ public class chart_Fragment extends Fragment {
     private boolean hasLabelForSelected = false;       //每个点是否可以选择（点击效果）
     private boolean pointsHaveDifferentColor;           //线条的颜色变换
     private boolean hasGradientToTransparent = false;      //是否有梯度的透明
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        //引用创建好的xml布局
-        View view = inflater.inflate(R.layout.fragment_chart,container,false);
-        return view;
-
-    }
 
     public static chart_Fragment newInstance(String info) {
         Bundle args = new Bundle();
@@ -59,18 +62,13 @@ public class chart_Fragment extends Fragment {
         return fragment;
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        initView();
-        initData();
-        initEvent();
-    }
-//    this is for linechart
-private void initView() {
+
+    //this is for linechart
+    private void initView() {
     //实例化
     chart = (LineChartView) getActivity().findViewById(R.id.hellochart11);
-}
+    }
+
     private void initData() {
         // Generate some random values.
         generateValues();   //设置四条线的值数据
@@ -184,5 +182,106 @@ private void initView() {
 
     }
     //this is for
+    public void myToolbar(){
+        /**
+         * set  toolbar  and show
+         * */
 
+        TextView title = new TextView(getActivity());
+        title.setText("账单");
+        title.setTextSize(22);
+        title.setTextColor(getResources().getColor(R.color.white));
+        title.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT));
+        title.setLayoutParams(new Toolbar.LayoutParams(CENTER));
+        title.setGravity(CENTER);
+        setToolbar(title);
+        super.myToolbar();
+    }
+
+    @Override
+    protected int getItemMenu(){ return R.menu.menu_main; }
+
+    @Override
+    protected void setItemReact(){
+        Intent intent = new Intent(getActivity(), SearchAll.class);
+        startActivity(intent);
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_chart;
+    }
+
+    @Override
+    protected void initEventAndData() {
+
+        initView();
+        initData();
+        initEvent();
+        myToolbar();
+        weekBtn = (Button) getActivity().findViewById(R.id.button_week);
+        weekBtn.setOnClickListener(this);
+        monthBtn = (Button) getActivity().findViewById(R.id.button_month);
+        monthBtn.setOnClickListener(this);
+        yearBtn = (Button) getActivity().findViewById(R.id.button_year);
+        yearBtn.setOnClickListener(this);
+    }
+
+    @Override
+    protected void beforeDestroy() {
+
+    }
+    protected DrawerLayout getDrawerLayout(){
+        DrawerLayout mDrawerLayout = (DrawerLayout) getActivity().findViewById(R.id.drawerlayout_chart);
+        return mDrawerLayout;
+    }
+    protected  Toolbar getToolbar(){
+        View viewToolbar = getActivity().findViewById(R.id.toolbar_chart);
+        Toolbar toolbar = (Toolbar) viewToolbar.findViewById(R.id.tl_custom);
+        return toolbar;
+    }
+    protected NavigationView getViewNavigation(){
+        NavigationView navigationView = (NavigationView)getActivity().findViewById(R.id.navigationview_chart);
+        return navigationView;
+    }
+
+    @OnClick({R.id.button_week, R.id.button_month, R.id.button_year})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.button_week:
+                BtnStateChange(1);
+                break;
+            case R.id.button_month:
+                BtnStateChange(2);
+                break;
+            case R.id.button_year:
+                BtnStateChange(3);
+                break;
+
+
+        }
+    }
+
+
+    public void BtnStateChange(int type){
+        switch(type){
+            case 1:
+                weekBtn.setBackground(getActivity().getDrawable(R.drawable.datepicker_background_clicked));
+                monthBtn.setBackground(getActivity().getDrawable(R.drawable.datepicker_background));
+                yearBtn.setBackground(getActivity().getDrawable(R.drawable.datepicker_background));
+                break;
+            case 2:
+                weekBtn.setBackground(getActivity().getDrawable(R.drawable.datepicker_background));
+                monthBtn.setBackground(getActivity().getDrawable(R.drawable.datepicker_background_clicked));
+                yearBtn.setBackground(getActivity().getDrawable(R.drawable.datepicker_background));
+                break;
+            case 3:
+                weekBtn.setBackground(getActivity().getDrawable(R.drawable.datepicker_background));
+                monthBtn.setBackground(getActivity().getDrawable(R.drawable.datepicker_background));
+                yearBtn.setBackground(getActivity().getDrawable(R.drawable.datepicker_background_clicked));
+                break;
+
+        }
+    }
 }
