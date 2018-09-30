@@ -1,5 +1,6 @@
 package finalhomework.tcl.com.finalhomework.UI.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -10,23 +11,32 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.liuwan.customdatepicker.widget.CustomDatePicker;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import finalhomework.tcl.com.finalhomework.R;
+import finalhomework.tcl.com.finalhomework.UI.activity.BillAddActivity;
 import finalhomework.tcl.com.finalhomework.UI.activity.SearchAll;
+
 import finalhomework.tcl.com.finalhomework.Utils.meng_MyUtils;
 import finalhomework.tcl.com.finalhomework.UI.activity.AddBill;
+import finalhomework.tcl.com.finalhomework.base.Constants;
+import finalhomework.tcl.com.finalhomework.base.LocalRepository;
+import finalhomework.tcl.com.finalhomework.pojo.AllSortBill;
+import finalhomework.tcl.com.finalhomework.pojo.SortBill;
 
 import static android.view.Gravity.CENTER;
 
@@ -45,6 +55,7 @@ public class bill_Fragment extends BaseFragment implements View.OnClickListener 
         args.putString("info", info);
         fragment.setArguments(args);
         return fragment;
+
     }
 
 
@@ -56,6 +67,11 @@ public class bill_Fragment extends BaseFragment implements View.OnClickListener 
              addBill();
          }
     }
+
+    /**
+     * this is a test for add note
+     */
+
 
     /*id = R.id.bill_time setTime on the editext*/
     public void setTime(){
@@ -90,7 +106,7 @@ public class bill_Fragment extends BaseFragment implements View.OnClickListener 
     }
 
     private void addBill() {
-        Intent intent = new Intent(getActivity(), AddBill.class);
+        Intent intent = new Intent(getActivity(), BillAddActivity.class);
         startActivity(intent);
     }
 

@@ -1,0 +1,15 @@
+package finalhomework.tcl.com.finalhomework.mvp.model;
+
+public interface UserLoginModel {
+    /**
+     * 用户登陆
+     */
+    void login(String username, String password);
+
+    /**
+     * 用户注册
+     */
+    void signup(String username, String password, String mail);
+
+    void onUnsubscribe();
+}
