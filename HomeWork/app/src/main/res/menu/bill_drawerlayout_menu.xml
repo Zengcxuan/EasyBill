@@ -8,24 +8,4 @@
             android:title="栏目一"/>
     </group>
 
-    <group android:id="@+id/gr2">
-        <item
-            android:id="@+id/wallet"
-            android:icon="@mipmap/ic_launcher"
-            android:title="栏目二"/>
-    </group>
-
-    <group android:id="@+id/gr3">
-        <item
-            android:id="@+id/photo"
-            android:icon="@mipmap/ic_launcher"
-            android:title="栏目三"/>
-    </group>
-
-    <group android:id="@+id/gr4">
-        <item
-            android:id="@+id/file"
-            android:icon="@mipmap/ic_launcher"
-            android:title="栏目四"/>
-    </group>
 </menu>

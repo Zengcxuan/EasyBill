@@ -7,7 +7,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -21,7 +20,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import finalhomework.tcl.com.finalhomework.R;
 import finalhomework.tcl.com.finalhomework.UI.activity.SearchAll;
@@ -30,7 +28,7 @@ import finalhomework.tcl.com.finalhomework.UI.activity.AddBill;
 
 import static android.view.Gravity.CENTER;
 
-public class bill_Fragment extends BaseFragment implements View.OnClickListener {
+public class bill_Fragment extends HomeBaseFragment implements View.OnClickListener {
     private CustomDatePicker customDatePicker1, customDatePicker2;
     private EditText currentDate, currentYear;
     private ImageButton addBillBtn;
@@ -99,6 +97,7 @@ public class bill_Fragment extends BaseFragment implements View.OnClickListener 
         /**
          * set  toolbar  and show
          * */
+        super.myToolbar();
         TextView title = new TextView(getActivity());
         title.setText("账单");
         title.setTextSize(22);
@@ -108,7 +107,6 @@ public class bill_Fragment extends BaseFragment implements View.OnClickListener 
         title.setLayoutParams(new Toolbar.LayoutParams(CENTER));
         title.setGravity(CENTER);
         setToolbar(title);
-        super.myToolbar();
 
     }
 
@@ -128,7 +126,7 @@ public class bill_Fragment extends BaseFragment implements View.OnClickListener 
     }
 
     @Override
-    protected void initEventAndData() {
+    protected void loadData() {
         currentDate=(EditText)getActivity().findViewById(R.id.bill_time_month);
         currentYear=(EditText)getActivity().findViewById(R.id.bill_time_year);
         addBillBtn = (ImageButton) getActivity().findViewById(R.id.bill_add);
@@ -136,7 +134,6 @@ public class bill_Fragment extends BaseFragment implements View.OnClickListener 
         nullBillBtn.setOnClickListener(this);
         currentDate.setOnClickListener(this);
         addBillBtn.setOnClickListener(this);
-        myToolbar();
         initDatePicker();
     }
 
@@ -144,15 +141,21 @@ public class bill_Fragment extends BaseFragment implements View.OnClickListener 
     protected void beforeDestroy() {
 
     }
+
+    @Override
     protected DrawerLayout getDrawerLayout(){
         DrawerLayout mDrawerLayout = (DrawerLayout) getActivity().findViewById(R.id.drawerlayout_bill);
         return mDrawerLayout;
     }
+
+    @Override
     protected  Toolbar getToolbar(){
         View viewToolbar = getActivity().findViewById(R.id.toolbar_bill);
         Toolbar toolbar = (Toolbar) viewToolbar.findViewById(R.id.tl_custom);
         return toolbar;
     }
+
+    @Override
     protected NavigationView getViewNavigation(){
         NavigationView navigationView = (NavigationView)getActivity().findViewById(R.id.navigationview_bill);
         return navigationView;

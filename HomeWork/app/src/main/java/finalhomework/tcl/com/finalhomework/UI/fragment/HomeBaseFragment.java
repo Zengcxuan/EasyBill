@@ -30,7 +30,7 @@ import finalhomework.tcl.com.finalhomework.R;
  * 带Toolbar的Fragment基类
  */
 
-public abstract class BaseFragment extends Fragment {
+public abstract class HomeBaseFragment extends Fragment {
     protected String TAG;
     protected View mView;
     protected Activity mActivity;
@@ -38,6 +38,10 @@ public abstract class BaseFragment extends Fragment {
     protected Toolbar toolbar;
     NavigationView navigationView;
     DrawerLayout mDrawerLayout;
+    //Fragment的View加载完毕的标记
+    private boolean isViewCreated;
+    //Fragment对用户可见的标记
+    private boolean isUIVisible;
 
 
     private Unbinder mUnBinder;
@@ -62,9 +66,11 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        isViewCreated = true;
         mUnBinder = ButterKnife.bind(this, view);
         setHasOptionsMenu(true);
-        initEventAndData();
+        myToolbar();
+        lazyLoad();
     }
 
     @Override
@@ -139,7 +145,31 @@ public abstract class BaseFragment extends Fragment {
         return true;
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        //isVisibleToUser这个boolean值表示:该Fragment的UI 用户是否可见
+        if (isVisibleToUser) {
+            isUIVisible = true;
+            lazyLoad();
+        } else {
+            isUIVisible = false;
+        }
+    }
 
+    private void lazyLoad() {
+        //这里进行双重标记判断,是因为setUserVisibleHint会多次回调,
+        // 并且会在onCreateView执行前回调,必须确保onCreateView加载完毕且页面可见,才加载数据
+        if (isViewCreated && isUIVisible) {
+            loadData();
+            //数据加载完毕,恢复标记,防止重复加载
+            isViewCreated = false;
+            isUIVisible = false;
+
+        }
+    }
+
+    protected abstract void loadData();
     protected void setToolbar(View v){
         getToolbar().addView(v);
     }
@@ -147,7 +177,6 @@ public abstract class BaseFragment extends Fragment {
     protected abstract Toolbar getToolbar();
     protected abstract NavigationView getViewNavigation();
     protected abstract int getLayoutId();
-    protected abstract void initEventAndData();
     protected abstract void beforeDestroy();
     protected abstract int getItemMenu();
     protected abstract void setItemReact();

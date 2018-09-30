@@ -6,18 +6,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.ImageButton;
 
 import butterknife.ButterKnife;
 import finalhomework.tcl.com.finalhomework.R;
@@ -58,13 +51,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.item_bill:
-                                viewPager.setCurrentItem(0, true);
+                                viewPager.setCurrentItem(0);
                                 break;
                             case R.id.item_chart:
-                                viewPager.setCurrentItem(1,true);
+                                viewPager.setCurrentItem(1);
                                 break;
                             case R.id.item_mine:
-                                viewPager.setCurrentItem(2,true);
+                                viewPager.setCurrentItem(2);
                                 break;
                         }
                         return false;
@@ -117,10 +110,14 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        adapter.addFragment(bill_Fragment.newInstance("账单"));
+/*        adapter.addFragment(bill_Fragment.newInstance("账单"));
         adapter.addFragment(chart_Fragment.newInstance("图表"));
-        adapter.addFragment(mine_Fragment.newInstance("我的"));
+        adapter.addFragment(mine_Fragment.newInstance("我的"));*/
+        adapter.addFragment(new bill_Fragment());
+        adapter.addFragment(new chart_Fragment());
+        adapter.addFragment(new mine_Fragment());
         viewPager.setAdapter(adapter);
+        viewPager.setOffscreenPageLimit(3);
     }
 
     public void changeBottomState(int position) {

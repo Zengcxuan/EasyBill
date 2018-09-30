@@ -1,16 +1,15 @@
 package finalhomework.tcl.com.finalhomework.UI.fragment;
 
-import android.graphics.drawable.ClipDrawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 
 import java.util.ArrayList;
@@ -20,8 +19,10 @@ import java.util.Map;
 
 import finalhomework.tcl.com.finalhomework.R;
 
+import static android.view.Gravity.CENTER;
 
-public class mine_Fragment extends Fragment implements View.OnClickListener{
+
+public class mine_Fragment extends HomeBaseFragment implements View.OnClickListener{
     private int[] typeIcon = new int[]{
             R.mipmap.voice, R.mipmap.notify, R.mipmap.yusuan, R.mipmap.cyper, R.mipmap.outport,
             R.mipmap.count, R.mipmap.help
@@ -37,25 +38,8 @@ public class mine_Fragment extends Fragment implements View.OnClickListener{
         fragment.setArguments(args);
         return fragment;
     }
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        //引用创建好的xml布局
-        View view = inflater.inflate(R.layout.fragment_persionalmsg,container,false);
-        return view;
 
 
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        GridView grd = (GridView) getActivity().findViewById(R.id.button_list);
-        initData(typeIcon, buttonContent, grd);
-
-        ImageView imageView = (ImageView)getActivity().findViewById(R.id.out_background);
-        ClipDrawable drawable = (ClipDrawable)imageView.getBackground();
-        drawable.setLevel(8000);
-
-    }
     @Override
     public void onClick(View v) {
 
@@ -85,5 +69,41 @@ public class mine_Fragment extends Fragment implements View.OnClickListener{
             }
         });
     }
+    @Override
+    public void myToolbar(){
+    // TODO: 18-9-29 modify
+        super.myToolbar();
+
+    }
+
+    @Override
+    protected DrawerLayout getDrawerLayout(){
+        DrawerLayout mDrawerLayout = (DrawerLayout) getActivity().findViewById(R.id.drawerlayout_mine);
+        return mDrawerLayout;
+    }
+
+    @Override
+    protected  Toolbar getToolbar(){ return getActivity().findViewById(R.id.tl_mine); }
+
+    @Override
+    protected  NavigationView getViewNavigation(){ return getActivity().findViewById(R.id.navigationview_mine);}
+
+    @Override
+    protected  int getLayoutId(){ return R.layout.fragment_persionalmsg; }
+
+    @Override
+    protected  void loadData(){
+        GridView grd = (GridView) getActivity().findViewById(R.id.button_list);
+        initData(typeIcon, buttonContent, grd);
+    }
+
+    @Override
+    protected  void beforeDestroy(){}
+
+    @Override
+    protected  int getItemMenu(){return R.menu.menu_main;}
+
+    @Override
+    protected  void setItemReact(){}
 
 }

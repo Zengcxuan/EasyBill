@@ -32,7 +32,7 @@ import lecho.lib.hellocharts.view.LineChartView;
 import static android.view.Gravity.CENTER;
 
 
-public class chart_Fragment extends BaseFragment implements View.OnClickListener{
+public class chart_Fragment extends HomeBaseFragment implements View.OnClickListener{
     private Button weekBtn, monthBtn, yearBtn;
     private lecho.lib.hellocharts.view.LineChartView chart;  //显示线条的自定义View
     private lecho.lib.hellocharts.model.LineChartData data;  //折线图封装的数据类
@@ -182,20 +182,9 @@ public class chart_Fragment extends BaseFragment implements View.OnClickListener
 
     }
     //this is for
+    @Override
     public void myToolbar(){
-        /**
-         * set  toolbar  and show
-         * */
-
-        TextView title = new TextView(getActivity());
-        title.setText("账单");
-        title.setTextSize(22);
-        title.setTextColor(getResources().getColor(R.color.white));
-        title.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT));
-        title.setLayoutParams(new Toolbar.LayoutParams(CENTER));
-        title.setGravity(CENTER);
-        setToolbar(title);
+        // TODO: 18-9-29  modify
         super.myToolbar();
     }
 
@@ -214,12 +203,10 @@ public class chart_Fragment extends BaseFragment implements View.OnClickListener
     }
 
     @Override
-    protected void initEventAndData() {
-
+    protected void loadData() {
         initView();
         initData();
         initEvent();
-        myToolbar();
         weekBtn = (Button) getActivity().findViewById(R.id.button_week);
         weekBtn.setOnClickListener(this);
         monthBtn = (Button) getActivity().findViewById(R.id.button_month);
