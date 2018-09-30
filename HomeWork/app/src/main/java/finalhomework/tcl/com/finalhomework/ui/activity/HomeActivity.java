@@ -2,18 +2,11 @@ package finalhomework.tcl.com.finalhomework.ui.activity;
 
 
 
-import android.graphics.Color;
+
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-
-import com.google.gson.Gson;
-
-import java.util.List;
-
 import finalhomework.tcl.com.finalhomework.R;
 import finalhomework.tcl.com.finalhomework.Utils.SharedPUtils;
 import finalhomework.tcl.com.finalhomework.base.Constants;
@@ -40,23 +33,6 @@ public class HomeActivity extends BaseActivity  {
 
     @Override
     protected void initEventAndData() {
-
-        //设置全屏
-        View decorView = getWindow().getDecorView();
-        int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
-        decorView.setSystemUiVisibility(option);
-        getWindow().setStatusBarColor(Color.TRANSPARENT);
-
-        if(SharedPUtils.isFirstStart(mContext)){
-            Log.i(TAG,"第一次进入将默认账单分类添加到数据库");
-            AllSortBill note= new Gson().fromJson(Constants.BILL_NOTE, AllSortBill.class);
-            List<SortBill> sorts=note.getOutSortList();
-            sorts.addAll(note.getInSortList());
-            LocalRepository.getInstance().saveBsorts(sorts);
-            LocalRepository.getInstance().saveBPays(note.getPayinfo());
-        }
-
-
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(

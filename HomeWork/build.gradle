@@ -43,4 +43,8 @@ afterEvaluate {
         dx.additionalParameters += '--multi-dex'
         dx.additionalParameters += "--main-dex-list=$projectDir/dex_files".toString()
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 0395cfdd3c651dcd9b3ececa9dfa2775302a9572

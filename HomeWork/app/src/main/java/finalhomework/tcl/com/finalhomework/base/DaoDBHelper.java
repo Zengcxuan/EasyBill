@@ -13,7 +13,11 @@ public class DaoDBHelper {
     private DaoMaster mDaoMaster;
     private DaoSession mSession;
 
+<<<<<<< HEAD
     private  DaoDBHelper(){
+=======
+    private void DaoDbHelper(){
+>>>>>>> 0395cfdd3c651dcd9b3ececa9dfa2775302a9572
         //封装数据库的创建、更新、删除
         DaoMaster.DevOpenHelper openHelper = new DaoMaster.DevOpenHelper(MyApplication.getContext(),DB_NAME,null);
         //获取数据库

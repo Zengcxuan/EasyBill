@@ -1,4 +1,4 @@
-package finalhomework.tcl.com.finalhomework.ui.activity;
+package finalhomework.tcl.com.finalhomework.UI.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -36,7 +36,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.OnClick;
 import finalhomework.tcl.com.finalhomework.R;
-import finalhomework.tcl.com.finalhomework.ui.widget.Keyboard;
+import finalhomework.tcl.com.finalhomework.UI.widget.Keyboard;
 import finalhomework.tcl.com.finalhomework.Utils.DateUtils;
 import finalhomework.tcl.com.finalhomework.mvp.presenter.BillPresenter;
 import finalhomework.tcl.com.finalhomework.mvp.presenter.impl.BillPresenterImpl;
@@ -127,6 +127,20 @@ public class AddBill {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bill_out);
+<<<<<<< Updated upstream
+        GridView grid1 = (GridView) findViewById(R.id.grid01);
+        GridView grid2 = (GridView) findViewById(R.id.grid02);
+        Spinner changeType = (Spinner) findViewById(R.id.changeType);
+=======
+        GridView grid1 = findViewById(R.id.grid01);
+        GridView grid2 = findViewById(R.id.grid02);
+        Spinner changeType = findViewById(R.id.changeType);
+        addtest = (Button)findViewById(R.id.addtest);
+        addtest.setOnClickListener(this);
+
+        presenter=new BillPresenterImpl(this);
+>>>>>>> Stashed changes
+
         exitBtn = (Button) findViewById(R.id.bill_out_exit);
         initData(typeIcon1, name1, grid1);
         initData(typeIcon2, name2, grid2);
