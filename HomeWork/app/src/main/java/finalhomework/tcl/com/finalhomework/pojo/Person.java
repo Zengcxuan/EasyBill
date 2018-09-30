@@ -1,12 +1,106 @@
 package finalhomework.tcl.com.finalhomework.pojo;
 
-import java.util.Objects;
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Id;
 
-public class Person {
+import java.util.Objects;
+import org.greenrobot.greendao.annotation.Generated;
+
+import cn.bmob.v3.BmobUser;
+
+@Entity
+public class Person extends BmobUser{
+    @Id
     private int ID;
     private String NAME;
     private int PASSWORD;
-    private int BID;
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "ID=" + ID +
+                ", NAME='" + NAME + '\'' +
+                ", PASSWORD=" + PASSWORD +
+
+                ", gender=" + gender +
+                ", phonenumber=" + phonenumber +
+                ", budget=" + budget +
+                ", shareid=" + shareid +
+                '}';
+    }
+
+    public int getGender() {
+        return gender;
+    }
+
+    public void setGender(int gender) {
+        this.gender = gender;
+    }
+
+    public int getPhonenumber() {
+        return phonenumber;
+    }
+
+    public void setPhonenumber(int phonenumber) {
+        this.phonenumber = phonenumber;
+    }
+
+    public Float getBudget() {
+        return budget;
+    }
+
+    public void setBudget(Float budget) {
+        this.budget = budget;
+    }
+
+    public int getShareid() {
+        return shareid;
+    }
+
+    public void setShareid(int shareid) {
+        this.shareid = shareid;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return ID == person.ID &&
+                PASSWORD == person.PASSWORD &&
+                gender == person.gender &&
+                phonenumber == person.phonenumber &&
+                shareid == person.shareid &&
+                Objects.equals(NAME, person.NAME) &&
+                Objects.equals(budget, person.budget);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(ID, NAME, PASSWORD, gender, phonenumber, budget, shareid);
+    }
+
+    private int gender;
+    private int phonenumber;
+    private Float budget;
+    private int shareid;
+
+    @Generated(hash = 1373662836)
+    public Person(int ID, String NAME, int PASSWORD, int gender, int phonenumber,
+            Float budget, int shareid) {
+        this.ID = ID;
+        this.NAME = NAME;
+        this.PASSWORD = PASSWORD;
+        this.gender = gender;
+        this.phonenumber = phonenumber;
+        this.budget = budget;
+        this.shareid = shareid;
+    }
+
+    @Generated(hash = 1024547259)
+    public Person() {
+    }
 
     public int getID() {
         return ID;
@@ -18,10 +112,6 @@ public class Person {
 
     public int getPASSWORD() {
         return PASSWORD;
-    }
-
-    public int getBID() {
-        return BID;
     }
 
     public void setID(int ID) {
@@ -36,41 +126,5 @@ public class Person {
         this.PASSWORD = PASSWORD;
     }
 
-    public void setBID(int BID) {
-        this.BID = BID;
-    }
 
-    public Person(int ID, String NAME, int PASSWORD, int BID) {
-        this.ID = ID;
-        this.NAME = NAME;
-        this.PASSWORD = PASSWORD;
-        this.BID = BID;
-    }
-
-    @Override
-    public String toString() {
-        return "Person{" +
-                "ID=" + ID +
-                ", NAME='" + NAME + '\'' +
-                ", PASSWORD=" + PASSWORD +
-                ", BID=" + BID +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Person person = (Person) o;
-        return ID == person.ID &&
-                PASSWORD == person.PASSWORD &&
-                BID == person.BID &&
-                Objects.equals(NAME, person.NAME);
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(ID, NAME, PASSWORD, BID);
-    }
 }

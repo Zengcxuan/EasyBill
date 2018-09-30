@@ -6,7 +6,7 @@
     android:gravity="top|center"
     android:orientation="vertical">
 
-    <finalhomework.tcl.com.finalhomework.UI.widget.ImageButtonWithText
+    <finalhomework.tcl.com.finalhomework.ui.widget.ImageButtonWithText
         android:id="@+id/head"
         style="@style/Theme.AppCompat.Light"
         android:layout_width="wrap_content"

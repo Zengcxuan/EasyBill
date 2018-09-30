@@ -215,6 +215,14 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.35" />
 
+        <Button
+            android:id="@+id/addtest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button"
+            tools:layout_editor_absoluteX="148dp"
+            tools:layout_editor_absoluteY="60dp" />
+
 
     </android.support.constraint.ConstraintLayout>
 
