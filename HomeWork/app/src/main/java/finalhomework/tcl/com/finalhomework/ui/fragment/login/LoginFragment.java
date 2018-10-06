@@ -56,7 +56,7 @@ public class LoginFragment extends Fragment{
             case R.id.login_button:
                 Toast.makeText(mContext, "正在登陆", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent();
-                intent.setClass(getActivity(), HomeActivity.class);
+                intent.setClass(getActivity().getApplicationContext(), HomeActivity.class);
                 startActivity(intent);
                 getActivity().finish();
                 break;

@@ -10,10 +10,9 @@ import finalhomework.tcl.com.finalhomework.Utils.DateUtils;
 import finalhomework.tcl.com.finalhomework.greendao.DaoSession;
 import finalhomework.tcl.com.finalhomework.greendao.SortBillDao;
 import finalhomework.tcl.com.finalhomework.greendao.TotalBillDao;
-<<<<<<< HEAD
+
 import finalhomework.tcl.com.finalhomework.pojo.BPay;
-=======
->>>>>>> 0395cfdd3c651dcd9b3ececa9dfa2775302a9572
+
 import finalhomework.tcl.com.finalhomework.pojo.SortBill;
 import finalhomework.tcl.com.finalhomework.pojo.TotalBill;
 import io.reactivex.Observable;
@@ -79,7 +78,6 @@ public class LocalRepository {
         for (SortBill sort : sorts)
             saveSortBill(sort);
     }
-<<<<<<< HEAD
     /**
      * 批量添加支付方式
      *
@@ -112,9 +110,7 @@ public class LocalRepository {
     public Long saveBSort(SortBill sort) {
         return mSession.getSortBillDao().insert(sort);
     }
-=======
 
->>>>>>> 0395cfdd3c651dcd9b3ececa9dfa2775302a9572
     /******************************get**************************************/
     public TotalBill getTotalBillById(int id) {
         return mSession.getTotalBillDao().queryBuilder()

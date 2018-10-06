@@ -33,13 +33,13 @@
             </intent-filter>
         </activity>
 
-
-        <activity android:name=".UI.activity.SearchAll" android:screenOrientation="portrait"/>
-        <activity android:name=".UI.activity.UserLoginActivity"/>
-        <activity android:name=".UI.activity.BillAddActivity">
+        <activity android:name=".ui.activity.HomeActivity"/>
+        <activity android:name=".ui.activity.SearchAll" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.UserLoginActivity"/>
+        <activity android:name=".ui.activity.BillAddActivity">
 
         </activity>
-        <activity android:name=".UI.activity.BillEditActivity"/>
+        <activity android:name=".ui.activity.BillEditActivity"/>
     </application>
 
 </manifest>

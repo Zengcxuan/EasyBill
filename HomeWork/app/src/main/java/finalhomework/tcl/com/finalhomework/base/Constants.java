@@ -36,11 +36,7 @@ public class Constants {
 
     //默认note(账单分类和支付方式)
     public static String BILL_NOTE = "{\"status\":100,\"message\":\"处理成功！\"," +
-<<<<<<< HEAD
             "\"outSortList\":[" +
-=======
-            "\"outSortlis\":[" +
->>>>>>> 0395cfdd3c651dcd9b3ececa9dfa2775302a9572
             "{\"id\":1,\"uid\":0,\"sortName\":\"餐饮\",\"sortImg\":\"sort_meal.png\",\"priority\":0,\"income\":false}," +
             "{\"id\":2,\"uid\":0,\"sortName\":\"水果\",\"sortImg\":\"sort_fruit.png\",\"priority\":null,\"income\":false}," +
             "{\"id\":3,\"uid\":0,\"sortName\":\"购物\",\"sortImg\":\"sort_shopping.png\",\"priority\":null,\"income\":false}," +
@@ -61,11 +57,7 @@ public class Constants {
             "{\"id\":18,\"uid\":0,\"sortName\":\"书籍\",\"sortImg\":\"sort_book.png\",\"priority\":null,\"income\":false}," +
             "{\"id\":19,\"uid\":0,\"sortName\":\"旅行\",\"sortImg\":\"sort_travel.png\",\"priority\":null,\"income\":false}," +
             "{\"id\":20,\"uid\":0,\"sortName\":\"通讯\",\"sortImg\":\"sort_4g.png\",\"priority\":null,\"income\":false}]," +
-<<<<<<< HEAD
             "\"inSortList\":[" +
-=======
-            "\"inSortlis\":[" +
->>>>>>> 0395cfdd3c651dcd9b3ececa9dfa2775302a9572
             "{\"id\":26,\"uid\":0,\"sortName\":\"生活费\",\"sortImg\":\"sort_living_expense.png\",\"priority\":null,\"income\":true}," +
             "{\"id\":27,\"uid\":0,\"sortName\":\"红包\",\"sortImg\":\"sort_red.png\",\"priority\":null,\"income\":true}," +
             "{\"id\":28,\"uid\":0,\"sortName\":\"工资\",\"sortImg\":\"sort_salary.png\",\"priority\":null,\"income\":true}," +

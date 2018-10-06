@@ -1,4 +1,4 @@
-package finalhomework.tcl.com.finalhomework.UI.activity;
+package finalhomework.tcl.com.finalhomework.ui.activity;
 
 public class UserLoginActivity extends BaseActivity {
     @Override

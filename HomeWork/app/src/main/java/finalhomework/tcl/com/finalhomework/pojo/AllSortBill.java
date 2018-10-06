@@ -5,7 +5,6 @@ import java.util.List;
 public class AllSortBill extends base {
     private List<SortBill> outSortList;
     private List<SortBill> inSortList;
-<<<<<<< HEAD
     private List<BPay> payinfo;
 
     public List<BPay> getPayinfo() {
@@ -15,8 +14,6 @@ public class AllSortBill extends base {
     public void setPayinfo(List<BPay> payinfo) {
         this.payinfo = payinfo;
     }
-=======
->>>>>>> 0395cfdd3c651dcd9b3ececa9dfa2775302a9572
 
     public List<SortBill> getOutSortList() {
         return outSortList;
