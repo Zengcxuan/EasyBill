@@ -15,21 +15,27 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import finalhomework.tcl.com.finalhomework.R;
+import finalhomework.tcl.com.finalhomework.mvp.presenter.UserLoginPresenter;
+import finalhomework.tcl.com.finalhomework.mvp.presenter.impl.UserLoginPresenterImpl;
 import finalhomework.tcl.com.finalhomework.ui.activity.HomeActivity;
 import finalhomework.tcl.com.finalhomework.ui.activity.UesrLoginActivity;
 
 public class LoginFragment extends Fragment{
     private Context mContext;
     private Unbinder mUnBinder;
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState){
 
+    private boolean isLogin = true;
+    private UserLoginPresenter userLoginPresenter;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         return inflater.inflate(R.layout.login, container, false);
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState){
+    public void onActivityCreated(@Nullable Bundle savedInstanceState)
+    {
         super.onActivityCreated(savedInstanceState);
         this.mContext = getActivity();
 //        Button loginBtn = getActivity().findViewById(R.id.login_button);
