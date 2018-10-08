@@ -51,7 +51,7 @@ public class UesrLoginActivity extends BaseActivity{
             case R.id.button_right:
                 leftBtn.setText("注册");
                 rightBtn.setText("登陆");
-                openLoginFragment();
+                openRigsterFragment();
                 break;
         }
     }
@@ -60,7 +60,7 @@ public class UesrLoginActivity extends BaseActivity{
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction=manager.beginTransaction();
         LoginFragment fragment = new LoginFragment();
-        transaction.add(R.id.fragment_change, fragment);
+        transaction.replace(R.id.fragment_change, fragment);
         transaction.commit();
     }
 
@@ -68,7 +68,7 @@ public class UesrLoginActivity extends BaseActivity{
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction=manager.beginTransaction();
         RegisterFragment fragment = new RegisterFragment();
-        transaction.add(R.id.fragment_change, fragment);
+        transaction.replace(R.id.fragment_change, fragment);
         transaction.commit();
     }
 

@@ -17,4 +17,7 @@
     <include
         layout="@layout/mybill"/>
 
+    <include
+        layout="@layout/sharebill"/>
+
 </LinearLayout>

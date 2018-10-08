@@ -19,6 +19,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 
@@ -55,6 +56,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         mContext = this;
         // 设置主题色，，，一定要在setView之前
 //        ThemeManager.getInstance().init(this);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(getLayoutInflater().inflate(getLayout(), null, true));
         //注册 ButterKnife
         mUnBinder = ButterKnife.bind(this);
