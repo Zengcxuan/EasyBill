@@ -53,6 +53,7 @@ public class LoginFragment extends Fragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mUnBinder = ButterKnife.bind(this, view);
+
 //        initEventAndData();
     }
 

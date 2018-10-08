@@ -189,6 +189,11 @@ public class chart_Fragment extends HomeBaseFragment implements View.OnClickList
     }
 
     @Override
+    protected void improtantData() {
+
+    }
+
+    @Override
     protected int getItemMenu(){ return R.menu.menu_main; }
 
     @Override

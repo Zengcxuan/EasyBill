@@ -125,7 +125,7 @@ public class UesrLoginActivity extends BaseActivity implements UserLoginView{
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction=manager.beginTransaction();
         LoginFragment fragment = new LoginFragment();
-        transaction.add(R.id.fragment_change, fragment);
+        transaction.replace(R.id.fragment_change, fragment);
         transaction.commit();
     }*/
 
@@ -133,7 +133,7 @@ public class UesrLoginActivity extends BaseActivity implements UserLoginView{
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction=manager.beginTransaction();
         RegisterFragment fragment = new RegisterFragment();
-        transaction.add(R.id.fragment_change, fragment);
+        transaction.replace(R.id.fragment_change, fragment);
         transaction.commit();
     }*/
 }

@@ -22,26 +22,16 @@
             app:layout_constraintTop_toTopOf="parent">
 
 
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                app:layout_constraintBottom_toTopOf="@+id/tl_custom"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <android.support.v7.widget.Toolbar
                 android:id="@+id/tl_mine"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginBottom="92dp"
+                android:layout_height="wrap_content"
                 android:minHeight="35dp"
                 android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView3"
+                app:layout_constraintTop_toTopOf="parent"
                 app:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
 
             <android.support.constraint.Guideline
@@ -245,6 +235,8 @@
         android:layout_height="match_parent"
         android:id="@+id/navigationview_mine"
         android:layout_gravity="left"
+        app:headerLayout="@layout/bill_drawerlayout_header"
+        app:menu="@menu/bill_drawerlayout_menu"
         android:fitsSystemWindows="true">
     </android.support.design.widget.NavigationView>
 
