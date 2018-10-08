@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
+    <include layout="@layout/activity_login"/>
     <Button
         android:id="@+id/login_button"
         android:background="@drawable/shape_color_blue"
@@ -44,12 +44,12 @@
             android:layout_marginTop="8dp"
             android:background="@mipmap/login_account"
             app:layout_constraintBottom_toTopOf="@+id/guideline3"
-            app:layout_constraintEnd_toStartOf="@+id/enter_account"
+            app:layout_constraintEnd_toStartOf="@+id/username"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline10" />
 
         <EditText
-            android:id="@+id/enter_account"
+            android:id="@+id/username"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginBottom="8dp"
@@ -60,7 +60,8 @@
             app:layout_constraintBottom_toTopOf="@+id/guideline3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView4"
-            app:layout_constraintTop_toTopOf="@+id/guideline10" />
+            app:layout_constraintTop_toTopOf="@+id/guideline10"
+           />
 
         <ImageView
             android:id="@+id/imageView5"
@@ -72,12 +73,12 @@
             android:layout_marginTop="8dp"
             android:background="@mipmap/login_cyper"
             app:layout_constraintBottom_toTopOf="@+id/guideline11"
-            app:layout_constraintEnd_toStartOf="@+id/enter_cyper"
+            app:layout_constraintEnd_toStartOf="@+id/password"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
         <EditText
-            android:id="@+id/enter_cyper"
+            android:id="@+id/password"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginBottom="8dp"
@@ -88,7 +89,9 @@
             app:layout_constraintBottom_toTopOf="@+id/guideline11"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView5"
-            app:layout_constraintTop_toTopOf="@+id/guideline3" />
+            app:layout_constraintTop_toTopOf="@+id/guideline3"
+           />
+
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline3"
