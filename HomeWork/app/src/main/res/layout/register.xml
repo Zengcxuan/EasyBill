@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include layout="@layout/activity_login"/>
+
     <Button
         android:id="@+id/login_button"
         android:background="@drawable/shape_color_blue"
@@ -34,6 +34,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline">
 
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            android:text="获取验证码"
+            app:layout_constraintBottom_toTopOf="@+id/guideline3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline10" />
+
         <ImageView
             android:id="@+id/imageView4"
             android:layout_width="20dp"
@@ -44,24 +56,23 @@
             android:layout_marginTop="8dp"
             android:background="@mipmap/login_account"
             app:layout_constraintBottom_toTopOf="@+id/guideline3"
-            app:layout_constraintEnd_toStartOf="@+id/username"
+            app:layout_constraintEnd_toStartOf="@+id/enter_account"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline10" />
 
         <EditText
-            android:id="@+id/username"
+            android:id="@+id/enter_account"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginBottom="8dp"
-            android:layout_marginEnd="110dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:hint="输入手机号码"
             app:layout_constraintBottom_toTopOf="@+id/guideline3"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/button"
             app:layout_constraintStart_toEndOf="@+id/imageView4"
-            app:layout_constraintTop_toTopOf="@+id/guideline10"
-           />
+            app:layout_constraintTop_toTopOf="@+id/guideline10" />
 
         <ImageView
             android:id="@+id/imageView5"
@@ -73,25 +84,23 @@
             android:layout_marginTop="8dp"
             android:background="@mipmap/login_cyper"
             app:layout_constraintBottom_toTopOf="@+id/guideline11"
-            app:layout_constraintEnd_toStartOf="@+id/password"
+            app:layout_constraintEnd_toStartOf="@+id/enter_cyper"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
         <EditText
-            android:id="@+id/password"
+            android:id="@+id/enter_cyper"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginBottom="8dp"
-            android:layout_marginEnd="110dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:hint="输入密码"
+            android:hint="输入验证码"
             app:layout_constraintBottom_toTopOf="@+id/guideline11"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/button"
             app:layout_constraintStart_toEndOf="@+id/imageView5"
-            app:layout_constraintTop_toTopOf="@+id/guideline3"
-           />
-
+            app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline3"
@@ -113,6 +122,41 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.6" />
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline15"
+            app:layout_constraintEnd_toStartOf="@+id/textView14"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline11"
+            app:srcCompat="@mipmap/login_cyper" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.8" />
+
+        <EditText
+            android:id="@+id/textView14"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:hint="输入密码"
+            app:layout_constraintBottom_toTopOf="@+id/guideline15"
+            app:layout_constraintEnd_toStartOf="@+id/button"
+            app:layout_constraintStart_toEndOf="@+id/imageView6"
+            app:layout_constraintTop_toTopOf="@+id/guideline11" />
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.Guideline

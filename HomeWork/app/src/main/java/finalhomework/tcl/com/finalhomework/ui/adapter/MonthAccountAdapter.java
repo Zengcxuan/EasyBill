@@ -1,4 +1,4 @@
-package com.copasso.cocobill.ui.adapter;
+package finalhomework.tcl.com.finalhomework.ui.adapter;
 
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
