@@ -46,6 +46,7 @@ import finalhomework.tcl.com.finalhomework.pojo.AllSortBill;
 import finalhomework.tcl.com.finalhomework.pojo.SortBill;
 import finalhomework.tcl.com.finalhomework.pojo.TotalBill;
 import finalhomework.tcl.com.finalhomework.pojo.base;
+import finalhomework.tcl.com.finalhomework.ui.adapter.MonthAccountAdapter;
 
 import static finalhomework.tcl.com.finalhomework.Utils.DateUtils.FORMAT_M;
 import static finalhomework.tcl.com.finalhomework.Utils.DateUtils.FORMAT_Y;
@@ -274,7 +275,7 @@ public class BillAddActivity extends BaseActivity implements BillView {
             viewList.add(view);
         }
 
-        viewpagerItem.setAdapter(new com.copasso.cocobill.ui.adapter.MonthAccountAdapter(viewList));
+        viewpagerItem.setAdapter(new MonthAccountAdapter(viewList));
         viewpagerItem.setOverScrollMode(View.OVER_SCROLL_NEVER);
         viewpagerItem.setOffscreenPageLimit(1);//预加载数据页
         viewpagerItem.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -514,16 +515,7 @@ public class BillAddActivity extends BaseActivity implements BillView {
                 lastBean.getSortName(),lastBean.getSortImg(),
                 DateUtils.getMillis(crDate),!isOutcome,0);
         presenter.add(bBill);
-//        CoBill coBill=new CoBill(bBill);
-//        coBill.save(new SaveListener<String>() {
-//            @Override
-//            public void done(String s, BmobException e) {
-//                if (e==null)
-//                    ToastUtils.show(mContext,s);
-//                else
-//                    ToastUtils.show(mContext,e.getMessage());
-//            }
-//        });
+
     }
 
     /**

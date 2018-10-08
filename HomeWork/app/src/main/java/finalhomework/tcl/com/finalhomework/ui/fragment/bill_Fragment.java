@@ -27,6 +27,8 @@ import java.util.Locale;
 import butterknife.Unbinder;
 import finalhomework.tcl.com.finalhomework.R;
 
+import finalhomework.tcl.com.finalhomework.mvp.views.MonthBillView;
+import finalhomework.tcl.com.finalhomework.pojo.MonthAccount;
 import finalhomework.tcl.com.finalhomework.ui.activity.BillAddActivity;
 import finalhomework.tcl.com.finalhomework.ui.activity.SearchAll;
 
@@ -39,7 +41,7 @@ import finalhomework.tcl.com.finalhomework.pojo.SortBill;
 
 import static android.view.Gravity.CENTER;
 
-public class bill_Fragment extends HomeBaseFragment implements View.OnClickListener {
+public class bill_Fragment extends HomeBaseFragment implements View.OnClickListener,MonthBillView {
     private CustomDatePicker customDatePicker1, customDatePicker2;
     private EditText currentDate, currentYear;
     private ImageButton addBillBtn;
@@ -176,5 +178,15 @@ public class bill_Fragment extends HomeBaseFragment implements View.OnClickListe
     protected NavigationView getViewNavigation(){
         NavigationView navigationView = (NavigationView)getActivity().findViewById(R.id.navigationview_bill);
         return navigationView;
+    }
+
+    @Override
+    public void loadDataSuccess(MonthAccount tData) {
+
+    }
+
+    @Override
+    public void loadDataError(Throwable throwable) {
+
     }
 }
