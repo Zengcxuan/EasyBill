@@ -14,4 +14,7 @@
         android:text="我的"
         custom:picture="@mipmap/ic_launcher" />
 
+    <include
+        layout="@layout/mybill"/>
+
 </LinearLayout>
