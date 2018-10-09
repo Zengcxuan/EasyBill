@@ -36,6 +36,8 @@ greendao{
 
 
 dependencies {
+    //helloChart
+    api 'com.github.lecho:hellocharts-android:v1.5.8'
     //选择器
     api 'com.contrarywind:Android-PickerView:3.2.7'
     //eventBus

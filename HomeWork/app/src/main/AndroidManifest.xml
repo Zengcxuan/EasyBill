@@ -35,7 +35,6 @@
 
         <activity android:name=".ui.activity.HomeActivity"/>
         <activity android:name=".ui.activity.SearchAll" android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.UserLoginActivity"/>
         <activity android:name=".ui.activity.BillAddActivity">
 
         </activity>
