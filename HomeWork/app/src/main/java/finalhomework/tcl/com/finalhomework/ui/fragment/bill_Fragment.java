@@ -1,26 +1,21 @@
 package finalhomework.tcl.com.finalhomework.ui.fragment;
 
-import android.content.Context;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.google.gson.Gson;
 import com.liuwan.customdatepicker.widget.CustomDatePicker;
 
 import org.greenrobot.eventbus.EventBus;
@@ -41,13 +36,9 @@ import finalhomework.tcl.com.finalhomework.Utils.DateUtils;
 import finalhomework.tcl.com.finalhomework.Utils.SnackbarUtils;
 import finalhomework.tcl.com.finalhomework.Utils.stickyheader.StickyHeaderGridLayoutManager;
 import finalhomework.tcl.com.finalhomework.base.SyncEvent;
-import finalhomework.tcl.com.finalhomework.mvp.presenter.MonthBillPresenter;
 import finalhomework.tcl.com.finalhomework.mvp.presenter.MonthDetailPresenter;
-import finalhomework.tcl.com.finalhomework.mvp.presenter.impl.MonthBillPresenterImpl;
 import finalhomework.tcl.com.finalhomework.mvp.presenter.impl.MonthDetailPresenterImpl;
-import finalhomework.tcl.com.finalhomework.mvp.views.MonthBillView;
 import finalhomework.tcl.com.finalhomework.mvp.views.MonthDetailView;
-import finalhomework.tcl.com.finalhomework.pojo.MonthAccount;
 import finalhomework.tcl.com.finalhomework.pojo.MonthDetailAccount;
 import finalhomework.tcl.com.finalhomework.pojo.TotalBill;
 import finalhomework.tcl.com.finalhomework.pojo.base;
@@ -56,12 +47,8 @@ import finalhomework.tcl.com.finalhomework.ui.activity.BillEditActivity;
 import finalhomework.tcl.com.finalhomework.ui.activity.SearchAll;
 
 import finalhomework.tcl.com.finalhomework.Utils.meng_MyUtils;
-import finalhomework.tcl.com.finalhomework.ui.activity.AddBill;
 import finalhomework.tcl.com.finalhomework.base.Constants;
-import finalhomework.tcl.com.finalhomework.base.LocalRepository;
-import finalhomework.tcl.com.finalhomework.pojo.AllSortBill;
-import finalhomework.tcl.com.finalhomework.pojo.SortBill;
-import finalhomework.tcl.com.finalhomework.ui.adapter.AccountCardAdapter;
+
 import finalhomework.tcl.com.finalhomework.ui.adapter.MonthDetailAdapter;
 
 import static android.view.Gravity.CENTER;
@@ -102,7 +89,7 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event(SyncEvent event) {
         if (event.getState()==100)
-            getAcountData(Constants.currentUserId, setYear, setMonth);
+            getBills(Constants.currentUserId, setYear, setMonth);
     }
     @Override
     protected int getLayoutId() {
@@ -181,10 +168,8 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
         tOutcome.setText(tData.getT_outcome());
         tIncome.setText(tData.getT_income());
         list = tData.getDaylist();
-        Log.e("meng111",list.toString());
         adapter.setmDatas(list);
         adapter.notifyAllSectionsDataSetChanged();//需调用此方法刷新
-        Log.e("meng111","loadDataSuccess(MonthDetailAccount tData) {");
     }
 
     @Override
@@ -275,6 +260,16 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
 
     }
     /**
+     * Activity返回
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 0) {
+            getBills(Constants.currentUserId, setYear, setMonth);
+        }
+    }
+    /**
      * 布局加载
      */
     public static bill_Fragment newInstance(String info) {
@@ -313,9 +308,6 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
         setToolbar(title);
 
     }
-
-
-
 
     @Override
     protected int getItemMenu(){ return R.menu.menu_main; }

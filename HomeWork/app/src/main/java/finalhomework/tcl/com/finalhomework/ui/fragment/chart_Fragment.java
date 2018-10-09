@@ -54,18 +54,10 @@ public class chart_Fragment extends HomeBaseFragment implements View.OnClickList
     private boolean pointsHaveDifferentColor;           //线条的颜色变换
     private boolean hasGradientToTransparent = false;      //是否有梯度的透明
 
-    public static chart_Fragment newInstance(String info) {
-        Bundle args = new Bundle();
-        chart_Fragment fragment = new chart_Fragment();
-        args.putString("info", info);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
-
-    //this is for linechart
+    //this is for line chart
     private void initView() {
-    //实例化
+    //实例化曲线图
     chart = (LineChartView) getActivity().findViewById(R.id.hellochart11);
     }
 
@@ -73,10 +65,8 @@ public class chart_Fragment extends HomeBaseFragment implements View.OnClickList
         // Generate some random values.
         generateValues();   //设置四条线的值数据
         generateData();    //设置数据
-
         // Disable viewport recalculations, see toggleCubic() method for more info.
         chart.setViewportCalculationEnabled(false);
-
         chart.setZoomType(ZoomType.HORIZONTAL);//设置线条可以水平方向收缩，默认是全方位缩放
         resetViewport();   //设置折线图的显示大小
     }
@@ -98,7 +88,6 @@ public class chart_Fragment extends HomeBaseFragment implements View.OnClickList
         chart.setMaximumViewport(v);
         chart.setCurrentViewport(v);
     }
-
     /**
      * 设置四条线条的数据
      */
@@ -109,7 +98,6 @@ public class chart_Fragment extends HomeBaseFragment implements View.OnClickList
             }
         }
     }
-
     /**
      * 配置数据
      */
@@ -165,7 +153,7 @@ public class chart_Fragment extends HomeBaseFragment implements View.OnClickList
     }
 
     /**
-     * 触摸监听类
+     * line chart触摸监听类
      */
     private class ValueTouchListener implements LineChartOnValueSelectListener {
 
@@ -173,13 +161,17 @@ public class chart_Fragment extends HomeBaseFragment implements View.OnClickList
         public void onValueSelected(int lineIndex, int pointIndex, PointValue value) {
             Toast.makeText(getContext(), "Selected: " + value, Toast.LENGTH_SHORT).show();
         }
-
         @Override
         public void onValueDeselected() {
 
-
         }
-
+    }
+    public static chart_Fragment newInstance(String info) {
+        Bundle args = new Bundle();
+        chart_Fragment fragment = new chart_Fragment();
+        args.putString("info", info);
+        fragment.setArguments(args);
+        return fragment;
     }
     //this is for
     @Override
