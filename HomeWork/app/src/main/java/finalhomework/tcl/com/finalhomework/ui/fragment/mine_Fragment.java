@@ -117,6 +117,11 @@ public class mine_Fragment extends HomeBaseFragment implements View.OnClickListe
     }
 
     @Override
+    protected void improtantData() {
+
+    }
+
+    @Override
     protected DrawerLayout getDrawerLayout(){
         DrawerLayout mDrawerLayout = (DrawerLayout) getActivity().findViewById(R.id.drawerlayout_mine);
         return mDrawerLayout;

@@ -515,16 +515,7 @@ public class BillAddActivity extends BaseActivity implements BillView {
                 lastBean.getSortName(),lastBean.getSortImg(),
                 DateUtils.getMillis(crDate),!isOutcome,0);
         presenter.add(bBill);
-//        CoBill coBill=new CoBill(bBill);
-//        coBill.save(new SaveListener<String>() {
-//            @Override
-//            public void done(String s, BmobException e) {
-//                if (e==null)
-//                    ToastUtils.show(mContext,s);
-//                else
-//                    ToastUtils.show(mContext,e.getMessage());
-//            }
-//        });
+
     }
 
     /**

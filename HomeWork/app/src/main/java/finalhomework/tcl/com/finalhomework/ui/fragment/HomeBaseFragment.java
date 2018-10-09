@@ -69,6 +69,7 @@ public abstract class HomeBaseFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         isViewCreated = true;
         setHasOptionsMenu(true);
+        improtantData();
         myToolbar();
         lazyLoad();
     }
@@ -168,7 +169,7 @@ public abstract class HomeBaseFragment extends Fragment {
 
         }
     }
-
+    protected abstract void improtantData();
     protected abstract void loadData();
     protected void setToolbar(View v){
         getToolbar().addView(v);

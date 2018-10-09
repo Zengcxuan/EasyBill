@@ -43,8 +43,7 @@ public class LoginFragment extends Fragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mUnBinder = ButterKnife.bind(this, view);
-        userName = getActivity().findViewById(R.id.username);
-        passWord = getActivity().findViewById(R.id.password);
+//        initEventAndData();
     }
 
 //    @OnClick({R.id.login_button})

@@ -309,6 +309,11 @@ public class chart_Fragment extends HomeBaseFragment implements View.OnClickList
      * 返回Toolbar的菜单项（右边）
      */
     @Override
+    protected void improtantData() {
+
+    }
+
+    @Override
     protected int getItemMenu(){ return R.menu.menu_main; }
 
     /**
