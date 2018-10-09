@@ -84,6 +84,7 @@ public class UesrLoginActivity extends BaseActivity implements UserLoginView{
                 break;
         }
     }
+
     public void login(){
         String username = loginFragment.getUserName();
         String password = loginFragment.getPassWord();
@@ -125,6 +126,10 @@ public class UesrLoginActivity extends BaseActivity implements UserLoginView{
         ProgressUtils.dismiss();
         SnackbarUtils.show(mContext, throwable.getMessage());
     }
+
+    /**
+     * 切换至登陆界面
+     */
     private void openLoginFragment(){
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction=manager.beginTransaction();
@@ -133,6 +138,9 @@ public class UesrLoginActivity extends BaseActivity implements UserLoginView{
         transaction.commit();
     }
 
+    /**
+     * 切换至注册界面
+     */
     private void openRigsterFragment(){
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction=manager.beginTransaction();

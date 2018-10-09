@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
@@ -22,9 +23,12 @@ import finalhomework.tcl.com.finalhomework.ui.activity.HomeActivity;
 import finalhomework.tcl.com.finalhomework.ui.activity.UesrLoginActivity;
 
 public class LoginFragment extends Fragment{
+    @BindView(R.id.username)
+    EditText userName;
+    @BindView(R.id.password)
+    EditText passWord;
     private Context mContext;
     private Unbinder mUnBinder;
-    private EditText userName, passWord;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
