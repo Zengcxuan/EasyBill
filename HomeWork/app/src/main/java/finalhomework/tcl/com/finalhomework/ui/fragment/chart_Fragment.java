@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -25,6 +27,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import finalhomework.tcl.com.finalhomework.R;
 import finalhomework.tcl.com.finalhomework.ui.activity.SearchAll;
+import finalhomework.tcl.com.finalhomework.ui.widget.ImageButtonWithText;
 import lecho.lib.hellocharts.gesture.ZoomType;
 import lecho.lib.hellocharts.listener.LineChartOnValueSelectListener;
 import lecho.lib.hellocharts.model.Axis;
@@ -42,7 +45,7 @@ import static android.view.Gravity.RIGHT;
 import static android.view.Gravity.START;
 
 
-public class chart_Fragment extends HomeBaseFragment implements View.OnClickListener{
+public class chart_Fragment extends HomeBaseFragment{
     @BindView(R.id.thisweek)
     Button thisWeekBtn;
     @BindView(R.id.lastweek)
@@ -105,8 +108,9 @@ public class chart_Fragment extends HomeBaseFragment implements View.OnClickList
     /**
      * 按钮事件处理
      */
-    @OnClick({R.id.button_week, R.id.button_month, R.id.button_year, R.id.thisweek, R.id.lastweek})
-    public void onClick(View view) {
+    @OnClick({R.id.button_week, R.id.button_month, R.id.button_year, R.id.thisweek, R.id.lastweek,
+    R.id.head_chart})
+    protected void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_week:
                 BtnStateChange(1);
@@ -126,6 +130,12 @@ public class chart_Fragment extends HomeBaseFragment implements View.OnClickList
                 thisWeekBtn.setTextColor(getResources().getColor(R.color.tab_unclicked));
                 lastWeekBtn.setTextColor(getResources().getColor(R.color.tab_clicked));
                 tableRow.setGravity(START);
+                break;
+            case R.id.head_chart:
+                //开启个人信息界面
+                Toast.makeText(getActivity(), "你点击了我", Toast.LENGTH_LONG).show();
+                break;
+            default:
                 break;
         }
     }
@@ -313,6 +323,7 @@ public class chart_Fragment extends HomeBaseFragment implements View.OnClickList
 
     }
 
+
     @Override
     protected int getItemMenu(){ return R.menu.menu_main; }
 
@@ -341,6 +352,14 @@ public class chart_Fragment extends HomeBaseFragment implements View.OnClickList
 
     }
 
+    /**
+     * 返回键名字
+     * */
+    @Override
+    protected ImageButton getBackBtn(){
+        return getActivity().findViewById(R.id.back_chart);
+    }
+
     @Override
     protected void beforeDestroy() {
 
@@ -361,17 +380,22 @@ public class chart_Fragment extends HomeBaseFragment implements View.OnClickList
      @Override
     protected  Toolbar getToolbar(){
         View viewToolbar = getActivity().findViewById(R.id.toolbar_chart);
-        Toolbar toolbar = (Toolbar) viewToolbar.findViewById(R.id.tl_custom);
-        return toolbar;
+        return viewToolbar.findViewById(R.id.tl_custom);
     }
 
     /**
      * 重写父类抽象方法,返回navigationView的ID
      */
     @Override
-    protected NavigationView getViewNavigation(){
-        NavigationView navigationView = (NavigationView)getActivity().findViewById(R.id.navigationview_chart);
-        return navigationView;
+    protected LinearLayout getLeftWindow(){
+        return getActivity().findViewById(R.id.navigationview_chart);
     }
 
+    /**
+     * 返回头像
+     * */
+    @Override
+    protected ImageButtonWithText getHead(){
+        return getActivity().findViewById(R.id.head_chart);
+    }
 }

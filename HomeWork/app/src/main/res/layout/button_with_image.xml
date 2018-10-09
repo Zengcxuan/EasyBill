@@ -31,15 +31,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
+                android:descendantFocusability="blocksDescendants"
+                android:checked="false"
+                android:clickable="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
                 android:background="@color/nullcolor"
                 android:gravity="left|center"
                 android:text="设置内容" />
 
             <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="20px"
-                android:layout_height="40px"
-                android:background="@mipmap/arrow" />
+                android:id="@+id/image_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
         </TableRow>
     </TableLayout>

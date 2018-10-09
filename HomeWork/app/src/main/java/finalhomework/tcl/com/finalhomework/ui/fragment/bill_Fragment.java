@@ -18,7 +18,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.liuwan.customdatepicker.widget.CustomDatePicker;
@@ -63,6 +65,7 @@ import finalhomework.tcl.com.finalhomework.pojo.AllSortBill;
 import finalhomework.tcl.com.finalhomework.pojo.SortBill;
 import finalhomework.tcl.com.finalhomework.ui.adapter.AccountCardAdapter;
 import finalhomework.tcl.com.finalhomework.ui.adapter.MonthDetailAdapter;
+import finalhomework.tcl.com.finalhomework.ui.widget.ImageButtonWithText;
 
 import static android.view.Gravity.CENTER;
 import static finalhomework.tcl.com.finalhomework.Utils.DateUtils.FORMAT_M;
@@ -296,6 +299,14 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
         startActivity(intent);
     }
 
+    /**
+     * 开启个人信息界面
+     * */
+    @OnClick(R.id.head_bill)
+    public void showHead(){
+        Toast.makeText(getActivity(), "你点击了我", Toast.LENGTH_LONG).show();
+    }
+
     @Override
     public void myToolbar(){
         /**
@@ -314,8 +325,13 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
 
     }
 
-
-
+    /**
+     * 返回键名字
+     * */
+    @Override
+    protected ImageButton getBackBtn(){
+        return getActivity().findViewById(R.id.back_bill);
+    }
 
     @Override
     protected int getItemMenu(){ return R.menu.menu_main; }
@@ -326,22 +342,23 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
         startActivity(intent);
     }
     @Override
-    protected DrawerLayout getDrawerLayout(){
-        DrawerLayout mDrawerLayout = (DrawerLayout) getActivity().findViewById(R.id.drawerlayout_bill);
-        return mDrawerLayout;
-    }
+    protected DrawerLayout getDrawerLayout(){ return getActivity().findViewById(R.id.drawerlayout_bill); }
 
     @Override
     protected  Toolbar getToolbar(){
         View viewToolbar = getActivity().findViewById(R.id.toolbar_bill);
-        Toolbar toolbar = (Toolbar) viewToolbar.findViewById(R.id.tl_custom);
-        return toolbar;
+        return viewToolbar.findViewById(R.id.tl_custom);
     }
 
     @Override
-    protected NavigationView getViewNavigation(){
-        NavigationView navigationView = (NavigationView)getActivity().findViewById(R.id.navigationview_bill);
-        return navigationView;
+    protected LinearLayout getLeftWindow(){ return getActivity().findViewById(R.id.navigationview_bill); }
+
+    /**
+     * 返回头像
+     * */
+    @Override
+    protected ImageButtonWithText getHead(){
+        return getActivity().findViewById(R.id.head_bill);
     }
 
 }
