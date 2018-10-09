@@ -19,7 +19,12 @@
     <style name="AppTheme.DrawerArrowToggle" parent="Base.Widget.AppCompat.DrawerArrowToggle">
         <item name="color">@android:color/white</item>
     </style>
-
+    <!--图表界面的水平装饰线-->
+    <style name="horizontal_decoration_style.chart">
+        <item name="android:layout_width">70dp</item>
+        <item name="android:layout_height">3px</item>
+        <item name="background">@drawable/shape_color_blue</item>
+    </style>
     <!--水平装饰线-->
     <style name="horizontal_decoration_style">
         <item name="android:layout_width">match_parent</item>

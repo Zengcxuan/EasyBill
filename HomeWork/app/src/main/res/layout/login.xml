@@ -5,22 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include layout="@layout/activity_login"/>
-    <Button
-        android:id="@+id/login_button"
-        android:background="@drawable/shape_color_blue"
-        android:text="登陆"
-        android:textSize="22sp"
-        android:gravity="center"
-        android:layout_width="0dp"
-        android:layout_height="54dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout4" />
-
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout4"
         android:layout_width="0dp"
@@ -60,8 +44,7 @@
             app:layout_constraintBottom_toTopOf="@+id/guideline3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView4"
-            app:layout_constraintTop_toTopOf="@+id/guideline10"
-           />
+            app:layout_constraintTop_toTopOf="@+id/guideline10" />
 
         <ImageView
             android:id="@+id/imageView5"
@@ -89,8 +72,7 @@
             app:layout_constraintBottom_toTopOf="@+id/guideline11"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView5"
-            app:layout_constraintTop_toTopOf="@+id/guideline3"
-           />
+            app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
 
         <android.support.constraint.Guideline

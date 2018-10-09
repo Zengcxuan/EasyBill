@@ -5,17 +5,23 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.Spinner;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
+import butterknife.BindView;
 import butterknife.OnClick;
 import finalhomework.tcl.com.finalhomework.R;
 import finalhomework.tcl.com.finalhomework.ui.activity.SearchAll;
@@ -30,11 +36,29 @@ import lecho.lib.hellocharts.util.ChartUtils;
 import lecho.lib.hellocharts.view.LineChartView;
 
 import static android.view.Gravity.CENTER;
+import static android.view.Gravity.END;
+import static android.view.Gravity.LEFT;
+import static android.view.Gravity.RIGHT;
+import static android.view.Gravity.START;
 
 
 public class chart_Fragment extends HomeBaseFragment implements View.OnClickListener{
-    private Button weekBtn, monthBtn, yearBtn;
-    private lecho.lib.hellocharts.view.LineChartView chart;  //显示线条的自定义View
+    @BindView(R.id.thisweek)
+    Button thisWeekBtn;
+    @BindView(R.id.lastweek)
+    Button lastWeekBtn;
+    @BindView(R.id.view_this)
+    View thisView;
+    @BindView(R.id.tableRow)
+    TableRow tableRow;
+    @BindView(R.id.button_week)
+    Button weekBtn;
+    @BindView(R.id.button_month)
+    Button monthBtn;
+    @BindView(R.id.button_year)
+    Button yearBtn;
+    @BindView(R.id.hellochart11)
+    lecho.lib.hellocharts.view.LineChartView chart;//显示线条的自定义View
     private lecho.lib.hellocharts.model.LineChartData data;  //折线图封装的数据类
     private int numberOfLines = 1;   // number of lines
     private int maxNumberOfLines =1;  //the max number of Lines
@@ -61,6 +85,10 @@ public class chart_Fragment extends HomeBaseFragment implements View.OnClickList
     chart = (LineChartView) getActivity().findViewById(R.id.hellochart11);
     }
 
+
+    /**
+     * 加载数据
+     */
     private void initData() {
         // Generate some random values.
         generateValues();   //设置四条线的值数据
@@ -71,6 +99,82 @@ public class chart_Fragment extends HomeBaseFragment implements View.OnClickList
         resetViewport();   //设置折线图的显示大小
     }
 
+    /**
+     * 按钮事件处理
+     */
+    @OnClick({R.id.button_week, R.id.button_month, R.id.button_year, R.id.thisweek, R.id.lastweek})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.button_week:
+                BtnStateChange(1);
+                break;
+            case R.id.button_month:
+                BtnStateChange(2);
+                break;
+            case R.id.button_year:
+                BtnStateChange(3);
+                break;
+            case R.id.thisweek:
+                lastWeekBtn.setTextColor(getResources().getColor(R.color.tab_unclicked));
+                thisWeekBtn.setTextColor(getResources().getColor(R.color.tab_clicked));
+                tableRow.setGravity(END);
+                break;
+            case R.id.lastweek:
+                thisWeekBtn.setTextColor(getResources().getColor(R.color.tab_unclicked));
+                lastWeekBtn.setTextColor(getResources().getColor(R.color.tab_clicked));
+                tableRow.setGravity(START);
+                break;
+        }
+    }
+
+    /**
+     * 重写myToolbar,添加Spinner作为下拉框,添加监听事件
+     */
+    @Override
+    public void myToolbar(){
+        // TODO: 18-9-29  modify
+        super.myToolbar();
+        Spinner type = new Spinner(getActivity());
+        List<String> dataOfType = new ArrayList<String>();
+        dataOfType.add("收入");
+        dataOfType.add("支出");
+        ArrayAdapter<String> typeAdapter = new ArrayAdapter<String>(getActivity(),
+                R.layout.spinner_style, dataOfType);
+        typeAdapter.setDropDownViewResource(R.layout.spinner_drop_style);
+        type.setAdapter(typeAdapter);
+//        title.setTextColor(getResources().getColor(R.color.white))
+        type.setDropDownHorizontalOffset(0);
+        type.setDropDownVerticalOffset(60);
+        type.setLayoutParams(new ViewGroup.LayoutParams(30,
+                ViewGroup.LayoutParams.WRAP_CONTENT));
+        type.setPopupBackgroundDrawable(getResources().getDrawable(R.color.center_color));
+//        type.setBackground(getResources().getDrawable(R.drawable.shape_color_blue));
+        type.setLayoutParams(new Toolbar.LayoutParams(CENTER));
+        type.setGravity(END);
+        setToolbar(type);
+        //下拉框的点击监听
+        type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position){
+                    case 0:
+                        break;//收入
+                    case 1:
+                        Toast.makeText(getActivity(), "111", Toast.LENGTH_LONG).show();
+                        break;//支出
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    /**
+     * 图表添加监听
+     */
     private void initEvent() {
         chart.setOnValueTouchListener((LineChartOnValueSelectListener) new ValueTouchListener());
 
@@ -173,81 +277,11 @@ public class chart_Fragment extends HomeBaseFragment implements View.OnClickList
         fragment.setArguments(args);
         return fragment;
     }
-    //this is for
-    @Override
-    public void myToolbar(){
-        // TODO: 18-9-29  modify
-        super.myToolbar();
-    }
-
-    @Override
-    protected void improtantData() {
-
-    }
-
-    @Override
-    protected int getItemMenu(){ return R.menu.menu_main; }
-
-    @Override
-    protected void setItemReact(){
-        Intent intent = new Intent(getActivity(), SearchAll.class);
-        startActivity(intent);
-    }
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.fragment_chart;
-    }
-
-    @Override
-    protected void loadData() {
-        initView();
-        initData();
-        initEvent();
-        weekBtn = (Button) getActivity().findViewById(R.id.button_week);
-        weekBtn.setOnClickListener(this);
-        monthBtn = (Button) getActivity().findViewById(R.id.button_month);
-        monthBtn.setOnClickListener(this);
-        yearBtn = (Button) getActivity().findViewById(R.id.button_year);
-        yearBtn.setOnClickListener(this);
-    }
-
-    @Override
-    protected void beforeDestroy() {
-
-    }
-    protected DrawerLayout getDrawerLayout(){
-        DrawerLayout mDrawerLayout = (DrawerLayout) getActivity().findViewById(R.id.drawerlayout_chart);
-        return mDrawerLayout;
-    }
-    protected  Toolbar getToolbar(){
-        View viewToolbar = getActivity().findViewById(R.id.toolbar_chart);
-        Toolbar toolbar = (Toolbar) viewToolbar.findViewById(R.id.tl_custom);
-        return toolbar;
-    }
-    protected NavigationView getViewNavigation(){
-        NavigationView navigationView = (NavigationView)getActivity().findViewById(R.id.navigationview_chart);
-        return navigationView;
-    }
-
-    @OnClick({R.id.button_week, R.id.button_month, R.id.button_year})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.button_week:
-                BtnStateChange(1);
-                break;
-            case R.id.button_month:
-                BtnStateChange(2);
-                break;
-            case R.id.button_year:
-                BtnStateChange(3);
-                break;
 
 
-        }
-    }
-
-
+    /**
+     * 年,月,周按钮点击后的颜色变化
+     */
     public void BtnStateChange(int type){
         switch(type){
             case 1:
@@ -268,4 +302,75 @@ public class chart_Fragment extends HomeBaseFragment implements View.OnClickList
 
         }
     }
+
+
+    /**
+     * 返回Toolbar的菜单项（右边）
+     */
+    @Override
+    protected void improtantData() {
+
+    }
+
+    @Override
+    protected int getItemMenu(){ return R.menu.menu_main; }
+
+    /**
+     * 设置菜单项的响应事件,这里是开启查询
+     */
+    @Override
+    protected void setItemReact(){
+        Intent intent = new Intent(getActivity(), SearchAll.class);
+        startActivity(intent);
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_chart;
+    }
+
+    /**
+     * 重写父类方法,初始化数据
+     */
+    @Override
+    protected void loadData() {
+        initData();
+        initEvent();
+        tableRow.setGravity(END);
+
+    }
+
+    @Override
+    protected void beforeDestroy() {
+
+    }
+
+    /**
+     * 重写父类抽象方法,返回DrawerLayout的ID
+     */
+    @Override
+    protected DrawerLayout getDrawerLayout(){
+        DrawerLayout mDrawerLayout = (DrawerLayout) getActivity().findViewById(R.id.drawerlayout_chart);
+        return mDrawerLayout;
+    }
+
+    /**
+     * 重写父类抽象方法,返回Toolbar的ID
+     */
+     @Override
+    protected  Toolbar getToolbar(){
+        View viewToolbar = getActivity().findViewById(R.id.toolbar_chart);
+        Toolbar toolbar = (Toolbar) viewToolbar.findViewById(R.id.tl_custom);
+        return toolbar;
+    }
+
+    /**
+     * 重写父类抽象方法,返回navigationView的ID
+     */
+    @Override
+    protected NavigationView getViewNavigation(){
+        NavigationView navigationView = (NavigationView)getActivity().findViewById(R.id.navigationview_chart);
+        return navigationView;
+    }
+
 }

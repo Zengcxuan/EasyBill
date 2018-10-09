@@ -44,5 +44,6 @@
         <attr name="cil_rightText" format="string"/>
         <attr name="cil_rightTextColor" format="color"/>
         <attr name="cil_rightImage" format="reference"/>
+>>>>>>> aee9e8d60a4306d355291f05b1250c3bba57c3d6
     </declare-styleable>
 </resources>

@@ -68,23 +68,29 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/textView5"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/record_days"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_weight="1"
                         android:text="TextView"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
                     <TextView
-                        android:id="@+id/textView4"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/record_deals"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_weight="1"
                         android:text="TextView"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
                     <TextView
-                        android:id="@+id/textView3"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/surplus"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_weight="1"
                         android:text="TextView"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
                 </TableRow>
