@@ -10,4 +10,7 @@
     <declare-styleable name="ImageButtonWithText">
         <attr name="picture" format="reference"/>
     </declare-styleable>
+    <declare-styleable name="ButtonWithLine">
+        <attr name="text" format="string"/>
+    </declare-styleable>
 </resources>

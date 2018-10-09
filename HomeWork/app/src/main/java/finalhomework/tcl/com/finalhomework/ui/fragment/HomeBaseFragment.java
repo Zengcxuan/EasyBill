@@ -60,6 +60,7 @@ public abstract class HomeBaseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mView = inflater.inflate(getLayoutId(), null);
+        mUnBinder = ButterKnife.bind(this, mView);
         return mView;
     }
 
@@ -67,7 +68,6 @@ public abstract class HomeBaseFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         isViewCreated = true;
-        mUnBinder = ButterKnife.bind(this, view);
         setHasOptionsMenu(true);
         myToolbar();
         lazyLoad();

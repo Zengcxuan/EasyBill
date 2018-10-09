@@ -34,21 +34,18 @@ public class UesrLoginActivity extends BaseActivity implements UserLoginView{
     Button rightBtn;
     @BindView(R.id.login_button)
     Button loginButton;
-    @BindView(R.id.username)
-    EditText userName;
-    @BindView(R.id.password)
-    EditText passWord;
-
+    private LoginFragment loginFragment;
+    private RegisterFragment registerFragment;
     private UserLoginPresenter userLoginPresenter;
     private boolean isLogin = true;
     @Override
     protected int getLayout() {
-        return R.layout.login;
+        return R.layout.activity_login;
     }
 
     @Override
     protected void initEventAndData() {
-
+        openLoginFragment();
         userLoginPresenter = new UserLoginPresenterImpl(this);
 
     }
@@ -61,15 +58,22 @@ public class UesrLoginActivity extends BaseActivity implements UserLoginView{
     protected void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_left:
-                leftBtn.setText("登陆");
-                rightBtn.setText("注册");
-                loginButton.setText("登陆");
+                if (!isLogin) {
+                    openLoginFragment();
+//                    leftBtn.setText("登陆");
+//                    rightBtn.setText("注册");
+                    loginButton.setText("登陆");
+                    isLogin =!isLogin;
+                }
                 break;
             case R.id.button_right:
-                leftBtn.setText("注册");
-                rightBtn.setText("登陆");
-                loginButton.setText("注册");
-                isLogin =!isLogin;
+                if (isLogin) {
+                    openRigsterFragment();
+//                    leftBtn.setText("注册");
+//                    rightBtn.setText("登陆");
+                    loginButton.setText("注册");
+                    isLogin =!isLogin;
+                }
                 break;
             case R.id.login_button:
                 if(isLogin){
@@ -81,8 +85,8 @@ public class UesrLoginActivity extends BaseActivity implements UserLoginView{
         }
     }
     public void login(){
-        String username = userName.getText().toString();
-        String password = passWord.getText().toString();
+        String username = loginFragment.getUserName();
+        String password = loginFragment.getPassWord();
         if (username.length() == 0 || password.length() == 0) {
             SnackbarUtils.show(mContext, "用户名或密码不能为空");
             return;
@@ -94,8 +98,8 @@ public class UesrLoginActivity extends BaseActivity implements UserLoginView{
 
     }
     public void register(){
-        String username = userName.getText().toString();
-        String password = passWord.getText().toString();
+        String username = registerFragment.getUserName();
+        String password = registerFragment.getPassWord();
         if (username.length() == 0 || password.length() == 0) {
             SnackbarUtils.show(mContext, "用户名或密码不能为空");
             return;
@@ -121,19 +125,19 @@ public class UesrLoginActivity extends BaseActivity implements UserLoginView{
         ProgressUtils.dismiss();
         SnackbarUtils.show(mContext, throwable.getMessage());
     }
-    /*    private void openLoginFragment(){
+    private void openLoginFragment(){
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction=manager.beginTransaction();
-        LoginFragment fragment = new LoginFragment();
-        transaction.replace(R.id.fragment_change, fragment);
+        loginFragment = new LoginFragment();
+        transaction.replace(R.id.fragment_change, loginFragment);
         transaction.commit();
-    }*/
+    }
 
-    /*private void openRigsterFragment(){
+    private void openRigsterFragment(){
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction=manager.beginTransaction();
-        RegisterFragment fragment = new RegisterFragment();
-        transaction.replace(R.id.fragment_change, fragment);
+        registerFragment = new RegisterFragment();
+        transaction.replace(R.id.fragment_change, registerFragment);
         transaction.commit();
-    }*/
+    }
 }
