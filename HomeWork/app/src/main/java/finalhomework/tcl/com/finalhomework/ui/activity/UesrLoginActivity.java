@@ -90,12 +90,12 @@ public class UesrLoginActivity extends BaseActivity implements UserLoginView{
         String password = loginFragment.getPassWord();
         if (username.length() == 0 || password.length() == 0) {
             SnackbarUtils.show(mContext, "用户名或密码不能为空");
-            return;
+            //return;
         }
 
         ProgressUtils.show(this, "正在登陆...");
 
-        userLoginPresenter.login(username, password);
+        userLoginPresenter.login("1", "1");
 
     }
     public void register(){

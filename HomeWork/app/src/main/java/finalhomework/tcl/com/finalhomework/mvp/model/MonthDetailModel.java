@@ -9,6 +9,10 @@ public interface MonthDetailModel {
     void getMonthDetailBills(int id, String year, String month);
 
     /**
+     * test
+     */
+    void getDayCost(int id,String year,String month/*,String date*/);
+    /**
      * 删除账单
      */
     void delete(Long id);

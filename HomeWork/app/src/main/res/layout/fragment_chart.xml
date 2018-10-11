@@ -71,8 +71,8 @@
 
             </TableLayout>
 
-            <lecho.lib.hellocharts.view.LineChartView
-                android:id="@+id/hellochart11"
+            <!--<lecho.lib.hellocharts.view.LineChartView
+                android:id="@+id/hellochart"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginBottom="8dp"
@@ -84,7 +84,21 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/horizontal1"
+                app:layout_constraintVertical_bias="1.0" />-->
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/lineChart"
+                android:layout_width="match_parent"
+                android:layout_height="204dp"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/rv_list_chart"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/horizontal1"
                 app:layout_constraintVertical_bias="1.0" />
+
 
             <Button
                 android:id="@+id/button_week"
@@ -160,7 +174,7 @@
                 android:orientation="horizontal"
                 app:layout_constraintGuide_percent="0.55" />
 
-            <lecho.lib.hellocharts.view.ColumnChartView
+            <!--<lecho.lib.hellocharts.view.ColumnChartView
                 android:id="@+id/test_content"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -168,6 +182,15 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_weight="1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/horizontal2" />-->
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_list_chart"
+                android:layout_width="366dp"
+                android:layout_height="169dp"
+                android:scrollbars="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
