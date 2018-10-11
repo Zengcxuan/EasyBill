@@ -36,6 +36,8 @@ greendao{
 
 
 dependencies {
+    //MPandroidchart
+    api 'com.github.PhilJay:MPAndroidChart:v3.0.1'
     //helloChart
     api 'com.github.lecho:hellocharts-android:v1.5.8'
     //选择器

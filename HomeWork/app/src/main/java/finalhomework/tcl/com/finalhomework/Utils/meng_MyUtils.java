@@ -1,6 +1,28 @@
 package finalhomework.tcl.com.finalhomework.Utils;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class meng_MyUtils {
+    /**
+     * 根据日期字符串判断当月第几周
+     * @param str
+     * @return
+     * @throws Exception
+     */
+    public static int getWeek(String str) throws Exception{
+        SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
+        Date date =sdf.parse(str);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        //第几周
+        int week = calendar.get(Calendar.WEEK_OF_MONTH);
+        //第几天，从周日开始
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
+        return week;
+    }
+
     public String getMonth(String month){
         if (month.substring(5,6).equals("0")){
             month = month.substring(6,7);

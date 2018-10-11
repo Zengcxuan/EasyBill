@@ -23,6 +23,11 @@ public class MonthDetailPresenterImpl extends MonthDetailPresenter implements Mo
     }
 
     @Override
+    public void getDayCost(int id, String year, String month/*,String date*/) {
+        monthDetailModel.getDayCost(id,year,month/*,date*/);
+    }
+
+    @Override
     public void deleteBill(Long id) {
         monthDetailModel.delete(id);
     }

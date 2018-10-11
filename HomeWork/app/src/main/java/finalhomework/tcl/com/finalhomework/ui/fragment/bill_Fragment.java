@@ -68,6 +68,7 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
 
     int part, index;
     private static final int SPAN_SIZE = 1;
+    private static final int RESULTCODE =0;
     private StickyHeaderGridLayoutManager mLayoutManager;
     private MonthDetailAdapter adapter;
     private List<MonthDetailAccount.DaylistBean> list;
@@ -205,11 +206,6 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
         });
 
     }
-    private void getAcountData(final int userid, String year, String month) {
-        currentYear.setText(setYear );
-        currentDate.setText(Html.fromHtml("<big>"+setMonth+"</big>"+"<small>"+"月"+"</small>"));
-        presenter.getMonthDetailBills(userid,year,month);
-    }
     /**
      * 获取账单数据
      *
@@ -269,9 +265,10 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 0) {
+        /*Log.e("meng111","onActivityResult++++"+resultCode);*/
+        /*if (resultCode == RESULTCODE ) {*/
             getBills(Constants.currentUserId, setYear, setMonth);
-        }
+        /*}*/
     }
     /**
      * 布局加载
@@ -292,7 +289,7 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
     @OnClick(R.id.bill_add)
     public void addBill() {
         Intent intent = new Intent(getActivity(), BillAddActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent,RESULTCODE);
     }
 
     /**
