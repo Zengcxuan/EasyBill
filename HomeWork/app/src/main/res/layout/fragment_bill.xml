@@ -43,8 +43,8 @@
         <finalhomework.tcl.com.finalhomework.ui.widget.ImageButtonWithText
             android:id="@+id/head_bill"
             style="@style/Theme.AppCompat.Light"
-            android:layout_width="100dp"
-            android:layout_height="200dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="我的"
             custom:picture="@mipmap/ic_launcher" />

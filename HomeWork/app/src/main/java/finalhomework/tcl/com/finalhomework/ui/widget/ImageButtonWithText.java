@@ -3,11 +3,16 @@ package finalhomework.tcl.com.finalhomework.ui.widget;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.view.Gravity;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import finalhomework.tcl.com.finalhomework.R;
+
+import static android.view.Gravity.CENTER;
+import static android.view.Gravity.CENTER_HORIZONTAL;
 
 public class ImageButtonWithText extends LinearLayout {
     public RoundImageView imageView;
@@ -31,6 +36,9 @@ public class ImageButtonWithText extends LinearLayout {
         imageView = new RoundImageView(context, attrs);
         imageView.setPadding(0, 0, 0, 0);
         // TODO: 18-10-9 给imageview加上大小限制
+        imageView.setLayoutParams(new ViewGroup.LayoutParams(180,
+                120));
+
         /**
          * Sets a drawable as the content of this ImageView.
          * This does Bitmap reading and decoding on the UI
@@ -49,10 +57,12 @@ public class ImageButtonWithText extends LinearLayout {
          * in the TextView beyond what is required for the text itself.
          */
         //水平居中
-        textView.setGravity(android.view.Gravity.CENTER_HORIZONTAL);
+        textView.setGravity(Gravity.TOP|CENTER_HORIZONTAL);
         textView.setPadding(0, 0, 0, 0);
         setClickable(true);
         setFocusable(true);
+        setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT));
         setTextColor(R.color.startColor);
         setOrientation(LinearLayout.VERTICAL);
         addView(imageView);
@@ -63,7 +73,7 @@ public class ImageButtonWithText extends LinearLayout {
         textView.setText(resId);
     }
 
-    public void setText(CharSequence buttonText) {
+    public void setText(String buttonText) {
         textView.setText(buttonText);
     }
 
