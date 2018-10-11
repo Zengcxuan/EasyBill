@@ -7,6 +7,7 @@
     <ImageView
         android:layout_width="0dp"
         android:layout_height="200dp"
+        android:background="@drawable/shared"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline14"
         app:layout_constraintStart_toStartOf="parent"

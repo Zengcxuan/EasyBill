@@ -2,6 +2,7 @@
 
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawerlayout_bill"
     android:layout_width="match_parent"
@@ -10,19 +11,50 @@
     android:orientation="vertical">
 
 
-    <android.support.design.widget.NavigationView
+    <!--<android.support.design.widget.NavigationView-->
+        <!--android:id="@+id/navigationview_bill"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:layout_gravity="left"-->
+        <!--android:fitsSystemWindows="true"-->
+        <!--app:headerLayout="@layout/bill_drawerlayout_header"-->
+        <!--app:menu="@menu/bill_drawerlayout_menu"-->
+        <!--tools:layout_editor_absoluteX="0dp">-->
+
+    <!--</android.support.design.widget.NavigationView>-->
+    <LinearLayout
         android:id="@+id/navigationview_bill"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
+        android:orientation="vertical"
         android:layout_gravity="left"
-        android:fitsSystemWindows="true"
-        app:headerLayout="@layout/bill_drawerlayout_header"
-        app:menu="@menu/bill_drawerlayout_menu"
-        tools:layout_editor_absoluteX="0dp">
+        android:background="@color/white"
+        android:layout_height="match_parent">
 
-    </android.support.design.widget.NavigationView>
+        <ImageButton
+            android:id="@+id/back_bill"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/back_arrow" />
+
+        <finalhomework.tcl.com.finalhomework.ui.widget.ImageButtonWithText
+            android:id="@+id/head_bill"
+            style="@style/Theme.AppCompat.Light"
+            android:layout_width="100dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center_horizontal"
+            android:text="我的"
+            custom:picture="@mipmap/ic_launcher" />
+        <include
+            layout="@layout/mybill" />
+
+        <include
+            layout="@layout/sharebill"/>
+
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"

@@ -30,6 +30,7 @@ public class ImageButtonWithText extends LinearLayout {
         a.recycle();
         imageView = new RoundImageView(context, attrs);
         imageView.setPadding(0, 0, 0, 0);
+        // TODO: 18-10-9 给imageview加上大小限制
         /**
          * Sets a drawable as the content of this ImageView.
          * This does Bitmap reading and decoding on the UI
@@ -69,5 +70,6 @@ public class ImageButtonWithText extends LinearLayout {
     public void setTextColor(int color) {
         textView.setTextColor(color);
     }
+    public void setImageView(int image){imageView.setImageDrawable(getResources().getDrawable(image));}
 
 }
