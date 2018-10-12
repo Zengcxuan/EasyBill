@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="20dp"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/dialog_bill_iv"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/dialog_bill_tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:textColor="#666666"
+                android:textSize="24sp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Use for a big ham"
+                />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="10dp"/>
+            <TextView
+                android:id="@+id/dialog_bill_tv_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:textColor="#666666"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:gravity="top|left"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="20dp"/>
+
+
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="20dp"/>
+
+    <TextView
+        android:id="@+id/dialog_bill_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="?attr/colorPrimary"
+        android:textSize="16sp"
+        android:layout_marginRight="8dp"
+        android:layout_gravity="center"
+        android:gravity="bottom|center"
+        android:text="朕知道了"
+        />
+    <LinearLayout android:layout_width="match_parent" android:layout_height="20dp"/>
+</LinearLayout>

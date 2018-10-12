@@ -214,11 +214,7 @@ public class DateUtils {
         return formatter.format(date);
     }
 
-    public static String long2Str(long mseconds, String format) {
-        SimpleDateFormat sdf = new SimpleDateFormat(format);
-        Date date = new Date(mseconds);
-        return sdf.format(date);
-    }
+
 
     public static Calendar str2Calendar(String str) {
         return str2Calendar(str, null);
@@ -844,6 +840,37 @@ public class DateUtils {
         Date weekEndSta = cal.getTime();
         return getDayEndTime(weekEndSta);
     }
+    public static String long2Str(long mseconds, String format) {
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        Date date = new Date(mseconds);
+        return sdf.format(date);
+    }
+    /**
+     * 判断是周几
+     * @param pTime 传入的时间
+     * @return
+     */
+    public static int DayForWeek(Long pTime) throws Exception {
+        SimpleDateFormat format = new SimpleDateFormat(FORMAT_YMD);
+        Date date = new Date(pTime);
+        //String time = format.format(date);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        int dayForWeek = 0;
+        if(calendar.get(Calendar.DAY_OF_WEEK) == 1){
+            dayForWeek = 7;
+        }else {
+            dayForWeek = calendar.get(Calendar.DAY_OF_WEEK) - 1;
+        }
+            return dayForWeek;
+
+       /*SimpleDateFormat  format =new SimpleDateFormat("yyyy-MM-dd");
+       Date tmpDate = format.parse(pTime);
+       Calendar cal = new GregorianCalendar();
+       cal.set(tmpDate.getYear(), tmpDate.getMonth(), tmpDate.getDay());
+       return cal.get(Calendar.DAY_OF_WEEK);*/
+
+        }
 
     /*// 获取本月的开始时间
     public static Date getBeginDayOfMonth() {

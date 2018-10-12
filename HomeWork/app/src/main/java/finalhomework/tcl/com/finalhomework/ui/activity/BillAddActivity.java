@@ -66,8 +66,6 @@ public class BillAddActivity extends BaseActivity implements BillView {
     TextView moneyTv;     //金额
     @BindView(R.id.tb_note_date)
     TextView dateTv;      //时间选择
-    @BindView(R.id.tb_note_cash)
-    TextView cashTv;      //支出方式选择
     @BindView(R.id.tb_note_remark)
     ImageView remarkIv;   //
     @BindView(R.id.viewpager_item)
@@ -135,18 +133,6 @@ public class BillAddActivity extends BaseActivity implements BillView {
         //设置当前 日期
         days = DateUtils.getCurDateStr("yyyy-MM-dd");
         dateTv.setText(days);
-/**
- * test_________________________________________==========================================
- *
- */
-      /*  if(SharedPUtils.isFirstStart(mContext)){
-            Log.i(TAG,"第一次进入将默认账单分类添加到数据库");
-            AllSortBill note= new Gson().fromJson(Constants.BILL_NOTE, AllSortBill.class);
-            List<SortBill> sorts=note.getOutSortList();
-            sorts.addAll(note.getInSortList());
-            LocalRepository.getInstance().saveSortBills(sorts);
-            //LocalRepository.getInstance().saveBPays(note.getPayinfo());
-        }*/
     }
 
     @Override
@@ -169,7 +155,6 @@ public class BillAddActivity extends BaseActivity implements BillView {
         ProgressUtils.dismiss();
         SnackbarUtils.show(mContext,throwable.getMessage());
     }
-
     /**
      * 初始化分类数据
      */
@@ -184,7 +169,6 @@ public class BillAddActivity extends BaseActivity implements BillView {
             setTitleStatus();
         }
     }
-
     /**
      * 设置状态
      */
@@ -195,14 +179,6 @@ public class BillAddActivity extends BaseActivity implements BillView {
         lastBean = mDatas.get(0);
         //设置选择的分类
         sortTv.setText(lastBean.getSortName());
-
-        //加载支付方式信息
-//        cardItem = new ArrayList<>();
-//        for (int i = 0; i < noteBean.getPayinfo().size(); i++) {
-//            String itemStr = noteBean.getPayinfo().get(i).getPayName();
-//            cardItem.add(itemStr);
-//        }
-
         initViewPager();
     }
 
@@ -334,7 +310,7 @@ public class BillAddActivity extends BaseActivity implements BillView {
      *
      * @param view
      */
-    @OnClick({R.id.tb_note_income, R.id.tb_note_outcome, R.id.tb_note_cash, R.id.tb_note_date,
+    @OnClick({R.id.tb_note_income, R.id.tb_note_outcome, R.id.tb_note_date,
             R.id.tb_note_remark, R.id.tb_calc_num_done, R.id.tb_calc_num_del, R.id.tb_calc_num_1,
             R.id.tb_calc_num_2, R.id.tb_calc_num_3, R.id.tb_calc_num_4, R.id.tb_calc_num_5,
             R.id.tb_calc_num_6, R.id.tb_calc_num_7, R.id.tb_calc_num_8, R.id.tb_calc_num_9,
@@ -351,9 +327,6 @@ public class BillAddActivity extends BaseActivity implements BillView {
             case R.id.tb_note_outcome://支出
                 isOutcome = true;
                 setTitleStatus();
-                break;
-            case R.id.tb_note_cash://现金
-                showPayinfoSelector();
                 break;
             case R.id.tb_note_date://日期
                 showTimeSelector();
@@ -410,21 +383,7 @@ public class BillAddActivity extends BaseActivity implements BillView {
         }
     }
 
-    /**
-     * 显示支付方式选择器
-     */
-    public void showPayinfoSelector()  {
-        pvCustomOptions = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
-            @Override
-            public void onOptionsSelect(int options1, int option2, int options3, View v) {
-                selectedPayinfoIndex = options1;
-                cashTv.setText(cardItem.get(options1));
-            }
-        })
-                .build();
-        pvCustomOptions.setPicker(cardItem);
-        pvCustomOptions.show();
-    }
+
 
     /**
      * 显示日期选择器

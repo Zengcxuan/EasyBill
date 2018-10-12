@@ -27,8 +27,11 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieEntry;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -45,6 +48,7 @@ import finalhomework.tcl.com.finalhomework.mvp.presenter.MonthChartPresenter;
 import finalhomework.tcl.com.finalhomework.mvp.presenter.impl.MonthChartPresenterImpl;
 import finalhomework.tcl.com.finalhomework.mvp.views.MonthChartView;
 import finalhomework.tcl.com.finalhomework.pojo.MonthBillForChart;
+import finalhomework.tcl.com.finalhomework.pojo.TotalBill;
 import finalhomework.tcl.com.finalhomework.ui.activity.SearchAll;
 import finalhomework.tcl.com.finalhomework.ui.adapter.MonthChartAdapter;
 import finalhomework.tcl.com.finalhomework.ui.widget.ImageButtonWithText;
@@ -55,8 +59,8 @@ import static android.view.Gravity.START;
 import static finalhomework.tcl.com.finalhomework.Utils.DateUtils.FORMAT_D;
 import static finalhomework.tcl.com.finalhomework.Utils.DateUtils.FORMAT_M;
 import static finalhomework.tcl.com.finalhomework.Utils.DateUtils.FORMAT_Y;
-
-
+import static finalhomework.tcl.com.finalhomework.Utils.DateUtils.FORMAT_YMD;
+import static finalhomework.tcl.com.finalhomework.Utils.DateUtils.FORMAT_YMDHMS;
 
 
 public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView,*/MonthChartView {
@@ -104,6 +108,8 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
     List<PointValue> outcome = new ArrayList<PointValue>();    //每天支出
     List<PointValue> income = new ArrayList<PointValue>();    //每天收入
 
+    List<TotalBill> datalist;
+    private long crdate;
     /**
      * 图表加入数据
      */
@@ -159,9 +165,9 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
                 break;
 
             case R.id.lineChart:
-                falseData();
+                //falseData();
                 ChartUtil.notifyDataSetChanged(chart, values, ChartUtil.weekValue);
-
+                break;
             case R.id.head_chart:
                 //开启个人信息界面
                 Toast.makeText(getActivity(), "你点击了我", Toast.LENGTH_LONG).show();
@@ -181,11 +187,39 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
     public void loadDataSuccess(MonthBillForChart tData) {
         List<MonthBillForChart.SortTypeList> listInComeData = tData.getInSortlist();
         List<MonthBillForChart.SortTypeList> listOutComeData = tData.getOutSortlist();
-       // listData.add(tData);
         rvList.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false));
         //adapter = new MonthChartAdapter(getActivity(),listInComeData);
         adapter = new MonthChartAdapter(getActivity(),listOutComeData);
         rvList.setAdapter(adapter);
+
+       // values.clear();//清除假数据
+
+        for (int i =0;i<listOutComeData.size();i++){
+            datalist=listOutComeData.get(i).getList();
+            crdate=datalist.get(0).getCrdate();
+            Log.e("meng111", "datalist: "+datalist);
+            Log.e("meng111", "crdate: "+crdate);
+            Date beginDayOfWeek = DateUtils.getBeginDayOfWeek();
+            Date endDayOfWeek = DateUtils.getEndDayOfWeek();
+
+            //先比较日期，然后判断是周几，添加到对应的
+          // int das = DateUtils.DayForWeek(DateUtils.long2Str(crdate,FORMAT_YMD));
+
+        //  DateUtils.long2Str(crdate,FORMAT_YMDHMS)
+
+           /* for (int j=0 ; j<7; j++){
+                values.add(new Entry(j,0));
+            }
+*/
+            /*Log.e("meng111", ""+DateUtils.long2Str(crdate,FORMAT_YMDHMS));
+            Log.e("meng111", "success: "+DateUtils.getEndDayOfWeek());
+            if (DateUtils.compareDate(DateUtils.getEndDayOfWeek(),DateUtils.str2Date(DateUtils.long2Str(crdate,FORMAT_YMDHMS)))){
+                Log.e("meng111","成功啦~" );
+            }*/
+            }
+        }
+
+
         /* List<MonthBillForChart> test_list = new ArrayList<>();
         Float x = 123.0f;
         Float y = 666.0f;
@@ -220,14 +254,11 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
 //            colors.add(Color.parseColor(list.get(i).getBack_color()));
         }*/
 
-
 //        setNoteData(0,entries.get(0).getValue());
 
-
-
         // list = tData.getDaylist();
-        Log.e("meng111", "loadDataSuccess");
-        falseData();
+
+        //falseData();
        /* String[] come ;
         for (int i=0;i<7;i++){
             if (list.get(i).getList()==null  ){
@@ -240,7 +271,8 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
             }
 
         }*/
-    }
+
+
     /**
      * 点击饼状图上区域后相应的数据设置
      *
