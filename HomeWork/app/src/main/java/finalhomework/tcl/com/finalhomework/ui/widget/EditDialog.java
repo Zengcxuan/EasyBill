@@ -13,8 +13,10 @@ import android.widget.Toast;
 import finalhomework.tcl.com.finalhomework.R;
 
 public class EditDialog extends Dialog {
+    private String TAG = "EditDialog";
     private Activity mContext;
     private String tip, titleName;
+    private Boolean isSet = false;
     private String input = "默认提醒内容";
     public  EditDialog(Activity context){
         super(context, R.style.ActionSheetDialogStyle);
@@ -33,7 +35,8 @@ public class EditDialog extends Dialog {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 input = editText.getText().toString();
-                Log.v("----", input);
+                Log.v(TAG, input);
+                isSet = true;
             }
         }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
             @Override
@@ -44,8 +47,9 @@ public class EditDialog extends Dialog {
         builder.create().show();
     }
 
-
+    public Boolean getIsSet(){return this.isSet;}
     public String getInput(){
-        return input;
+        return this.input;
     }
+    public void setIsSet(){ this.isSet = !isSet;}
 }

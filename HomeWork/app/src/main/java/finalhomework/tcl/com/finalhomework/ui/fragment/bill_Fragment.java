@@ -103,9 +103,6 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
     @Override
     protected void improtantData() {
         left();
-    }
-    @Override
-    protected void loadData() {
         //注册 EventBus
         EventBus.getDefault().register(this);
 
@@ -116,6 +113,19 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
         //请求当月数据
         getBills(Constants.currentUserId, setYear, setMonth);
         initDatePicker();
+    }
+    @Override
+    protected void loadData() {
+       /* //注册 EventBus
+        EventBus.getDefault().register(this);
+
+        flash();
+
+        presenter=new MonthDetailPresenterImpl(this);
+
+        //请求当月数据
+        getBills(Constants.currentUserId, setYear, setMonth);
+        initDatePicker();*/
     }
     /**
      * 监听list侧拉
