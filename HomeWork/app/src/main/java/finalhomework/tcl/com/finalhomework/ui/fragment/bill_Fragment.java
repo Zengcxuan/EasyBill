@@ -131,6 +131,7 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
      * 监听list侧拉
      */
     public void left(){
+        Log.e("meng111", "left: " );
         mLayoutManager = new StickyHeaderGridLayoutManager(SPAN_SIZE);
         mLayoutManager.setHeaderBottomOverlapMargin(5);
 
@@ -180,6 +181,7 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
      */
     @Override
     public void loadDataSuccess(MonthDetailAccount tData) {
+        Log.e("meng111", "loadDataSuccess: "+"66666666666" );
         tOutcome.setText(tData.getT_outcome());
         tIncome.setText(tData.getT_income());
         list = tData.getDaylist();

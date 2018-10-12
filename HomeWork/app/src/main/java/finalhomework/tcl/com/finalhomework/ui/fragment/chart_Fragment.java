@@ -2,9 +2,13 @@ package finalhomework.tcl.com.finalhomework.ui.fragment;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
+
+import android.provider.ContactsContract;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -20,9 +24,11 @@ import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.PieEntry;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Date;
+
 import java.util.List;
 
 
@@ -31,44 +37,25 @@ import butterknife.OnClick;
 import finalhomework.tcl.com.finalhomework.R;
 import finalhomework.tcl.com.finalhomework.Utils.ChartUtil;
 import finalhomework.tcl.com.finalhomework.Utils.DateUtils;
+import finalhomework.tcl.com.finalhomework.Utils.ImageUtils;
 import finalhomework.tcl.com.finalhomework.Utils.SnackbarUtils;
 import finalhomework.tcl.com.finalhomework.base.Constants;
+import finalhomework.tcl.com.finalhomework.base.MyApplication;
 import finalhomework.tcl.com.finalhomework.mvp.presenter.MonthChartPresenter;
-import finalhomework.tcl.com.finalhomework.mvp.presenter.MonthDetailPresenter;
 import finalhomework.tcl.com.finalhomework.mvp.presenter.impl.MonthChartPresenterImpl;
-import finalhomework.tcl.com.finalhomework.mvp.presenter.impl.MonthDetailPresenterImpl;
 import finalhomework.tcl.com.finalhomework.mvp.views.MonthChartView;
-import finalhomework.tcl.com.finalhomework.mvp.views.MonthDetailView;
 import finalhomework.tcl.com.finalhomework.pojo.MonthBillForChart;
-import finalhomework.tcl.com.finalhomework.pojo.MonthDetailAccount;
-import finalhomework.tcl.com.finalhomework.pojo.base;
 import finalhomework.tcl.com.finalhomework.ui.activity.SearchAll;
-
-import lecho.lib.hellocharts.gesture.ContainerScrollType;
-
+import finalhomework.tcl.com.finalhomework.ui.adapter.MonthChartAdapter;
 import finalhomework.tcl.com.finalhomework.ui.widget.ImageButtonWithText;
-
-import lecho.lib.hellocharts.gesture.ZoomType;
-import lecho.lib.hellocharts.listener.LineChartOnValueSelectListener;
-import lecho.lib.hellocharts.model.Axis;
-import lecho.lib.hellocharts.model.AxisValue;
-import lecho.lib.hellocharts.model.Line;
-import lecho.lib.hellocharts.model.LineChartData;
 import lecho.lib.hellocharts.model.PointValue;
-import lecho.lib.hellocharts.model.ValueShape;
-import lecho.lib.hellocharts.model.Viewport;
-import lecho.lib.hellocharts.util.ChartUtils;
-import lecho.lib.hellocharts.view.LineChartView;
-
 import static android.view.Gravity.CENTER;
 import static android.view.Gravity.END;
 import static android.view.Gravity.START;
 import static finalhomework.tcl.com.finalhomework.Utils.DateUtils.FORMAT_D;
 import static finalhomework.tcl.com.finalhomework.Utils.DateUtils.FORMAT_M;
 import static finalhomework.tcl.com.finalhomework.Utils.DateUtils.FORMAT_Y;
-import static finalhomework.tcl.com.finalhomework.Utils.DateUtils.calendar;
-import static finalhomework.tcl.com.finalhomework.Utils.DateUtils.getBeginDayOfWeek;
-import static finalhomework.tcl.com.finalhomework.Utils.DateUtils.getEndDayOfWeek;
+
 
 
 
@@ -90,19 +77,29 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
     Button yearBtn;
     @BindView(R.id.lineChart)
     LineChart chart;//显示线条的自定义View
-    private MonthDetailPresenter detailPresenter;
+    @BindView(R.id.rv_list_chart)
+    RecyclerView rvList;
+
+    private MonthChartAdapter adapter;
     private boolean TYPE = true;//默认总收入true
 
     private String TAG = "meng111";
-    private MonthBillForChart adapter;
+
+    //private MonthBillForChart adapter;
+
     private String setYear = DateUtils.getCurYear(FORMAT_Y);
     private String setMonth = DateUtils.getCurMonth(FORMAT_M);
     private String setDay = DateUtils.getDay(0, FORMAT_D);
-    private List<AxisValue> mAxisXValues = new ArrayList<AxisValue>();
-    private List<MonthDetailAccount.DaylistBean> list;
-    private List<Line> lines;
-    private Line line;
+    private MonthChartPresenter presenter;
+
+    private List<MonthBillForChart.SortTypeList> list;
+    private MonthBillForChart monthChartBean;
+    private String sort_image;//饼状图与之相对应的分类图片地址
+    private String sort_name;
+
     private boolean hasData = true;
+    private boolean isIncome = true;
+
     private List<Entry> values = new ArrayList<>();
     List<PointValue> outcome = new ArrayList<PointValue>();    //每天支出
     List<PointValue> income = new ArrayList<PointValue>();    //每天收入
@@ -182,6 +179,52 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
      */
     @Override
     public void loadDataSuccess(MonthBillForChart tData) {
+        List<MonthBillForChart.SortTypeList> listInComeData = tData.getInSortlist();
+        List<MonthBillForChart.SortTypeList> listOutComeData = tData.getOutSortlist();
+       // listData.add(tData);
+        rvList.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false));
+        //adapter = new MonthChartAdapter(getActivity(),listInComeData);
+        adapter = new MonthChartAdapter(getActivity(),listOutComeData);
+        rvList.setAdapter(adapter);
+        /* List<MonthBillForChart> test_list = new ArrayList<>();
+        Float x = 123.0f;
+        Float y = 666.0f;
+        for (int i=0;i<10;i++){
+            MonthBillForChart test_data = new MonthBillForChart(x,y);
+            test_list.add(test_data);
+        }*/
+
+       /* rvList.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false));
+        adapter = new MonthChartAdapter(getActivity(),test_list);
+        rvList.setAdapter(adapter);*/
+
+        /*Log.e(TAG, "loadDataSuccess: " );
+        adapter = new MonthChartAdapter(getActivity(), null);
+        float totalMoney;
+        monthChartBean=tData;
+        if (TYPE) {
+            list = monthChartBean.getOutSortlist();
+//            totalMoney = monthChartBean.getTotalOut();
+        } else {
+            list = monthChartBean.getInSortlist();
+//            totalMoney = monthChartBean.getTotalIn();
+        }
+        *//*ArrayList<PieEntry> entries = new ArrayList<>();
+        ArrayList<Integer> colors = new ArrayList<>();*//*
+
+        for (int i = 0; i < list.size(); i++) {
+           *//* float scale =list.get(i).getMoney() / totalMoney;
+            float value = (scale < 0.06f) ? 0.06f : scale;
+            entries.add(new PieEntry(value, ImageUtils.getDrawable(list.get(i).getSortImg())));*//*
+            setNoteData(i,list.get(i).getMoney());
+//            colors.add(Color.parseColor(list.get(i).getBack_color()));
+        }*/
+
+
+//        setNoteData(0,entries.get(0).getValue());
+
+
+
         // list = tData.getDaylist();
         Log.e("meng111", "loadDataSuccess");
         falseData();
@@ -198,6 +241,34 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
 
         }*/
     }
+    /**
+     * 点击饼状图上区域后相应的数据设置
+     *
+     * @param index
+     */
+   /* private void setNoteData(int index, float value) {
+        if (null==list||list.size()==0)
+            return;
+        sort_image = list.get(index).getSortImg();
+        sort_name = list.get(index).getSortName();
+
+
+        *//*if (TYPE) {
+            money.setText("-" + list.get(index).getMoney());
+        } else {
+            money.setText("+" + list.get(index).getMoney());
+        }*//*
+        DecimalFormat df = new DecimalFormat("0.00%");
+       // title.setText(sort_name+" : "+df.format(value));
+        *//*rankTitle.setText(sort_name + "排行榜");
+        circleBg.setImageDrawable(new ColorDrawable(Color.parseColor(back_color)));
+        circleImg.setImageDrawable(PieChartUtils.getDrawable(tMoneyBeanList.get(index).getSortImg()));*//*
+
+        adapter.setSortName(*//*sort_name+":"+df.format(value)*//*"123");
+        adapter.setSortImage(*//*ImageUtils.getDrawable(sort_image)*//*MyApplication.application.getDrawable(R.mipmap.add_button));
+        adapter.setmDatas(*//*String.valueOf(list.get(index).getMoney())*//*"666");
+        adapter.notifyDataSetChanged();
+    }*/
 
     /**
      * 年,月,周按钮点击后的颜色变化
@@ -228,7 +299,22 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
      */
     @Override
     protected void improtantData() {
+        //rvList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        /*adapter = new MonthChartAdapter(getActivity(), null);*/
+       /* List<MonthBillForChart> test_list = new ArrayList<>();
+        Float x = 123.0f;
+        Float y = 666.0f;
+        for (int i=0;i<10;i++){
+            MonthBillForChart test_data = new MonthBillForChart(x,y);
+            test_list.add(test_data);
+        }*/
 
+       /* rvList.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false));
+        adapter = new MonthChartAdapter(getActivity(),test_list);
+        rvList.setAdapter(adapter);*/
+
+        presenter=new MonthChartPresenterImpl(this);
+        presenter.getMonthChartBills(Constants.currentUserId, setYear, setMonth);
         getday();
         falseData();
         ChartUtil.notifyDataSetChanged(chart, values, ChartUtil.weekValue);
@@ -254,7 +340,8 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
     @Override
     protected void loadData() {
         tableRow.setGravity(END);
-        /* presenter=new MonthChartPresenterImpl(this);*/
+
+
     }
 
 
@@ -325,8 +412,8 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
     }
 
     public void getday() {
-       /* detailPresenter = new MonthDetailPresenterImpl(this);
-        detailPresenter.getDayCost(Constants.currentUserId, setYear, setMonth*//*,setDay*//*);*/
+        /*detailPresenter = new MonthDetailPresenterImpl(this);
+        detailPresenter.getDayCost(Constants.currentUserId, setYear, setMonth,setDay);*/
         Log.e(TAG, "getday: ");
     }
 
