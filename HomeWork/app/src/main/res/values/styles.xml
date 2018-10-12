@@ -10,7 +10,7 @@
     </style>
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!--状态栏颜色-->
-        <item name="colorPrimaryDark">@color/Indigo_colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/startColor</item>
         <!--Toolbar颜色-->
         <item name="colorPrimary">@color/Indigo_colorPrimary</item>
         <!--返回键样式-->

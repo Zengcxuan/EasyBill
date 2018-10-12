@@ -1,34 +1,46 @@
 package finalhomework.tcl.com.finalhomework.ui.fragment;
 
-import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.TimePickerDialog;
+import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import finalhomework.tcl.com.finalhomework.MyService;
 import finalhomework.tcl.com.finalhomework.R;
+import finalhomework.tcl.com.finalhomework.ui.activity.BudgetActivity;
+import finalhomework.tcl.com.finalhomework.ui.widget.EditDialog;
 import finalhomework.tcl.com.finalhomework.ui.widget.ImageButtonWithText;
+import finalhomework.tcl.com.finalhomework.ui.widget.NotificationTool;
 import finalhomework.tcl.com.finalhomework.ui.widget.RoundImageView;
-
-import static android.view.Gravity.CENTER;
+import static android.content.Context.ALARM_SERVICE;
 
 
 public class mine_Fragment extends HomeBaseFragment {
@@ -44,7 +56,7 @@ public class mine_Fragment extends HomeBaseFragment {
     RoundImageView headImage; //加载头像的圆形ImageView
     @BindView(R.id.name)
     TextView userName; //用户名字
-    protected Activity mContext;
+    private Boolean isOpen = true;
     private int[] typeIcon = new int[]{
             R.mipmap.voice, R.mipmap.notify, R.mipmap.yusuan, R.mipmap.cyper, R.mipmap.outport,
             R.mipmap.count, R.mipmap.help
@@ -107,18 +119,31 @@ public class mine_Fragment extends HomeBaseFragment {
                 switch (position) {
                     case 0:
                         // TODO: 18-10-8  声音开关
-                        Toast.makeText(getActivity(),"声音开关", Toast.LENGTH_LONG).show();
+                        if(isOpen) {
+                            Toast.makeText(getActivity(), "声音关闭", Toast.LENGTH_LONG).show();
+                        }else {
+                            Toast.makeText(getActivity(), "声音开启", Toast.LENGTH_LONG).show();
+                        }
+                        isOpen = !isOpen;
                         break;
                     case 1:
                         // TODO: 18-10-8 定时提醒
+                        EditDialog clockContent = new EditDialog(getActivity());
+                        clockContent.show();
+                        String notifyContent = clockContent.getInput();
+                        clockSetting(notifyContent);
                         break;
                     case 2:
                         // TODO: 18-10-8 预算
+                        Intent intent = new Intent(getActivity(), BudgetActivity.class);
+                        getActivity().startActivity(intent);
                         break;
                     case 3:
                         // TODO: 18-10-8 手势密码
+                        NotificationTool notification = new NotificationTool(getActivity());
+                        notification.sendNotify();
                         break;
-                    case 4:
+                   case 4:
                         // TODO: 18-10-8 导出账单
                         break;
                     case 5:
@@ -131,6 +156,40 @@ public class mine_Fragment extends HomeBaseFragment {
 
             }
         });
+    }
+
+    /**闹钟设置*/
+    private void clockSetting(final String string){
+        Calendar currentTime = Calendar.getInstance();
+        new TimePickerDialog(getActivity(), 0, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                // TODO: 18-10-10 开启notify
+                Intent intent = new Intent(getActivity(), MyService.class);
+                intent.putExtra("msg", string);
+
+                PendingIntent pi = PendingIntent.getService(getActivity(), 0, intent, 0);
+                Calendar c = Calendar.getInstance();
+                c.setTimeInMillis(System.currentTimeMillis());
+                //用户选择时间
+                c.set(Calendar.HOUR, hourOfDay);
+                c.set(Calendar.MINUTE, minute);
+                //获取系统的AlarmManager
+                Log.i("----System time----", "" + System.currentTimeMillis());
+                Log.i("----choice time----", "" + c.getTimeInMillis());
+                AlarmManager alarmManager = (AlarmManager)getActivity().getSystemService(
+                        ALARM_SERVICE);
+//                alarmManager.set(AlarmManager.RTC_WAKEUP,
+//                        c.getTimeInMillis(), pi);
+//                alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pi);
+                if (Build.VERSION.SDK_INT >= 19) {
+                    alarmManager.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pi);
+                } else {
+                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pi);
+                }
+
+            }
+        }, currentTime.get(Calendar.HOUR_OF_DAY), currentTime.get(Calendar.MINUTE), false).show();
     }
 
     /**
@@ -170,6 +229,7 @@ public class mine_Fragment extends HomeBaseFragment {
     protected void improtantData() {
 
     }
+
 
     /**
      * 返回键名字

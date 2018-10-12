@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 <string name="app_name">finalHomeWork</string>
+    <string name="surplus_set">请设置预算</string>
     <string name="open">打开</string>
     <string name="close">关闭</string>
     <string name="outcome">支出</string>
