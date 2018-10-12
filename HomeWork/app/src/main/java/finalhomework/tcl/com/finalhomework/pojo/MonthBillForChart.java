@@ -4,6 +4,14 @@ import java.util.List;
 
 
 public class MonthBillForChart extends base {
+    public MonthBillForChart(float totalOut, float totalIn) {
+        this.totalOut = totalOut;
+        this.totalIn = totalIn;
+    }
+
+    public MonthBillForChart() {
+       super();
+    }
 
     float totalOut;    //总支出
     float totalIn;    //总收入

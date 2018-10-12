@@ -11,11 +11,11 @@
         <attr name="picture" format="reference"/>
     </declare-styleable>
 
+
     <declare-styleable name="CircleImageView">
         <attr name="border_width" format="dimension"/>
         <attr name="border_color" format="color"/>
     </declare-styleable>
-
 
     <declare-styleable name="SwipeMenuView">
         <attr name="swipeEnable" format="boolean"/>
