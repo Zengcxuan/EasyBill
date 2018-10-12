@@ -231,9 +231,12 @@
             <android.support.v4.widget.SwipeRefreshLayout
                 android:layout_below="@+id/constraintLayout"
                 android:id="@+id/swipe"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:background="@android:color/white"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:elevation="4sp"
                 >
 
                 <android.support.v7.widget.RecyclerView
@@ -244,20 +247,18 @@
                     />
 
             </android.support.v4.widget.SwipeRefreshLayout>
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/bill_add"
-            android:layout_alignParentRight="true"
-            android:backgroundTint="@color/colorAccentBlue"
-            app:borderWidth="0dp"
-            android:layout_alignParentBottom="true"
-            android:layout_margin="30dp"
-            android:src="@mipmap/add_bill"
-            app:pressedTranslationZ="3dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleType="fitCenter"
-           />
 
+            <com.melnykov.fab.FloatingActionButton
+                android:id="@+id/bill_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="2dp"
+                android:background="@drawable/bill_my_background"
+                android:backgroundTint="@android:drawable/screen_background_light_transparent"
+                android:scaleType="center"
+                android:src="@mipmap/add_bill3" />
         <!--</LinearLayout>-->
 
     </RelativeLayout>

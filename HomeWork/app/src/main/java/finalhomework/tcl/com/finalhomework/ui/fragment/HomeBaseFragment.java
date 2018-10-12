@@ -121,6 +121,17 @@ public abstract class HomeBaseFragment extends Fragment {
                 //mAnimationDrawable.stop();
                 drawerView.setClickable(true);
                 mDrawerLayout.bringChildToFront(getLeftWindow());
+                ImageButton backBtn = getBackBtn();
+                backBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mDrawerLayout.closeDrawers();
+                    }
+                });
+
+                ImageButtonWithText headView = getHead();
+                headView.setText("我的");
+                headView.setImageView(R.mipmap.sort_kid);
             }
 
             @Override
@@ -191,24 +202,24 @@ public abstract class HomeBaseFragment extends Fragment {
     private void lazyLoad() {
         //这里进行双重标记判断,是因为setUserVisibleHint会多次回调,
         // 并且会在onCreateView执行前回调,必须确保onCreateView加载完毕且页面可见,才加载数据
-        if (isViewCreated && isUIVisible) {
-            loadData();
-            //数据加载完毕,恢复标记,防止重复加载
-            isViewCreated = false;
-            isUIVisible = false;
-            ImageButton backBtn = getBackBtn();
-            backBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mDrawerLayout.closeDrawers();
-                }
-            });
-
-            ImageButtonWithText headView = getHead();
-            headView.setText("我的");
-            headView.setImageView(R.mipmap.sort_kid);
-
-        }
+//        if (isViewCreated && isUIVisible) {
+//            loadData();
+//            //数据加载完毕,恢复标记,防止重复加载
+//            isViewCreated = false;
+//            isUIVisible = false;
+//            ImageButton backBtn = getBackBtn();
+//            backBtn.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    mDrawerLayout.closeDrawers();
+//                }
+//            });
+//
+//            ImageButtonWithText headView = getHead();
+//            headView.setText("我的");
+//            headView.setImageView(R.mipmap.sort_kid);
+//
+//        }
     }
 
     @Override

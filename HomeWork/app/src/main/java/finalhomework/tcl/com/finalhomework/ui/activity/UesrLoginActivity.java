@@ -57,21 +57,27 @@ public class UesrLoginActivity extends BaseActivity implements UserLoginView{
     @OnClick({R.id.button_left, R.id.button_right,R.id.login_button})
     protected void onClick(View view) {
         switch (view.getId()) {
-            case R.id.button_left:
-                if (!isLogin) {
-                    openLoginFragment();
+//            case R.id.button_left:
+//                if (!isLogin) {
+//                    openLoginFragment();
 //                    leftBtn.setText("登陆");
 //                    rightBtn.setText("注册");
-                    loginButton.setText("登陆");
-                    isLogin =!isLogin;
-                }
-                break;
+//                    loginButton.setText("登陆");
+//                    isLogin =!isLogin;
+//                }
+//                break;
             case R.id.button_right:
                 if (isLogin) {
                     openRigsterFragment();
-//                    leftBtn.setText("注册");
-//                    rightBtn.setText("登陆");
+                    leftBtn.setText("注册");
+                    rightBtn.setText("登陆");
                     loginButton.setText("注册");
+                    isLogin =!isLogin;
+                }else {
+                    openLoginFragment();
+                    leftBtn.setText("登陆");
+                    rightBtn.setText("注册");
+                    loginButton.setText("登陆");
                     isLogin =!isLogin;
                 }
                 break;

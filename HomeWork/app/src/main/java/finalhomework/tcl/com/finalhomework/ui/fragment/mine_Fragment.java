@@ -1,15 +1,23 @@
 package finalhomework.tcl.com.finalhomework.ui.fragment;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -41,6 +49,7 @@ import finalhomework.tcl.com.finalhomework.ui.widget.ImageButtonWithText;
 import finalhomework.tcl.com.finalhomework.ui.widget.NotificationTool;
 import finalhomework.tcl.com.finalhomework.ui.widget.RoundImageView;
 import static android.content.Context.ALARM_SERVICE;
+import static android.support.v4.content.PermissionChecker.checkSelfPermission;
 
 
 public class mine_Fragment extends HomeBaseFragment {
@@ -93,9 +102,48 @@ public class mine_Fragment extends HomeBaseFragment {
      */
     @Override
     protected  void loadData(){
+    }
+
+    /**闹钟设置*/
+    private void clockSetting(final String string){
+        Calendar currentTime = Calendar.getInstance();
+        new TimePickerDialog(getActivity(), 0, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                // TODO: 18-10-10 设置闹钟
+                Intent intent = new Intent(getActivity(), MyService.class);
+                intent.putExtra("msg", string);
+
+                PendingIntent pi = PendingIntent.getService(getActivity(), 0, intent, 0);
+                Calendar c = Calendar.getInstance();
+                c.setTimeInMillis(System.currentTimeMillis());
+                //用户选择时间
+                c.set(Calendar.HOUR, hourOfDay);
+                c.set(Calendar.MINUTE, minute);
+                //获取系统的AlarmManager
+                Log.i(TAG, "System time" + System.currentTimeMillis());
+                Log.i(TAG, "choice time" + c.getTimeInMillis());
+                AlarmManager alarmManager = (AlarmManager)getActivity().getSystemService(
+                        ALARM_SERVICE);
+//                alarmManager.set(AlarmManager.RTC_WAKEUP,
+//                        c.getTimeInMillis(), pi);
+//                alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pi);
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pi);
 
 
-        initData();
+            }
+        }, currentTime.get(Calendar.HOUR_OF_DAY), currentTime.get(Calendar.MINUTE), false).show();
+    }
+
+    /**
+     * 载入用户数据
+     */
+    private void initData(){
+        // TODO: 18-10-9 载入头像名字，账单数据
+        recordDays.setText("55"); //总天数
+        recordDeals.setText("11"); //总笔数
+        recordSurplus.setText("55"); //结余
+
         //初始化GridView，添加itemClickListener，下方多行栏目的监听
         final List<Map<String, Object>> dataList;
         SimpleAdapter adapter;
@@ -128,10 +176,16 @@ public class mine_Fragment extends HomeBaseFragment {
                         break;
                     case 1:
                         // TODO: 18-10-8 定时提醒
+                        /**
+                        * 逻辑不对，应该先输入内容
+                        */
                         EditDialog clockContent = new EditDialog(getActivity());
                         clockContent.show();
-                        String notifyContent = clockContent.getInput();
-                        clockSetting(notifyContent);
+                        while (clockContent.getIsSet()) {
+                            String notifyContent = clockContent.getInput();
+                            clockSetting(notifyContent);
+                            clockContent.setIsSet();
+                        }
                         break;
                     case 2:
                         // TODO: 18-10-8 预算
@@ -140,10 +194,8 @@ public class mine_Fragment extends HomeBaseFragment {
                         break;
                     case 3:
                         // TODO: 18-10-8 手势密码
-                        NotificationTool notification = new NotificationTool(getActivity());
-                        notification.sendNotify();
                         break;
-                   case 4:
+                    case 4:
                         // TODO: 18-10-8 导出账单
                         break;
                     case 5:
@@ -156,50 +208,6 @@ public class mine_Fragment extends HomeBaseFragment {
 
             }
         });
-    }
-
-    /**闹钟设置*/
-    private void clockSetting(final String string){
-        Calendar currentTime = Calendar.getInstance();
-        new TimePickerDialog(getActivity(), 0, new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                // TODO: 18-10-10 开启notify
-                Intent intent = new Intent(getActivity(), MyService.class);
-                intent.putExtra("msg", string);
-
-                PendingIntent pi = PendingIntent.getService(getActivity(), 0, intent, 0);
-                Calendar c = Calendar.getInstance();
-                c.setTimeInMillis(System.currentTimeMillis());
-                //用户选择时间
-                c.set(Calendar.HOUR, hourOfDay);
-                c.set(Calendar.MINUTE, minute);
-                //获取系统的AlarmManager
-                Log.i("----System time----", "" + System.currentTimeMillis());
-                Log.i("----choice time----", "" + c.getTimeInMillis());
-                AlarmManager alarmManager = (AlarmManager)getActivity().getSystemService(
-                        ALARM_SERVICE);
-//                alarmManager.set(AlarmManager.RTC_WAKEUP,
-//                        c.getTimeInMillis(), pi);
-//                alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pi);
-                if (Build.VERSION.SDK_INT >= 19) {
-                    alarmManager.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pi);
-                } else {
-                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pi);
-                }
-
-            }
-        }, currentTime.get(Calendar.HOUR_OF_DAY), currentTime.get(Calendar.MINUTE), false).show();
-    }
-
-    /**
-     * 载入用户数据
-     */
-    private void initData(){
-        // TODO: 18-10-9 载入头像名字，账单数据
-        recordDays.setText("55"); //总天数
-        recordDeals.setText("11"); //总笔数
-        recordSurplus.setText("55"); //结余
     }
     /**
      * 设置菜单图标
@@ -227,7 +235,7 @@ public class mine_Fragment extends HomeBaseFragment {
 
     @Override
     protected void improtantData() {
-
+        initData();
     }
 
 

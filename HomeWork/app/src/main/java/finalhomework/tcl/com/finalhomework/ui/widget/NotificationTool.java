@@ -25,7 +25,7 @@ public class NotificationTool {
 
     public void sendNotify(){
         Log.i("----", "send" );
-        final int NOTIFICATION_ID = 0x123;
+        final int NOTIFICATION_ID = 1;
         NotificationManager nm = (NotificationManager) mContext.getSystemService(NOTIFICATION_SERVICE);
         Intent intent = new Intent(mContext, HomeActivity.class);
         PendingIntent pi = PendingIntent.getActivity(mContext, 1, intent, 0);
@@ -33,7 +33,7 @@ public class NotificationTool {
             /**
              * 安卓O之后新增要求,需要添加一个Channel
              */
-            NotificationChannel mChannel = new NotificationChannel("18801267106", "canxuan",NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationChannel mChannel = new NotificationChannel("18801267106", "canxuan",NotificationManager.IMPORTANCE_HIGH);
             mChannel.setDescription("for EasyBill");
             mChannel.enableLights(true);
             mChannel.setLightColor(Color.RED);
@@ -41,13 +41,14 @@ public class NotificationTool {
             mChannel.setVibrationPattern(new long[]{100,200,300,400,500,400,300,200,400});
             nm.createNotificationChannel(mChannel);
             NotificationCompat.Builder builder = new NotificationCompat.Builder(mContext)
-                    .setSmallIcon(R.mipmap.sort_kid)
+                    .setSmallIcon(R.mipmap.app_icon)
                     .setContentTitle(title)
                     .setContentText(msg)
                     .setDefaults(NotificationCompat.DEFAULT_SOUND)
                     .setOngoing(true)
+                    .setAutoCancel(true)
                     .setChannelId("18801267106");
-            nm.notify(1, builder.build());
+            nm.notify(NOTIFICATION_ID, builder.build());
         }else {
             NotificationCompat.Builder builder = new NotificationCompat.Builder(mContext)
 //                .setAutoCancel(true)
