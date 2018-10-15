@@ -157,14 +157,9 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
                 lastWeekBtn.setTextColor(getResources().getColor(R.color.tab_clicked));
                 tableRow.setGravity(START);
                 break;
-
             case R.id.lineChart:
                 falseData();
                 ChartUtil.notifyDataSetChanged(chart, values, ChartUtil.weekValue);
-
-            case R.id.head_chart:
-                //开启个人信息界面
-                Toast.makeText(getActivity(), "你点击了我", Toast.LENGTH_LONG).show();
                 break;
             default:
                 break;

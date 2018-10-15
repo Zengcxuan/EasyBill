@@ -3,11 +3,16 @@ package finalhomework.tcl.com.finalhomework.ui.fragment;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -23,6 +28,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -41,6 +47,7 @@ import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import finalhomework.tcl.com.finalhomework.MyBroadcast;
 import finalhomework.tcl.com.finalhomework.MyService;
 import finalhomework.tcl.com.finalhomework.R;
 import finalhomework.tcl.com.finalhomework.ui.activity.BudgetActivity;
@@ -48,6 +55,8 @@ import finalhomework.tcl.com.finalhomework.ui.widget.EditDialog;
 import finalhomework.tcl.com.finalhomework.ui.widget.ImageButtonWithText;
 import finalhomework.tcl.com.finalhomework.ui.widget.NotificationTool;
 import finalhomework.tcl.com.finalhomework.ui.widget.RoundImageView;
+
+import static android.app.PendingIntent.FLAG_ONE_SHOT;
 import static android.content.Context.ALARM_SERVICE;
 import static android.support.v4.content.PermissionChecker.checkSelfPermission;
 
@@ -104,36 +113,6 @@ public class mine_Fragment extends HomeBaseFragment {
     protected  void loadData(){
     }
 
-    /**闹钟设置*/
-    private void clockSetting(final String string){
-        Calendar currentTime = Calendar.getInstance();
-        new TimePickerDialog(getActivity(), 0, new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                // TODO: 18-10-10 设置闹钟
-                Intent intent = new Intent(getActivity(), MyService.class);
-                intent.putExtra("msg", string);
-
-                PendingIntent pi = PendingIntent.getService(getActivity(), 0, intent, 0);
-                Calendar c = Calendar.getInstance();
-                c.setTimeInMillis(System.currentTimeMillis());
-                //用户选择时间
-                c.set(Calendar.HOUR, hourOfDay);
-                c.set(Calendar.MINUTE, minute);
-                //获取系统的AlarmManager
-                Log.i(TAG, "System time" + System.currentTimeMillis());
-                Log.i(TAG, "choice time" + c.getTimeInMillis());
-                AlarmManager alarmManager = (AlarmManager)getActivity().getSystemService(
-                        ALARM_SERVICE);
-//                alarmManager.set(AlarmManager.RTC_WAKEUP,
-//                        c.getTimeInMillis(), pi);
-//                alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pi);
-                alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pi);
-
-
-            }
-        }, currentTime.get(Calendar.HOUR_OF_DAY), currentTime.get(Calendar.MINUTE), false).show();
-    }
 
     /**
      * 载入用户数据
@@ -179,13 +158,7 @@ public class mine_Fragment extends HomeBaseFragment {
                         /**
                         * 逻辑不对，应该先输入内容
                         */
-                        EditDialog clockContent = new EditDialog(getActivity());
-                        clockContent.show();
-                        while (clockContent.getIsSet()) {
-                            String notifyContent = clockContent.getInput();
-                            clockSetting(notifyContent);
-                            clockContent.setIsSet();
-                        }
+                        clockSet();
                         break;
                     case 2:
                         // TODO: 18-10-8 预算
@@ -208,7 +181,72 @@ public class mine_Fragment extends HomeBaseFragment {
 
             }
         });
+//        //取消按键音效
+//        listView.setSoundEffectsEnabled(false);
     }
+
+    /**
+     * 弹出对话框,获取提醒内容,获取后调用clockSetting设置闹钟
+     */
+    private void clockSet(){
+        final EditText editText = new EditText(mContext);
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setTitle("定时提醒");
+        builder.setMessage("请输入内容");
+        builder.setView(editText);
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String input = editText.getText().toString();
+                Log.v(TAG + ":clockSet", input);
+                clockSetting(input);
+            }
+        }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(mContext, "取消", Toast.LENGTH_LONG).show();
+            }
+        });
+        builder.create().show();
+    }
+
+    /**
+     * 闹钟设置, 到点开启Service
+     */
+    private void clockSetting(final String string){
+        Log.v(TAG + ":clockSetting", string);
+        Calendar currentTime = Calendar.getInstance();
+        new TimePickerDialog(getActivity(), 0, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                // TODO: 18-10-10 设置闹钟
+//                Intent intent = new Intent(mContext, MyService.class);
+                Intent intent = new Intent(mContext, MyBroadcast.class);
+                intent.putExtra("msg", string);
+//                PendingIntent pi = PendingIntent.getService(mContext, 0, intent,
+//                        PendingIntent.FLAG_CANCEL_CURRENT);
+                PendingIntent pi = PendingIntent.getBroadcast(mContext, 0, intent,
+                        PendingIntent.FLAG_CANCEL_CURRENT);
+                Calendar c = Calendar.getInstance();
+                c.setTimeInMillis(System.currentTimeMillis());
+                //用户选择时间
+                c.set(Calendar.HOUR, hourOfDay);
+                c.set(Calendar.MINUTE, minute);
+                //获取系统的AlarmManager
+                Log.i(TAG, "System time" + System.currentTimeMillis());
+                Log.i(TAG, "choice time" + c.getTimeInMillis());
+                AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(ALARM_SERVICE);
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pi);
+//                alarmManager.setWindow(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(),
+//                        100, pi);
+
+
+//                android 4.4(19)以下使用set, 19以上set时间不准确, 需使用setExact
+//                alarmManager.set(AlarmManager.RTC_WAKEUP,c.getTimeInMillis(), pi);
+            }
+        }, currentTime.get(Calendar.HOUR_OF_DAY), currentTime.get(Calendar.MINUTE), false).show();
+    }
+
     /**
      * 设置菜单图标
      */

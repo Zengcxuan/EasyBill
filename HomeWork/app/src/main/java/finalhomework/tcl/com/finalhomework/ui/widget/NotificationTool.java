@@ -33,21 +33,23 @@ public class NotificationTool {
             /**
              * 安卓O之后新增要求,需要添加一个Channel
              */
-            NotificationChannel mChannel = new NotificationChannel("18801267106", "canxuan",NotificationManager.IMPORTANCE_HIGH);
+            NotificationChannel mChannel = new NotificationChannel("777", "canxuan",NotificationManager.IMPORTANCE_HIGH);
             mChannel.setDescription("for EasyBill");
             mChannel.enableLights(true);
-            mChannel.setLightColor(Color.RED);
+            mChannel.setLightColor(Color.BLUE);
             mChannel.enableVibration(true);
             mChannel.setVibrationPattern(new long[]{100,200,300,400,500,400,300,200,400});
             nm.createNotificationChannel(mChannel);
             NotificationCompat.Builder builder = new NotificationCompat.Builder(mContext)
-                    .setSmallIcon(R.mipmap.app_icon)
+                    .setSmallIcon(R.mipmap.start)
                     .setContentTitle(title)
                     .setContentText(msg)
+                    .setColor(mContext.getResources().getColor(R.color.startColor))
                     .setDefaults(NotificationCompat.DEFAULT_SOUND)
                     .setOngoing(true)
                     .setAutoCancel(true)
-                    .setChannelId("18801267106");
+                    .setChannelId("777")
+                    .setContentIntent(pi);
             nm.notify(NOTIFICATION_ID, builder.build());
         }else {
             NotificationCompat.Builder builder = new NotificationCompat.Builder(mContext)

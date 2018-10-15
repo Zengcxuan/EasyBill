@@ -43,6 +43,7 @@
         <activity android:name=".ui.activity.BudgetActivity"/>
         <service android:name=".MyService"/>
         <activity android:name=".ui.activity.UesrLoginActivity"/>
+        <receiver android:name=".MyBroadcast"/>
     </application>
 
 </manifest>
