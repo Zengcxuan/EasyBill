@@ -129,7 +129,7 @@ public class ChartUtil {
      * @return x轴数据
      */
     private static String[] xValuesProcess(int valueType) {
-        String[] week = {"周日", "周一", "周二", "周三", "周四", "周五", "周六"};
+
 
        /* if (valueType == dayValue) { // 今日
             String[] dayValues = new String[7];
