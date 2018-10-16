@@ -161,6 +161,8 @@ public abstract class HomeBaseFragment extends Fragment {
 //                .setDisplayHomeAsUpEnabled(true);//设置toolbar的图标可显示
 //        Objects.requireNonNull(((AppCompatActivity) getActivity()).getSupportActionBar())
 //                .setHomeAsUpIndicator(R.drawable.menu);//设置图标
+        //        Objects.requireNonNull(((AppCompatActivity) getActivity()).getSupportActionBar()).
+        // setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationIcon(R.drawable.menu);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -168,7 +170,6 @@ public abstract class HomeBaseFragment extends Fragment {
                 mDrawerLayout.openDrawer(Gravity.LEFT);
             }
         });
-//        Objects.requireNonNull(((AppCompatActivity) getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
