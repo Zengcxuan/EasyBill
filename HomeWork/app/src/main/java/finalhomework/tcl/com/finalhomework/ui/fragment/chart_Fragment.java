@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import android.provider.ContactsContract;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -27,6 +28,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieEntry;
 
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -38,6 +40,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import finalhomework.tcl.com.finalhomework.R;
+import finalhomework.tcl.com.finalhomework.Utils.BillUtils;
 import finalhomework.tcl.com.finalhomework.Utils.ChartUtil;
 import finalhomework.tcl.com.finalhomework.Utils.DateUtils;
 import finalhomework.tcl.com.finalhomework.Utils.ImageUtils;
@@ -48,6 +51,7 @@ import finalhomework.tcl.com.finalhomework.mvp.presenter.MonthChartPresenter;
 import finalhomework.tcl.com.finalhomework.mvp.presenter.impl.MonthChartPresenterImpl;
 import finalhomework.tcl.com.finalhomework.mvp.views.MonthChartView;
 import finalhomework.tcl.com.finalhomework.pojo.MonthBillForChart;
+import finalhomework.tcl.com.finalhomework.pojo.MonthDetailAccount;
 import finalhomework.tcl.com.finalhomework.pojo.TotalBill;
 import finalhomework.tcl.com.finalhomework.ui.activity.SearchAll;
 import finalhomework.tcl.com.finalhomework.ui.adapter.MonthChartAdapter;
@@ -60,10 +64,11 @@ import static finalhomework.tcl.com.finalhomework.Utils.DateUtils.FORMAT_D;
 import static finalhomework.tcl.com.finalhomework.Utils.DateUtils.FORMAT_M;
 import static finalhomework.tcl.com.finalhomework.Utils.DateUtils.FORMAT_Y;
 import static finalhomework.tcl.com.finalhomework.Utils.DateUtils.FORMAT_YMD;
+import static finalhomework.tcl.com.finalhomework.Utils.DateUtils.FORMAT_YMD000;
 import static finalhomework.tcl.com.finalhomework.Utils.DateUtils.FORMAT_YMDHMS;
 
 
-public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView,*/MonthChartView {
+public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView,*/MonthChartView/*bill_Fragment.DailyDatas*/ {
 
     @BindView(R.id.thisweek)
     Button thisWeekBtn;
@@ -83,33 +88,36 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
     LineChart chart;//显示线条的自定义View
     @BindView(R.id.rv_list_chart)
     RecyclerView rvList;
-
+    @BindView(R.id.swipe2)
+    SwipeRefreshLayout swipe;
     private MonthChartAdapter adapter;
+
     private boolean TYPE = true;//默认总收入true
 
     private String TAG = "meng111";
 
-    //private MonthBillForChart adapter;
 
     private String setYear = DateUtils.getCurYear(FORMAT_Y);
     private String setMonth = DateUtils.getCurMonth(FORMAT_M);
-    private String setDay = DateUtils.getDay(0, FORMAT_D);
     private MonthChartPresenter presenter;
 
-    private List<MonthBillForChart.SortTypeList> list;
-    private MonthBillForChart monthChartBean;
-    private String sort_image;//饼状图与之相对应的分类图片地址
-    private String sort_name;
-
-    private boolean hasData = true;
-    private boolean isIncome = true;
-
     private List<Entry> values = new ArrayList<>();
-    List<PointValue> outcome = new ArrayList<PointValue>();    //每天支出
-    List<PointValue> income = new ArrayList<PointValue>();    //每天收入
 
-    List<TotalBill> datalist;
-    private long crdate;
+    List<MonthBillForChart.SortTypeList> listInComeData ;
+    List<MonthBillForChart.SortTypeList> listOutComeData;
+    List<MonthDetailAccount.DaylistBean> detailList;
+
+    private String crdate;
+    private int week;
+    private String allMoney;
+    private String income;
+    private String outcome;
+    private boolean isIncome = true;
+    private boolean isThisWeek = true;
+    private Date beginDayOfWeek;
+    private Date endDayOfWeek;
+    private Date beginDayOfLastWeek;
+    private Date endDayOfLastWeek;
     /**
      * 图表加入数据
      */
@@ -119,22 +127,20 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
         values.add(new Entry(x, data));
         Log.e(TAG, "setData: " + values);
     }
-
     private void falseData() {
-        values.add(new Entry(0, 10));
-        values.add(new Entry(1, 20));
-        values.add(new Entry(2, 30));
-        values.add(new Entry(3, 10));
-        values.add(new Entry(4, 40));
-        values.add(new Entry(5, 5));
-        values.add(new Entry(6, 70));
+        for (int i =0;i<7;i++){
+            values.add(new Entry(i,0));
+        }
     }
-
+    private void setFalseData(){
+        for (int i =0;i<7;i++){
+            values.set(i,new Entry(i,0));
+        }
+    }
     /**
      * 按钮事件处理
      */
-
-    @OnClick({R.id.button_week, R.id.button_month, R.id.button_year, R.id.thisweek, R.id.lastweek, R.id.lineChart, R.id.head_chart})
+    @OnClick({R.id.button_week, R.id.button_month, R.id.button_year, R.id.thisweek, R.id.lastweek, R.id.head_chart})
     public void onClick(View view) {
 
         switch (view.getId()) {
@@ -157,15 +163,15 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
                 lastWeekBtn.setTextColor(getResources().getColor(R.color.tab_unclicked));
                 thisWeekBtn.setTextColor(getResources().getColor(R.color.tab_clicked));
                 tableRow.setGravity(END);
+                isThisWeek =true;
+                presenter.getMonthChartBills(Constants.currentUserId,setYear,setMonth);
                 break;
             case R.id.lastweek:
                 thisWeekBtn.setTextColor(getResources().getColor(R.color.tab_unclicked));
                 lastWeekBtn.setTextColor(getResources().getColor(R.color.tab_clicked));
                 tableRow.setGravity(START);
-                break;
-            case R.id.lineChart:
-                //falseData();
-                ChartUtil.notifyDataSetChanged(chart, values, ChartUtil.weekValue);
+                isThisWeek =false;
+                presenter.getMonthChartBills(Constants.currentUserId,setYear,setMonth);
                 break;
             case R.id.head_chart:
                 //开启个人信息界面
@@ -173,7 +179,6 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
                 break;
             default:
                 break;
-
         }
     }
 
@@ -184,123 +189,83 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
      */
     @Override
     public void loadDataSuccess(MonthBillForChart tData) {
-        List<MonthBillForChart.SortTypeList> listInComeData = tData.getInSortlist();
-        List<MonthBillForChart.SortTypeList> listOutComeData = tData.getOutSortlist();
         rvList.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false));
-        //adapter = new MonthChartAdapter(getActivity(),listInComeData);
-        adapter = new MonthChartAdapter(getActivity(),listOutComeData);
-        rvList.setAdapter(adapter);
 
-       // values.clear();//清除假数据
+        listInComeData = tData.getInSortlist();
+        listOutComeData = tData.getOutSortlist();
+        detailList = tData.getDaylist();
 
-        for (int i =0;i<listOutComeData.size();i++){
-            datalist=listOutComeData.get(i).getList();
-            crdate=datalist.get(0).getCrdate();
-            Log.e("meng111", "datalist: "+datalist);
-            Log.e("meng111", "crdate: "+crdate);
-            Date beginDayOfWeek = DateUtils.getBeginDayOfWeek();
-            Date endDayOfWeek = DateUtils.getEndDayOfWeek();
+        beginDayOfWeek = DateUtils.getBeginDayOfWeek();
+        endDayOfWeek = DateUtils.getEndDayOfWeek();
+        beginDayOfLastWeek = DateUtils.getBeginDayOfLastWeek();
+        endDayOfLastWeek = DateUtils.getEndDayOfLastWeek();
 
-            //先比较日期，然后判断是周几，添加到对应的
-          // int das = DateUtils.DayForWeek(DateUtils.long2Str(crdate,FORMAT_YMD));
+        setFalseData(); //防止数据重叠
 
-        //  DateUtils.long2Str(crdate,FORMAT_YMDHMS)
-
-           /* for (int j=0 ; j<7; j++){
-                values.add(new Entry(j,0));
-            }
-*/
-            /*Log.e("meng111", ""+DateUtils.long2Str(crdate,FORMAT_YMDHMS));
-            Log.e("meng111", "success: "+DateUtils.getEndDayOfWeek());
-            if (DateUtils.compareDate(DateUtils.getEndDayOfWeek(),DateUtils.str2Date(DateUtils.long2Str(crdate,FORMAT_YMDHMS)))){
-                Log.e("meng111","成功啦~" );
-            }*/
-            }
+        /*判断是本周还是上周,并且自动填充数据*/
+        if (isThisWeek){
+            WeekData(beginDayOfWeek,endDayOfWeek);
+        }else {
+            WeekData(beginDayOfLastWeek,endDayOfLastWeek);
         }
-
-
-        /* List<MonthBillForChart> test_list = new ArrayList<>();
-        Float x = 123.0f;
-        Float y = 666.0f;
-        for (int i=0;i<10;i++){
-            MonthBillForChart test_data = new MonthBillForChart(x,y);
-            test_list.add(test_data);
-        }*/
-
-       /* rvList.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false));
-        adapter = new MonthChartAdapter(getActivity(),test_list);
-        rvList.setAdapter(adapter);*/
-
-        /*Log.e(TAG, "loadDataSuccess: " );
-        adapter = new MonthChartAdapter(getActivity(), null);
-        float totalMoney;
-        monthChartBean=tData;
-        if (TYPE) {
-            list = monthChartBean.getOutSortlist();
-//            totalMoney = monthChartBean.getTotalOut();
-        } else {
-            list = monthChartBean.getInSortlist();
-//            totalMoney = monthChartBean.getTotalIn();
+        /*判断是收入还是支出，下方view显示数据*/
+        if (isIncome){
+            adapter = new MonthChartAdapter(getActivity(),listInComeData);
+            rvList.setAdapter(adapter);
+        }else {
+            adapter = new MonthChartAdapter(getActivity(),listOutComeData);
+            rvList.setAdapter(adapter);
         }
-        *//*ArrayList<PieEntry> entries = new ArrayList<>();
-        ArrayList<Integer> colors = new ArrayList<>();*//*
-
-        for (int i = 0; i < list.size(); i++) {
-           *//* float scale =list.get(i).getMoney() / totalMoney;
-            float value = (scale < 0.06f) ? 0.06f : scale;
-            entries.add(new PieEntry(value, ImageUtils.getDrawable(list.get(i).getSortImg())));*//*
-            setNoteData(i,list.get(i).getMoney());
-//            colors.add(Color.parseColor(list.get(i).getBack_color()));
-        }*/
-
-//        setNoteData(0,entries.get(0).getValue());
-
-        // list = tData.getDaylist();
-
-        //falseData();
-       /* String[] come ;
-        for (int i=0;i<7;i++){
-            if (list.get(i).getList()==null  ){
-                setData(i,"0.0");
-            }else {
-                Log.e(TAG, "loadDataSuccess:!!!!!!!!!!!! "+list.get(i).toString() );
-                come= list.get(i).getMoney().split("u");
-                Log.e(TAG, "loadDataSuccess: "+come[0] );
-                setData(i,come[0]);
-            }
-
-        }*/
-
-
+        ChartUtil.notifyDataSetChanged(chart, values, ChartUtil.weekValue);
+        }
     /**
-     * 点击饼状图上区域后相应的数据设置
-     *
-     * @param index
+     * 上一周的收入和支出
      */
-   /* private void setNoteData(int index, float value) {
-        if (null==list||list.size()==0)
-            return;
-        sort_image = list.get(index).getSortImg();
-        sort_name = list.get(index).getSortName();
+    public void lastWeek(){
+       setFalseData();
+    }
+    /**
+     * 本周或者上周的收入和支出
+     */
+    public void WeekData(Date beginDay,Date endDay){
+        for (int i =0;i<detailList.size();i++){
+            crdate=detailList.get(i).getTime();
+            crdate = crdate+" 12:00:00";//防止特殊时间报错
+            if (DateUtils.belongCalendar(DateUtils.str2Date(crdate),beginDay,endDay)){
+                try {
+                    week =  DateUtils.DayForWeek(crdate);
+                    allMoney = detailList.get(i).getMoney();
+                    if (isIncome){
+                        income = allMoney.substring(allMoney.indexOf("入")+2,allMoney.length());
+                        values.set(week-1,new Entry(week-1,Float.valueOf(income)));
+                    }else {
+                        outcome = allMoney.substring(3, allMoney.indexOf(" "));
+                        values.set(week-1,new Entry(week-1,Float.valueOf(outcome)));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 
-
-        *//*if (TYPE) {
-            money.setText("-" + list.get(index).getMoney());
-        } else {
-            money.setText("+" + list.get(index).getMoney());
-        }*//*
-        DecimalFormat df = new DecimalFormat("0.00%");
-       // title.setText(sort_name+" : "+df.format(value));
-        *//*rankTitle.setText(sort_name + "排行榜");
-        circleBg.setImageDrawable(new ColorDrawable(Color.parseColor(back_color)));
-        circleImg.setImageDrawable(PieChartUtils.getDrawable(tMoneyBeanList.get(index).getSortImg()));*//*
-
-        adapter.setSortName(*//*sort_name+":"+df.format(value)*//*"123");
-        adapter.setSortImage(*//*ImageUtils.getDrawable(sort_image)*//*MyApplication.application.getDrawable(R.mipmap.add_button));
-        adapter.setmDatas(*//*String.valueOf(list.get(index).getMoney())*//*"666");
-        adapter.notifyDataSetChanged();
-    }*/
-
+    }
+    /**
+     * 下拉刷新和加载数据
+     */
+    public void flash(){
+        swipe.setColorSchemeColors(getResources().getColor(R.color.text_red), getResources().getColor(R.color.text_red));
+        //设置向下拉多少出现刷新
+        swipe.setDistanceToTriggerSync(50);
+        //设置刷新出现的位置
+        swipe.setProgressViewEndTarget(false, 250);
+        swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipe.setRefreshing(false);
+                presenter.getMonthChartBills(Constants.currentUserId, setYear, setMonth);
+            }
+        });
+    }
     /**
      * 年,月,周按钮点击后的颜色变化
      */
@@ -321,45 +286,24 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
                 monthBtn.setBackground(getActivity().getDrawable(R.drawable.datepicker_background));
                 yearBtn.setBackground(getActivity().getDrawable(R.drawable.datepicker_background_clicked));
                 break;
-
         }
     }
-
     /**
      * 返回Toolbar的菜单项（右边）
      */
     @Override
     protected void improtantData() {
-        //rvList.setLayoutManager(new LinearLayoutManager(getActivity()));
-        /*adapter = new MonthChartAdapter(getActivity(), null);*/
-       /* List<MonthBillForChart> test_list = new ArrayList<>();
-        Float x = 123.0f;
-        Float y = 666.0f;
-        for (int i=0;i<10;i++){
-            MonthBillForChart test_data = new MonthBillForChart(x,y);
-            test_list.add(test_data);
-        }*/
-
-       /* rvList.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false));
-        adapter = new MonthChartAdapter(getActivity(),test_list);
-        rvList.setAdapter(adapter);*/
 
         presenter=new MonthChartPresenterImpl(this);
         presenter.getMonthChartBills(Constants.currentUserId, setYear, setMonth);
-        getday();
+        flash();
         falseData();
         ChartUtil.notifyDataSetChanged(chart, values, ChartUtil.weekValue);
         //ChartUtil.initChart(chart);
-
-
     }
-
-
     /**
      * 设置菜单项的响应事件,这里是开启查询
      */
-
-
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_chart;
@@ -371,11 +315,7 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
     @Override
     protected void loadData() {
         tableRow.setGravity(END);
-
-
     }
-
-
     /**
      * 返回键名字
      */
@@ -384,12 +324,9 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
         return getActivity().findViewById(R.id.back_chart);
     }
 
-
     @Override
     protected void beforeDestroy() {
-
     }
-
     /**
      * 重写父类抽象方法,返回DrawerLayout的ID
      */
@@ -398,12 +335,10 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
         DrawerLayout mDrawerLayout = (DrawerLayout) getActivity().findViewById(R.id.drawerlayout_chart);
         return mDrawerLayout;
     }
-
     @Override
     protected int getItemMenu() {
         return R.menu.menu_main;
     }
-
     /**
      * * 设置菜单项的响应事件,这里是开启查询
      */
@@ -412,7 +347,6 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
         Intent intent = new Intent(getActivity(), SearchAll.class);
         startActivity(intent);
     }
-
     /**
      * 重写父类抽象方法,返回Toolbar的ID
      */
@@ -421,7 +355,6 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
         View viewToolbar = getActivity().findViewById(R.id.toolbar_chart);
         return viewToolbar.findViewById(R.id.tl_custom);
     }
-
     /**
      * 重写父类抽象方法,返回navigationView的ID
      */
@@ -430,31 +363,15 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
         return getActivity().findViewById(R.id.navigationview_chart);
     }
 
-
-    /*@Override
-    public void loadDataSuccess(MonthBillForChart tData) {
-        monthChartBean=tData;
-        initData();
-    }*/
-
     @Override
     public void loadDataError(Throwable throwable) {
         SnackbarUtils.show(mActivity, throwable.getMessage());
     }
-
-    public void getday() {
-        /*detailPresenter = new MonthDetailPresenterImpl(this);
-        detailPresenter.getDayCost(Constants.currentUserId, setYear, setMonth,setDay);*/
-        Log.e(TAG, "getday: ");
-    }
-
-
     /**
      * 重写myToolbar,添加Spinner作为下拉框,添加监听事件
      */
     @Override
     public void myToolbar() {
-        // TODO: 18-9-29  modify
         super.myToolbar();
         Spinner type = new Spinner(getActivity());
         List<String> dataOfType = new ArrayList<String>();
@@ -480,10 +397,12 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case 0:
-
+                    isIncome = true;
+                    presenter.getMonthChartBills(Constants.currentUserId, setYear, setMonth);
                         break;//收入
                     case 1:
-
+                    isIncome = false;
+                    presenter.getMonthChartBills(Constants.currentUserId, setYear, setMonth);
                         break;//支出
                 }
             }
@@ -495,7 +414,6 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
         });
     }
 
-
     public static chart_Fragment newInstance(String info) {
         Bundle args = new Bundle();
         chart_Fragment fragment = new chart_Fragment();
@@ -503,7 +421,6 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
         fragment.setArguments(args);
         return fragment;
     }
-
 
     /**
      * 返回头像
@@ -513,4 +430,5 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
         return getActivity().findViewById(R.id.head_chart);
 
     }
+
 }

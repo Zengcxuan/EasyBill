@@ -3,11 +3,15 @@ package finalhomework.tcl.com.finalhomework.ui.activity;
 
 
 
+import android.app.Fragment;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 
@@ -24,6 +28,7 @@ import finalhomework.tcl.com.finalhomework.ui.fragment.bill_Fragment;
 import finalhomework.tcl.com.finalhomework.ui.fragment.chart_Fragment;
 import finalhomework.tcl.com.finalhomework.ui.fragment.mine_Fragment;
 
+import static android.view.Gravity.CENTER;
 
 
 public class HomeActivity extends BaseActivity  {
@@ -104,7 +109,6 @@ public class HomeActivity extends BaseActivity  {
     //切换界面
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-
        /* adapter.addFragment(bill_Fragment.newInstance("账单"));
         adapter.addFragment(chart_Fragment.newInstance("图表"));
         adapter.addFragment(mine_Fragment.newInstance("我的"));*/
@@ -112,7 +116,7 @@ public class HomeActivity extends BaseActivity  {
        adapter.addFragment(new chart_Fragment());
        adapter.addFragment(new mine_Fragment());
         viewPager.setAdapter(adapter);
-        viewPager.setOffscreenPageLimit(3);
+       /* viewPager.setOffscreenPageLimit(3);*/
     }
 
     /*public void changeBottomState(int position) {

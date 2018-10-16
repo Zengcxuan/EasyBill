@@ -19,6 +19,77 @@ import static finalhomework.tcl.com.finalhomework.Utils.DateUtils.getEndDayOfWee
 public class BillUtils {
     static  Boolean  isToday = false;
     private static String TAG = "meng111";
+    public static MonthDetailAccount packageDetailList2(List<TotalBill> list/*,String date*/) {
+        MonthDetailAccount bean = new MonthDetailAccount();
+        float t_income = 0;
+        float t_outcome = 0;
+        List<MonthDetailAccount.DaylistBean> daylist = new ArrayList<>();
+        List<TotalBill> beanList = new ArrayList<>();
+        float income = 0;
+        float outcome = 0;
+
+        String preDay = "";  //记录前一天的时间
+        for (int i = 0; i < list.size(); i++) {
+            TotalBill TotalBill = list.get(i);
+            //计算总收入支出
+            if (TotalBill.isIncome())
+                t_income += TotalBill.getCost();
+            else
+                t_outcome += TotalBill.getCost();
+
+            //判断后一个账单是否于前者为同一天
+            if (i == 0 || preDay.equals(DateUtils.getDay(TotalBill.getCrdate()))) {
+
+                if (TotalBill.isIncome())
+                    income += TotalBill.getCost();
+                else
+                    outcome += TotalBill.getCost();
+                beanList.add(TotalBill);
+
+                if (i==0)
+                    preDay = DateUtils.getDay(TotalBill.getCrdate());
+            } else {
+                //局部变量防止引用冲突
+                List<TotalBill> tmpList = new ArrayList<>();
+                tmpList.addAll(beanList);
+                MonthDetailAccount.DaylistBean tmpDay = new MonthDetailAccount.DaylistBean();
+                tmpDay.setList(tmpList);
+                tmpDay.setMoney("支出：" + outcome + " 收入：" + income);
+                tmpDay.setTime(preDay);
+                daylist.add(tmpDay);
+
+                //清空前一天的数据
+                beanList.clear();
+                income = 0;
+                outcome = 0;
+
+                //添加数据
+                if (TotalBill.isIncome())
+                    income += TotalBill.getCost();
+                else
+                    outcome += TotalBill.getCost();
+                beanList.add(TotalBill);
+                preDay = DateUtils.getDay(TotalBill.getCrdate());
+            }
+        }
+
+        if (beanList.size() > 0) {
+            //局部变量防止引用冲突
+            List<TotalBill> tmpList = new ArrayList<>();
+            tmpList.addAll(beanList);
+            MonthDetailAccount.DaylistBean tmpDay = new MonthDetailAccount.DaylistBean();
+            tmpDay.setList(tmpList);
+            tmpDay.setMoney("支出：" + outcome + " 收入：" + income);
+            tmpDay.setTime(DateUtils.getDay(beanList.get(0).getCrdate()));
+            daylist.add(tmpDay);
+
+        }
+
+        bean.setT_income(String.valueOf(t_income));
+        bean.setT_outcome(String.valueOf(t_outcome));
+        bean.setDaylist(daylist);
+        return bean;
+    }
 
     /**
      * 账单按天分类
@@ -95,153 +166,8 @@ public class BillUtils {
 
         bean.setT_income(String.valueOf(t_income));
         bean.setT_outcome(String.valueOf(t_outcome));
-        //daylist 最终添加，获得有数据的两个日期，思路：将两个日期遍历出来，如果有当日的日期再判断附近日期？（麻烦）
-        /*if (isToday){
-            String[] weekValues = new String[7];
-            Date weekEnd = getEndDayOfWeek();
-            int j=0;
-            for (int i = 0; i< 7; i++) {
-               if (){
-
-               }
-            }
-        }else {
-
-        }*/
         bean.setDaylist(daylist);
         return bean;
-    }
-    public static MonthDetailAccount packageDetailList2(List<TotalBill> list/*,String date*/) {
-        MonthDetailAccount bean = new MonthDetailAccount();
-        float t_income = 0;
-        float t_outcome = 0;
-        List<MonthDetailAccount.DaylistBean> daylist = new ArrayList<>();
-        List<TotalBill> beanList = new ArrayList<>();
-        float income = 0;
-        float outcome = 0;
-
-        String preDay = "";  //记录前一天的时间
-        for (int i = 0; i < list.size(); i++) {
-            TotalBill TotalBill = list.get(i);
-            //计算总收入支出
-            if (TotalBill.isIncome())
-                t_income += TotalBill.getCost();
-            else
-                t_outcome += TotalBill.getCost();
-
-            //判断后一个账单是否于前者为同一天
-            if (i == 0 || preDay.equals(DateUtils.getDay(TotalBill.getCrdate()))) {
-
-                if (TotalBill.isIncome())
-                    income += TotalBill.getCost();
-                else
-                    outcome += TotalBill.getCost();
-                beanList.add(TotalBill);
-
-                if (i==0)
-                    preDay = DateUtils.getDay(TotalBill.getCrdate());
-            } else {
-                //局部变量防止引用冲突
-                List<TotalBill> tmpList = new ArrayList<>();
-                tmpList.addAll(beanList);
-                MonthDetailAccount.DaylistBean tmpDay = new MonthDetailAccount.DaylistBean();
-                tmpDay.setList(tmpList);
-                tmpDay.setMoney("支出：" + outcome + " 收入：" + income);
-                tmpDay.setTime(preDay);
-                daylist.add(tmpDay);
-
-                //清空前一天的数据
-                beanList.clear();
-                income = 0;
-                outcome = 0;
-
-                //添加数据
-                if (TotalBill.isIncome())
-                    income += TotalBill.getCost();
-                else
-                    outcome += TotalBill.getCost();
-                beanList.add(TotalBill);
-                preDay = DateUtils.getDay(TotalBill.getCrdate());
-            }
-        }
-
-        if (beanList.size() > 0) {
-            //局部变量防止引用冲突
-            List<TotalBill> tmpList = new ArrayList<>();
-            tmpList.addAll(beanList);
-            MonthDetailAccount.DaylistBean tmpDay = new MonthDetailAccount.DaylistBean();
-            tmpDay.setList(tmpList);
-            tmpDay.setMoney("支出：" + outcome + " 收入：" + income);
-            tmpDay.setTime(DateUtils.getDay(beanList.get(0).getCrdate()));
-            daylist.add(tmpDay);
-
-        }
-
-        bean.setT_income(String.valueOf(t_income));
-        bean.setT_outcome(String.valueOf(t_outcome));
-        bean.setDaylist(daylist);
-        return bean;
-       /* MonthDetailAccount bean = new MonthDetailAccount();
-        List<MonthDetailAccount.DaylistBean> daylist = new ArrayList<>();
-        List<TotalBill> beanList = new ArrayList<>();
-        float income = 0;
-        float outcome = 0;
-        String preDay = "";  //记录前一天的时间
-       *//* for (int i =0; i<7; i++){
-            //判断时间，
-            if (DateUtils.getCurDay()){
-
-            }
-        }*//*
-        for (int i = 0; i < list.size(); i++) {
-            TotalBill TotalBill = list.get(i);
-           *//* if(DateUtils.getCurDay() == DateUtils.getDay(TotalBill.getCrdate())){
-
-            }*//*
-            //判断后一个账单是否于前者为同一天
-            if (i == 0 || preDay.equals(DateUtils.getDay(TotalBill.getCrdate()))) {
-                Log.e(TAG,"preDay"+preDay+"crdate"+DateUtils.getDay(TotalBill.getCrdate()));
-                if (TotalBill.isIncome()) {
-                    income += TotalBill.getCost();
-                } else{
-                    outcome += TotalBill.getCost();
-                }
-
-                beanList.add(TotalBill);
-
-                if (i==0)
-                    preDay = DateUtils.getDay(TotalBill.getCrdate());
-            } else {
-                Log.e(TAG,"preDay"+preDay+"crdate"+DateUtils.getDay(TotalBill.getCrdate()));
-                MonthDetailAccount.DaylistBean tmpDay = new MonthDetailAccount.DaylistBean();
-                tmpDay.setMoney(*//*outcome+"u"+income*//*"666" );
-                tmpDay.setTime(*//*String.valueOf(income)*//*DateUtils.getDay(beanList.get(0).getCrdate()));
-                daylist.add(tmpDay);
-              //  Log.e("meng111", "packageDetailList2: mmmmm"+daylist.get(i).getList() );
-
-                //清空前一天的数据
-                beanList.clear();
-                income = 0;
-                outcome = 0;
-                //添加数据
-                if (TotalBill.isIncome())
-                    income += TotalBill.getCost();
-                else
-                    outcome += TotalBill.getCost();
-                beanList.add(TotalBill);
-                preDay = DateUtils.getDay(TotalBill.getCrdate());
-            }
-        }
-        if (beanList.size() > 0) {
-            //局部变量防止引用冲突
-            MonthDetailAccount.DaylistBean tmpDay = new MonthDetailAccount.DaylistBean();
-            tmpDay.setMoney(*//*outcome+"u"+income*//*"666" );
-            tmpDay.setTime(*//*String.valueOf(income)*//*DateUtils.getDay(beanList.get(0).getCrdate()));
-            Log.e(TAG, "packageDetailList2: "+tmpDay.getMoney()+tmpDay.getTime() );
-            daylist.add(tmpDay);
-        }
-        bean.setDaylist(daylist);
-        return bean;*/
     }
 
     /**
@@ -250,9 +176,13 @@ public class BillUtils {
      * @return
      */
     public static MonthBillForChart packageChartList(List<TotalBill> list) {
+        MonthDetailAccount detail = new MonthDetailAccount();
+        detail = BillUtils.packageDetailList(list);
+        List<MonthDetailAccount.DaylistBean> detailList = detail.getDaylist();
+
         MonthBillForChart bean = new MonthBillForChart();
-        float t_income = 0;
-        float t_outcome = 0;
+       /* float t_income = 0;
+        float t_outcome = 0;*/
 
         Map<String, List<TotalBill>> mapIn = new HashMap<>();
         Map<String, Float> moneyIn = new HashMap<>();
@@ -261,8 +191,8 @@ public class BillUtils {
         for (int i = 0; i < list.size(); i++) {
             TotalBill TotalBill = list.get(i);
             //计算总收入支出
-            if (TotalBill.isIncome()) t_income += TotalBill.getCost();
-            else t_outcome += TotalBill.getCost();
+           /* if (TotalBill.isIncome()) t_income += TotalBill.getCost();
+            else t_outcome += TotalBill.getCost();*/
 
             //账单分类
             String sort = TotalBill.getSortName();
@@ -318,8 +248,9 @@ public class BillUtils {
 
         bean.setOutSortlist(outSortlist);
         bean.setInSortlist(inSortlist);
-        bean.setTotalIn(t_income);
-        bean.setTotalOut(t_outcome);
+        bean.setDaylist(detailList);
+       /* bean.setTotalIn(t_income);
+        bean.setTotalOut(t_outcome);*/
         return bean;
     }
 
