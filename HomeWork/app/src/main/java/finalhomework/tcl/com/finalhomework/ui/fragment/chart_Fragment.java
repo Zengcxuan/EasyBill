@@ -27,13 +27,17 @@ import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieEntry;
 
+import org.angmarch.views.NiceSpinner;
+
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -377,19 +381,21 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
         List<String> dataOfType = new ArrayList<String>();
         dataOfType.add("收入");
         dataOfType.add("支出");
+//        LinkedList<String> dataOfType=new LinkedList<>(Arrays.asList("收入", "支出"));
+//        type.attachDataSource(dataOfType);
         ArrayAdapter<String> typeAdapter = new ArrayAdapter<String>(getActivity(),
                 R.layout.spinner_style, dataOfType);
         typeAdapter.setDropDownViewResource(R.layout.spinner_drop_style);
         type.setAdapter(typeAdapter);
 //        title.setTextColor(getResources().getColor(R.color.white))
-        type.setDropDownHorizontalOffset(0);
+//        type.setDropDownHorizontalOffset(0);
         type.setDropDownVerticalOffset(60);
-        type.setLayoutParams(new ViewGroup.LayoutParams(30,
+        type.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT));
         type.setPopupBackgroundDrawable(getResources().getDrawable(R.color.center_color));
 //        type.setBackground(getResources().getDrawable(R.drawable.shape_color_blue));
         type.setLayoutParams(new Toolbar.LayoutParams(CENTER));
-        type.setGravity(END);
+        type.setBackground(getResources().getDrawable(R.drawable.spinner_background));
         setToolbar(type);
         //下拉框的点击监听
         type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

@@ -43,43 +43,19 @@ public class LockViewUi extends BaseActivity{
 
     @OnClick ({R.id.switch_lockview, R.id.modify_lockview, R.id.back_lockview})
     protected void onClick(View v){
-        if(v.getId() == R.id.back_lockview){
-            finish();
-        }else {
-            if (lockView.getCurrentStatus() == STATUS_NO_PWD) {
-                Toast.makeText(this, "当前没有设置手势密码", Toast.LENGTH_SHORT).show();
-                lockViewSwh.setChecked(false);
-            } else if (isVerify) {
-                switch (v.getId()) {
-                    case R.id.switch_lockview:
-                        // TODO: 18-10-15 密码启用
-                        CompoundButton.OnCheckedChangeListener listener = new CompoundButton.OnCheckedChangeListener(){
-                            @Override
-                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                if(isChecked){
-                                    lockViewSwh.setChecked(true);
-                                    LockViewUtil.setIslock(mContext, true);
-                                    Toast.makeText(mContext, "手势密码已启用", Toast.LENGTH_SHORT).show();
-                                }else {
-                                    lockViewSwh.setChecked(false);
-                                    LockViewUtil.setIslock(mContext, false);
-                                    Toast.makeText(mContext, "手势密码已取消", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        };
-                        lockViewSwh.setOnCheckedChangeListener(listener);
-                        break;
-                    case R.id.modify_lockview:
-                        LockViewUtil.clearPwd(mContext);
-                        lockView.initStatus();
-                        lockViewText.setText("当前无手势密码,请绘制你的手势密码");
-                        setLockView();
-                        break;
-                }
-            } else if (!(lockView.getCurrentStatus() == STATUS_NO_PWD) && !isVerify) {
-                Toast.makeText(this, "请先验证手势密码", Toast.LENGTH_SHORT).show();
-                lockViewSwh.setChecked(false);
-            }
+        switch (v.getId()) {
+            //退出当前Activity
+            case R.id.back_lockview:
+                finish();
+                break;
+            //开关按钮
+            case R.id.switch_lockview:
+                swhHandle();
+                break;
+            //修改手势密码,点击后直接清除当前存储密码
+            case R.id.modify_lockview:
+                modifyHandle();
+                break;
         }
     }
     /**
@@ -112,5 +88,52 @@ public class LockViewUi extends BaseActivity{
                 lockViewText.setText("密码长度不够");
             }
         });
+    }
+
+    /**
+     * Switch
+     * 点击开启会获取手势密码的当前状态,无密码点击无效；有密码先看是否已验证,没验证无效,验证了则启用手势密
+     * 码
+     * 点击关闭直接停用手势密码（不清除记录）
+     */
+    private void swhHandle(){
+        CompoundButton.OnCheckedChangeListener listener = new CompoundButton.OnCheckedChangeListener(){
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    if (lockView.getCurrentStatus() == STATUS_NO_PWD) {
+                        Toast.makeText(mContext, "当前没有设置手势密码", Toast.LENGTH_SHORT).show();
+                        lockViewSwh.setChecked(false);
+                    }else {
+                        lockViewSwh.setChecked(true);
+                        LockViewUtil.setIslock(mContext, true);
+                        Toast.makeText(mContext, "手势密码已启用", Toast.LENGTH_SHORT).show();
+                    }
+                }else {
+                    lockViewSwh.setChecked(false);
+                    LockViewUtil.setIslock(mContext, false);
+                    Toast.makeText(mContext, "手势密码已取消", Toast.LENGTH_SHORT).show();
+                }
+            }
+        };
+        lockViewSwh.setOnCheckedChangeListener(listener);
+    }
+
+    /**
+     * 修改密码,已验证则点击清除当前密码,没验证点击无效
+     */
+    private void modifyHandle(){
+        if(lockView.getCurrentStatus() == STATUS_NO_PWD){
+            Toast.makeText(mContext, "你没有设置密码", Toast.LENGTH_SHORT).show();
+        }else {
+            if(isVerify) {
+                LockViewUtil.clearPwd(mContext);
+                lockView.initStatus();
+                lockViewText.setText("当前无手势密码,请绘制你的手势密码");
+                setLockView();
+            }else {
+                Toast.makeText(mContext, "请先验证密码", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }
