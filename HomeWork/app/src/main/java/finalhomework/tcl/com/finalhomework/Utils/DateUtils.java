@@ -2,6 +2,7 @@ package finalhomework.tcl.com.finalhomework.Utils;
 
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -67,6 +68,10 @@ public class DateUtils {
      */
     public static String FORMAT_YMD = "yyyy-MM-dd";
 
+    /**
+     * 英文简写如：2018-06-06 00:00:00
+     */
+    public static String FORMAT_YMD000="yyyy-MM-dd 00:00:00";
     /**
      * 英文全称  如：2010-12-01 23:15
      */
@@ -850,9 +855,9 @@ public class DateUtils {
      * @param pTime 传入的时间
      * @return
      */
-    public static int DayForWeek(Long pTime) throws Exception {
-        SimpleDateFormat format = new SimpleDateFormat(FORMAT_YMD);
-        Date date = new Date(pTime);
+    public static int DayForWeek(String pTime) throws Exception {
+       // SimpleDateFormat format = new SimpleDateFormat(FORMAT_YMD);
+        Date date = str2Date(pTime);
         //String time = format.format(date);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
@@ -1015,6 +1020,30 @@ public class DateUtils {
         }
         return beginDate;
     }
+    // 获取上周的开始时间
+    public static Date getBeginDayOfLastWeek() {
+        Date date = new Date();
+        if (date == null) {
+            return null;
+        }
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        int dayofweek = cal.get(Calendar.DAY_OF_WEEK);
+        if (dayofweek == 1) {
+            dayofweek += 7;
+        }
+        cal.add(Calendar.DATE, 2 - dayofweek - 7);
+        return getDayStartTime(cal.getTime());
+    }
+
+    // 获取上周的结束时间
+    public static Date getEndDayOfLastWeek() {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(getBeginDayOfLastWeek());
+        cal.add(Calendar.DAY_OF_WEEK, 6);
+        Date weekEndSta = cal.getTime();
+        return getDayEndTime(weekEndSta);
+    }
 
     /*// 返回某月该季度的第一个月
     public static Date getFirstSeasonDate(Date date) {
@@ -1081,6 +1110,47 @@ public class DateUtils {
         begincal = new GregorianCalendar(beginYear, beginMonth, max);
         list.add(begincal.getTime());
         return list;
+    }
+    /**
+     * 判断time是否在from，to之内
+     *
+     * @param time 指定日期
+     * @param from 开始日期
+     * @param to   结束日期
+     * @return
+     */
+    public static boolean belongCalendar(Date time, Date from, Date to) {
+        Calendar date = Calendar.getInstance();
+        date.setTime(time);
+
+        Calendar after = Calendar.getInstance();
+        after.setTime(from);
+
+        Calendar before = Calendar.getInstance();
+        before.setTime(to);
+
+        if (date.after(after) && date.before(before)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * long转换为date
+     * @param l
+     * @return
+     */
+    public static Date longToDate(long l){
+        Date date2 = new Date(l);
+        SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date3= null;
+        try {
+            date3= sd.parse(sd.format(date2));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date3;
     }
 
     /*// 获取某年某月的第一天日期

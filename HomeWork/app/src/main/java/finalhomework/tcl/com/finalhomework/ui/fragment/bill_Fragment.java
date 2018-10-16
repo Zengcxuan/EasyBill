@@ -116,16 +116,6 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
     }
     @Override
     protected void loadData() {
-       /* //注册 EventBus
-        EventBus.getDefault().register(this);
-
-        flash();
-
-        presenter=new MonthDetailPresenterImpl(this);
-
-        //请求当月数据
-        getBills(Constants.currentUserId, setYear, setMonth);
-        initDatePicker();*/
     }
     /**
      * 监听list侧拉
@@ -181,7 +171,6 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
      */
     @Override
     public void loadDataSuccess(MonthDetailAccount tData) {
-        Log.e("meng111", "loadDataSuccess: "+"66666666666" );
         tOutcome.setText(tData.getT_outcome());
         tIncome.setText(tData.getT_income());
         list = tData.getDaylist();
@@ -248,7 +237,6 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
         String now = sdf.format(new Date());
         String month1 = meng_util.getMonth(now);// ini
-        //Log.e("mengtime", "initDatePicker month: " + month1);
         String year = meng_util.getYear(now);
         currentDate.setText(Html.fromHtml("<big>"+month1+"</big>"+"<small>"+"月"+"</small>"));
         currentYear.setText(year);
@@ -259,8 +247,6 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
                 String month = meng_util.getMonth(time);
                 String year = meng_util.getYear(time);
                 currentDate.setText(Html.fromHtml("<big>"+month+"</big>"+"<small>"+"月"+"</small>"));
-                //String date1= getResources().getString(R.string.date_font, month);//String.format(,month);
-                //currentDate.setText(date1);
                 currentYear.setText(year.split(" ")[0]);
                 setYear = time.substring(0,4);
                 setMonth = time.substring(5,7);
@@ -277,10 +263,8 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        /*Log.e("meng111","onActivityResult++++"+resultCode);*/
-        /*if (resultCode == RESULTCODE ) {*/
             getBills(Constants.currentUserId, setYear, setMonth);
-        /*}*/
+
     }
     /**
      * 布局加载
@@ -317,7 +301,7 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
         /**
          * set  toolbar  and show
          * */
-        super.myToolbar();
+       super.myToolbar();
         TextView title = new TextView(getActivity());
         title.setText("账单");
         title.setTextSize(22);
@@ -329,7 +313,6 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
         setToolbar(title);
 
     }
-
 
     @Override
     protected int getItemMenu(){ return R.menu.menu_main; }

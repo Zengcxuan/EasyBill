@@ -17,10 +17,24 @@ public class MonthBillForChart extends base {
     float totalIn;    //总收入
     List<SortTypeList> outSortlist;    //账单分类统计支出
     List<SortTypeList> inSortlist;    //账单分类统计收入
+    private List<MonthDetailAccount.DaylistBean> daylist;
+
+    public List<MonthDetailAccount.DaylistBean> getDaylist() {
+        return daylist;
+    }
+
+    public void setDaylist(List<MonthDetailAccount.DaylistBean> daylist) {
+        this.daylist = daylist;
+    }
+
+
+
+
 
     public float getTotalOut() {
         return totalOut;
     }
+
 
     public void setTotalOut(float totalOut) {
         this.totalOut = totalOut;

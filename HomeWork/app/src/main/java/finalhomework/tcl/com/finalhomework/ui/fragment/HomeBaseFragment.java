@@ -89,18 +89,17 @@ public abstract class HomeBaseFragment extends Fragment {
         /**
          * 这里获取屏幕的宽和高并赋予给侧滑栏，使其全屏显示
          * */
-        DisplayMetrics metric = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(metric);
-        int windowsWight = metric.widthPixels;
-        int windowsHeight = metric.heightPixels;
+        /*DisplayMetrics metric = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(metric);*/
+        DisplayMetrics metric=getActivity().getResources().getDisplayMetrics();
+        /*int windowsWight = metric.widthPixels;
+        int windowsHeight = metric.heightPixels;*/
         View leftMenu = getLeftWindow();
         ViewGroup.LayoutParams leftParams = leftMenu.getLayoutParams();
-        leftParams.height = windowsHeight;
-        leftParams.width = windowsWight;
+        leftParams.height =metric.heightPixels;
+        leftParams.width = metric.widthPixels;
         leftMenu.setLayoutParams(leftParams);
-        /**
-         * set  toolbar  and show
-         * */
+        /* set  toolbar  and show */
         toolbar = getToolbar();
 //        toolbar.getMenu().clear();
         navigationView = getLeftWindow();

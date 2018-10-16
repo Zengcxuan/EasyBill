@@ -55,13 +55,7 @@ public class MonthDetailModelImpl implements MonthDetailModel{
                 .subscribe(new BaseObserver<List<TotalBill>>() {
                     @Override
                     protected void onSuccees(List<TotalBill> bBills) throws Exception {
-                        /**
-                         * 需求：
-                         * 按照时间获取数据，并且如果数据为空，自动填充为0
-                         * 下一步： 更改packageDetailList2为合适方法
-                         * 再下一步：更改fragment
-                         */
-                        listener.onSuccess(BillUtils.packageDetailList2(bBills/*,date*/));
+                        listener.onSuccess(BillUtils.packageDetailList(bBills));
                     }
 
                     @Override

@@ -147,18 +147,11 @@ public class mine_Fragment extends HomeBaseFragment {
         //初始化GridView，添加itemClickListener，下方多行栏目的监听
         final List<Map<String, Object>> dataList;
         SimpleAdapter adapter;
-        dataList = new ArrayList<Map<String, Object>>();
-        for (int i = 0; i <typeIcon.length; i++) {
-            Map<String, Object> map=new HashMap<String, Object>();
-            map.put("img", typeIcon[i]);
-            map.put("text",buttonContent[i]);
-            map.put("right", rightIcon[i]);
-            dataList.add(map);
-        }
-        String[] from={"img","text", "right"};
-        int[] to={R.id.image_left, R.id.button_show, R.id.image_right};
-        adapter=new SimpleAdapter(getActivity(), dataList, R.layout.button_with_image, from, to);
-        listView.setAdapter(adapter);
+
+
+
+
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position,
