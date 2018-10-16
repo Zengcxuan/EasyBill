@@ -15,7 +15,7 @@ import finalhomework.tcl.com.finalhomework.R;
 public class EditDialog extends Dialog {
     private String TAG = "EditDialog";
     private Activity mContext;
-    private String tip, titleName;
+    private String tip = "请输入内容", titleName = "定时提醒";
     private Boolean isSet = false;
     private String input = "默认提醒内容";
     public  EditDialog(Activity context){
@@ -28,8 +28,8 @@ public class EditDialog extends Dialog {
         super.show();
         final EditText editText = new EditText(mContext);
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-        builder.setTitle("定时提醒");
-        builder.setMessage("请输入内容");
+        builder.setTitle(titleName);
+        builder.setMessage(tip);
         builder.setView(editText);
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
@@ -47,9 +47,13 @@ public class EditDialog extends Dialog {
         builder.create().show();
     }
 
-    public Boolean getIsSet(){return this.isSet;}
     public String getInput(){
         return this.input;
     }
-    public void setIsSet(){ this.isSet = !isSet;}
+    public void setTip(String string){
+        this.tip = string;
+    }
+    public void setTitleName(String string){
+        this.titleName = string;
+    }
 }

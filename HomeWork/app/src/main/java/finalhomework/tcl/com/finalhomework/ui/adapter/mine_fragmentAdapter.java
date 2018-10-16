@@ -23,7 +23,7 @@ public class mine_fragmentAdapter extends RecyclerView.Adapter<mine_fragmentAdap
     private LayoutInflater mInflater;
     private Context mContext;
 
-   
+
 
     public mine_fragmentAdapter(Context context, List dataList) {
         this.mContext = context;

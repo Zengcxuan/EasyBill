@@ -72,7 +72,7 @@
 
                     <TextView
                         android:id="@+id/record_days"
-                        android:layout_width="match_parent"
+                        android:layout_width="1dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
@@ -81,7 +81,7 @@
 
                     <TextView
                         android:id="@+id/record_deals"
-                        android:layout_width="match_parent"
+                        android:layout_width="1dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
@@ -90,7 +90,7 @@
 
                     <TextView
                         android:id="@+id/surplus"
-                        android:layout_width="match_parent"
+                        android:layout_width="1dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
@@ -104,27 +104,27 @@
 
                     <TextView
                         android:id="@+id/textView9"
-                        android:layout_width="wrap_content"
+                        android:layout_width="1dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:text="@string/record_days"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Large" />
+                        android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
 
                     <TextView
                         android:id="@+id/textView8"
-                        android:layout_width="wrap_content"
+                        android:layout_width="1dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:text="@string/record_deals"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Large" />
+                        android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
 
                     <TextView
                         android:id="@+id/textView6"
-                        android:layout_width="wrap_content"
+                        android:layout_width="1dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:text="@string/record_money"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Large" />
+                        android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
                 </TableRow>
             </TableLayout>
 

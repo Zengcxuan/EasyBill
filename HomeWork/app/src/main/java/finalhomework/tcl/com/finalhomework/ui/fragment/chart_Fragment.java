@@ -173,7 +173,6 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
                 isThisWeek =false;
                 presenter.getMonthChartBills(Constants.currentUserId,setYear,setMonth);
                 break;
-
             case R.id.head_chart:
                 //开启个人信息界面
                 Toast.makeText(getActivity(), "你点击了我", Toast.LENGTH_LONG).show();

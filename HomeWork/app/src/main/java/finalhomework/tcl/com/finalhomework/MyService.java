@@ -7,6 +7,9 @@ import android.util.Log;
 
 import finalhomework.tcl.com.finalhomework.ui.widget.NotificationTool;
 
+/**
+ * 用不上，先不改
+ */
 public class MyService extends Service{
     private String TAG = "MyService";
     @Override
