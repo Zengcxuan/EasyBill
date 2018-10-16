@@ -50,7 +50,9 @@ import butterknife.OnClick;
 import finalhomework.tcl.com.finalhomework.MyBroadcast;
 import finalhomework.tcl.com.finalhomework.MyService;
 import finalhomework.tcl.com.finalhomework.R;
+import finalhomework.tcl.com.finalhomework.Utils.LockViewUtil;
 import finalhomework.tcl.com.finalhomework.ui.activity.BudgetActivity;
+import finalhomework.tcl.com.finalhomework.ui.activity.LockViewUi;
 import finalhomework.tcl.com.finalhomework.ui.widget.EditDialog;
 import finalhomework.tcl.com.finalhomework.ui.widget.ImageButtonWithText;
 import finalhomework.tcl.com.finalhomework.ui.widget.NotificationTool;
@@ -167,6 +169,8 @@ public class mine_Fragment extends HomeBaseFragment {
                         break;
                     case 3:
                         // TODO: 18-10-8 手势密码
+                        Intent intent1 = new Intent(getActivity(), LockViewUi.class);
+                        getActivity().startActivity(intent1);
                         break;
                     case 4:
                         // TODO: 18-10-8 导出账单

@@ -254,7 +254,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:layout_margin="2dp"
+                android:layout_margin="20dp"
                 android:background="@drawable/bill_my_background"
                 android:backgroundTint="@android:drawable/screen_background_light_transparent"
                 android:scaleType="center"

@@ -18,6 +18,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import finalhomework.tcl.com.finalhomework.R;
+import finalhomework.tcl.com.finalhomework.Utils.LockViewUtil;
 import finalhomework.tcl.com.finalhomework.Utils.ProgressUtils;
 import finalhomework.tcl.com.finalhomework.Utils.SnackbarUtils;
 import finalhomework.tcl.com.finalhomework.mvp.presenter.UserLoginPresenter;
@@ -26,6 +27,9 @@ import finalhomework.tcl.com.finalhomework.mvp.views.UserLoginView;
 import finalhomework.tcl.com.finalhomework.pojo.User;
 import finalhomework.tcl.com.finalhomework.ui.fragment.login.LoginFragment;
 import finalhomework.tcl.com.finalhomework.ui.fragment.login.RegisterFragment;
+import finalhomework.tcl.com.finalhomework.ui.widget.LockView;
+
+import static finalhomework.tcl.com.finalhomework.Utils.UiUtils.getContext;
 
 public class UesrLoginActivity extends BaseActivity implements UserLoginView{
     @BindView(R.id.button_left)
@@ -38,6 +42,8 @@ public class UesrLoginActivity extends BaseActivity implements UserLoginView{
     private RegisterFragment registerFragment;
     private UserLoginPresenter userLoginPresenter;
     private boolean isLogin = true;
+    private static boolean isLock = false;
+
     @Override
     protected int getLayout() {
         return R.layout.activity_login;
@@ -118,7 +124,12 @@ public class UesrLoginActivity extends BaseActivity implements UserLoginView{
     public void loadDataSuccess(User tData) {
         ProgressUtils.dismiss();
         if (isLogin) {
-            startActivity(new Intent(getApplicationContext(),HomeActivity.class));
+            Log.i(TAG, "is" + LockViewUtil.getIslock(mContext));
+            if(LockViewUtil.getIslock(mContext)){
+                startActivity(new Intent(getApplicationContext(), UnlockUI.class));
+            }else {
+                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+            }
             setResult(RESULT_OK, new Intent());
             finish();
 
@@ -153,5 +164,13 @@ public class UesrLoginActivity extends BaseActivity implements UserLoginView{
         registerFragment = new RegisterFragment();
         transaction.replace(R.id.fragment_change, registerFragment);
         transaction.commit();
+    }
+
+    public static void setLock(boolean lock) {
+        isLock = lock;
+    }
+
+    public boolean isLock() {
+        return isLock;
     }
 }

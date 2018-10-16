@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -112,6 +113,8 @@ public abstract class HomeBaseFragment extends Fragment {
         toolbar.inflateMenu(getItemMenu());
         ((AppCompatActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);
         //创建返回键，并实现打开关/闭监听
+
+        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);//禁止滑动
         ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(getActivity(), mDrawerLayout,
                 toolbar, R.string.open, R.string.close) {
 
@@ -138,7 +141,6 @@ public abstract class HomeBaseFragment extends Fragment {
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
                 // mAnimationDrawable.start();
-//                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);//禁止滑动
             }
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
@@ -156,12 +158,18 @@ public abstract class HomeBaseFragment extends Fragment {
 //               mDrawerLayout.closeDrawers();
 //            }
 //        });
-        Objects.requireNonNull(((AppCompatActivity) getActivity()).getSupportActionBar())
-                .setDisplayHomeAsUpEnabled(true);//设置toolbar的图标可显示
-        Objects.requireNonNull(((AppCompatActivity) getActivity()).getSupportActionBar())
-                .setHomeAsUpIndicator(R.drawable.menu);//设置图标
-//        Objects.requireNonNull(((AppCompatActivity) getActivity()).getSupportActionBar()).setHomeButtonEnabled(true); //设置返回键可用
-        Objects.requireNonNull(((AppCompatActivity) getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+//        Objects.requireNonNull(((AppCompatActivity) getActivity()).getSupportActionBar())
+//                .setDisplayHomeAsUpEnabled(true);//设置toolbar的图标可显示
+//        Objects.requireNonNull(((AppCompatActivity) getActivity()).getSupportActionBar())
+//                .setHomeAsUpIndicator(R.drawable.menu);//设置图标
+        toolbar.setNavigationIcon(R.drawable.menu);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDrawerLayout.openDrawer(Gravity.LEFT);
+            }
+        });
+//        Objects.requireNonNull(((AppCompatActivity) getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
