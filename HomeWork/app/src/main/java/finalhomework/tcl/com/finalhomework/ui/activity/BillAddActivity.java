@@ -211,7 +211,7 @@ public class BillAddActivity extends BaseActivity implements BillView {
         for (int i = 0; i < page; i++) {
             tempList = new ArrayList<>();
             View view = inflater.inflate(R.layout.pager_item_tb_type, null);
-            RecyclerView recycle = (RecyclerView) view.findViewById(R.id.pager_type_recycle);
+            final RecyclerView recycle = (RecyclerView) view.findViewById(R.id.pager_type_recycle);
             if (i != page - 1 || (i == page - 1 && isTotalPage)) {
                 for (int j = 0; j < 15; j++) {
                     tempList.add(tempData.get(i * 15 + j));
@@ -226,6 +226,7 @@ public class BillAddActivity extends BaseActivity implements BillView {
             mAdapter.setOnBookNoteClickListener(new BookNoteAdapter.OnBookNoteClickListener() {
                 @Override
                 public void OnClick(int index) {
+
                     //获取真实index
                     index=index + viewpagerItem.getCurrentItem() * 15;
                     if (index==mDatas.size()) {
@@ -237,6 +238,7 @@ public class BillAddActivity extends BaseActivity implements BillView {
                         //选择分类
                         lastBean = mDatas.get(index);
                         sortTv.setText(lastBean.getSortName());
+
                     }
                 }
 

@@ -16,6 +16,8 @@ import finalhomework.tcl.com.finalhomework.ui.activity.BillAddActivity;
 import finalhomework.tcl.com.finalhomework.ui.activity.BillEditActivity;
 import finalhomework.tcl.com.finalhomework.Utils.ImageUtils;
 import finalhomework.tcl.com.finalhomework.pojo.SortBill;
+import finalhomework.tcl.com.finalhomework.ui.widget.CircleImageView;
+import finalhomework.tcl.com.finalhomework.ui.widget.RoundImageView;
 
 /**
  * 账单分类Adapter（AddBillAdapter)
@@ -95,6 +97,7 @@ public class BookNoteAdapter extends RecyclerView.Adapter<BookNoteAdapter.ViewHo
             onBookNoteClickListener.OnLongClick(getAdapterPosition());
             return false;
         }
+
     }
 
     /**
