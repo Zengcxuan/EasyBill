@@ -17,8 +17,10 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.media.AudioManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
@@ -38,6 +40,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -159,9 +162,6 @@ public class mine_Fragment extends HomeBaseFragment {
                         break;
                     case 1:
                         // TODO: 18-10-8 定时提醒
-                        /**
-                        * 逻辑不对，应该先输入内容
-                        */
                         clockSet();
                         break;
                     case 2:
@@ -265,6 +265,15 @@ public class mine_Fragment extends HomeBaseFragment {
     @Override
     protected  void setItemReact(){
         // TODO: 18-10-9 分享
+        Intent intent=new Intent(Intent.ACTION_SEND);
+        intent.setType("image/*");
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Share");
+        intent.putExtra(Intent.EXTRA_TEXT, "快来记账吧");
+        File f = new File(Environment.getExternalStorageDirectory()+"/shared.png");
+//        Uri uri = Uri.fromFile(f);
+        intent.putExtra(Intent.EXTRA_STREAM, R.mipmap.shared);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(Intent.createChooser(intent, "选择分享途径"));
     }
 
     @Override

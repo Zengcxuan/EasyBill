@@ -304,7 +304,7 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
        super.myToolbar();
         TextView title = new TextView(getActivity());
         title.setText("账单");
-        title.setTextSize(22);
+        title.setTextSize(18);
         title.setTextColor(getResources().getColor(R.color.white));
         title.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT));
