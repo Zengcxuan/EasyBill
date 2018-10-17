@@ -30,8 +30,8 @@ public class MonthDetailModelImpl implements MonthDetailModel{
         void onFailure(Throwable e);
     }
     @Override
-    public void getMonthDetailBills(int id, String year, String month) {
-        LocalRepository.getInstance().getTotalBillByUserIdWithYM(id, year, month)
+    public void getMonthDetailBills(String id, String year, String month) {
+        LocalRepository.getInstance().getTotalBillByUserIdWithYM2(id, year, month)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseObserver<List<TotalBill>>() {

@@ -15,7 +15,7 @@ public class MonthChartPresenterImpl extends MonthChartPresenter implements Mont
         this.view = view;
     }
     @Override
-    public void getMonthChartBills(int id, String year, String month) {
+    public void getMonthChartBills(String id, String year, String month) {
         model.getMonthChartBills(id,year,month);
     }
 

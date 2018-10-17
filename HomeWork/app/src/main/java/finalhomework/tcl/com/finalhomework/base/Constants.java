@@ -32,7 +32,7 @@ public class Constants {
     //当前用户
     public static int currentUserId = 0;
 
-    public static String EXTRA_IS_UPDATE_THEME = "com.copasso.cocobill.IS_UPDATE_THEME";
+
 
     //默认note(账单分类和支付方式)
     public static String BILL_NOTE = "{\"status\":100,\"message\":\"处理成功！\"," +

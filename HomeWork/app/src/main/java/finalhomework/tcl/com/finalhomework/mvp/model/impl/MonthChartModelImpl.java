@@ -19,8 +19,8 @@ public class MonthChartModelImpl implements MonthChartModel {
     }
 
     @Override
-    public void getMonthChartBills(int id, String year, String month) {
-        LocalRepository.getInstance().getTotalBillByUserIdWithYM(id, year, month)
+    public void getMonthChartBills(String id, String year, String month) {
+        LocalRepository.getInstance().getTotalBillByUserIdWithYM2(id, year, month)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseObserver<List<TotalBill>>() {

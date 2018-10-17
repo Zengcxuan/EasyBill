@@ -121,9 +121,9 @@ public class mine_Fragment extends HomeBaseFragment {
      */
     private void initData(){
         // TODO: 18-10-9 载入头像名字，账单数据
-        recordDays.setText("55"); //总天数
-        recordDeals.setText("11"); //总笔数
-        recordSurplus.setText("55"); //结余
+        recordDays.setText("0"); //总天数
+        recordDeals.setText("0"); //总笔数
+        recordSurplus.setText("0.0"); //结余
 
         //初始化GridView，添加itemClickListener，下方多行栏目的监听
         final List<Map<String, Object>> dataList;

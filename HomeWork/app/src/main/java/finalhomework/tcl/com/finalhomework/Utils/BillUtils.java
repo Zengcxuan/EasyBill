@@ -17,8 +17,10 @@ import finalhomework.tcl.com.finalhomework.pojo.TotalBill;
 import static finalhomework.tcl.com.finalhomework.Utils.DateUtils.getEndDayOfWeek;
 
 public class BillUtils {
+
     static  Boolean  isToday = false;
     private static String TAG = "meng111";
+
     public static MonthDetailAccount packageDetailList2(List<TotalBill> list/*,String date*/) {
         MonthDetailAccount bean = new MonthDetailAccount();
         float t_income = 0;
