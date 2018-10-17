@@ -57,6 +57,7 @@ import finalhomework.tcl.com.finalhomework.mvp.views.MonthChartView;
 import finalhomework.tcl.com.finalhomework.pojo.MonthBillForChart;
 import finalhomework.tcl.com.finalhomework.pojo.MonthDetailAccount;
 import finalhomework.tcl.com.finalhomework.pojo.TotalBill;
+import finalhomework.tcl.com.finalhomework.pojo.User;
 import finalhomework.tcl.com.finalhomework.ui.activity.SearchAll;
 import finalhomework.tcl.com.finalhomework.ui.adapter.MonthChartAdapter;
 import finalhomework.tcl.com.finalhomework.ui.widget.ImageButtonWithText;
@@ -168,14 +169,14 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
                 thisWeekBtn.setTextColor(getResources().getColor(R.color.tab_clicked));
                 tableRow.setGravity(END);
                 isThisWeek =true;
-                presenter.getMonthChartBills(Constants.currentUserId,setYear,setMonth);
+                presenter.getMonthChartBills(User.getCurrentUser().getObjectId(), setYear, setMonth);
                 break;
             case R.id.lastweek:
                 thisWeekBtn.setTextColor(getResources().getColor(R.color.tab_unclicked));
                 lastWeekBtn.setTextColor(getResources().getColor(R.color.tab_clicked));
                 tableRow.setGravity(START);
                 isThisWeek =false;
-                presenter.getMonthChartBills(Constants.currentUserId,setYear,setMonth);
+                presenter.getMonthChartBills(User.getCurrentUser().getObjectId(), setYear, setMonth);
                 break;
             case R.id.head_chart:
                 //开启个人信息界面
@@ -266,7 +267,7 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
             @Override
             public void onRefresh() {
                 swipe.setRefreshing(false);
-                presenter.getMonthChartBills(Constants.currentUserId, setYear, setMonth);
+                presenter.getMonthChartBills(User.getCurrentUser().getObjectId(), setYear, setMonth);
             }
         });
     }
@@ -299,7 +300,7 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
     protected void improtantData() {
 
         presenter=new MonthChartPresenterImpl(this);
-        presenter.getMonthChartBills(Constants.currentUserId, setYear, setMonth);
+        presenter.getMonthChartBills(User.getCurrentUser().getObjectId(), setYear, setMonth);
         flash();
         falseData();
         ChartUtil.notifyDataSetChanged(chart, values, ChartUtil.weekValue);
@@ -404,11 +405,11 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
                 switch (position) {
                     case 0:
                     isIncome = true;
-                    presenter.getMonthChartBills(Constants.currentUserId, setYear, setMonth);
+                        presenter.getMonthChartBills(User.getCurrentUser().getObjectId(), setYear, setMonth);
                         break;//收入
                     case 1:
                     isIncome = false;
-                    presenter.getMonthChartBills(Constants.currentUserId, setYear, setMonth);
+                        presenter.getMonthChartBills(User.getCurrentUser().getObjectId(), setYear, setMonth);
                         break;//支出
                 }
             }

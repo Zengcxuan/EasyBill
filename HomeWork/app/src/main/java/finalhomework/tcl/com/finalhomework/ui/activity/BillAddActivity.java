@@ -31,7 +31,11 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.SaveListener;
 import finalhomework.tcl.com.finalhomework.R;
+import finalhomework.tcl.com.finalhomework.Utils.ToastUtils;
+import finalhomework.tcl.com.finalhomework.pojo.ShareBill;
 import finalhomework.tcl.com.finalhomework.ui.adapter.BookNoteAdapter;
 import finalhomework.tcl.com.finalhomework.Utils.DateUtils;
 import finalhomework.tcl.com.finalhomework.Utils.ProgressUtils;
@@ -465,7 +469,7 @@ public class BillAddActivity extends BaseActivity implements BillView {
         final SimpleDateFormat sdf = new SimpleDateFormat(" HH:mm:ss");
         final String crDate = days + sdf.format(new Date());
         if ((num + dotNum).equals("0.00")) {
-            Toast.makeText(this, "唔姆，你还没输入金额", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "请输入金额", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -476,7 +480,16 @@ public class BillAddActivity extends BaseActivity implements BillView {
                 lastBean.getSortName(),lastBean.getSortImg(),
                 DateUtils.getMillis(crDate),!isOutcome,0);
         presenter.add(bBill);
-
+        ShareBill coBill=new ShareBill(bBill);
+        coBill.save(new SaveListener<String>() {
+            @Override
+            public void done(String s, BmobException e) {
+                if (e==null)
+                    ToastUtils.show(mContext,s);
+                else
+                    ToastUtils.show(mContext,e.getMessage());
+            }
+        });
     }
 
     /**

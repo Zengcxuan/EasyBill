@@ -18,7 +18,7 @@ public class MonthDetailPresenterImpl extends MonthDetailPresenter implements Mo
         this.monthDetailView = monthDetailView;
     }
     @Override
-    public void getMonthDetailBills(int id, String year, String month) {
+    public void getMonthDetailBills(String id, String year, String month) {
         monthDetailModel.getMonthDetailBills(id,year,month);
     }
 

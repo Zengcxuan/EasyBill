@@ -106,8 +106,8 @@ public class UesrLoginActivity extends BaseActivity implements UserLoginView{
         }
 
         ProgressUtils.show(this, "正在登陆...");
-
-        userLoginPresenter.login("1", "1");
+        userLoginPresenter.login(username,password);
+       // userLoginPresenter.login("1", "1");
 
     }
     public void register(){
