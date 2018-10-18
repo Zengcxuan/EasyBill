@@ -4,6 +4,7 @@ import finalhomework.tcl.com.finalhomework.mvp.model.UserLoginModel;
 import finalhomework.tcl.com.finalhomework.mvp.model.impl.UserLoginModelImpl;
 import finalhomework.tcl.com.finalhomework.mvp.presenter.UserLoginPresenter;
 import finalhomework.tcl.com.finalhomework.mvp.views.UserLoginView;
+import finalhomework.tcl.com.finalhomework.pojo.Person;
 import finalhomework.tcl.com.finalhomework.pojo.User;
 
 public class UserLoginPresenterImpl extends UserLoginPresenter implements UserLoginModelImpl.UserLoginOnListener {
@@ -26,7 +27,7 @@ public class UserLoginPresenterImpl extends UserLoginPresenter implements UserLo
     }
 
     @Override
-    public void onSuccess(User user) {
+    public void onSuccess(Person user) {
         view.loadDataSuccess(user);
     }
 

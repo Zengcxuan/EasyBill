@@ -9,6 +9,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.OnClick;
 import finalhomework.tcl.com.finalhomework.R;
+import finalhomework.tcl.com.finalhomework.pojo.User;
 
 public class PersionalInfoActivity extends BaseActivity {
     @BindView(R.id.name_persional)
@@ -17,9 +18,23 @@ public class PersionalInfoActivity extends BaseActivity {
     TextView gender;
     @BindView(R.id.email_persional)
     TextView email;
+
+    private android.support.v7.app.AlertDialog iconDialog;
+    private android.support.v7.app.AlertDialog genderDialog;
+    private android.support.v7.app.AlertDialog phoneDialog;
+    private android.support.v7.app.AlertDialog emailDialog;
+
+    protected static final int CHOOSE_PICTURE = 0;
+    protected static final int TAKE_PICTURE = 1;
+    protected static final int GENDER_MAN = 0;
+    protected static final int GENDER_FEMALE = 1;
+    private static final int CROP_SMALL_PICTURE = 2;
+
     @Override
     protected void initEventAndData() {
-
+        userName.setText(currentUser.getUsername());
+        //gender.setText(currentUser.getGender());
+        email.setText(currentUser.getEmail());
     }
 
     @Override
@@ -60,7 +75,6 @@ public class PersionalInfoActivity extends BaseActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // TODO: 18-10-18 这里注销
-
                 Intent intent  = new Intent(mContext,UesrLoginActivity.class);
                 startActivity(intent);
                 finish();

@@ -4,6 +4,7 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.LogInListener;
 import cn.bmob.v3.listener.SaveListener;
 import finalhomework.tcl.com.finalhomework.mvp.model.UserLoginModel;
+import finalhomework.tcl.com.finalhomework.pojo.Person;
 import finalhomework.tcl.com.finalhomework.pojo.User;
 
 public class UserLoginModelImpl implements UserLoginModel  {
@@ -15,10 +16,10 @@ public class UserLoginModelImpl implements UserLoginModel  {
 
     @Override
     public void login(String username, String password) {
-        User.loginByAccount(username, password, new LogInListener<User>() {
+        Person.loginByAccount(username, password, new LogInListener<Person>() {
 
             @Override
-            public void done(User user, BmobException e) {
+            public void done(Person user, BmobException e) {
                if (e == null){
                    listener.onSuccess(user);
                }else {
@@ -30,15 +31,15 @@ public class UserLoginModelImpl implements UserLoginModel  {
 
     @Override
     public void signup(String username, String password, String mail) {
-        User user = new User();
+        Person user = new Person();
         user.setUsername(username);
         user.setPassword(password);
         user.setEmail(mail);
 
-       user.signUp(new SaveListener<User>() {
+       user.signUp(new SaveListener<Person>() {
 
            @Override
-           public void done(User user, BmobException e) {
+           public void done(Person user, BmobException e) {
                if (e==null){
                    listener.onSuccess(user);
                }else {
@@ -58,7 +59,7 @@ public class UserLoginModelImpl implements UserLoginModel  {
      */
     public interface UserLoginOnListener {
 
-        void onSuccess(User user);
+        void onSuccess(Person user);
 
         void onFailure(Throwable e);
     }

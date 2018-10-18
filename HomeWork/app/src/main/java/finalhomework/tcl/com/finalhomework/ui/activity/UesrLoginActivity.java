@@ -24,6 +24,7 @@ import finalhomework.tcl.com.finalhomework.Utils.SnackbarUtils;
 import finalhomework.tcl.com.finalhomework.mvp.presenter.UserLoginPresenter;
 import finalhomework.tcl.com.finalhomework.mvp.presenter.impl.UserLoginPresenterImpl;
 import finalhomework.tcl.com.finalhomework.mvp.views.UserLoginView;
+import finalhomework.tcl.com.finalhomework.pojo.Person;
 import finalhomework.tcl.com.finalhomework.pojo.User;
 import finalhomework.tcl.com.finalhomework.ui.fragment.login.LoginFragment;
 import finalhomework.tcl.com.finalhomework.ui.fragment.login.RegisterFragment;
@@ -113,15 +114,16 @@ public class UesrLoginActivity extends BaseActivity implements UserLoginView{
     public void register(){
         String username = registerFragment.getUserName();
         String password = registerFragment.getPassWord();
+        String Email = registerFragment.getEmail();
         if (username.length() == 0 || password.length() == 0) {
             SnackbarUtils.show(mContext, "用户名或密码不能为空");
             return;
         }
-        userLoginPresenter.signup(username,password,"123@qq.com");
+        userLoginPresenter.signup(username,password,Email);
     }
 
     @Override
-    public void loadDataSuccess(User tData) {
+    public void loadDataSuccess(Person tData) {
         ProgressUtils.dismiss();
         if (isLogin) {
             Log.i(TAG, "is" + LockViewUtil.getIslock(mContext));
