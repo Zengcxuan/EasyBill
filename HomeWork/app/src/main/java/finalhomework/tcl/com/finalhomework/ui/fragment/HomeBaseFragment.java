@@ -2,6 +2,7 @@ package finalhomework.tcl.com.finalhomework.ui.fragment;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -27,6 +28,7 @@ import java.util.Objects;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import finalhomework.tcl.com.finalhomework.R;
+import finalhomework.tcl.com.finalhomework.ui.activity.PersionalInfoActivity;
 import finalhomework.tcl.com.finalhomework.ui.widget.ImageButtonWithText;
 
 
@@ -167,9 +169,17 @@ public abstract class HomeBaseFragment extends Fragment {
                 mDrawerLayout.openDrawer(Gravity.LEFT);
             }
         });
+
         ImageButtonWithText headView = getHead();
         headView.setText("我的");
         headView.setImageView(R.mipmap.sort_kid);
+        headView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, PersionalInfoActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
