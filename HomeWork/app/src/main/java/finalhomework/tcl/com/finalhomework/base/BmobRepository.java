@@ -2,6 +2,8 @@ package finalhomework.tcl.com.finalhomework.base;
 
 
 
+import android.util.Log;
+
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ import cn.bmob.v3.datatype.BatchResult;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.QueryListListener;
+import cn.bmob.v3.listener.UpdateListener;
 import finalhomework.tcl.com.finalhomework.Utils.BillUtils;
 import finalhomework.tcl.com.finalhomework.pojo.ShareBill;
 import finalhomework.tcl.com.finalhomework.pojo.TotalBill;
@@ -39,7 +42,23 @@ public class BmobRepository {
         }
         return sInstance;
     }
-
+    /**
+     * 删除账单
+     */
+    public void deleteBills(String id){
+        ShareBill shareBill = new ShareBill();
+        shareBill.setObjectId(id);
+        shareBill.delete(new UpdateListener() {
+            @Override
+            public void done(BmobException e) {
+                if (e == null){
+                    Log.e(TAG, "done: 成功 " );
+                }else {
+                    Log.e(TAG, "done: 失败" );
+                }
+            }
+        });
+    }
     /**********************批量操作***************************/
     /**
      * 批量上传账单

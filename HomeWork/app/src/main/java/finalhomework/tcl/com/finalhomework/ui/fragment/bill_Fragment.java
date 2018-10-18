@@ -43,6 +43,7 @@ import finalhomework.tcl.com.finalhomework.mvp.presenter.impl.MonthDetailPresent
 import finalhomework.tcl.com.finalhomework.mvp.views.MonthDetailView;
 import finalhomework.tcl.com.finalhomework.pojo.MonthDetailAccount;
 import finalhomework.tcl.com.finalhomework.pojo.Person;
+import finalhomework.tcl.com.finalhomework.pojo.ShareBill;
 import finalhomework.tcl.com.finalhomework.pojo.TotalBill;
 import finalhomework.tcl.com.finalhomework.pojo.User;
 import finalhomework.tcl.com.finalhomework.pojo.base;
@@ -124,6 +125,7 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
      * 监听list侧拉
      */
     public void left(){
+        ShareBill shareBill = new ShareBill();
         Log.e("meng111", "left: " );
         mLayoutManager = new StickyHeaderGridLayoutManager(SPAN_SIZE);
         mLayoutManager.setHeaderBottomOverlapMargin(5);
@@ -146,6 +148,7 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
                 //将删除的账单版本号设置为负，而非直接删除
                 //便于同步删除服务器数据
                 presenter.updateBill(item);
+               /* BmobRepository.getInstance().deleteBills(shareBill.getObjectId());*/
                 part = section;
                 index = offset;
             }
@@ -272,6 +275,7 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
             //getBills(Constants.currentUserId, setYear, setMonth);
         getBills( User.getCurrentUser().getObjectId(), setYear, setMonth);
 
+
     }
     /**
      * 布局加载
@@ -293,8 +297,8 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
     public void addBill() {
         Intent intent = new Intent(getActivity(), BillAddActivity.class);
         startActivityForResult(intent,RESULTCODE);
-        Person person = Person.getCurrentUser(Person.class);
-        BmobRepository.getInstance().syncBill(person.getObjectId());
+        /*Person person = Person.getCurrentUser(Person.class);
+        BmobRepository.getInstance().syncBill(person.getObjectId());*/
     }
 
     /**
