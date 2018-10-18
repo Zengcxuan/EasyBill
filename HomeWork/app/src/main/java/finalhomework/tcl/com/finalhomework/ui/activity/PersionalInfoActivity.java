@@ -57,7 +57,7 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView 
 
 
     @OnClick ({R.id.name_persional, R.id.head_persional, R.id.gender_persional, R.id.email_persional,
-    R.id.logout, R.id.back_persional})
+    R.id.logout, R.id.back_persional, R.id.share_account})
     protected void onClick(View view) {
         switch (view.getId()) {
            case R.id.name_persional:
@@ -76,6 +76,8 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView 
                break;
            case R.id.back_persional:
                finish();
+               break;
+            case R.id.share_account:
                break;
 
        }
