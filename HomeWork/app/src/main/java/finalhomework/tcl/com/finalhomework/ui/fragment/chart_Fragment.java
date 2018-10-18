@@ -1,11 +1,8 @@
 package finalhomework.tcl.com.finalhomework.ui.fragment;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
-import android.provider.ContactsContract;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,56 +18,38 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TableRow;
-import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.PieEntry;
 
-import org.angmarch.views.NiceSpinner;
-
-import java.text.DecimalFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import finalhomework.tcl.com.finalhomework.R;
-import finalhomework.tcl.com.finalhomework.Utils.BillUtils;
 import finalhomework.tcl.com.finalhomework.Utils.ChartUtil;
 import finalhomework.tcl.com.finalhomework.Utils.DateUtils;
-import finalhomework.tcl.com.finalhomework.Utils.ImageUtils;
 import finalhomework.tcl.com.finalhomework.Utils.SnackbarUtils;
-import finalhomework.tcl.com.finalhomework.base.Constants;
-import finalhomework.tcl.com.finalhomework.base.MyApplication;
 import finalhomework.tcl.com.finalhomework.mvp.presenter.MonthChartPresenter;
 import finalhomework.tcl.com.finalhomework.mvp.presenter.impl.MonthChartPresenterImpl;
 import finalhomework.tcl.com.finalhomework.mvp.views.MonthChartView;
 import finalhomework.tcl.com.finalhomework.pojo.MonthBillForChart;
 import finalhomework.tcl.com.finalhomework.pojo.MonthDetailAccount;
-import finalhomework.tcl.com.finalhomework.pojo.TotalBill;
 import finalhomework.tcl.com.finalhomework.pojo.User;
+import finalhomework.tcl.com.finalhomework.ui.activity.PersionalInfoActivity;
 import finalhomework.tcl.com.finalhomework.ui.activity.SearchAll;
 import finalhomework.tcl.com.finalhomework.ui.adapter.MonthChartAdapter;
 import finalhomework.tcl.com.finalhomework.ui.widget.ImageButtonWithText;
-import lecho.lib.hellocharts.model.PointValue;
+
 import static android.view.Gravity.CENTER;
 import static android.view.Gravity.END;
 import static android.view.Gravity.START;
-import static finalhomework.tcl.com.finalhomework.Utils.DateUtils.FORMAT_D;
 import static finalhomework.tcl.com.finalhomework.Utils.DateUtils.FORMAT_M;
 import static finalhomework.tcl.com.finalhomework.Utils.DateUtils.FORMAT_Y;
-import static finalhomework.tcl.com.finalhomework.Utils.DateUtils.FORMAT_YMD;
-import static finalhomework.tcl.com.finalhomework.Utils.DateUtils.FORMAT_YMD000;
-import static finalhomework.tcl.com.finalhomework.Utils.DateUtils.FORMAT_YMDHMS;
 
 
 public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView,*/MonthChartView/*bill_Fragment.DailyDatas*/ {
@@ -180,7 +159,8 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
                 break;
             case R.id.head_chart:
                 //开启个人信息界面
-                Toast.makeText(getActivity(), "你点击了我", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(mContext, PersionalInfoActivity.class);
+                startActivity(intent);
                 break;
             default:
                 break;

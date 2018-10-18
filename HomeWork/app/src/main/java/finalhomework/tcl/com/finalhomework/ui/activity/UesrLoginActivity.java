@@ -127,8 +127,10 @@ public class UesrLoginActivity extends BaseActivity implements UserLoginView{
             Log.i(TAG, "is" + LockViewUtil.getIslock(mContext));
             if(LockViewUtil.getIslock(mContext)){
                 startActivity(new Intent(getApplicationContext(), UnlockUI.class));
+                finish();
             }else {
                 startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                finish();
             }
             setResult(RESULT_OK, new Intent());
             finish();

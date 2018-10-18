@@ -95,11 +95,11 @@ public abstract class HomeBaseFragment extends Fragment {
         DisplayMetrics metric=getActivity().getResources().getDisplayMetrics();
         /*int windowsWight = metric.widthPixels;
         int windowsHeight = metric.heightPixels;*/
-        View leftMenu = getLeftWindow();
-        ViewGroup.LayoutParams leftParams = leftMenu.getLayoutParams();
-        leftParams.height =metric.heightPixels;
-        leftParams.width = metric.widthPixels;
-        leftMenu.setLayoutParams(leftParams);
+//        View leftMenu = getLeftWindow();
+//        ViewGroup.LayoutParams leftParams = leftMenu.getLayoutParams();
+//        leftParams.height =metric.heightPixels;
+//        leftParams.width = metric.widthPixels;
+//        leftMenu.setLayoutParams(leftParams);
         /* set  toolbar  and show */
         toolbar = getToolbar();
 //        toolbar.getMenu().clear();
@@ -131,9 +131,6 @@ public abstract class HomeBaseFragment extends Fragment {
                     }
                 });
 
-                ImageButtonWithText headView = getHead();
-                headView.setText("我的");
-                headView.setImageView(R.mipmap.sort_kid);
             }
 
             @Override
@@ -170,6 +167,9 @@ public abstract class HomeBaseFragment extends Fragment {
                 mDrawerLayout.openDrawer(Gravity.LEFT);
             }
         });
+        ImageButtonWithText headView = getHead();
+        headView.setText("我的");
+        headView.setImageView(R.mipmap.sort_kid);
     }
 
     @Override
