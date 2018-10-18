@@ -118,6 +118,15 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView 
         }
     }
     /**
+     * 根据注册时间随即生成分享码
+     */
+    public int getShareNumber(){
+        int shareNumber = 0;
+        
+
+        return shareNumber;
+    }
+    /**
      * 更改username
      */
     private void changUserName(){
@@ -150,6 +159,7 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView 
                                     break;
                             }
                             gender.setText(getGender(currentUser.getGender()));
+                            SnackbarUtils.show(mContext, "更改成功，同时恭喜手术成功");
                         }
                     }).create();
         }
@@ -163,7 +173,6 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView 
     public void doUpdate() {
         if (currentUser == null)
             return;
-        SnackbarUtils.show(mContext, "更改成功，同时恭喜手术成功");
        // ProgressUtils.show(PersionalInfoActivity.this, "正在修改...");
         presenter.update(currentUser);
 
