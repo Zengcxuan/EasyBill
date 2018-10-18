@@ -7,12 +7,40 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
         android:layout_gravity="top"
-        android:layout_marginRight="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:elevation="8sp"
+        android:layout_height="160dp">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/shared"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline31"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline31"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.4" />
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="103dp"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginTop="2dp"
         android:background="@color/white"
         android:elevation="4sp">
 
@@ -22,32 +50,17 @@
             android:layout_height="0dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:gravity="center|left"
             android:text="共享账本"
             android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
             app:layout_constraintBottom_toTopOf="@+id/tableLayout3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline25"
-            app:layout_constraintTop_toTopOf="@+id/guideline26" />
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/shared"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/guideline25"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TableLayout
-            android:id="@+id/tableLayout3"
+            android:id="@+id/tableLayout4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -62,25 +75,28 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/textView13"
+                    android:id="@+id/shared_day"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="111"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title" />
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
 
                 <TextView
-                    android:id="@+id/textView12"
+                    android:id="@+id/shared_deals"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="111"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title" />
+                    android:textColor="@color/black"
+                    android:textSize="15sp"/>
 
                 <TextView
-                    android:id="@+id/textView11"
+                    android:id="@+id/shared_surplus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="111元"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title" />
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
             </TableRow>
 
             <TableRow
@@ -91,18 +107,21 @@
                     android:id="@+id/record_days_mine"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="10sp"
                     android:text="记录总天数" />
 
                 <TextView
                     android:id="@+id/record_deals_mine"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="10sp"
                     android:text="记录总笔数" />
 
                 <TextView
                     android:id="@+id/surplus_mine"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="10sp"
                     android:text="结余" />
             </TableRow>
 

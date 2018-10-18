@@ -111,51 +111,51 @@
                 />
             </android.support.v4.widget.SwipeRefreshLayout>
 
-            <Button
-                android:id="@+id/button_week"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/datepicker_background"
-                android:text="周"
-                android:textSize="15sp"
-                app:layout_constraintBottom_toTopOf="@+id/guideline19"
-                app:layout_constraintEnd_toStartOf="@+id/button_vertical1"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            <!--<Button-->
+                <!--android:id="@+id/button_week"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="0dp"-->
+                <!--android:layout_marginEnd="8dp"-->
+                <!--android:layout_marginStart="8dp"-->
+                <!--android:layout_marginTop="8dp"-->
+                <!--android:background="@drawable/datepicker_background"-->
+                <!--android:text="周"-->
+                <!--android:textSize="15sp"-->
+                <!--app:layout_constraintBottom_toTopOf="@+id/guideline19"-->
+                <!--app:layout_constraintEnd_toStartOf="@+id/button_vertical1"-->
+                <!--app:layout_constraintStart_toStartOf="parent"-->
+                <!--app:layout_constraintTop_toTopOf="parent" />-->
 
-            <Button
-                android:id="@+id/button_month"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/datepicker_background"
-                android:text="月"
-                android:textSize="15sp"
-                app:layout_constraintBottom_toTopOf="@+id/guideline19"
-                app:layout_constraintEnd_toStartOf="@+id/button_vertical2"
-                app:layout_constraintStart_toStartOf="@+id/button_vertical1"
-                app:layout_constraintTop_toTopOf="parent" />
+            <!--<Button-->
+                <!--android:id="@+id/button_month"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="0dp"-->
+                <!--android:layout_marginEnd="8dp"-->
+                <!--android:layout_marginStart="8dp"-->
+                <!--android:layout_marginTop="8dp"-->
+                <!--android:background="@drawable/datepicker_background"-->
+                <!--android:text="月"-->
+                <!--android:textSize="15sp"-->
+                <!--app:layout_constraintBottom_toTopOf="@+id/guideline19"-->
+                <!--app:layout_constraintEnd_toStartOf="@+id/button_vertical2"-->
+                <!--app:layout_constraintStart_toStartOf="@+id/button_vertical1"-->
+                <!--app:layout_constraintTop_toTopOf="parent" />-->
 
-            <Button
-                android:id="@+id/button_year"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/datepicker_background"
-                android:text="年"
-                android:textColor="#000000"
-                android:textSize="15sp"
-                app:layout_constraintBottom_toTopOf="@+id/guideline19"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/button_vertical2"
-                app:layout_constraintTop_toTopOf="parent" />
+            <!--<Button-->
+                <!--android:id="@+id/button_year"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="0dp"-->
+                <!--android:layout_marginEnd="8dp"-->
+                <!--android:layout_marginStart="8dp"-->
+                <!--android:layout_marginTop="8dp"-->
+                <!--android:background="@drawable/datepicker_background"-->
+                <!--android:text="年"-->
+                <!--android:textColor="#000000"-->
+                <!--android:textSize="15sp"-->
+                <!--app:layout_constraintBottom_toTopOf="@+id/guideline19"-->
+                <!--app:layout_constraintEnd_toEndOf="parent"-->
+                <!--app:layout_constraintStart_toStartOf="@+id/button_vertical2"-->
+                <!--app:layout_constraintTop_toTopOf="parent" />-->
 
             <android.support.constraint.Guideline
                 android:id="@+id/button_vertical1"
@@ -176,7 +176,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="100dp"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.18" />
+                app:layout_constraintGuide_percent="0.09" />
 
             <android.support.constraint.Guideline
                 android:id="@+id/horizontal2"
@@ -199,8 +199,10 @@
                 app:layout_constraintTop_toTopOf="@+id/horizontal2" />-->
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_list_chart"
-                android:layout_width="366dp"
-                android:layout_height="217dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
                 android:scrollbars="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -212,7 +214,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.08" />
+                app:layout_constraintGuide_percent="0.01" />
         </android.support.constraint.ConstraintLayout>
     </LinearLayout>
 

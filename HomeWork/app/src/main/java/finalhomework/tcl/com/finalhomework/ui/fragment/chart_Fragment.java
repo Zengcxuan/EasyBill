@@ -62,12 +62,12 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
     View thisView;
     @BindView(R.id.tableRow)
     TableRow tableRow;
-    @BindView(R.id.button_week)
-    Button weekBtn;
-    @BindView(R.id.button_month)
-    Button monthBtn;
-    @BindView(R.id.button_year)
-    Button yearBtn;
+//    @BindView(R.id.button_week)
+//    Button weekBtn;
+//    @BindView(R.id.button_month)
+//    Button monthBtn;
+//    @BindView(R.id.button_year)
+//    Button yearBtn;
     @BindView(R.id.lineChart)
     LineChart chart;//显示线条的自定义View
     @BindView(R.id.rv_list_chart)
@@ -124,25 +124,25 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
     /**
      * 按钮事件处理
      */
-    @OnClick({R.id.button_week, R.id.button_month, R.id.button_year, R.id.thisweek, R.id.lastweek, R.id.head_chart})
+    @OnClick({R.id.thisweek, R.id.lastweek, R.id.head_chart})
     public void onClick(View view) {
 
         switch (view.getId()) {
-            case R.id.button_week:
-                BtnStateChange(1);
-                lastWeekBtn.setText("上周");
-                thisWeekBtn.setText("本周");
-                break;
-            case R.id.button_month:
-                BtnStateChange(2);
-                lastWeekBtn.setText("上月");
-                thisWeekBtn.setText("本月");
-                break;
-            case R.id.button_year:
-                BtnStateChange(3);
-                lastWeekBtn.setText("上年");
-                thisWeekBtn.setText("本年");
-                break;
+//            case R.id.button_week:
+//                BtnStateChange(1);
+//                lastWeekBtn.setText("上周");
+//                thisWeekBtn.setText("本周");
+//                break;
+//            case R.id.button_month:
+//                BtnStateChange(2);
+//                lastWeekBtn.setText("上月");
+//                thisWeekBtn.setText("本月");
+//                break;
+//            case R.id.button_year:
+//                BtnStateChange(3);
+//                lastWeekBtn.setText("上年");
+//                thisWeekBtn.setText("本年");
+//                break;
             case R.id.thisweek:
                 lastWeekBtn.setTextColor(getResources().getColor(R.color.tab_unclicked));
                 thisWeekBtn.setTextColor(getResources().getColor(R.color.tab_clicked));
@@ -254,25 +254,25 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
     /**
      * 年,月,周按钮点击后的颜色变化
      */
-    public void BtnStateChange(int type) {
-        switch (type) {
-            case 1:
-                weekBtn.setBackground(getActivity().getDrawable(R.drawable.datepicker_background_clicked));
-                monthBtn.setBackground(getActivity().getDrawable(R.drawable.datepicker_background));
-                yearBtn.setBackground(getActivity().getDrawable(R.drawable.datepicker_background));
-                break;
-            case 2:
-                weekBtn.setBackground(getActivity().getDrawable(R.drawable.datepicker_background));
-                monthBtn.setBackground(getActivity().getDrawable(R.drawable.datepicker_background_clicked));
-                yearBtn.setBackground(getActivity().getDrawable(R.drawable.datepicker_background));
-                break;
-            case 3:
-                weekBtn.setBackground(getActivity().getDrawable(R.drawable.datepicker_background));
-                monthBtn.setBackground(getActivity().getDrawable(R.drawable.datepicker_background));
-                yearBtn.setBackground(getActivity().getDrawable(R.drawable.datepicker_background_clicked));
-                break;
-        }
-    }
+//    public void BtnStateChange(int type) {
+//        switch (type) {
+//            case 1:
+//                weekBtn.setBackground(getActivity().getDrawable(R.drawable.datepicker_background_clicked));
+//                monthBtn.setBackground(getActivity().getDrawable(R.drawable.datepicker_background));
+//                yearBtn.setBackground(getActivity().getDrawable(R.drawable.datepicker_background));
+//                break;
+//            case 2:
+//                weekBtn.setBackground(getActivity().getDrawable(R.drawable.datepicker_background));
+//                monthBtn.setBackground(getActivity().getDrawable(R.drawable.datepicker_background_clicked));
+//                yearBtn.setBackground(getActivity().getDrawable(R.drawable.datepicker_background));
+//                break;
+//            case 3:
+//                weekBtn.setBackground(getActivity().getDrawable(R.drawable.datepicker_background));
+//                monthBtn.setBackground(getActivity().getDrawable(R.drawable.datepicker_background));
+//                yearBtn.setBackground(getActivity().getDrawable(R.drawable.datepicker_background_clicked));
+//                break;
+//        }
+//    }
     /**
      * 返回Toolbar的菜单项（右边）
      */

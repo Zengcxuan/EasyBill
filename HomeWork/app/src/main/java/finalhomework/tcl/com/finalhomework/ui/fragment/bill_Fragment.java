@@ -363,11 +363,11 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
     /**
      * 开启个人信息界面
      * */
-    @OnClick(R.id.head_bill)
-    public void showHead(){
-        Intent intent = new Intent(mContext, PersionalInfoActivity.class);
-        startActivity(intent);
-    }
+//    @OnClick(R.id.head_bill)
+//    public void showHead(){
+//        Intent intent = new Intent(mContext, PersionalInfoActivity.class);
+//        startActivity(intent);
+//    }
 
     @Override
     public void myToolbar(){
