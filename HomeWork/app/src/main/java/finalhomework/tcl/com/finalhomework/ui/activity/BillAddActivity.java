@@ -473,7 +473,6 @@ public class BillAddActivity extends BaseActivity implements BillView {
             Toast.makeText(this, "请输入金额", Toast.LENGTH_SHORT).show();
             return;
         }
-
         ProgressUtils.show(mContext, "正在提交...");
         TotalBill bBill=new TotalBill(null,null, Float.valueOf(num + dotNum),remarkInput,currentUser.getObjectId(),
                "no",
@@ -481,7 +480,7 @@ public class BillAddActivity extends BaseActivity implements BillView {
                 lastBean.getSortName(),lastBean.getSortImg(),
                 DateUtils.getMillis(crDate),!isOutcome,0);
         presenter.add(bBill);
-        ShareBill coBill=new ShareBill(bBill);
+       /* ShareBill coBill=new ShareBill(bBill);
         coBill.save(new SaveListener<String>() {
             @Override
             public void done(String s, BmobException e) {
@@ -490,7 +489,7 @@ public class BillAddActivity extends BaseActivity implements BillView {
                 else
                     ToastUtils.show(mContext,e.getMessage());
             }
-        });
+        });*/
     }
 
     /**

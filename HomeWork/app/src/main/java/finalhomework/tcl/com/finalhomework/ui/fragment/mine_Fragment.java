@@ -91,6 +91,7 @@ public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
     @OnClick ({R.id.headimage, R.id.head_mine})
     protected void onClick(View view){
         switch (view.getId()) {
+
             case R.id.headimage:
                 // TODO: 18-10-9  开启个人信息界面
                 Intent intent = new Intent(mContext, PersionalInfoActivity.class);

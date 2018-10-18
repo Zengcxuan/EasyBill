@@ -1,5 +1,6 @@
 package finalhomework.tcl.com.finalhomework.ui.fragment.login;
 
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,7 +13,7 @@ import butterknife.ButterKnife;
 import finalhomework.tcl.com.finalhomework.R;
 
 public class RegisterFragment extends Fragment{
-    private EditText userName, passWord;
+    private EditText userName, passWord, Email;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
@@ -30,8 +31,12 @@ public class RegisterFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
         userName = getActivity().findViewById(R.id.enter_account);
         passWord = getActivity().findViewById(R.id.enter_cyper);
+        Email = getActivity().findViewById(R.id.enter_verify);
     }
 
     public String getUserName(){ return userName.getText().toString();}
     public String getPassWord(){ return passWord.getText().toString();}
+    public String getEmail(){
+        return Email.getText().toString();
+    }
 }
