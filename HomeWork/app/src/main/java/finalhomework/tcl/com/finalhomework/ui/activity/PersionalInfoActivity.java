@@ -8,9 +8,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Date;
+import java.util.Random;
+
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.bmob.v3.b.V;
 import finalhomework.tcl.com.finalhomework.R;
+import finalhomework.tcl.com.finalhomework.Utils.DateUtils;
 import finalhomework.tcl.com.finalhomework.Utils.ProgressUtils;
 import finalhomework.tcl.com.finalhomework.Utils.SnackbarUtils;
 import finalhomework.tcl.com.finalhomework.Utils.StringUtils;
@@ -28,6 +33,8 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView 
     TextView gender;
     @BindView(R.id.email_persional)
     TextView email;
+    @BindView(R.id.share_account)
+    TextView shareAccount;
 
     private UserInfoPresenter presenter;
 
@@ -48,6 +55,7 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView 
         userName.setText(currentUser.getUsername());
         gender.setText(getGender(currentUser.getGender()));
         email.setText(currentUser.getEmail());
+        getShareNumber();
     }
 
     @Override
@@ -78,6 +86,7 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView 
                finish();
                break;
             case R.id.share_account:
+
                break;
 
        }
@@ -122,11 +131,23 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView 
     /**
      * 根据注册时间随即生成分享码
      */
-    public int getShareNumber(){
-        int shareNumber = 0;
-        
+    public void getShareNumber(){
+        if (currentUser.getShareid() == 0){
+            String shareNumber ;
+            int right = (int)(Math.random()*90+10);
+            String time =  currentUser.getCreatedAt();
+            Date date = DateUtils.str2Date(time);
+            Long l = date.getTime();
+            int left =  Math.abs(l.intValue()) ;
+            shareNumber = left + String.valueOf(right);
+            int number = l.intValue()+right;
+            shareAccount.setText(shareNumber);
+            currentUser.setShareid(number);
+            doUpdate();
+        }else {
+            shareAccount.setText(String.valueOf(Math.abs(currentUser.getShareid())));
+        }
 
-        return shareNumber;
     }
     /**
      * 更改username
