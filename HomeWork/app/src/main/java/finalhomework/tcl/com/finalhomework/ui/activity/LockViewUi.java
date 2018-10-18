@@ -38,20 +38,21 @@ public class LockViewUi extends BaseActivity{
         }else{
             lockViewText.setText("你已经设置了手势密码,请输入你的手势密码");
         }
+        swhHandle();
         setLockView();
     }
 
-    @OnClick ({R.id.switch_lockview, R.id.modify_lockview, R.id.back_lockview})
+    @OnClick ({R.id.switch_lockview, R.id.modify_lockview, R.id.back_persional})
     protected void onClick(View v){
         switch (v.getId()) {
             //退出当前Activity
-            case R.id.back_lockview:
+            case R.id.back_persional:
                 finish();
                 break;
             //开关按钮
-            case R.id.switch_lockview:
-                swhHandle();
-                break;
+//            case R.id.switch_lockview:
+//                swhHandle();
+//                break;
             //修改手势密码,点击后直接清除当前存储密码
             case R.id.modify_lockview:
                 modifyHandle();
@@ -101,13 +102,18 @@ public class LockViewUi extends BaseActivity{
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
-                    if (lockView.getCurrentStatus() == STATUS_NO_PWD) {
+                    if(isVerify){
+                        if (lockView.getCurrentStatus() == STATUS_NO_PWD) {
                         Toast.makeText(mContext, "当前没有设置手势密码", Toast.LENGTH_SHORT).show();
                         lockViewSwh.setChecked(false);
-                    }else {
+                        }else {
                         lockViewSwh.setChecked(true);
                         LockViewUtil.setIslock(mContext, true);
                         Toast.makeText(mContext, "手势密码已启用", Toast.LENGTH_SHORT).show();
+                       }
+                    }else {
+                        lockViewSwh.setChecked(false);
+                        Toast.makeText(mContext, "请先验证密码", Toast.LENGTH_SHORT).show();
                     }
                 }else {
                     lockViewSwh.setChecked(false);

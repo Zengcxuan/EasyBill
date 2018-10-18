@@ -1,30 +1,13 @@
 package finalhomework.tcl.com.finalhomework.ui.fragment;
 
-import android.Manifest;
-import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
-import android.app.job.JobInfo;
-import android.app.job.JobScheduler;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.media.AudioManager;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.Settings;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -46,13 +29,12 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import finalhomework.tcl.com.finalhomework.MyBroadcast;
-import finalhomework.tcl.com.finalhomework.MyService;
 import finalhomework.tcl.com.finalhomework.R;
+import finalhomework.tcl.com.finalhomework.ui.activity.PersionalInfoActivity;
 import finalhomework.tcl.com.finalhomework.Utils.LockViewUtil;
 import finalhomework.tcl.com.finalhomework.Utils.SnackbarUtils;
 import finalhomework.tcl.com.finalhomework.mvp.presenter.TotalRecordPresenter;
@@ -63,14 +45,10 @@ import finalhomework.tcl.com.finalhomework.pojo.TotalBill;
 import finalhomework.tcl.com.finalhomework.pojo.User;
 import finalhomework.tcl.com.finalhomework.ui.activity.BudgetActivity;
 import finalhomework.tcl.com.finalhomework.ui.activity.LockViewUi;
-import finalhomework.tcl.com.finalhomework.ui.widget.EditDialog;
 import finalhomework.tcl.com.finalhomework.ui.widget.ImageButtonWithText;
-import finalhomework.tcl.com.finalhomework.ui.widget.NotificationTool;
 import finalhomework.tcl.com.finalhomework.ui.widget.RoundImageView;
 
-import static android.app.PendingIntent.FLAG_ONE_SHOT;
 import static android.content.Context.ALARM_SERVICE;
-import static android.support.v4.content.PermissionChecker.checkSelfPermission;
 
 
 public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
@@ -115,7 +93,8 @@ public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
         switch (view.getId()) {
             case R.id.headimage:
                 // TODO: 18-10-9  开启个人信息界面
-                Toast.makeText(getActivity(), "你点击了我", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(mContext, PersionalInfoActivity.class);
+                startActivity(intent);
                 break;
         }
     }

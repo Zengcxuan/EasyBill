@@ -3,7 +3,6 @@ package finalhomework.tcl.com.finalhomework.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -17,7 +16,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.liuwan.customdatepicker.widget.CustomDatePicker;
 
@@ -49,12 +47,12 @@ import finalhomework.tcl.com.finalhomework.pojo.ShareBill;
 import finalhomework.tcl.com.finalhomework.pojo.TotalBill;
 import finalhomework.tcl.com.finalhomework.pojo.User;
 import finalhomework.tcl.com.finalhomework.pojo.base;
+import finalhomework.tcl.com.finalhomework.ui.activity.PersionalInfoActivity;
 import finalhomework.tcl.com.finalhomework.ui.activity.BillAddActivity;
 import finalhomework.tcl.com.finalhomework.ui.activity.BillEditActivity;
 import finalhomework.tcl.com.finalhomework.ui.activity.SearchAll;
 
 import finalhomework.tcl.com.finalhomework.Utils.meng_MyUtils;
-import finalhomework.tcl.com.finalhomework.base.Constants;
 
 import finalhomework.tcl.com.finalhomework.ui.adapter.MonthDetailAdapter;
 import finalhomework.tcl.com.finalhomework.ui.widget.ImageButtonWithText;
@@ -308,7 +306,8 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
      * */
     @OnClick(R.id.head_bill)
     public void showHead(){
-        Toast.makeText(getActivity(), "你点击了我", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(mContext, PersionalInfoActivity.class);
+        startActivity(intent);
     }
 
     @Override
