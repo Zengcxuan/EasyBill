@@ -13,11 +13,16 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.liuwan.customdatepicker.widget.CustomDatePicker;
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
+import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -90,8 +95,8 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
     EditText currentDate;
     @BindView(R.id.bill_time_year)
     EditText currentYear;
-    @BindView(R.id.bill_add)
-    ImageButton bill_add;
+//    @BindView(R.id.bill_add)
+//    ImageButton bill_add;
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event(SyncEvent event) {
@@ -117,6 +122,7 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
         //getBills(Constants.currentUserId, setYear, setMonth);
         getBills( User.getCurrentUser().getObjectId(), setYear, setMonth);
         initDatePicker();
+        initFab();
     }
     @Override
     protected void loadData() {
@@ -266,6 +272,56 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
         customDatePicker1.setIsLoop(true); // 不允许循环滚动
 
     }
+
+    /**
+     * 添加悬浮按钮
+     */
+    private void initFab(){
+//        ImageView image = new ImageView(mContext);
+//        image.setImageDrawable(mContext.getDrawable(R.drawable.add_bill3));
+        FloatingActionButton floatingActionButton
+                = new FloatingActionButton.Builder(mActivity).build();
+        floatingActionButton.setBackground(mContext.getDrawable(R.drawable.add_bill3));
+        SubActionButton.Builder itemBuilder = new SubActionButton.Builder(mActivity);
+        ImageView itemIcon = new ImageView(mContext);
+//        itemIcon.setImageDrawable(mContext.getDrawable(R.drawable.add));
+//        itemIcon.setBackground(mContext.getDrawable(R.drawable.add_bill3));
+        SubActionButton addbill = itemBuilder.build();
+        addbill.setBackground(mContext.getDrawable(R.drawable.add));
+//        ImageView itemIcon2 = new ImageView(mContext);
+//        itemIcon2.setImageDrawable(mContext.getDrawable(R.drawable.add_bill3));
+//        SubActionButton refreshbill = itemBuilder.setContentView(itemIcon2).build();
+        SubActionButton refreshbill = itemBuilder.build();
+        refreshbill.setBackground(mContext.getDrawable(R.drawable.add));
+
+        FloatingActionMenu actionMenu = new FloatingActionMenu.Builder(mActivity)
+                .addSubActionView(addbill)
+                .addSubActionView(refreshbill)
+                .attachTo(floatingActionButton)
+                .build();
+
+        FrameLayout.LayoutParams params =
+                new FrameLayout.LayoutParams(180, 180);
+        params.setMargins(0, 0, 0, 100);
+        floatingActionButton.setPosition(4, params);
+
+        addbill.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //开启账单添加
+                Intent intent = new Intent(getActivity(), BillAddActivity.class);
+                startActivityForResult(intent,RESULTCODE);
+            }
+        });
+
+        refreshbill.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO: 18-10-18 数据更新
+            }
+        });
+
+    }
     /**
      * Activity返回
      */
@@ -293,13 +349,16 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
         EventBus.getDefault().unregister(this);
     }
 
-    @OnClick(R.id.bill_add)
-    public void addBill() {
-        Intent intent = new Intent(getActivity(), BillAddActivity.class);
-        startActivityForResult(intent,RESULTCODE);
-        /*Person person = Person.getCurrentUser(Person.class);
-        BmobRepository.getInstance().syncBill(person.getObjectId());*/
-    }
+    /**
+     * 原悬浮按钮
+     */
+//    @OnClick(R.id.bill_add)
+//    public void addBill() {
+//        Intent intent = new Intent(getActivity(), BillAddActivity.class);
+//        startActivityForResult(intent,RESULTCODE);
+//        /*Person person = Person.getCurrentUser(Person.class);
+//        BmobRepository.getInstance().syncBill(person.getObjectId());*/
+//    }
 
     /**
      * 开启个人信息界面
