@@ -6,7 +6,6 @@ import android.util.Log;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
-import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -56,16 +55,11 @@ public class ChartUtil {
         // 不从y轴发出横向直线
         yAxis.setDrawGridLines(false);
         yAxis.setTextColor(Color.WHITE);
-        yAxis.setTextSize(12);
+        yAxis.setTextSize(15);
         yAxis.setAxisMinimum(0);
         chart.animateX(2500);
         //不显示右边
-
-
-
-
     }
-
     /**
      * 设置图表数据
      *
@@ -85,8 +79,9 @@ public class ChartUtil {
             lineDataSet = new LineDataSet(values, "");
             // 设置曲线颜色
             lineDataSet.setColor(Color.GREEN);
+            lineDataSet.setDrawValues(true);
             // 设置平滑曲线
-            lineDataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+            //lineDataSet.setMode(LineDataSet.Mode.STEPPED);
             // 不显示坐标点的小圆点
             lineDataSet.setDrawCircles(true);
             // 不显示坐标点的数据
@@ -101,7 +96,6 @@ public class ChartUtil {
             chart.invalidate();
         }
     }
-
     /**
      * 更新图表
      *
@@ -121,7 +115,6 @@ public class ChartUtil {
         chart.invalidate();
         setChartData(chart, values);
     }
-
     /**
      * x轴数据处理
      *
@@ -130,18 +123,6 @@ public class ChartUtil {
      */
     private static String[] xValuesProcess(int valueType) {
 
-
-       /* if (valueType == dayValue) { // 今日
-            String[] dayValues = new String[7];
-            long currentTime = System.currentTimeMillis();
-            for (int i = 6; i >= 0; i--) {
-                dayValues[i] = TimeUtils.dateToString(currentTime, TimeUtils.dateFormat_day);
-                currentTime -= (3 * 60 * 60 * 1000);
-            }
-            return dayValues;
-
-        } */
-
          if (valueType == weekValue) { // 本周
             String[] weekValues = new String[7];
             Date weekEnd = getEndDayOfWeek();
@@ -149,21 +130,10 @@ public class ChartUtil {
             for (int i = 0; i< 7; i++) {
                 j = 6-i;
                 weekValues[i] =DateUtils.getDay(weekEnd.toString(),-j);
-                //Log.e("meng111", "xValuesProcess: "+weekValues[i] +weekEnd);
             }
             return weekValues;
 
         }
-
-        /*else if (valueType == monthValue) { // 本月
-            String[] monthValues = new String[7];
-            long currentTime = System.currentTimeMillis();
-            for (int i = 6; i >= 0; i--) {
-                monthValues[i] = TimeUtils.dateToString(currentTime, TimeUtils.dateFormat_month);
-                currentTime -= (4 * 24 * 60 * 60 * 1000);
-            }
-            return monthValues;
-        }*/
         return new String[]{};
     }
 
