@@ -4,6 +4,7 @@ package finalhomework.tcl.com.finalhomework.mvp.model.impl;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.UpdateListener;
 import finalhomework.tcl.com.finalhomework.mvp.model.UserInfoModel;
+import finalhomework.tcl.com.finalhomework.pojo.Person;
 import finalhomework.tcl.com.finalhomework.pojo.User;
 
 public class UserInfoModelImp implements UserInfoModel {
@@ -15,12 +16,12 @@ public class UserInfoModelImp implements UserInfoModel {
     }
 
     @Override
-    public void update(User user) {
+    public void update(Person user) {
         user.update(user.getObjectId(),new UpdateListener() {
             @Override
             public void done(BmobException e) {
                 if(e==null)
-                    listener.onSuccess(new User());
+                    listener.onSuccess(new Person());
                 else
                     listener.onFailure(e);
             }
@@ -38,7 +39,7 @@ public class UserInfoModelImp implements UserInfoModel {
      */
     public interface UserInfoOnListener {
 
-        void onSuccess(User user);
+        void onSuccess(Person user);
 
         void onFailure(Throwable e);
     }

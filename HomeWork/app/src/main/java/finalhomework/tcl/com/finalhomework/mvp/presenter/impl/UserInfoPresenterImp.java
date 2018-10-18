@@ -3,6 +3,7 @@ import finalhomework.tcl.com.finalhomework.mvp.model.UserInfoModel;
 import finalhomework.tcl.com.finalhomework.mvp.model.impl.UserInfoModelImp;
 import finalhomework.tcl.com.finalhomework.mvp.presenter.UserInfoPresenter;
 import finalhomework.tcl.com.finalhomework.mvp.views.UserInfoView;
+import finalhomework.tcl.com.finalhomework.pojo.Person;
 import finalhomework.tcl.com.finalhomework.pojo.User;
 
 public class UserInfoPresenterImp extends UserInfoPresenter implements UserInfoModelImp.UserInfoOnListener {
@@ -16,7 +17,7 @@ public class UserInfoPresenterImp extends UserInfoPresenter implements UserInfoM
     }
 
     @Override
-    public void onSuccess(User user) {
+    public void onSuccess(Person user) {
         view.loadDataSuccess(user);
     }
 
@@ -26,7 +27,7 @@ public class UserInfoPresenterImp extends UserInfoPresenter implements UserInfoM
     }
 
     @Override
-    public void update(User user) {
+    public void update(Person user) {
         model.update(user);
     }
 }
