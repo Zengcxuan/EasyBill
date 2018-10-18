@@ -912,8 +912,14 @@ public class DateUtils {
         int day = calendar.getActualMaximum(Calendar.DATE);
         calendar.set(calendar.DAY_OF_MONTH, day);
         return getDayEndTime(calendar.getTime());
+    }*/
+    //获取本年时间
+    public static Integer getNowYear() {
+        Date date = new Date();
+        GregorianCalendar gc = (GregorianCalendar) Calendar.getInstance();
+        gc.setTime(date);
+        return Integer.valueOf(gc.get(Calendar.YEAR));
     }
-
     // 获取本年的开始时间
     public static java.util.Date getBeginDayOfYear() {
         Calendar cal = Calendar.getInstance();
@@ -932,7 +938,7 @@ public class DateUtils {
         cal.set(Calendar.MONTH, Calendar.DECEMBER);
         cal.set(Calendar.DATE, 31);
         return getDayEndTime(cal.getTime());
-    }*/
+    }
 
     // 获取某个日期的开始时间
     public static Timestamp getDayStartTime(Date d) {
@@ -957,12 +963,7 @@ public class DateUtils {
     }
 
     /*// 获取今年是哪一年
-    public static Integer getNowYear() {
-        Date date = new Date();
-        GregorianCalendar gc = (GregorianCalendar) Calendar.getInstance();
-        gc.setTime(date);
-        return Integer.valueOf(gc.get(Calendar.YEAR));
-    }
+
 
     // 获取本月是哪一月
     public static int getNowMonth() {

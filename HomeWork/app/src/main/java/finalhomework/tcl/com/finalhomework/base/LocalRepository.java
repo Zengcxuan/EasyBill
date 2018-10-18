@@ -140,6 +140,14 @@ public class LocalRepository {
                 .orderDesc(TotalBillDao.Properties.Crdate);
         return queryListToRx(queryBuilder);
     }
+    public Observable<List<TotalBill>> getDataSum(String id) {
+        QueryBuilder<TotalBill> queryBuilder = mSession.getTotalBillDao()
+                .queryBuilder()
+                .where(TotalBillDao.Properties.Userid.eq(id))
+                .where(TotalBillDao.Properties.Version.ge(0))
+                .orderDesc(TotalBillDao.Properties.Crdate);
+        return queryListToRx(queryBuilder);
+    }
     public Observable<List<TotalBill>> getTotalBillByUserIdWithYM2(String id, String year, String month) {
         String startStr = year + "-" + month + "-00 00:00:00";
         Date date = DateUtils.str2Date(startStr);
@@ -152,15 +160,10 @@ public class LocalRepository {
                 .orderDesc(TotalBillDao.Properties.Crdate);
         return queryListToRx(queryBuilder);
     }
-    public Observable<List<TotalBill>> getTotalBillByUserIdWithAll(int id, String year, String month) {
-        String startStr = year + "-" + month + "-00 00:00:00";
-        Date date = DateUtils.str2Date(startStr);
-        Date endDate = DateUtils.addMonth(date, 1);
+    public Observable<List<TotalBill>> getTotalBillByUserIdWithAll(String id) {
         QueryBuilder<TotalBill> queryBuilder = mSession.getTotalBillDao()
                 .queryBuilder()
-                .where(TotalBillDao.Properties.Crdate.between(DateUtils.getMillis(date), DateUtils.getMillis(endDate)))
-                .where(TotalBillDao.Properties.Version.ge(0))
-                .orderDesc(TotalBillDao.Properties.Crdate);
+                .where(TotalBillDao.Properties.Userid.eq(id));
         return queryListToRx(queryBuilder);
     }
     /*public Observable<List<TotalBill>> getTotalBillByUserIdWithYMD(int id, String year, String month, String day) {

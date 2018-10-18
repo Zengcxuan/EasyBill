@@ -54,6 +54,13 @@ import finalhomework.tcl.com.finalhomework.MyBroadcast;
 import finalhomework.tcl.com.finalhomework.MyService;
 import finalhomework.tcl.com.finalhomework.R;
 import finalhomework.tcl.com.finalhomework.Utils.LockViewUtil;
+import finalhomework.tcl.com.finalhomework.Utils.SnackbarUtils;
+import finalhomework.tcl.com.finalhomework.mvp.presenter.TotalRecordPresenter;
+import finalhomework.tcl.com.finalhomework.mvp.presenter.impl.TotalRecordPresenterImpl;
+import finalhomework.tcl.com.finalhomework.mvp.views.TotalRecordView;
+import finalhomework.tcl.com.finalhomework.pojo.DataSum;
+import finalhomework.tcl.com.finalhomework.pojo.TotalBill;
+import finalhomework.tcl.com.finalhomework.pojo.User;
 import finalhomework.tcl.com.finalhomework.ui.activity.BudgetActivity;
 import finalhomework.tcl.com.finalhomework.ui.activity.LockViewUi;
 import finalhomework.tcl.com.finalhomework.ui.widget.EditDialog;
@@ -66,7 +73,7 @@ import static android.content.Context.ALARM_SERVICE;
 import static android.support.v4.content.PermissionChecker.checkSelfPermission;
 
 
-public class mine_Fragment extends HomeBaseFragment {
+public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
     @BindView(R.id.record_days)  //记录总天数
     TextView recordDays;
     @BindView(R.id.record_deals) //记录总笔数
@@ -80,6 +87,8 @@ public class mine_Fragment extends HomeBaseFragment {
     @BindView(R.id.name)
     TextView userName; //用户名字
     private Boolean isOpen = true;
+    private TotalRecordPresenter presenter;
+
     private int[] typeIcon = new int[]{
             R.mipmap.voice, R.mipmap.notify, R.mipmap.yusuan, R.mipmap.cyper, R.mipmap.outport,
             R.mipmap.count, R.mipmap.help
@@ -289,6 +298,19 @@ public class mine_Fragment extends HomeBaseFragment {
     @Override
     protected void improtantData() {
         initData();
+        presenter = new TotalRecordPresenterImpl(this);
+        presenter.getTotalRecord(User.getCurrentUser().getObjectId());
+        Log.e(TAG, "improtantData: "+ User.getCurrentUser().getObjectId());
+    }
+    @Override
+    public void loadDataSuccess(DataSum tData) {
+        float money = tData.getTotalIncome()-tData.getTotalOutcome();
+        Log.e("meng666", "loadDataSuccess: "+tData );
+        Log.e("meng666", "day"+tData.getRecordDay()+"number"+tData.getRecordNumber()+"money"+money );
+        recordDays.setText(String.valueOf(tData.getRecordDay())); //总天数
+        recordDeals.setText(String.valueOf(tData.getRecordNumber())); //总笔数
+        recordSurplus.setText(String.valueOf(money)); //结余
+
     }
 
 
@@ -320,4 +342,9 @@ public class mine_Fragment extends HomeBaseFragment {
         return getActivity().findViewById(R.id.head_mine);
     }
 
+    @Override
+    public void loadDataError(Throwable throwable) {
+        SnackbarUtils.show(mActivity, throwable.getMessage());
+        Log.e(TAG, "loadDataError: "+throwable );
+    }
 }

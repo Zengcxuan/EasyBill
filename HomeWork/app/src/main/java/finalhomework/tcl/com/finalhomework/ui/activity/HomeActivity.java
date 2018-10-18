@@ -17,12 +17,14 @@ import com.google.gson.Gson;
 
 import java.util.List;
 
+import butterknife.BindView;
 import finalhomework.tcl.com.finalhomework.R;
 import finalhomework.tcl.com.finalhomework.Utils.SharedPUtils;
 import finalhomework.tcl.com.finalhomework.base.Constants;
 import finalhomework.tcl.com.finalhomework.base.LocalRepository;
 import finalhomework.tcl.com.finalhomework.pojo.AllSortBill;
 import finalhomework.tcl.com.finalhomework.pojo.SortBill;
+import finalhomework.tcl.com.finalhomework.ui.MyViewPager;
 import finalhomework.tcl.com.finalhomework.ui.adapter.ViewPagerAdapter;
 import finalhomework.tcl.com.finalhomework.ui.fragment.bill_Fragment;
 import finalhomework.tcl.com.finalhomework.ui.fragment.chart_Fragment;
@@ -33,9 +35,13 @@ import static android.view.Gravity.CENTER;
 
 public class HomeActivity extends BaseActivity  {
 
-    private ViewPager viewPager;
+   /* private MyViewPager viewPager;*/
     private MenuItem menuItem;
-    private BottomNavigationView bottomNavigationView;
+    /*private BottomNavigationView bottomNavigationView;*/
+    @BindView(R.id.viewpager)
+    MyViewPager viewPager ;
+    @BindView(R.id.bottom_navigation)
+    BottomNavigationView bottomNavigationView;
 
     @Override
     protected int getLayout() {
@@ -53,8 +59,10 @@ public class HomeActivity extends BaseActivity  {
             LocalRepository.getInstance().saveBsorts(sorts);
             LocalRepository.getInstance().saveBPays(note.getPayinfo());
         }
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
-        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+       /* viewPager = findViewById(R.id.viewpager);*/
+       //viewPager = new MyViewPager(getApplicationContext());
+        viewPager.setOffscreenPageLimit(5);
+       /* bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);*/
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -116,8 +124,10 @@ public class HomeActivity extends BaseActivity  {
        adapter.addFragment(new chart_Fragment());
        adapter.addFragment(new mine_Fragment());
         viewPager.setAdapter(adapter);
-       /* viewPager.setOffscreenPageLimit(3);*/
+
     }
+
+
 
     /*public void changeBottomState(int position) {
         menuItem = bottomNavigationView.getMenu().getItem(position);

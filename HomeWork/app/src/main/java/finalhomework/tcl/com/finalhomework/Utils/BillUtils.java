@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import finalhomework.tcl.com.finalhomework.pojo.DataSum;
 import finalhomework.tcl.com.finalhomework.pojo.MonthAccount;
 import finalhomework.tcl.com.finalhomework.pojo.MonthBillForChart;
 import finalhomework.tcl.com.finalhomework.pojo.MonthDetailAccount;
@@ -171,7 +172,40 @@ public class BillUtils {
         bean.setDaylist(daylist);
         return bean;
     }
+    /**
+     * 获取总数据
+     */
+    public static DataSum getDataSum(List<TotalBill> list){
+        DataSum bean = new DataSum();
+        float t_income = 0;
+        float t_outcome = 0;
+        int record = list.size();
+        int sum = 0;
+        String preDay = "";  //记录前一天的时间
 
+        for (int i=0; i<list.size(); i++){
+            TotalBill totalBill = list.get(i);
+            if (totalBill.isIncome()){
+                t_income +=totalBill.getCost();
+            }else {
+                t_outcome += totalBill.getCost();
+            }
+            if (i == 0 ){
+                sum =1;
+                preDay = DateUtils.getDay(totalBill.getCrdate());
+            }else if (preDay.equals(DateUtils.getDay(totalBill.getCrdate()))){
+
+            }else {
+                sum += 1;
+            }
+            bean.setTotalIncome(t_income);
+            bean.setTotalOutcome(t_outcome);
+            bean.setRecordDay(sum);
+            bean.setRecordNumber(record);
+
+        }
+        return bean;
+    }
     /**
      * 账单按类型分类
      * @param list
