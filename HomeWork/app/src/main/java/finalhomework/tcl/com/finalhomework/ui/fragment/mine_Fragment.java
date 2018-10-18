@@ -275,7 +275,7 @@ public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
     protected  void setItemReact(){
         // TODO: 18-10-9 分享
         Intent intent=new Intent(Intent.ACTION_SEND);
-        intent.setType("image/*");
+        intent.setType("image/png");
         intent.putExtra(Intent.EXTRA_SUBJECT, "Share");
         intent.putExtra(Intent.EXTRA_TEXT, "快来记账吧");
         File f = new File(Environment.getExternalStorageDirectory()+"/shared.png");
