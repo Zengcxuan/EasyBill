@@ -86,29 +86,28 @@
                 app:layout_constraintTop_toTopOf="@+id/horizontal1"
                 app:layout_constraintVertical_bias="1.0" />-->
             <android.support.v4.widget.SwipeRefreshLayout
-                android:layout_below="@+id/constraintLayout"
                 android:id="@+id/swipe2"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:layout_marginTop="5dp"
+                android:layout_below="@+id/constraintLayout"
                 android:layout_marginLeft="5dp"
+                android:layout_marginTop="8dp"
                 android:background="@android:color/white"
                 android:elevation="4sp"
                 app:layout_constraintBottom_toTopOf="@+id/rv_list_chart"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/horizontal1"
-                app:layout_constraintVertical_bias="1.0"
-                >
-            <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/lineChart"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_centerInParent="true"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                />
+                app:layout_constraintVertical_bias="1.0">
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/lineChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp" />
             </android.support.v4.widget.SwipeRefreshLayout>
 
             <!--<Button-->
@@ -176,7 +175,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="100dp"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.09" />
+                app:layout_constraintGuide_percent="0.11" />
 
             <android.support.constraint.Guideline
                 android:id="@+id/horizontal2"
