@@ -122,7 +122,6 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
         //getBills(Constants.currentUserId, setYear, setMonth);
         getBills( User.getCurrentUser().getObjectId(), setYear, setMonth);
         initDatePicker();
-        initFab();
     }
     @Override
     protected void loadData() {
@@ -273,55 +272,7 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
 
     }
 
-    /**
-     * 添加悬浮按钮
-     */
-    private void initFab(){
-//        ImageView image = new ImageView(mContext);
-//        image.setImageDrawable(mContext.getDrawable(R.drawable.add_bill3));
-        FloatingActionButton floatingActionButton
-                = new FloatingActionButton.Builder(mActivity).build();
-        floatingActionButton.setBackground(mContext.getDrawable(R.drawable.add_bill3));
-        SubActionButton.Builder itemBuilder = new SubActionButton.Builder(mActivity);
-        ImageView itemIcon = new ImageView(mContext);
-//        itemIcon.setImageDrawable(mContext.getDrawable(R.drawable.add));
-//        itemIcon.setBackground(mContext.getDrawable(R.drawable.add_bill3));
-        SubActionButton addbill = itemBuilder.build();
-        addbill.setBackground(mContext.getDrawable(R.drawable.add));
-//        ImageView itemIcon2 = new ImageView(mContext);
-//        itemIcon2.setImageDrawable(mContext.getDrawable(R.drawable.add_bill3));
-//        SubActionButton refreshbill = itemBuilder.setContentView(itemIcon2).build();
-        SubActionButton refreshbill = itemBuilder.build();
-        refreshbill.setBackground(mContext.getDrawable(R.drawable.add));
 
-        FloatingActionMenu actionMenu = new FloatingActionMenu.Builder(mActivity)
-                .addSubActionView(addbill)
-                .addSubActionView(refreshbill)
-                .attachTo(floatingActionButton)
-                .build();
-
-        FrameLayout.LayoutParams params =
-                new FrameLayout.LayoutParams(180, 180);
-        params.setMargins(0, 0, 0, 100);
-        floatingActionButton.setPosition(4, params);
-
-        addbill.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //开启账单添加
-                Intent intent = new Intent(getActivity(), BillAddActivity.class);
-                startActivityForResult(intent,RESULTCODE);
-            }
-        });
-
-        refreshbill.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO: 18-10-18 数据更新
-            }
-        });
-
-    }
     /**
      * Activity返回
      */

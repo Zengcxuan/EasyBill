@@ -4,16 +4,23 @@ package finalhomework.tcl.com.finalhomework.ui.activity;
 
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
+import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
 import java.util.List;
 
@@ -50,6 +57,8 @@ public class HomeActivity extends BaseActivity  {
 
     @Override
     protected void initEventAndData() {
+        //FAB
+        initFab();
         //第一次进入将默认账单分类添加到数据库
         if(SharedPUtils.isFirstStart(mContext)){
             Log.i(TAG,"第一次进入将默认账单分类添加到数据库");
@@ -127,6 +136,55 @@ public class HomeActivity extends BaseActivity  {
 
     }
 
+    /**
+     * 添加悬浮按钮
+     */
+    private void initFab(){
+//        ImageView image = new ImageView(mContext);
+//        image.setImageDrawable(mContext.getDrawable(R.drawable.add_bill3));
+        FloatingActionButton floatingActionButton
+                = new FloatingActionButton.Builder(this).build();
+        floatingActionButton.setBackground(mContext.getDrawable(R.drawable.add_bill3));
+        SubActionButton.Builder itemBuilder = new SubActionButton.Builder(this);
+        ImageView itemIcon = new ImageView(mContext);
+//        itemIcon.setImageDrawable(mContext.getDrawable(R.drawable.add));
+//        itemIcon.setBackground(mContext.getDrawable(R.drawable.add_bill3));
+        SubActionButton addbill = itemBuilder.build();
+        addbill.setBackground(mContext.getDrawable(R.drawable.add));
+//        ImageView itemIcon2 = new ImageView(mContext);
+//        itemIcon2.setImageDrawable(mContext.getDrawable(R.drawable.add_bill3));
+//        SubActionButton refreshbill = itemBuilder.setContentView(itemIcon2).build();
+        SubActionButton refreshbill = itemBuilder.build();
+        refreshbill.setBackground(mContext.getDrawable(R.drawable.add));
+
+        FloatingActionMenu actionMenu = new FloatingActionMenu.Builder(this)
+                .addSubActionView(addbill)
+                .addSubActionView(refreshbill)
+                .attachTo(floatingActionButton)
+                .build();
+
+        FrameLayout.LayoutParams params =
+                new FrameLayout.LayoutParams(180, 180);
+        params.setMargins(0, 0, 0, 100);
+        floatingActionButton.setPosition(4, params);
+
+        addbill.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //开启账单添加
+                Intent intent = new Intent(HomeActivity.this, BillAddActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        refreshbill.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO: 18-10-18 数据更新
+            }
+        });
+
+    }
 
 
     /*public void changeBottomState(int position) {
