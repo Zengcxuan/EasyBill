@@ -134,15 +134,16 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView 
     public void getShareNumber(){
         if (currentUser.getShareid() == 0){
             String shareNumber ;
+            int updateNUmber =0;
             int right = (int)(Math.random()*90+10);
             String time =  currentUser.getCreatedAt();
             Date date = DateUtils.str2Date(time);
             Long l = date.getTime();
             int left =  Math.abs(l.intValue()) ;
             shareNumber = left + String.valueOf(right);
-            int number = l.intValue()+right;
+            updateNUmber = l.intValue()+right;
             shareAccount.setText(shareNumber);
-            currentUser.setShareid(number);
+            currentUser.setShareid(updateNUmber);
             doUpdate();
         }else {
             shareAccount.setText(String.valueOf(Math.abs(currentUser.getShareid())));
