@@ -42,6 +42,8 @@ import finalhomework.tcl.com.finalhomework.Utils.DateUtils;
 import finalhomework.tcl.com.finalhomework.Utils.SnackbarUtils;
 import finalhomework.tcl.com.finalhomework.Utils.stickyheader.StickyHeaderGridLayoutManager;
 import finalhomework.tcl.com.finalhomework.base.BmobRepository;
+import finalhomework.tcl.com.finalhomework.base.Constants;
+import finalhomework.tcl.com.finalhomework.base.LocalRepository;
 import finalhomework.tcl.com.finalhomework.base.SyncEvent;
 import finalhomework.tcl.com.finalhomework.mvp.presenter.MonthDetailPresenter;
 import finalhomework.tcl.com.finalhomework.mvp.presenter.impl.MonthDetailPresenterImpl;
@@ -79,7 +81,6 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
     private StickyHeaderGridLayoutManager mLayoutManager;
     private MonthDetailAdapter adapter;
     private List<MonthDetailAccount.DaylistBean> list;
-
     meng_MyUtils meng_util = new meng_MyUtils();
     private Unbinder unbinder;
 
@@ -102,7 +103,7 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
     public void Event(SyncEvent event) {
         if (event.getState()==100)
             //getBills(Constants.currentUserId, setYear, setMonth);
-        getBills( User.getCurrentUser().getObjectId(), setYear, setMonth);
+            getBills(currentUser.getObjectId(), setYear, setMonth);
     }
     @Override
     protected int getLayoutId() {
@@ -120,7 +121,7 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
 
         //请求当月数据
         //getBills(Constants.currentUserId, setYear, setMonth);
-        getBills( User.getCurrentUser().getObjectId(), setYear, setMonth);
+        getBills(currentUser.getObjectId(), setYear, setMonth);
         initDatePicker();
     }
     @Override
@@ -213,12 +214,19 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
             @Override
             public void onRefresh() {
                 swipe.setRefreshing(false);
-                //getBills(Constants.currentUserId, setYear, setMonth);
-                getBills( User.getCurrentUser().getObjectId(), setYear, setMonth);
-               // getBills( User.getCurrentUser().getObjectId(), setYear, setMonth);
+                getBills(currentUser.getObjectId(), setYear, setMonth);
+                //getBills( User.getCurrentUser().getObjectId(), setYear, setMonth);
+               //getBills(currentUser.getObjectId(), setYear, setMonth);
             }
         });
 
+    }
+    /**
+     * 刷新数据
+     */
+    public void flashData(){
+        /*getBills(Person.getCurrentUser().getObjectId(),setYear,setMonth);*/
+        presenter.getMonthDetailBills(Person.getCurrentUser().getObjectId(), setYear, setMonth);
     }
     /**
      * 获取账单数据
@@ -227,11 +235,11 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
      * @param year
      * @param month
      */
-    private void getBills(String userid, String year, String month) {
+    public void getBills(String userid, String year, String month) {
         //请求数据前清空数据
-        adapter.clear();
+        /*adapter.clear();
         tOutcome.setText("0.00");
-        tIncome.setText("0.00");
+        tIncome.setText("0.00");*/
         //请求某年某月数据
         presenter.getMonthDetailBills(userid, setYear, setMonth);
     }
@@ -264,7 +272,7 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
                 setYear = time.substring(0,4);
                 setMonth = time.substring(5,7);
                 //getBills(Constants.currentUserId, setYear, setMonth);
-                getBills( User.getCurrentUser().getObjectId(), setYear, setMonth);
+               getBills(currentUser.getObjectId(), setYear, setMonth);
             }
         }, "2017-01-01 00:00", "2019-12-31 00:00"); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
         customDatePicker1.showSpecificTime(false); // 不显示时和分
@@ -280,9 +288,7 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
             //getBills(Constants.currentUserId, setYear, setMonth);
-        getBills( User.getCurrentUser().getObjectId(), setYear, setMonth);
-
-
+       getBills(currentUser.getObjectId(), setYear, setMonth);
     }
     /**
      * 布局加载
@@ -374,4 +380,15 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
         return getActivity().findViewById(R.id.back_bill);
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (!isCreated){
+            return;
+        }
+        if (isVisibleToUser){
+            getBills(currentUser.getObjectId(),setYear,setMonth);
+        }
+
+    }
 }

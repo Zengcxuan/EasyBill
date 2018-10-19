@@ -80,6 +80,17 @@ public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
             R.drawable.arrow, R.drawable.arrow
     };
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (!isCreated) {
+            return;
+        }
+        if (isVisibleToUser) {
+            presenter.getTotalRecord(User.getCurrentUser().getObjectId());
+        }
+    }
+
     public static mine_Fragment newInstance(String info) {
         Bundle args = new Bundle();
         mine_Fragment fragment = new mine_Fragment();

@@ -3,7 +3,9 @@ package finalhomework.tcl.com.finalhomework.ui.activity;
 
 
 
+import android.app.Dialog;
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -26,7 +28,10 @@ import java.util.List;
 
 import butterknife.BindView;
 import finalhomework.tcl.com.finalhomework.R;
+import finalhomework.tcl.com.finalhomework.Utils.DateUtils;
+import finalhomework.tcl.com.finalhomework.Utils.ProgressUtils;
 import finalhomework.tcl.com.finalhomework.Utils.SharedPUtils;
+import finalhomework.tcl.com.finalhomework.base.BmobRepository;
 import finalhomework.tcl.com.finalhomework.base.Constants;
 import finalhomework.tcl.com.finalhomework.base.LocalRepository;
 import finalhomework.tcl.com.finalhomework.pojo.AllSortBill;
@@ -38,13 +43,20 @@ import finalhomework.tcl.com.finalhomework.ui.fragment.chart_Fragment;
 import finalhomework.tcl.com.finalhomework.ui.fragment.mine_Fragment;
 
 import static android.view.Gravity.CENTER;
+import static finalhomework.tcl.com.finalhomework.Utils.DateUtils.FORMAT_M;
+import static finalhomework.tcl.com.finalhomework.Utils.DateUtils.FORMAT_Y;
 
 
 public class HomeActivity extends BaseActivity  {
 
    /* private MyViewPager viewPager;*/
     private MenuItem menuItem;
+    private static final int RESULTCODE =0;
     /*private BottomNavigationView bottomNavigationView;*/
+    private bill_Fragment bill_fFragment;
+    private chart_Fragment chart_fragment;
+    private mine_Fragment mine_fragment;
+    ViewPagerAdapter adapter;
     @BindView(R.id.viewpager)
     MyViewPager viewPager ;
     @BindView(R.id.bottom_navigation)
@@ -57,6 +69,8 @@ public class HomeActivity extends BaseActivity  {
 
     @Override
     protected void initEventAndData() {
+        Log.e(TAG, "initEventAndData: " );
+        TAG = "meng111";
         //FAB
         initFab();
         //第一次进入将默认账单分类添加到数据库
@@ -97,7 +111,6 @@ public class HomeActivity extends BaseActivity  {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             }
-
             @Override
             public void onPageSelected(int position) {
           /*      if (menuItem != null) {
@@ -125,15 +138,18 @@ public class HomeActivity extends BaseActivity  {
 
     //切换界面
     private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        Log.e(TAG, "setupViewPager: " );
+        adapter= new ViewPagerAdapter(getSupportFragmentManager());
        /* adapter.addFragment(bill_Fragment.newInstance("账单"));
         adapter.addFragment(chart_Fragment.newInstance("图表"));
         adapter.addFragment(mine_Fragment.newInstance("我的"));*/
-       adapter.addFragment(new bill_Fragment());
-       adapter.addFragment(new chart_Fragment());
-       adapter.addFragment(new mine_Fragment());
+       bill_fFragment = new bill_Fragment();
+       chart_fragment = new chart_Fragment();
+       mine_fragment = new mine_Fragment();
+       adapter.addFragment(bill_fFragment);
+       adapter.addFragment(chart_fragment);
+       adapter.addFragment(mine_fragment);
         viewPager.setAdapter(adapter);
-
     }
 
     /**
@@ -171,9 +187,11 @@ public class HomeActivity extends BaseActivity  {
         addbill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ProgressUtils.show(HomeActivity.this, "正在加载...");
                 //开启账单添加
                 Intent intent = new Intent(HomeActivity.this, BillAddActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,RESULTCODE);
+
             }
         });
 
@@ -181,13 +199,46 @@ public class HomeActivity extends BaseActivity  {
             @Override
             public void onClick(View v) {
                 // TODO: 18-10-18 数据更新
+                BmobRepository.getInstance().syncBill(currentUser.getObjectId());
             }
         });
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.e(TAG, "onActivityResult: " );
+        super.onActivityResult(requestCode, resultCode, data);
+        adapter.notifyDataSetChanged();
+        //getBills(Constants.currentUserId, setYear, setMonth);
+        //ProgressUtils.setDialog(new ProgressDialog(getApplicationContext()));
+        ProgressUtils.dismiss();
 
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.e(TAG, "onStop: " );
+    }
 
-    /*public void changeBottomState(int position) {
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.e(TAG, "onPause: " );
+    }
+
+    @Override
+    protected void onResume() {
+        ProgressUtils.dismiss();
+        Log.e(TAG, "onResume: " );
+        super.onResume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.e(TAG, "onDestroy: " );
+    }
+/*public void changeBottomState(int position) {
         menuItem = bottomNavigationView.getMenu().getItem(position);
         switch (position){
             case 0:

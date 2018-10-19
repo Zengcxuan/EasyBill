@@ -124,7 +124,7 @@ public class UesrLoginActivity extends BaseActivity implements UserLoginView{
 
     @Override
     public void loadDataSuccess(Person tData) {
-        ProgressUtils.dismiss();
+        //ProgressUtils.dismiss();
         if (isLogin) {
             Log.i(TAG, "is" + LockViewUtil.getIslock(mContext));
             if(LockViewUtil.getIslock(mContext)){
@@ -141,6 +141,13 @@ public class UesrLoginActivity extends BaseActivity implements UserLoginView{
             SnackbarUtils.show(mContext, "注册成功");
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ProgressUtils.dismiss();
+    }
+
 
     @Override
     public void loadDataError(Throwable throwable) {

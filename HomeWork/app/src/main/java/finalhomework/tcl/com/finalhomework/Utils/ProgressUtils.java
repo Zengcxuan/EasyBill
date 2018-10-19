@@ -14,6 +14,10 @@ public class ProgressUtils {
 
     private static ProgressDialog dialog = null;
 
+    public static void setDialog(ProgressDialog dialog) {
+        ProgressUtils.dialog = dialog;
+    }
+
     public static void show(Context context){
         show(context, null);
     }
