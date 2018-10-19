@@ -40,7 +40,7 @@ import finalhomework.tcl.com.finalhomework.base.BmobRepository;
 import finalhomework.tcl.com.finalhomework.pojo.ShareBill;
 import finalhomework.tcl.com.finalhomework.ui.adapter.BookNoteAdapter;
 import finalhomework.tcl.com.finalhomework.Utils.DateUtils;
-import finalhomework.tcl.com.finalhomework.Utils.ProgressUtils;
+//import finalhomework.tcl.com.finalhomework.Utils.ProgressUtils;
 import finalhomework.tcl.com.finalhomework.Utils.SharedPUtils;
 import finalhomework.tcl.com.finalhomework.Utils.SnackbarUtils;
 import finalhomework.tcl.com.finalhomework.base.Constants;
@@ -150,15 +150,16 @@ public class BillAddActivity extends BaseActivity implements BillView {
 
     @Override
     public void loadDataSuccess(base tData) {
-        ProgressUtils.dismiss();
+        //ProgressUtils.dismiss();
         Intent intent = new Intent();
         setResult(RESULT_OK, intent);
         finish();
+       // ProgressUtils.dismiss();
     }
 
     @Override
     public void loadDataError(Throwable throwable) {
-        ProgressUtils.dismiss();
+        //ProgressUtils.dismiss();
         SnackbarUtils.show(mContext,throwable.getMessage());
     }
     /**
@@ -474,7 +475,8 @@ public class BillAddActivity extends BaseActivity implements BillView {
             Toast.makeText(this, "请输入金额", Toast.LENGTH_SHORT).show();
             return;
         }
-        ProgressUtils.show(mContext, "正在提交...");
+        SnackbarUtils.show(mContext, "添加账单成功");
+        //ProgressUtils.show(mContext, "正在提交...");
         TotalBill bBill=new TotalBill(null,null, Float.valueOf(num + dotNum),remarkInput,currentUser.getObjectId(),
                "no",
                 "no",

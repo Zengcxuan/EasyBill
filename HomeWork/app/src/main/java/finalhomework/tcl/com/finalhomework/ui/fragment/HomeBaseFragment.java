@@ -28,6 +28,7 @@ import java.util.Objects;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import finalhomework.tcl.com.finalhomework.R;
+import finalhomework.tcl.com.finalhomework.pojo.Person;
 import finalhomework.tcl.com.finalhomework.ui.activity.PersionalInfoActivity;
 import finalhomework.tcl.com.finalhomework.ui.widget.ImageButtonWithText;
 
@@ -43,13 +44,14 @@ public abstract class HomeBaseFragment extends Fragment {
     protected Activity mActivity;
     protected Context mContext;
     protected Toolbar toolbar;
+    protected Person currentUser;
     LinearLayout navigationView;
     DrawerLayout mDrawerLayout;
     //Fragment的View加载完毕的标记
     private boolean isViewCreated;
     //Fragment对用户可见的标记
     private boolean isUIVisible;
-
+    protected boolean isCreated = false;
 
     private Unbinder mUnBinder;
 
@@ -61,6 +63,13 @@ public abstract class HomeBaseFragment extends Fragment {
         TAG = this.getClass().getSimpleName();
         //当前用户
         super.onAttach(context);
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        isCreated = true;
+
     }
 
     @Nullable
@@ -76,6 +85,7 @@ public abstract class HomeBaseFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         isViewCreated = true;
+        currentUser= Person.getCurrentUser(Person.class);
         setHasOptionsMenu(true);
         improtantData();
         myToolbar();

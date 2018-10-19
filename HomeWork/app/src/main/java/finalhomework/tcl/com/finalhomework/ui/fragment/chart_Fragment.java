@@ -148,14 +148,14 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
                 thisWeekBtn.setTextColor(getResources().getColor(R.color.tab_clicked));
                 tableRow.setGravity(END);
                 isThisWeek =true;
-                presenter.getMonthChartBills(User.getCurrentUser().getObjectId(), setYear, setMonth);
+                presenter.getMonthChartBills(currentUser.getObjectId(), setYear, setMonth);
                 break;
             case R.id.lastweek:
                 thisWeekBtn.setTextColor(getResources().getColor(R.color.tab_unclicked));
                 lastWeekBtn.setTextColor(getResources().getColor(R.color.tab_clicked));
                 tableRow.setGravity(START);
                 isThisWeek =false;
-                presenter.getMonthChartBills(User.getCurrentUser().getObjectId(), setYear, setMonth);
+                presenter.getMonthChartBills(currentUser.getObjectId(), setYear, setMonth);
                 break;
             case R.id.head_chart:
                 //开启个人信息界面
@@ -247,7 +247,7 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
             @Override
             public void onRefresh() {
                 swipe.setRefreshing(false);
-                presenter.getMonthChartBills(User.getCurrentUser().getObjectId(), setYear, setMonth);
+                presenter.getMonthChartBills(currentUser.getObjectId(), setYear, setMonth);
             }
         });
     }
@@ -280,7 +280,7 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
     protected void improtantData() {
 
         presenter=new MonthChartPresenterImpl(this);
-        presenter.getMonthChartBills(User.getCurrentUser().getObjectId(), setYear, setMonth);
+        presenter.getMonthChartBills(currentUser.getObjectId(), setYear, setMonth);
         flash();
         falseData();
         ChartUtil.notifyDataSetChanged(chart, values, ChartUtil.weekValue);
@@ -385,11 +385,11 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
                 switch (position) {
                     case 0:
                     isIncome = true;
-                        presenter.getMonthChartBills(User.getCurrentUser().getObjectId(), setYear, setMonth);
+                        presenter.getMonthChartBills(currentUser.getObjectId(), setYear, setMonth);
                         break;//收入
                     case 1:
                     isIncome = false;
-                        presenter.getMonthChartBills(User.getCurrentUser().getObjectId(), setYear, setMonth);
+                        presenter.getMonthChartBills(currentUser.getObjectId(), setYear, setMonth);
                         break;//支出
                 }
             }
@@ -418,5 +418,15 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
 
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (!isCreated) {
+            return;
+        }
+        if (isVisibleToUser) {
+            presenter.getMonthChartBills(currentUser.getObjectId(),setYear,setMonth);
+        }
 
+    }
 }
