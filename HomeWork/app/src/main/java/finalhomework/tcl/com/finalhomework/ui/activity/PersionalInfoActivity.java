@@ -25,16 +25,17 @@ import finalhomework.tcl.com.finalhomework.mvp.presenter.impl.UserInfoPresenterI
 import finalhomework.tcl.com.finalhomework.mvp.views.UserInfoView;
 import finalhomework.tcl.com.finalhomework.pojo.Person;
 import finalhomework.tcl.com.finalhomework.pojo.User;
+import finalhomework.tcl.com.finalhomework.ui.widget.TextWithImg;
 
 public class PersionalInfoActivity extends BaseActivity implements UserInfoView {
-    @BindView(R.id.name_persional)
-    TextView userName;
-    @BindView(R.id.gender_persional)
-    TextView gender;
-    @BindView(R.id.email_persional)
-    TextView email;
-    @BindView(R.id.share_account)
-    TextView shareAccount;
+    @BindView(R.id.name_text)
+    TextWithImg userName;
+    @BindView(R.id.gender_text)
+    TextWithImg gender;
+    @BindView(R.id.email_text)
+    TextWithImg email;
+    @BindView(R.id.share_text)
+    TextWithImg shareAccount;
 
     private UserInfoPresenter presenter;
 
@@ -60,7 +61,7 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView 
 
     @Override
     protected int getLayout() {
-        return R.layout.activity_persionalinf;
+        return R.layout.activity_persional;
     }
 
 

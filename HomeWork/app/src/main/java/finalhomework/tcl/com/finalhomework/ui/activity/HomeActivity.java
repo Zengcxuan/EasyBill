@@ -106,6 +106,7 @@ public class HomeActivity extends BaseActivity  {
                 });
 /*        menuItem = bottomNavigationView.getMenu().getItem(0);
         menuItem.setChecked(true);*/
+        bottomNavigationView.setItemIconTintList(null);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
             @Override

@@ -16,7 +16,7 @@
             android:id="@+id/circle_bg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="#F28B3D"
+            android:src="@color/center_color"
             android:layout_centerInParent="true"
             />
         <ImageView

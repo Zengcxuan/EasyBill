@@ -80,11 +80,11 @@ public class BookNoteAdapter extends RecyclerView.Adapter<BookNoteAdapter.ViewHo
 
         public ViewHolder(View view) {
             super(view);
-
             title = (TextView) view.findViewById(R.id.item_tb_type_tv);
             img = (ImageView) view.findViewById(R.id.item_tb_type_img);
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
+
         }
 
         @Override
