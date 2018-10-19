@@ -214,30 +214,7 @@ public class HomeActivity extends BaseActivity  {
 
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.e(TAG, "onStop: " );
-    }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Log.e(TAG, "onPause: " );
-    }
-
-    @Override
-    protected void onResume() {
-        ProgressUtils.dismiss();
-        Log.e(TAG, "onResume: " );
-        super.onResume();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.e(TAG, "onDestroy: " );
-    }
 /*public void changeBottomState(int position) {
         menuItem = bottomNavigationView.getMenu().getItem(position);
         switch (position){

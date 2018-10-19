@@ -474,7 +474,7 @@ public class BillAddActivity extends BaseActivity implements BillView {
             Toast.makeText(this, "请输入金额", Toast.LENGTH_SHORT).show();
             return;
         }
-        SnackbarUtils.show(mContext, "添加账单成功");
+        Toast.makeText(this, "正在提交...", Toast.LENGTH_SHORT).show();
         //ProgressUtils.show(mContext, "正在提交...");
         TotalBill bBill=new TotalBill(null,null, Float.valueOf(num + dotNum),remarkInput,currentUser.getObjectId(),
                "no",
