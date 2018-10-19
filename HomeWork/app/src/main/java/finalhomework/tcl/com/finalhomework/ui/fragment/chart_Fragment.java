@@ -418,4 +418,5 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
 
     }
 
+
 }
