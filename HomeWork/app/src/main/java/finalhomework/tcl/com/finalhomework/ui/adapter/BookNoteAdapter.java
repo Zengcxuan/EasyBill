@@ -1,6 +1,5 @@
 package finalhomework.tcl.com.finalhomework.ui.adapter;
 
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,8 +16,6 @@ import finalhomework.tcl.com.finalhomework.ui.activity.BillAddActivity;
 import finalhomework.tcl.com.finalhomework.ui.activity.BillEditActivity;
 import finalhomework.tcl.com.finalhomework.Utils.ImageUtils;
 import finalhomework.tcl.com.finalhomework.pojo.SortBill;
-import finalhomework.tcl.com.finalhomework.ui.widget.CircleImageView;
-import finalhomework.tcl.com.finalhomework.ui.widget.RoundImageView;
 
 /**
  * 账单分类Adapter（AddBillAdapter)
@@ -99,11 +96,11 @@ public class BookNoteAdapter extends RecyclerView.Adapter<BookNoteAdapter.ViewHo
         //判断更改属性
         if(isClicks.get(position)){
 //            holder.title.setTextColor(Color.parseColor("#ff0000"));
-//            holder.img.setBackground(mContext.getDrawable(R.drawable.appicon));
-            holder.img.setBackgroundColor(mContext.getResources().getColor(R.color.center_color));
+            holder.img.setBackground(mContext.getDrawable(R.drawable.item_click));
+//            holder.img.setBackgroundColor(mContext.getResources().getColor(R.color.center_color));
         }else{
-//            holder.img.setBackground(mContext.getDrawable(R.color.transparent));
-            holder.img.setBackgroundColor(mContext.getResources().getColor(R.color.transparent));
+            holder.img.setBackground(mContext.getDrawable(R.drawable.item_unclick));
+//            holder.img.setBackgroundColor(mContext.getResources().getColor(R.color.transparent));
         }
     }
 

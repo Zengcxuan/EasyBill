@@ -19,7 +19,7 @@
           android:layout_height="41dp"
           android:layout_marginLeft="15dp"
           android:layout_centerVertical="true"
-          android:background="@drawable/appicon" />
+          android:background="@drawable/item_click" />
 
       <ImageView
           android:id="@+id/item_img"

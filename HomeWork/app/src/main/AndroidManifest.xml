@@ -23,9 +23,9 @@
     <application
         android:name=".base.MyApplication"
         android:allowBackup="true"
-        android:icon="@drawable/appicon"
+        android:icon="@drawable/item_click"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/appicon"
+        android:roundIcon="@drawable/item_click"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:screenOrientation="portrait"
