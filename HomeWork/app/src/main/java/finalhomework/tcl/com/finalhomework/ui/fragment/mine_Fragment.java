@@ -6,12 +6,14 @@ import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -49,6 +51,7 @@ import finalhomework.tcl.com.finalhomework.ui.widget.ImageButtonWithText;
 import finalhomework.tcl.com.finalhomework.ui.widget.RoundImageView;
 
 import static android.content.Context.ALARM_SERVICE;
+import static android.view.Gravity.CENTER;
 
 
 public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
@@ -74,7 +77,7 @@ public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
     private String[] buttonContent = new String[]{
        "声音开关", "定时提醒", "每月预算", "手势密码", "导出账单", "评分", "帮助"
     };
-
+    private String PackageName = "finalhomework.tcl.com.finalhomework";
     private int[] rightIcon = new int[]{
             R.drawable.voice_switch, R.drawable.arrow, R.drawable.arrow, R.drawable.arrow, R.drawable.arrow,
             R.drawable.arrow, R.drawable.arrow
@@ -178,7 +181,18 @@ public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
                         // TODO: 18-10-8 导出账单
                         break;
                     case 5:
-                        // TODO: 18-10-8 评分
+                        // TODO: 18-10-8 评分, 上架后才能测试
+                        try
+                        {
+                            Uri uri = Uri.parse("market://details?id=" + PackageName);
+                            Intent it = new Intent(new Intent(Intent.ACTION_VIEW, uri));
+                            it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            getActivity().startActivity(it);
+                        }
+                        catch (Exception ex)
+                        {
+                            Toast.makeText(mContext, "Couldn't launch the market !", Toast.LENGTH_SHORT).show();
+                        }
                         break;
                     case 6:
                         // TODO: 18-10-8 帮助
@@ -217,7 +231,7 @@ public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
     }
 
     /**
-     * 闹钟设置, 到点开启Service
+     * 闹钟设置, 到点发送广播
      */
     private void clockSetting(final String string){
         Log.v(TAG + ":clockSetting", string);
@@ -280,7 +294,6 @@ public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
     public void myToolbar(){
         // TODO: 18-9-29 modify
         super.myToolbar();
-
     }
 
     @Override

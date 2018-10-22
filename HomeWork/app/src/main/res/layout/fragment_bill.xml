@@ -65,9 +65,8 @@
             android:id="@+id/toolbar_bill"
             layout="@layout/toolbar_parent"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true">
-        </include>
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"></include>
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/constraintLayout"
