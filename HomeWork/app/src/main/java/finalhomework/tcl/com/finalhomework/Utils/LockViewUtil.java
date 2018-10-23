@@ -11,6 +11,7 @@ public class LockViewUtil {
     private static final String SP_NAME = "LOCKVIEW";
     private static final String SP_KEY = "PASSWORD";
     private static final String ISLOCK = "status";
+    private static final String ISFIRST = "times";
 
     public static void savePwd(Context mContext , List<Integer> password){
         SharedPreferences sp = mContext.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
@@ -53,5 +54,14 @@ public class LockViewUtil {
         return sp.getBoolean(ISLOCK, false);
     }
 
+    public static boolean getISFIRST(Context mContext) {
+        SharedPreferences sp = mContext.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
+        return sp.getBoolean(ISFIRST, true);
+    }
+
+    public static void setIsfirst(Context mContext, Boolean isfirst){
+        SharedPreferences sp = mContext.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
+        sp.edit().putBoolean(ISFIRST, isfirst).commit();
+    }
 }
 

@@ -4,12 +4,5 @@
     <gradient
         android:startColor="@color/startColor"
         android:centerColor="@color/center_color"
-        android:endColor="@color/endColor"
-        android:angle="45"
-        android:type="linear"/>
-    <padding
-        android:left="7dp"
-        android:bottom="7dp"
-        android:right="7dp"
-        android:top="7dp"/>
+        android:endColor="@color/endColor" />
 </shape>

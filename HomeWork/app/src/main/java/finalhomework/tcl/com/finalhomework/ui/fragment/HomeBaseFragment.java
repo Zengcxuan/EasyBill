@@ -118,6 +118,10 @@ public abstract class HomeBaseFragment extends Fragment {
         navigationView = getLeftWindow();
         mDrawerLayout = getDrawerLayout();
         navigationView.setFitsSystemWindows(true);
+        navigationView.findViewById(R.id.imageView_my)
+                .setBackground(mContext.getDrawable(R.drawable.persional));
+        navigationView.findViewById(R.id.imageView_share)
+                .setBackground(mContext.getDrawable(R.drawable.shared));
         toolbar.setTitle("");//设置Toolbar标题
 //        toolbar.setTitleTextColor(Color.parseColor("#ffffff")); //设置标题颜色
 //        navigationView.setItemIconTintList(null);

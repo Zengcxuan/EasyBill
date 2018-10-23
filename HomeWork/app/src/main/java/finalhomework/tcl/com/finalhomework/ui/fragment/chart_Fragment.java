@@ -337,8 +337,8 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
      */
     @Override
     protected Toolbar getToolbar() {
-        View viewToolbar = getActivity().findViewById(R.id.toolbar_chart);
-        return viewToolbar.findViewById(R.id.tl_custom);
+//        View viewToolbar = getActivity().findViewById(R.id.toolbar_chart);
+        return getActivity().findViewById(R.id.toolbar_chart);
     }
     /**
      * 重写父类抽象方法,返回navigationView的ID

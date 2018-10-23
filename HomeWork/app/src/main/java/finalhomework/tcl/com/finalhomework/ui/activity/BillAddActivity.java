@@ -128,7 +128,7 @@ public class BillAddActivity extends BaseActivity implements BillView {
     @Override
     protected void initEventAndData() {
 
-        presenter=new BillPresenterImpl(this);
+        presenter = new BillPresenterImpl(this);
 
         //初始化分类数据
         initSortView();
@@ -138,8 +138,16 @@ public class BillAddActivity extends BaseActivity implements BillView {
         mMonth = Integer.parseInt(DateUtils.getCurMonth(FORMAT_M));
         //设置当前 日期
         days = DateUtils.getCurDateStr("yyyy-MM-dd");
-        dateTv.setText(days);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");// HH:mm:ss
+        Date date = new Date(System.currentTimeMillis());
+        if (simpleDateFormat.format(date).equals(days)) {
+            dateTv.setText("今天");
+        } else {
+            dateTv.setText(days);
+
+        }
     }
+
 
     @Override
     public void loadDataSuccess(AllSortBill tData) {
@@ -451,6 +459,8 @@ public class BillAddActivity extends BaseActivity implements BillView {
                         } else {
                             remarkInput = input;
                         }
+                        TextView textView= BillAddActivity.this.findViewById(R.id.beizhu);
+                        textView.setText(input);
                     }
                 })
                 .setNegativeButton("取消", null)

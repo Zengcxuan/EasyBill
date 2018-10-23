@@ -10,6 +10,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.AnimationSet;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -76,15 +78,19 @@ public class UesrLoginActivity extends BaseActivity implements UserLoginView{
             case R.id.button_right:
                 if (isLogin) {
                     openRigsterFragment();
+                    animationHide();
                     leftBtn.setText("注册");
                     rightBtn.setText("登陆");
                     loginButton.setText("注册");
+                    animationShow();
                     isLogin =!isLogin;
                 }else {
                     openLoginFragment();
+                    animationHide();
                     leftBtn.setText("登陆");
                     rightBtn.setText("注册");
                     loginButton.setText("登陆");
+                    animationShow();
                     isLogin =!isLogin;
                 }
                 break;
@@ -183,5 +189,25 @@ public class UesrLoginActivity extends BaseActivity implements UserLoginView{
 
     public boolean isLock() {
         return isLock;
+    }
+
+    public void animationShow(){
+        AnimationSet aset=new AnimationSet(true);
+        AlphaAnimation aa=new AlphaAnimation(0,1);
+        aa.setDuration(2000);
+        aset.addAnimation(aa);
+        leftBtn.startAnimation(aset);
+        rightBtn.startAnimation(aset);
+        loginButton.startAnimation(aset);
+    }
+
+    public void animationHide(){
+        AnimationSet aset=new AnimationSet(true);
+        AlphaAnimation aa=new AlphaAnimation(1,0);
+        aa.setDuration(2000);
+        aset.addAnimation(aa);
+        leftBtn.startAnimation(aset);
+        rightBtn.startAnimation(aset);
+        loginButton.startAnimation(aset);
     }
 }

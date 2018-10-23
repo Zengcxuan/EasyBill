@@ -357,8 +357,7 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
 
     @Override
     protected  Toolbar getToolbar(){
-        View viewToolbar = getActivity().findViewById(R.id.toolbar_bill);
-        return viewToolbar.findViewById(R.id.tl_custom);
+        return getActivity().findViewById(R.id.toolbar_bill);
     }
 
     @Override

@@ -61,12 +61,15 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include
+        <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar_bill"
-            layout="@layout/toolbar_parent"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_alignParentTop="true"></include>
+            android:layout_alignParentTop="true"
+            android:background="@drawable/shape_color_blue"
+            android:minHeight="35dp"
+            android:padding="5dp"
+            android:popupTheme="@style/ThemeOverlay.AppCompat.Light"></android.support.v7.widget.Toolbar>
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/constraintLayout"

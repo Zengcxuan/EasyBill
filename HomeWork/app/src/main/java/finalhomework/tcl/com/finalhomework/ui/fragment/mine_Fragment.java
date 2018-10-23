@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -147,7 +148,6 @@ public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
         adapter=new SimpleAdapter(mContext, dataList, R.layout.button_with_image, from, to);
         listView.setAdapter(adapter);
 
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position,
@@ -156,9 +156,12 @@ public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
                 switch (position) {
                     case 0:
                         // TODO: 18-10-8  声音开关
+                        ImageView imageView = getActivity().findViewById(R.id.image_right);
                         if(isOpen) {
+                            imageView.setImageDrawable(getActivity().getDrawable(R.drawable.close_switch));
                             Toast.makeText(getActivity(), "声音关闭", Toast.LENGTH_LONG).show();
                         }else {
+                            imageView.setImageDrawable(getActivity().getDrawable(R.drawable.voice_switch));
                             Toast.makeText(getActivity(), "声音开启", Toast.LENGTH_LONG).show();
                         }
                         isOpen = !isOpen;
