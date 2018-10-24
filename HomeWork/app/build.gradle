@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao'
-//apply plugin: 'com.jakewharton.butterknife'
+
 android {
     compileSdkVersion 27
     defaultConfig {
@@ -34,9 +34,11 @@ greendao{
     targetGenDir 'src/main/java'
 }
 
-
 dependencies {
-    //MPandroidchart
+    api 'com.android.support:design:27.1.1'
+    //williamChart
+    api 'com.diogobernardino:williamchart:2.5.0'
+    //MP android chart
     api 'com.github.PhilJay:MPAndroidChart:v3.0.1'
     //helloChart
     api 'com.github.lecho:hellocharts-android:v1.5.8'
@@ -44,7 +46,7 @@ dependencies {
     api 'com.contrarywind:Android-PickerView:3.2.7'
     //eventBus
     api 'org.greenrobot:eventbus:3.1.1'
-    //multidex 防溢出
+    //multi dex 防溢出
     api 'com.android.support:multidex:1.0.2'
     // RxAndroid+RxJava
     api 'io.reactivex.rxjava2:rxjava:2.0.1'
@@ -67,6 +69,7 @@ dependencies {
     api 'com.android.support:design:27.1.1'
     api 'com.android.support:support-v4:27.1.1'
     api 'com.android.support.constraint:constraint-layout:1.0.2'
+
     testImplementation 'junit:junit:4.12'
     implementation project(':datechoice2')
     implementation 'com.oguzdev:CircularFloatingActionMenu:1.0.2'

@@ -82,7 +82,7 @@ public class BillAddActivity extends BaseActivity implements BillView {
     protected BillPresenter presenter;
 
 
-    public boolean isOutcome = true;
+    public boolean isOutcome = false;
     //计算器
     protected boolean isDot;
     protected String num = "0";               //整数部分
@@ -226,7 +226,7 @@ public class BillAddActivity extends BaseActivity implements BillView {
         List<SortBill> tempData=new ArrayList<>();
         tempData.addAll(mDatas);
         //末尾加上添加选项
-        tempData.add(new SortBill(null,"添加", "sort_tianjia.png",0,null));
+        //tempData.add(new SortBill(null,"添加", "sort_tianjia.png",0,null));
         if (tempData.size() % 15 == 0)
             isTotalPage = true;
         page = (int) Math.ceil(tempData.size() * 1.0 / 15);
@@ -251,17 +251,17 @@ public class BillAddActivity extends BaseActivity implements BillView {
 
                     //获取真实index
                     index=index + viewpagerItem.getCurrentItem() * 15;
-                    if (index==mDatas.size()) {
+                    /*if (index==mDatas.size()) {
                         //修改分类
                         Intent intent = new Intent(BillAddActivity.this, SortEditActivity.class);
                         intent.putExtra("type", isOutcome);
                         startActivityForResult(intent, 0);
-                    } else{
+                    } else{*/
                         //选择分类
                         lastBean = mDatas.get(index);
                         sortTv.setText(lastBean.getSortName());
 
-                    }
+
                 }
 
                 @Override
