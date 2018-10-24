@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerlayout_chart"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/drawerlayout_chart"
     android:orientation="vertical">
 
     <LinearLayout
@@ -17,7 +17,7 @@
             android:id="@+id/toolbar_chart"
             layout="@layout/toolbar_parent"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"></include>
+            android:layout_height="50dp"></include>
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/Constrain"
@@ -56,12 +56,12 @@
                 <TableRow
                     android:id="@+id/tableRow"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:gravity="end">
 
                     <View
                         android:id="@+id/view_this"
                         style="@style/horizontal_decoration_style.chart"
-                        android:layout_gravity="end"
                         android:background="@drawable/shape_color_blue" />
 
                     <!--<View-->
@@ -90,15 +90,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_below="@+id/constraintLayout"
+                android:layout_marginEnd="5dp"
                 android:layout_marginLeft="5dp"
-                android:layout_marginTop="8dp"
                 android:background="@android:color/white"
                 android:elevation="4sp"
-                app:layout_constraintBottom_toTopOf="@+id/rv_list_chart"
+                app:layout_constraintBottom_toTopOf="@+id/guideline24"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/horizontal1"
-                app:layout_constraintVertical_bias="1.0">
+                app:layout_constraintTop_toTopOf="@+id/horizontal1">
+
 
 
 
@@ -110,53 +110,54 @@
 
 
 
+
             </android.support.v4.widget.SwipeRefreshLayout>
 
             <!--<Button-->
-                <!--android:id="@+id/button_week"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="0dp"-->
-                <!--android:layout_marginEnd="8dp"-->
-                <!--android:layout_marginStart="8dp"-->
-                <!--android:layout_marginTop="8dp"-->
-                <!--android:background="@drawable/datepicker_background"-->
-                <!--android:text="周"-->
-                <!--android:textSize="15sp"-->
-                <!--app:layout_constraintBottom_toTopOf="@+id/guideline19"-->
-                <!--app:layout_constraintEnd_toStartOf="@+id/button_vertical1"-->
-                <!--app:layout_constraintStart_toStartOf="parent"-->
-                <!--app:layout_constraintTop_toTopOf="parent" />-->
+            <!--android:id="@+id/button_week"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="0dp"-->
+            <!--android:layout_marginEnd="8dp"-->
+            <!--android:layout_marginStart="8dp"-->
+            <!--android:layout_marginTop="8dp"-->
+            <!--android:background="@drawable/datepicker_background"-->
+            <!--android:text="周"-->
+            <!--android:textSize="15sp"-->
+            <!--app:layout_constraintBottom_toTopOf="@+id/guideline19"-->
+            <!--app:layout_constraintEnd_toStartOf="@+id/button_vertical1"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toTopOf="parent" />-->
 
             <!--<Button-->
-                <!--android:id="@+id/button_month"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="0dp"-->
-                <!--android:layout_marginEnd="8dp"-->
-                <!--android:layout_marginStart="8dp"-->
-                <!--android:layout_marginTop="8dp"-->
-                <!--android:background="@drawable/datepicker_background"-->
-                <!--android:text="月"-->
-                <!--android:textSize="15sp"-->
-                <!--app:layout_constraintBottom_toTopOf="@+id/guideline19"-->
-                <!--app:layout_constraintEnd_toStartOf="@+id/button_vertical2"-->
-                <!--app:layout_constraintStart_toStartOf="@+id/button_vertical1"-->
-                <!--app:layout_constraintTop_toTopOf="parent" />-->
+            <!--android:id="@+id/button_month"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="0dp"-->
+            <!--android:layout_marginEnd="8dp"-->
+            <!--android:layout_marginStart="8dp"-->
+            <!--android:layout_marginTop="8dp"-->
+            <!--android:background="@drawable/datepicker_background"-->
+            <!--android:text="月"-->
+            <!--android:textSize="15sp"-->
+            <!--app:layout_constraintBottom_toTopOf="@+id/guideline19"-->
+            <!--app:layout_constraintEnd_toStartOf="@+id/button_vertical2"-->
+            <!--app:layout_constraintStart_toStartOf="@+id/button_vertical1"-->
+            <!--app:layout_constraintTop_toTopOf="parent" />-->
 
             <!--<Button-->
-                <!--android:id="@+id/button_year"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="0dp"-->
-                <!--android:layout_marginEnd="8dp"-->
-                <!--android:layout_marginStart="8dp"-->
-                <!--android:layout_marginTop="8dp"-->
-                <!--android:background="@drawable/datepicker_background"-->
-                <!--android:text="年"-->
-                <!--android:textColor="#000000"-->
-                <!--android:textSize="15sp"-->
-                <!--app:layout_constraintBottom_toTopOf="@+id/guideline19"-->
-                <!--app:layout_constraintEnd_toEndOf="parent"-->
-                <!--app:layout_constraintStart_toStartOf="@+id/button_vertical2"-->
-                <!--app:layout_constraintTop_toTopOf="parent" />-->
+            <!--android:id="@+id/button_year"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="0dp"-->
+            <!--android:layout_marginEnd="8dp"-->
+            <!--android:layout_marginStart="8dp"-->
+            <!--android:layout_marginTop="8dp"-->
+            <!--android:background="@drawable/datepicker_background"-->
+            <!--android:text="年"-->
+            <!--android:textColor="#000000"-->
+            <!--android:textSize="15sp"-->
+            <!--app:layout_constraintBottom_toTopOf="@+id/guideline19"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintStart_toStartOf="@+id/button_vertical2"-->
+            <!--app:layout_constraintTop_toTopOf="parent" />-->
 
             <android.support.constraint.Guideline
                 android:id="@+id/button_vertical1"
@@ -184,7 +185,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+
                 app:layout_constraintGuide_percent="0.4" />
+
 
             <!--<lecho.lib.hellocharts.view.ColumnChartView
                 android:id="@+id/test_content"
@@ -198,6 +201,14 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/horizontal2" />-->
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.01" />
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_list_chart"
                 android:layout_width="0dp"
@@ -207,47 +218,64 @@
                 android:scrollbars="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/horizontal2" />
+                app:layout_constraintTop_toTopOf="@+id/horizontal2"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:gravity="start|center_vertical"
+                android:text="本月账单"
+                android:textSize="25sp"
+                app:layout_constraintBottom_toTopOf="@+id/rv_list_chart"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline24" />
 
             <android.support.constraint.Guideline
-                android:id="@+id/guideline19"
+                android:id="@+id/guideline24"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.01" />
+                app:layout_constraintGuide_percent="0.35" />
         </android.support.constraint.ConstraintLayout>
     </LinearLayout>
 
     <!--<android.support.design.widget.NavigationView-->
-        <!--android:id="@+id/navigationview_chart"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_alignParentStart="true"-->
-        <!--android:layout_centerVertical="true"-->
-        <!--android:layout_gravity="left"-->
-        <!--android:fitsSystemWindows="true"-->
-        <!--app:headerLayout="@layout/bill_drawerlayout_header"-->
-        <!--app:menu="@menu/bill_drawerlayout_menu"-->
-        <!--tools:layout_editor_absoluteX="0dp">-->
+    <!--android:id="@+id/navigationview_chart"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_alignParentStart="true"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:layout_gravity="left"-->
+    <!--android:fitsSystemWindows="true"-->
+    <!--app:headerLayout="@layout/bill_drawerlayout_header"-->
+    <!--app:menu="@menu/bill_drawerlayout_menu"-->
+    <!--tools:layout_editor_absoluteX="0dp">-->
 
     <!--</android.support.design.widget.NavigationView>-->
 
     <LinearLayout
         android:id="@+id/navigationview_chart"
         android:layout_width="match_parent"
-        android:orientation="vertical"
+        android:layout_height="match_parent"
         android:layout_gravity="left"
         android:background="@color/white"
-        android:layout_height="match_parent">
+        android:orientation="vertical">
+
         <ImageButton
             android:id="@+id/back_chart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="15dp"
-            android:checked="true"
-            android:background="@drawable/back_arrow" />
+            android:background="@drawable/back_arrow"
+            android:checked="true" />
 
         <finalhomework.tcl.com.finalhomework.ui.widget.ImageButtonWithText
             android:id="@+id/head_chart"
@@ -257,11 +285,10 @@
             android:layout_gravity="center_horizontal"
             android:text="我的"
             custom:picture="@mipmap/ic_launcher" />
-        <include
-            layout="@layout/mybill" />
 
-        <include
-            layout="@layout/sharebill"/>
+        <include layout="@layout/mybill" />
+
+        <include layout="@layout/sharebill" />
     </LinearLayout>
 
 </android.support.v4.widget.DrawerLayout>

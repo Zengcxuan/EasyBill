@@ -14,12 +14,21 @@
        android:layout_height="match_parent"
        >
 
+      <finalhomework.tcl.com.finalhomework.ui.widget.CircleImageView
+          android:layout_width="41dp"
+          android:layout_height="41dp"
+          android:layout_marginLeft="15dp"
+          android:layout_centerVertical="true"
+          android:background="@drawable/item_click" />
+
       <ImageView
           android:id="@+id/item_img"
           android:layout_width="41dp"
           android:layout_height="41dp"
           android:layout_marginLeft="15dp"
           android:layout_centerVertical="true"
+          android:src="@mipmap/sort_amusement"
+          android:scaleType="centerCrop"
           />
 
 
