@@ -200,6 +200,7 @@ public class HomeActivity extends BaseActivity  {
             @Override
             public void onClick(View v) {
                 // TODO: 18-10-18 数据更新
+                Log.e(TAG, "onClick: " );
                 BmobRepository.getInstance().syncBill(currentUser.getObjectId());
             }
         });

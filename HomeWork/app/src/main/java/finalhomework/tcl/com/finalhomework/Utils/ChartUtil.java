@@ -19,6 +19,7 @@ import java.util.List;
 import finalhomework.tcl.com.finalhomework.R;
 import lecho.lib.hellocharts.model.AxisValue;
 
+import static finalhomework.tcl.com.finalhomework.Utils.DateUtils.getEndDayOfLastWeek;
 import static finalhomework.tcl.com.finalhomework.Utils.DateUtils.getEndDayOfWeek;
 
 /**
@@ -33,7 +34,10 @@ public class ChartUtil {
      */
     public static int dayValue = 0;
     public static int weekValue = 1;
-    public static int monthValue = 2;
+    public static boolean thisWeek1 =true;
+    public static int lastWeek =2;
+    private static Date date;
+
 
     /**
      * 初始化图表
@@ -105,6 +109,7 @@ public class ChartUtil {
      */
     public static void notifyDataSetChanged(LineChart chart, List<Entry> values, final int valueType)
     {
+
         chart.getXAxis().setValueFormatter(new IAxisValueFormatter() {
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
@@ -125,11 +130,15 @@ public class ChartUtil {
 
          if (valueType == weekValue) { // 本周
             String[] weekValues = new String[7];
-            Date weekEnd = getEndDayOfWeek();
+            if (thisWeek1){
+                date  = getEndDayOfWeek();
+            }else {
+                date = getEndDayOfLastWeek();
+            }
             int j=0;
             for (int i = 0; i< 7; i++) {
                 j = 6-i;
-                weekValues[i] =DateUtils.getDay(weekEnd.toString(),-j);
+                weekValues[i] =DateUtils.getDay(date.toString(),-j);
             }
             return weekValues;
 
