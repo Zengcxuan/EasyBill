@@ -190,8 +190,8 @@
                 android:elevation="16dp"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toTopOf="@+id/horizontal_head2"
-                app:layout_constraintEnd_toStartOf="@+id/vertical_head2"
-                app:layout_constraintStart_toStartOf="@+id/vertical_head1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/horizontal_head1">
 
                 <finalhomework.tcl.com.finalhomework.ui.widget.RoundImageView
@@ -199,6 +199,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:scaleType="fitXY"
+                    android:layout_gravity="center_horizontal"
                     android:src="@mipmap/ic_launcher"
                     app:type="circle" />
 
@@ -206,8 +207,10 @@
                     android:id="@+id/name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
                     android:text="TextView"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp" />
             </LinearLayout>
 
             <LinearLayout

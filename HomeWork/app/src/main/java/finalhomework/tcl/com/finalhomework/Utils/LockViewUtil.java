@@ -3,6 +3,8 @@ package finalhomework.tcl.com.finalhomework.Utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -17,7 +19,6 @@ public class LockViewUtil {
     private static final String ISFIRST = "times";
     //时间记录，用于定时提醒
     private static final String TIME_H = "hour";
-    private static final String TIME_M = "minus";
     private static final String IS_SET = "set";
     public static void savePwd(Context mContext , List<Integer> password){
         SharedPreferences sp = mContext.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
@@ -72,26 +73,24 @@ public class LockViewUtil {
 
     public static boolean getIsSet(Context mContext) {
         SharedPreferences sp = mContext.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
-        return sp.getBoolean(IS_SET, true);
+        return sp.getBoolean(IS_SET, false);
     }
 
     public static void setIsSet (Context mContext, Boolean isSet){
         SharedPreferences sp = mContext.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
-        sp.edit().putBoolean(IS_SET, isSet).commit();
+        sp.edit().putBoolean(IS_SET, isSet).apply();
     }
 
-    public static void saveCalender(Context mContext, int hour, int minus){
+    public static void saveCalender(Context mContext, ArrayList<String> list){
         SharedPreferences sp = mContext.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
-        sp.edit().putInt(TIME_H, hour).commit();
-        sp.edit().putInt(TIME_M, minus).commit();
+        Gson gson = new Gson();
+        String data = gson.toJson(list);
+        sp.edit().putString(TIME_H, data).apply();
     }
 
-    public static ArrayList getCalender(Context mContext){
+    public static String getCalender(Context mContext){
         SharedPreferences sp = mContext.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
-        ArrayList<Integer> time = new ArrayList<>();
-        time.add(sp.getInt(TIME_H, 0));
-        time.add(sp.getInt(TIME_M, 0));
-       return  time;
+       return  sp.getString(TIME_H, "");
     }
 }
 
