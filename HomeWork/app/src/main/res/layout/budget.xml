@@ -45,7 +45,7 @@
             android:textSize="22sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline22"
-            app:layout_constraintStart_toEndOf="@+id/modify_lockview"
+            app:layout_constraintStart_toEndOf="@+id/budget_back"
             app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
 

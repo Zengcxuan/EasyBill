@@ -3,21 +3,18 @@ package finalhomework.tcl.com.finalhomework.ui.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import java.util.Date;
 import java.util.List;
-
 import finalhomework.tcl.com.finalhomework.R;
-import finalhomework.tcl.com.finalhomework.Utils.DateUtils;
-import freemarker.template.utility.DateUtil;
+
 
 public class NotifyAdpter extends RecyclerView.Adapter<NotifyAdpter.MyViewHolder>{
     private Context context;
-    private List<Long> mdatas;
+    private List<String> mdatas;
     private LayoutInflater mInflater;
     private OnNotifyClickListener onNotifyClickListener;
 
@@ -28,7 +25,7 @@ public class NotifyAdpter extends RecyclerView.Adapter<NotifyAdpter.MyViewHolder
         return new MyViewHolder(view);
     }
 
-    public NotifyAdpter(Context context, List<Long> datas) {
+    public NotifyAdpter(Context context, List<String> datas) {
         this.context = context;
         this.mInflater = LayoutInflater.from(context);
         this.mdatas = datas;
@@ -41,11 +38,12 @@ public class NotifyAdpter extends RecyclerView.Adapter<NotifyAdpter.MyViewHolder
 //        int Minu = mdatas.get(position).get(Calendar.MINUTE);
 //        String show = String.valueOf(Hour) + ":" + String.valueOf(Minu);
 //        holder.tv.setText(show);
-        Date date = DateUtils.longToDate(mdatas.get(position));
-        int Hour = date.getHours();
-        int Minu = date.getMinutes();
-        String show = String.valueOf(Hour) + ":" + String.valueOf(Minu);
-        holder.tv.setText(show);
+//        Date date = DateUtils.longToDate(mdatas.get(position));
+//        int Hour = date.getHours();
+//        int Minu = date.getMinutes();
+//        String show = String.valueOf(Hour) + ":" + String.valueOf(Minu)
+        Log.i("----",mdatas.get(position));
+        holder.tv.setText(mdatas.get(position));
     }
 
     @Override
@@ -53,11 +51,12 @@ public class NotifyAdpter extends RecyclerView.Adapter<NotifyAdpter.MyViewHolder
         return mdatas.size();
     }
 
-    public void addData(int position, Long time) {
+    public void addData(int position, String time) {
         //      在list中添加数据，并通知条目加入一条
         mdatas.add(position, time);
         //添加动画
         notifyItemInserted(position);
+
     }
 
     //  删除数据
@@ -73,11 +72,18 @@ public class NotifyAdpter extends RecyclerView.Adapter<NotifyAdpter.MyViewHolder
         public MyViewHolder(View view){
             super(view);
             tv = (TextView) view.findViewById(R.id.tv_time);
+            itemView.setOnClickListener(this);
         }
         @Override
         public void onClick(View view) {
             onNotifyClickListener.OnClick(getAdapterPosition());
+
         }
+    }
+
+    public void setOnNotifyClickListener(OnNotifyClickListener listener) {
+        if (onNotifyClickListener == null)
+            this.onNotifyClickListener = listener;
     }
 
     /**

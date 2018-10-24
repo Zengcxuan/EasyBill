@@ -25,4 +25,8 @@
         android:textSize="20sp"
         android:text="TextView"
         android:textColor="@color/black" />
+    <View
+        style="@style/horizontal_decoration_style"
+        android:background="#8c8c8c"
+        android:layout_alignParentBottom="true"/>
 </RelativeLayout>
