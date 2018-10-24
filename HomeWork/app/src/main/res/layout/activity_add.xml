@@ -8,32 +8,38 @@
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:gravity="center_vertical"
-        android:background="?attr/colorPrimary">
+        android:background="@drawable/shape_color_blue">
+
         <RelativeLayout
             android:id="@+id/back_layout"
-            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <ImageView
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true">
+
+            <Button
                 android:id="@+id/back_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:paddingRight="10dp"
-                android:layout_marginLeft="15dp"/>
-                <!--android:src="@mipmap/ic_back"-->
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:gravity="center_vertical"
+                android:text="取消"
+                android:textColor="@color/white"
+                android:layout_marginEnd="10dp"
+                android:textSize="18sp" />
+            <!--android:src="@mipmap/ic_back"-->
 
             <TextView
                 android:id="@+id/mine_frag_tv"
-                android:text="明细"
-                android:textSize="13sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:paddingTop="10dp"
-                android:visibility="gone"
+                android:layout_toRightOf="@+id/back_btn"
                 android:paddingBottom="10dp"
                 android:paddingRight="10dp"
-                android:layout_toRightOf="@+id/back_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:paddingTop="10dp"
+                android:text="明细"
+                android:textSize="13sp"
+                android:visibility="gone" />
             <!--android:textColor="@color/white"-->
         </RelativeLayout>
         <RelativeLayout
@@ -139,27 +145,26 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/tb_note_date"
-            android:background="@drawable/shape_tb_cash"
-            android:textSize="15sp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:paddingTop="6dp"
-            android:paddingBottom="7dp"
-            android:layout_marginTop="7dp"
-            android:textColor="@color/white"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
         <RelativeLayout
             android:layout_weight="1"
             android:layout_width="0dp"
 
             android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/beizhu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:textSize="20sp"
+                android:gravity="center_vertical"
+                android:layout_centerVertical="true"
+                android:text="" />
+
             <ImageView
                 android:id="@+id/tb_note_remark"
                 android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:paddingLeft="10dp"
                 android:paddingTop="5dp"
                 android:paddingRight="16dp"
@@ -351,16 +356,35 @@
                 android:layout_width="match_parent"
                 android:layout_weight="1"
                 android:layout_height="0dp">
+
                 <TextView
                     android:id="@+id/tb_calc_num_0"
-                    android:text="0"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textSize="20sp"
-                    android:gravity="center"
                     android:background="@drawable/bg_radius_click"
-                    android:textColor="#000000" />
+                    android:gravity="center"
+                    android:text="0"
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
+
+                <View
+                    style="@style/vertical_decoration_style"
+                    android:background="#8c8c8c"
+                    />
+
+                <RelativeLayout
+                    android:id="@+id/tb_calc_num_del"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:src="@mipmap/ic_tb_calc_del" />
+                </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
         <View
@@ -377,28 +401,55 @@
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent">
-            <RelativeLayout
-                android:id="@+id/tb_calc_num_del"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="0dp">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:src="@mipmap/ic_tb_calc_del"
-                    />
-            </RelativeLayout>
+
             <TextView
-                android:id="@+id/tb_calc_num_done"
-                android:text="确定"
+                android:id="@+id/tb_note_date"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:textSize="20sp"
                 android:gravity="center"
-                android:background="?attr/colorPrimary"
-                android:textColor="@color/white" />
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <View
+                style="@style/horizontal_decoration_style"
+                android:background="#8c8c8c"/>
+
+            <!--<Button-->
+                <!--android:id="@+id/plus"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="0dp"-->
+                <!--android:background="@color/white"-->
+                <!--android:text="+"-->
+                <!--android:layout_weight="1"/>-->
+
+            <!--<View-->
+                <!--style="@style/horizontal_decoration_style"-->
+                <!--android:background="#8c8c8c"/>-->
+
+            <!--<Button-->
+                <!--android:id="@+id/minus"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="0dp"-->
+                <!--android:background="@color/white"-->
+                <!--android:text="-"-->
+                <!--android:layout_weight="1"/>-->
+
+            <!--<View-->
+                <!--style="@style/horizontal_decoration_style"-->
+                <!--android:background="#8c8c8c"/>-->
+
+
+            <TextView
+                android:id="@+id/tb_calc_num_done"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/shape_color_blue"
+                android:gravity="center"
+                android:text="完成"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
         </LinearLayout>
     </LinearLayout>
 

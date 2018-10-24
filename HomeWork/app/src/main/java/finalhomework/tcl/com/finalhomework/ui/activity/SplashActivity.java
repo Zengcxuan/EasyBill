@@ -2,8 +2,6 @@ package finalhomework.tcl.com.finalhomework.ui.activity;
 
 
 import android.content.Intent;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.viksaa.sssplash.lib.activity.AwesomeSplash;
@@ -11,18 +9,38 @@ import com.viksaa.sssplash.lib.cnst.Flags;
 import com.viksaa.sssplash.lib.model.ConfigSplash;
 
 import finalhomework.tcl.com.finalhomework.R;
+import finalhomework.tcl.com.finalhomework.Utils.LockViewUtil;
 
 
-/**
- * Created by zhouas666 on 2017/12/14.
- */
+
 public class SplashActivity extends AwesomeSplash {
 
     //DO NOT OVERRIDE onCreate()!
     //if you need to start some services do it in initSplash()!
 
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        if(LockViewUtil.getIsfirst(this)){
+//            Intent intent = new Intent(this, WelcomeActivity.class);
+//            startActivity(intent);
+//            finish();
+//        }
+//        super.onCreate(savedInstanceState);
+//    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        LockViewUtil.setIsfirst(this, false);
+    }
+
     @Override
     public void initSplash(ConfigSplash configSplash) {
+        if(LockViewUtil.getIsfirst(this)){
+            Intent intent = new Intent(this, WelcomeActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
         /* you don't have to override every property */
 

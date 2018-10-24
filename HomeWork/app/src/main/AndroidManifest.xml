@@ -23,9 +23,9 @@
     <application
         android:name=".base.MyApplication"
         android:allowBackup="true"
-        android:icon="@drawable/item_click"
+        android:icon="@drawable/app_icon"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/item_click"
+        android:roundIcon="@drawable/app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:screenOrientation="portrait"
@@ -51,6 +51,8 @@
         <activity android:name=".ui.activity.LockViewUi"/>
         <activity android:name=".ui.activity.UnlockUI" android:theme="@style/TranslucentTheme"/>
         <activity android:name=".ui.activity.PersionalInfoActivity"/>
+        <activity android:name=".ui.activity.WelcomeActivity"/>
+        <activity android:name=".ui.activity.NotifyActivity"/>
     </application>
 
 </manifest>
