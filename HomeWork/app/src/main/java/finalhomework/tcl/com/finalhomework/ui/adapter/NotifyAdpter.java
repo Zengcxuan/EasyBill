@@ -8,16 +8,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-
-import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import finalhomework.tcl.com.finalhomework.R;
+import finalhomework.tcl.com.finalhomework.Utils.DateUtils;
+import freemarker.template.utility.DateUtil;
 
 public class NotifyAdpter extends RecyclerView.Adapter<NotifyAdpter.MyViewHolder>{
     private Context context;
-    private List<Calendar> mdatas;
+    private List<Long> mdatas;
     private LayoutInflater mInflater;
     private OnNotifyClickListener onNotifyClickListener;
 
@@ -28,7 +28,7 @@ public class NotifyAdpter extends RecyclerView.Adapter<NotifyAdpter.MyViewHolder
         return new MyViewHolder(view);
     }
 
-    public NotifyAdpter(Context context, List<Calendar> datas) {
+    public NotifyAdpter(Context context, List<Long> datas) {
         this.context = context;
         this.mInflater = LayoutInflater.from(context);
         this.mdatas = datas;
@@ -37,8 +37,13 @@ public class NotifyAdpter extends RecyclerView.Adapter<NotifyAdpter.MyViewHolder
     @Override
     public void onBindViewHolder(@NonNull NotifyAdpter.MyViewHolder holder, int position) {
 //        holder.tv.setText(mdatas.get(position));
-        int Hour = mdatas.get(position).get(Calendar.HOUR);
-        int Minu = mdatas.get(position).get(Calendar.MINUTE);
+//        int Hour = mdatas.get(position).get(Calendar.HOUR);
+//        int Minu = mdatas.get(position).get(Calendar.MINUTE);
+//        String show = String.valueOf(Hour) + ":" + String.valueOf(Minu);
+//        holder.tv.setText(show);
+        Date date = DateUtils.longToDate(mdatas.get(position));
+        int Hour = date.getHours();
+        int Minu = date.getMinutes();
         String show = String.valueOf(Hour) + ":" + String.valueOf(Minu);
         holder.tv.setText(show);
     }
@@ -48,9 +53,9 @@ public class NotifyAdpter extends RecyclerView.Adapter<NotifyAdpter.MyViewHolder
         return mdatas.size();
     }
 
-    public void addData(int position, Calendar calendar) {
+    public void addData(int position, Long time) {
         //      在list中添加数据，并通知条目加入一条
-        mdatas.add(position, calendar);
+        mdatas.add(position, time);
         //添加动画
         notifyItemInserted(position);
     }

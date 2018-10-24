@@ -110,7 +110,8 @@
                     android:id="@+id/recycler_view"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:scrollbars="vertical"></android.support.v7.widget.RecyclerView>
+                    android:scrollbars="vertical">
+                </android.support.v7.widget.RecyclerView>
 
 
             </android.support.v4.widget.SwipeRefreshLayout>
@@ -178,7 +179,7 @@
             <android.support.constraint.Guideline
                 android:id="@+id/horizontal1"
                 android:layout_width="wrap_content"
-                android:layout_height="100dp"
+                android:layout_height="120dp"
                 android:orientation="horizontal"
                 app:layout_constraintGuide_percent="0.08" />
 
@@ -187,10 +188,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-
                 app:layout_constraintGuide_percent="0.51" />
-
-
             <!--<lecho.lib.hellocharts.view.ColumnChartView
                 android:id="@+id/test_content"
                 android:layout_width="0dp"
@@ -244,7 +242,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.43" />
+                app:layout_constraintGuide_percent="0.38" />
         </android.support.constraint.ConstraintLayout>
     </LinearLayout>
 

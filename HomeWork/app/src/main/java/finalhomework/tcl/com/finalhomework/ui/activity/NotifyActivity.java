@@ -37,7 +37,7 @@ public class NotifyActivity extends BaseActivity {
     @BindView(R.id.notify_background)
     LinearLayout notifyBackground;
 
-    private List<Calendar> mDatas;
+    private List<Long> mDatas;
     private NotifyAdpter nAdapter;
     private Boolean isFirst = true;
     @Override
@@ -118,19 +118,19 @@ public class NotifyActivity extends BaseActivity {
 //                android 4.4(19)以下使用set, 19以上set时间不准确, 需使用setExact
 //                alarmManager.set(AlarmManager.RTC_WAKEUP,c.getTimeInMillis(), pi);
                 if(LockViewUtil.getIsfirst(mContext)) {
-                    initRecyclerView(c);
+                    initRecyclerView(c.getTimeInMillis());
                     notifyBackground.setVisibility(INVISIBLE);
                     isFirst = false;
                 }else {
-                    nAdapter.addData(mDatas.size(), c);
+                    nAdapter.addData(mDatas.size(), c.getTimeInMillis());
                 }
             }
         }, currentTime.get(Calendar.HOUR_OF_DAY), currentTime.get(Calendar.MINUTE), false).show();
     }
 
-    private void initRecyclerView(Calendar calendar){
-        mDatas = new ArrayList<Calendar>();
-        mDatas.add(calendar);
+    private void initRecyclerView(Long time){
+        mDatas = new ArrayList<Long>();
+        mDatas.add(time);
         notifyView.setLayoutManager(new LinearLayoutManager(this));
         notifyView.setAdapter(nAdapter = new NotifyAdpter(mContext, mDatas));
     }
