@@ -39,7 +39,8 @@
 
                 <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_weight="5">
 
                     <Button
                         android:id="@+id/lastweek"
@@ -60,6 +61,7 @@
                     android:id="@+id/tableRow"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:gravity="end">
 
                     <View
@@ -95,6 +97,7 @@
                 android:layout_below="@+id/constraintLayout"
                 android:layout_marginEnd="5dp"
                 android:layout_marginLeft="5dp"
+                android:layout_marginTop="3dp"
                 android:background="@android:color/white"
                 android:elevation="4sp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline24"
@@ -103,15 +106,11 @@
                 app:layout_constraintTop_toTopOf="@+id/horizontal1">
 
 
-
-
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycler_view"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:scrollbars="vertical"></android.support.v7.widget.RecyclerView>
-
-
 
 
             </android.support.v4.widget.SwipeRefreshLayout>
@@ -181,7 +180,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="100dp"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.11" />
+                app:layout_constraintGuide_percent="0.08" />
 
             <android.support.constraint.Guideline
                 android:id="@+id/horizontal2"
@@ -189,7 +188,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
 
-                app:layout_constraintGuide_percent="0.4" />
+                app:layout_constraintGuide_percent="0.51" />
 
 
             <!--<lecho.lib.hellocharts.view.ColumnChartView
@@ -210,7 +209,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.01" />
+                app:layout_constraintGuide_percent="0.00" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_list_chart"
@@ -245,7 +244,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.35" />
+                app:layout_constraintGuide_percent="0.43" />
         </android.support.constraint.ConstraintLayout>
     </LinearLayout>
 
