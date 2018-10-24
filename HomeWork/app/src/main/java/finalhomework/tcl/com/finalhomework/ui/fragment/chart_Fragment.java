@@ -94,7 +94,7 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
     List<MonthBillForChart.SortTypeList> listInComeData ;
     List<MonthBillForChart.SortTypeList> listOutComeData;
     List<MonthDetailAccount.DaylistBean> detailList;
-
+    //private int now=4;
     private String crdate;
     private int week;
     private String allMoney;
@@ -110,26 +110,7 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
     private float[] incomeValues = {0f,0f,0f,0f,0f,0f,0f};
     private float[] outcomeValues = {0f,0f,0f,0f,0f,0f,0f};
     //private float[][] outcomeValues = {{0f,0f,0f,0f,0f,0f,0f},{0f,0f,0f,0f,0f,0f,0f}};
-    private float[] data = {10f,20f,30f,40f,65f,10f,77f};
-    /**
-     * 图表加入数据
-     */
-    /*private void setData(int x, String y) {
-        Float data = Float.parseFloat(y);
-        Log.e("meng111", "setData: _______________" + data);
-        values.add(new Entry(x, data));
-        Log.e(TAG, "setData: " + values);
-    }
-    private void falseData() {
-        for (int i =0;i<7;i++){
-            values.add(new Entry(i,0));
-        }
-    }*/
-    /*private void setFalseData(){
-        for (int i =0;i<7;i++){
-            values.set(i,new Entry(i,0));
-        }
-    }*/
+    //private float[] data = {10f,20f,30f,40f,65f,10f,77f};
     /**
      * 按钮事件处理
      */
@@ -137,21 +118,6 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
     public void onClick(View view) {
 
         switch (view.getId()) {
-//            case R.id.button_week:
-//                BtnStateChange(1);
-//                lastWeekBtn.setText("上周");
-//                thisWeekBtn.setText("本周");
-//                break;
-//            case R.id.button_month:
-//                BtnStateChange(2);
-//                lastWeekBtn.setText("上月");
-//                thisWeekBtn.setText("本月");
-//                break;
-//            case R.id.button_year:
-//                BtnStateChange(3);
-//                lastWeekBtn.setText("上年");
-//                thisWeekBtn.setText("本年");
-//                break;
             case R.id.thisweek:
                 lastWeekBtn.setTextColor(getResources().getColor(R.color.tab_unclicked));
                 thisWeekBtn.setTextColor(getResources().getColor(R.color.tab_clicked));
@@ -176,27 +142,27 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
         }
     }
     public void data(){
+        Log.e(TAG, "data: " );
         /*判断是收入还是支出，图表和view显示数据*/
         if (isIncome ){
-            if (isThisWeek){
+            if (isThisWeek){//isIncome=true,isThisWeek=true
                 WeekData(beginDayOfWeek,endDayOfWeek);
                 setChart(incomeValues,isThisWeek);
-            }else {
+            }else {//isIncome=false,isThisWeek=true
                 WeekData(beginDayOfLastWeek,endDayOfLastWeek);
                 setChart(incomeValues,isThisWeek);
             }
-                adapter = new MonthChartAdapter(getActivity(),listInComeData);
-                rvList.setAdapter(adapter);
+            setList(listInComeData);
+
         }else {
-            if (isThisWeek){
+            if (isThisWeek){//isIncome=false,isThisWeek=true
                 WeekData(beginDayOfWeek,endDayOfWeek);
                 setChart(outcomeValues,isThisWeek);
-            }else {
+            }else {//isIncome=false,isThisWeek=false
                 WeekData(beginDayOfLastWeek,endDayOfLastWeek);
                 setChart(outcomeValues,isThisWeek);
             }
-            adapter = new MonthChartAdapter(getActivity(),listOutComeData);
-            rvList.setAdapter(adapter);
+            setList(listOutComeData);
         }
     }
     /**
@@ -218,66 +184,31 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
         endDayOfLastWeek = DateUtils.getEndDayOfLastWeek();
         data();
 
-        //setFalseData(); //防止数据重叠
-
-        /*判断是本周还是上周,并且自动填充数据*/
-        /*if (isThisWeek){
-            WeekData(beginDayOfWeek,endDayOfWeek);
-        }else {
-            WeekData(beginDayOfLastWeek,endDayOfLastWeek);
-        }*/
-            /*ChartUtil.thisWeek=true;
-            ChartUtil.notifyDataSetChanged(chart, values, ChartUtil.weekValue);*/
-
-            /*ChartUtil.thisWeek=false;
-            ChartUtil.notifyDataSetChanged(chart, values, ChartUtil.weekValue);*/
         }
 
     /**
      * 本周或者上周的收入和支出
      */
     public void WeekData(Date beginDay,Date endDay){
-        Log.e(TAG, "WeekData:size "+detailList.size() );
-        List<Float> test = new ArrayList<Float>();
-        for (int j =0;j<7;j++){
-            test.add(j,0f);
-        }
+
         for (int i =0;i<detailList.size();i++){
             crdate=detailList.get(i).getTime();
             crdate = crdate+" 12:00:00";//防止特殊时间报错
-           // Log.e(TAG, "WeekData:flag "+DateUtils.belongCalendar(DateUtils.str2Date(crdate),beginDay,endDay ));
             if (DateUtils.belongCalendar(DateUtils.str2Date(crdate),beginDay,endDay)){
                 try {
                     week =  DateUtils.DayForWeek(crdate);
-                    Log.e(TAG, "WeekData: week"+week );
                     allMoney = detailList.get(i).getMoney();
-                    /*if (isIncome){*/
 
-                        income = allMoney.substring(allMoney.indexOf("入")+2,allMoney.length());
-                        //Log.e(TAG, "WeekData:income "+income );
-                        test.set(week-1, Float.valueOf(income));
-                        incomeValues[week-1] = Float.valueOf(income);
+                    income = allMoney.substring(allMoney.indexOf("入")+2,allMoney.length());
+                    incomeValues[week-1] = Float.valueOf(income);
 
-                    //Log.e(TAG, "WeekData: incomeValues"+incomeValues[0][week-1] );
+                    outcome = allMoney.substring(3, allMoney.indexOf(" "));
+                    outcomeValues[week-1] = Float.valueOf(outcome);
 
-                        //values.set(week-1,new Entry(week-1,Float.valueOf(income)));
-                    /*}else {*/
-
-                        outcome = allMoney.substring(3, allMoney.indexOf(" "));
-                        Log.e(TAG, "WeekData:outcome "+outcome );
-                        outcomeValues[week-1] = Float.valueOf(outcome);
-
-
-                        //values.set(week-1,new Entry(week-1,Float.valueOf(outcome)));
-                    /*}*/
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
-        }
-        Log.e(TAG, "WeekData: size"+test.size() );
-        for (int k=0;k<test.size();k++){
-            Log.e(TAG, "WeekData: _____________"+test.get(k) );
         }
 
     }
@@ -298,48 +229,35 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
             }
         });
     }
+
     /**
-     * 年,月,周按钮点击后的颜色变化
+     * 加入图表
+     * @param values
+     * @param isThisWeek
      */
-//    public void BtnStateChange(int type) {
-//        switch (type) {
-//            case 1:
-//                weekBtn.setBackground(getActivity().getDrawable(R.drawable.datepicker_background_clicked));
-//                monthBtn.setBackground(getActivity().getDrawable(R.drawable.datepicker_background));
-//                yearBtn.setBackground(getActivity().getDrawable(R.drawable.datepicker_background));
-//                break;
-//            case 2:
-//                weekBtn.setBackground(getActivity().getDrawable(R.drawable.datepicker_background));
-//                monthBtn.setBackground(getActivity().getDrawable(R.drawable.datepicker_background_clicked));
-//                yearBtn.setBackground(getActivity().getDrawable(R.drawable.datepicker_background));
-//                break;
-//            case 3:
-//                weekBtn.setBackground(getActivity().getDrawable(R.drawable.datepicker_background));
-//                monthBtn.setBackground(getActivity().getDrawable(R.drawable.datepicker_background));
-//                yearBtn.setBackground(getActivity().getDrawable(R.drawable.datepicker_background_clicked));
-//                break;
-//        }
-//    }
     public void setChart(float[] values,boolean isThisWeek){
-        chartAdapter = new ChartAdapter(getContext(),values,isThisWeek);
+        chartAdapter = new ChartAdapter(getContext(),values,isThisWeek,5);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(chartAdapter);
+    }
+    /**
+     * 加入listview
+     */
+    public void setList(List<MonthBillForChart.SortTypeList> Data){
+        adapter = new MonthChartAdapter(getActivity(),Data);
+        rvList.setAdapter(adapter);
     }
     /**
      * 返回Toolbar的菜单项（右边）
      */
     @Override
-    protected void improtantData() {
+    protected void importantData() {
 
         presenter=new MonthChartPresenterImpl(this);
         presenter.getMonthChartBills(currentUser.getObjectId(), setYear, setMonth);
         flash();
         context = getActivity().getApplicationContext();
-        //new LineCardOne(cardView, context,incomeValues,3).init();
-        //falseData();
-       /* ChartUtil.notifyDataSetChanged(chart, values, ChartUtil.weekValue);*/
-        //ChartUtil.initChart(chart);
-         mLayoutManager = new GridLayoutManager(getContext(), FULL_SPAN);
+        mLayoutManager = new GridLayoutManager(getContext(), FULL_SPAN);
         mLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
@@ -353,10 +271,9 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
             }
         });
         float[] mValues = {0f, 0f, 0f, 0f, 0f, 0f, 0f};
+
         setChart(mValues,isThisWeek);
-        chartAdapter = new ChartAdapter(getContext(),mValues,!isThisWeek);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setAdapter(chartAdapter);
+
     }
     /**
      * 设置菜单项的响应事件,这里是开启查询
@@ -456,13 +373,14 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case 0:
-                    isIncome = true;
-                    isThisWeek=false;
+                        isIncome = true;
+                        //isThisWeek=true;
                         presenter.getMonthChartBills(currentUser.getObjectId(), setYear, setMonth);
+
                         break;//收入
                     case 1:
-                    isIncome = false;
-                    isThisWeek=false;
+                        isIncome = false;
+                        //isThisWeek=true;
                         presenter.getMonthChartBills(currentUser.getObjectId(), setYear, setMonth);
                         break;//支出
                 }
