@@ -177,6 +177,7 @@ public class BillUtils {
      */
     public static DataSum getDataSum(List<TotalBill> list){
         DataSum bean = new DataSum();
+       // String userName="";
         float t_income = 0;
         float t_outcome = 0;
         int record = list.size();

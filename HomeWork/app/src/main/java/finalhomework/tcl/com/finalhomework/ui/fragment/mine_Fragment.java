@@ -259,6 +259,7 @@ public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
         recordDays.setText(String.valueOf(tData.getRecordDay())); //总天数
         recordDeals.setText(String.valueOf(tData.getRecordNumber())); //总笔数
         recordSurplus.setText(String.valueOf(money)); //结余
+        userName.setText(currentUser.getUsername());
 
     }
 

@@ -2,11 +2,19 @@ package finalhomework.tcl.com.finalhomework.pojo;
 
 
 public class DataSum {
-
+    //private String userName;
     private int recordDay;
     private int recordNumber;
     private float TotalIncome;
     private float TotalOutcome;
+
+    /*public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }*/
 
     public int getRecordDay() {
         return recordDay;
