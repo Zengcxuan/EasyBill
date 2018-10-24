@@ -21,9 +21,11 @@ public  class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.ViewHolder>
     private final Context mContext;
     private float[] floats;
     private boolean thisWeek;
-    public ChartAdapter(Context context, float[] floats,boolean thisWeek) {
+    private int now=0;
+    public ChartAdapter(Context context, float[] floats,boolean thisWeek,int now) {
         mContext = context;
         this.thisWeek=thisWeek;
+        this.now = now;
         this.floats=floats;
     }
     public void setmDatas(float[] floats) {
@@ -49,10 +51,10 @@ public  class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.ViewHolder>
 
         switch (position) {
             case 0:
-                (new LineCardOne(holder.cardView, mContext,floats,thisWeek)).init();
+                (new LineCardOne(holder.cardView, mContext,floats,thisWeek,now)).init();
                 break;
             default:
-                (new LineCardOne(holder.cardView, mContext,floats,thisWeek)).init();
+                (new LineCardOne(holder.cardView, mContext,floats,thisWeek,now)).init();
                 break;
         }
     }

@@ -245,11 +245,11 @@ public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
     protected  void beforeDestroy(){}
 
     @Override
-    protected void improtantData() {
+    protected void importantData() {
         initData();
         presenter = new TotalRecordPresenterImpl(this);
         presenter.getTotalRecord(User.getCurrentUser().getObjectId());
-        Log.e(TAG, "improtantData: "+ User.getCurrentUser().getObjectId());
+        Log.e(TAG, "importantData: "+ User.getCurrentUser().getObjectId());
     }
     @Override
     public void loadDataSuccess(DataSum tData) {

@@ -35,25 +35,22 @@ public class LineCardOne extends CardController {
 
 
     private final Context mContext;
-    public  int weekValue = 1;
     private  String[] mLabels =new String[7];
-
-    private final float[][] mValues = {{3.5f, 4.7f, 4.3f, 8f, 6.5f, 9.9f, 7f, 8.3f, 7.0f},
-            {4.5f, 2.5f, 2.5f, 9f, 4.5f, 9.5f, 5f, 8.3f, 1.8f}};
-
     private Tooltip mTip;
     private Date date;
+    private int now ;
     private Runnable mBaseAction;
     private boolean thisweek;
     private float[] floats;
-
-    public LineCardOne(CardView card, Context context, float[] floats,boolean week) {
+    private float[] data={1f,2f,3f,4f,5f,6f,7f};
+    public LineCardOne(CardView card, Context context, float[] floats,boolean week,int now) {
 
         super(card);
         this.floats=floats;
+        this.now=now;
         this.thisweek=week;
-        mContext = context;
-        mChart = (LineChartView) card.findViewById(R.id.chart);
+        this.mContext = context;
+        this.mChart = (LineChartView) card.findViewById(R.id.chart);
     }
 
 
@@ -104,7 +101,7 @@ public class LineCardOne extends CardController {
                 .setDotsColor(Color.parseColor("#758cbb"))
                 .setThickness(4)
                 .setDashed(new float[]{10f, 10f})
-                .beginAt(5);
+                .beginAt(4);
         mChart.addData(dataset);
 
         dataset = new LineSet(mLabels, floats);
@@ -112,7 +109,7 @@ public class LineCardOne extends CardController {
                 .setFill(Color.parseColor("#2d374c"))
                 .setDotsColor(Color.parseColor("#ffc755"))
                 .setThickness(4)
-                .endAt(6);
+                .endAt(5);
         mChart.addData(dataset);
 
         mBaseAction = action;
@@ -137,7 +134,7 @@ public class LineCardOne extends CardController {
     }
 
 
-    @Override
+    /*@Override
     public void update() {
 
         super.update();
@@ -145,14 +142,18 @@ public class LineCardOne extends CardController {
         mChart.dismissAllTooltips();
         if (firstStage) {
             mChart.updateValues(0, floats);
-            mChart.updateValues(1, floats);
+            mChart.updateValues(1, data);
+            mChart.updateValues(2, floats);
         } else {
+            *//*mChart.updateValues(0, floats);
+            mChart.updateValues(1, floats);*//*
             mChart.updateValues(0, floats);
-            mChart.updateValues(1, floats);
+            mChart.updateValues(1, data);
+            mChart.updateValues(2, floats);
         }
         mChart.getChartAnimation().withEndAction(mBaseAction);
         mChart.notifyDataUpdate();
-    }
+    }*/
 
 
     @Override

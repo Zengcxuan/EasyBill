@@ -87,7 +87,7 @@ public abstract class HomeBaseFragment extends Fragment {
         isViewCreated = true;
         currentUser= Person.getCurrentUser(Person.class);
         setHasOptionsMenu(true);
-        improtantData();
+        importantData();
         myToolbar();
         lazyLoad();
     }
@@ -262,7 +262,7 @@ public abstract class HomeBaseFragment extends Fragment {
     }
 
 
-    protected abstract void improtantData();
+    protected abstract void importantData();
     protected abstract void loadData();
     protected void setToolbar(View v){
         getToolbar().addView(v);

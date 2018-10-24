@@ -110,7 +110,7 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
         return R.layout.fragment_bill;
     }
     @Override
-    protected void improtantData() {
+    protected void importantData() {
         left();
         //注册 EventBus
         EventBus.getDefault().register(this);

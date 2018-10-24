@@ -5,9 +5,7 @@ import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import finalhomework.tcl.com.finalhomework.R;
 import finalhomework.tcl.com.finalhomework.Utils.DateUtils;
@@ -52,7 +50,6 @@ public class BillEditActivity extends BillAddActivity implements BillView {
         mMonth = Integer.parseInt(DateUtils.getCurMonth(FORMAT_M));
 
     }
-
     /**
      * 获取旧数据
      */
@@ -72,11 +69,9 @@ public class BillEditActivity extends BillAddActivity implements BillView {
         num = money.split("\\.")[0];
         //截取小数部分
         dotNum = "." + money.split("\\.")[1];
-
         //设置金额
         moneyTv.setText(num + dotNum);
     }
-
 
     /**
      * 通过name查询分类信息
@@ -107,21 +102,6 @@ public class BillEditActivity extends BillAddActivity implements BillView {
     }
 
     /**
-     * 通过name查找支付方式，返回其数组中的序号
-     *
-     * @param name
-     * @return
-     */
-    /*private int findPayByName(String name) {
-        List<BPay> list = noteBean.getPayinfo();
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getPayName() == name)
-                return i;
-        }
-        return 0;
-    }*/
-
-    /**
      * 设置状态
      */
     protected void setTitleStatus() {
@@ -136,14 +116,6 @@ public class BillEditActivity extends BillAddActivity implements BillView {
             lastBean=mDatas.get(0);
         sortTv.setText(lastBean.getSortName());
 
-//        cardItem = new ArrayList<>();
-//        for (int i = 0; i < noteBean.getPayinfo().size(); i++) {
-//            String itemStr = noteBean.getPayinfo().get(i).getPayName();
-//            cardItem.add(itemStr);
-//        }
-        //设置支付方式
-//        selectedPayinfoIndex = findPayByName(bundle.getString("payName"));
-//        cashTv.setText(cardItem.get(selectedPayinfoIndex));
 
         initViewPager();
     }
