@@ -2,9 +2,6 @@ package finalhomework.tcl.com.finalhomework.ui.activity;
 
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.viksaa.sssplash.lib.activity.AwesomeSplash;
@@ -23,7 +20,7 @@ public class SplashActivity extends AwesomeSplash {
 
 //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
-//        if(LockViewUtil.getISFIRST(this)){
+//        if(LockViewUtil.getIsfirst(this)){
 //            Intent intent = new Intent(this, WelcomeActivity.class);
 //            startActivity(intent);
 //            finish();
@@ -39,7 +36,7 @@ public class SplashActivity extends AwesomeSplash {
 
     @Override
     public void initSplash(ConfigSplash configSplash) {
-        if(LockViewUtil.getISFIRST(this)){
+        if(LockViewUtil.getIsfirst(this)){
             Intent intent = new Intent(this, WelcomeActivity.class);
             startActivity(intent);
             finish();

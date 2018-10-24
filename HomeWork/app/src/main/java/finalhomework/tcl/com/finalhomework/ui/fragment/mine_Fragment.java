@@ -37,6 +37,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import finalhomework.tcl.com.finalhomework.MyBroadcast;
 import finalhomework.tcl.com.finalhomework.R;
+import finalhomework.tcl.com.finalhomework.ui.activity.NotifyActivity;
 import finalhomework.tcl.com.finalhomework.ui.activity.PersionalInfoActivity;
 import finalhomework.tcl.com.finalhomework.Utils.LockViewUtil;
 import finalhomework.tcl.com.finalhomework.Utils.SnackbarUtils;
@@ -168,7 +169,8 @@ public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
                         break;
                     case 1:
                         // TODO: 18-10-8 定时提醒
-                        clockSet();
+                        Intent notifyIntent = new Intent(mContext, NotifyActivity.class);
+                        mContext.startActivity(notifyIntent);
                         break;
                     case 2:
                         // TODO: 18-10-8 预算
@@ -208,67 +210,7 @@ public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
 //        listView.setSoundEffectsEnabled(false);
     }
 
-    /**
-     * 弹出对话框,获取提醒内容,获取后调用clockSetting设置闹钟
-     */
-    private void clockSet(){
-        final EditText editText = new EditText(mContext);
-        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-        builder.setTitle("定时提醒");
-        builder.setMessage("请输入内容");
-        builder.setView(editText);
-        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String input = editText.getText().toString();
-                Log.v(TAG + ":clockSet", input);
-                clockSetting(input);
-            }
-        }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(mContext, "取消", Toast.LENGTH_LONG).show();
-            }
-        });
-        builder.create().show();
-    }
 
-    /**
-     * 闹钟设置, 到点发送广播
-     */
-    private void clockSetting(final String string){
-        Log.v(TAG + ":clockSetting", string);
-        Calendar currentTime = Calendar.getInstance();
-        new TimePickerDialog(getActivity(), 0, new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                // TODO: 18-10-10 设置闹钟
-//                Intent intent = new Intent(mContext, MyService.class);
-                Intent intent = new Intent(mContext, MyBroadcast.class);
-                intent.putExtra("msg", string);
-//                PendingIntent pi = PendingIntent.getService(mContext, 0, intent,
-//                        PendingIntent.FLAG_CANCEL_CURRENT);
-                PendingIntent pi = PendingIntent.getBroadcast(mContext, 0, intent,
-                        PendingIntent.FLAG_CANCEL_CURRENT);
-                Calendar c = Calendar.getInstance();
-                c.setTimeInMillis(System.currentTimeMillis());
-                //用户选择时间
-                c.set(Calendar.HOUR, hourOfDay);
-                c.set(Calendar.MINUTE, minute);
-                //获取系统的AlarmManager
-                Log.i(TAG, "System time" + System.currentTimeMillis());
-                Log.i(TAG, "choice time" + c.getTimeInMillis());
-                AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(ALARM_SERVICE);
-                alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pi);
-//                alarmManager.setWindow(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(),
-//                        100, pi);
-
-
-//                android 4.4(19)以下使用set, 19以上set时间不准确, 需使用setExact
-//                alarmManager.set(AlarmManager.RTC_WAKEUP,c.getTimeInMillis(), pi);
-            }
-        }, currentTime.get(Calendar.HOUR_OF_DAY), currentTime.get(Calendar.MINUTE), false).show();
-    }
 
     /**
      * 设置菜单图标

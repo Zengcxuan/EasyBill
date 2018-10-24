@@ -52,6 +52,7 @@
         <activity android:name=".ui.activity.UnlockUI" android:theme="@style/TranslucentTheme"/>
         <activity android:name=".ui.activity.PersionalInfoActivity"/>
         <activity android:name=".ui.activity.WelcomeActivity"/>
+        <activity android:name=".ui.activity.NotifyActivity"/>
     </application>
 
 </manifest>

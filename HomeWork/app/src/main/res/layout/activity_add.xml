@@ -356,16 +356,35 @@
                 android:layout_width="match_parent"
                 android:layout_weight="1"
                 android:layout_height="0dp">
+
                 <TextView
                     android:id="@+id/tb_calc_num_0"
-                    android:text="0"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textSize="20sp"
-                    android:gravity="center"
                     android:background="@drawable/bg_radius_click"
-                    android:textColor="#000000" />
+                    android:gravity="center"
+                    android:text="0"
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
+
+                <View
+                    style="@style/vertical_decoration_style"
+                    android:background="#8c8c8c"
+                    />
+
+                <RelativeLayout
+                    android:id="@+id/tb_calc_num_del"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:src="@mipmap/ic_tb_calc_del" />
+                </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
         <View
@@ -386,27 +405,40 @@
             <TextView
                 android:id="@+id/tb_note_date"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
-                android:paddingBottom="7dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:paddingTop="6dp"
-                android:textColor="@color/white"
-                android:textSize="15sp" />
-
-            <RelativeLayout
-                android:id="@+id/tb_calc_num_del"
+                android:layout_height="0dp"
                 android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="0dp">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:src="@mipmap/ic_tb_calc_del"
-                    />
-            </RelativeLayout>
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <View
+                style="@style/horizontal_decoration_style"
+                android:background="#8c8c8c"/>
+
+            <!--<Button-->
+                <!--android:id="@+id/plus"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="0dp"-->
+                <!--android:background="@color/white"-->
+                <!--android:text="+"-->
+                <!--android:layout_weight="1"/>-->
+
+            <!--<View-->
+                <!--style="@style/horizontal_decoration_style"-->
+                <!--android:background="#8c8c8c"/>-->
+
+            <!--<Button-->
+                <!--android:id="@+id/minus"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="0dp"-->
+                <!--android:background="@color/white"-->
+                <!--android:text="-"-->
+                <!--android:layout_weight="1"/>-->
+
+            <!--<View-->
+                <!--style="@style/horizontal_decoration_style"-->
+                <!--android:background="#8c8c8c"/>-->
+
 
             <TextView
                 android:id="@+id/tb_calc_num_done"

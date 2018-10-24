@@ -79,7 +79,6 @@ public class BillAddActivity extends BaseActivity implements BillView {
     @BindView(R.id.layout_icon)
     LinearLayout layoutIcon;
 
-
     protected BillPresenter presenter;
 
 
@@ -112,10 +111,18 @@ public class BillAddActivity extends BaseActivity implements BillView {
     protected int mMonth;
     protected int mDay;
     protected String days;
+    private SimpleDateFormat simpleDateFormat;
+
 
     //备注
     protected String remarkInput = "";
     protected AllSortBill noteBean = null;
+
+    //记录加减
+    protected Boolean isPlus = false;
+    protected Boolean isMinus = false;
+    protected String before;
+    protected String after;
 
 
     @Override
@@ -138,7 +145,7 @@ public class BillAddActivity extends BaseActivity implements BillView {
         mMonth = Integer.parseInt(DateUtils.getCurMonth(FORMAT_M));
         //设置当前 日期
         days = DateUtils.getCurDateStr("yyyy-MM-dd");
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");// HH:mm:ss
+        simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");// HH:mm:ss
         Date date = new Date(System.currentTimeMillis());
         if (simpleDateFormat.format(date).equals(days)) {
             dateTv.setText("今天");
@@ -331,7 +338,7 @@ public class BillAddActivity extends BaseActivity implements BillView {
             R.id.tb_note_remark, R.id.tb_calc_num_done, R.id.tb_calc_num_del, R.id.tb_calc_num_1,
             R.id.tb_calc_num_2, R.id.tb_calc_num_3, R.id.tb_calc_num_4, R.id.tb_calc_num_5,
             R.id.tb_calc_num_6, R.id.tb_calc_num_7, R.id.tb_calc_num_8, R.id.tb_calc_num_9,
-            R.id.tb_calc_num_0, R.id.tb_calc_num_dot, R.id.tb_note_clear, R.id.back_btn})
+            R.id.tb_calc_num_0, R.id.tb_calc_num_dot, R.id.tb_note_clear, R.id.back_btn,})
     protected void onClick(View view) {
         switch (view.getId()) {
             case R.id.back_btn:
@@ -397,6 +404,12 @@ public class BillAddActivity extends BaseActivity implements BillView {
             case R.id.tb_calc_num_del://删除
                 doDelete();
                 break;
+//            case R.id.plus://加法
+//                doPlus();
+//                break;
+//            case R.id.minus://减法
+//                doMinus();
+//                break;
         }
     }
 
@@ -432,6 +445,13 @@ public class BillAddActivity extends BaseActivity implements BillView {
 
                 }
                 dateTv.setText(days);
+                Date date = new Date(System.currentTimeMillis());
+                if (simpleDateFormat.format(date).equals(days)) {
+                    dateTv.setText("今天");
+                } else {
+                    dateTv.setText(days);
+
+                }
             }
         }, mYear, mMonth, mDay).show();
     }
@@ -539,6 +559,8 @@ public class BillAddActivity extends BaseActivity implements BillView {
         }
     }
 
+
+
     /**
      * 计算金额
      *
@@ -560,7 +582,59 @@ public class BillAddActivity extends BaseActivity implements BillView {
             moneyTv.setText(num + dotNum);
         }
     }
-
+//
+//    protected void doPlus(){
+//        isDot = false;
+//        num = "0";
+//        dotNum = ".00";
+//        if(!isPlus) {
+//            before = moneyTv.getText().toString();
+//            finish.setText("=");
+//            isPlus = true;
+//        }else {
+//            after = moneyTv.getText().toString();
+//            float current = Float.parseFloat(before) + Float.parseFloat(after);
+//            Toast.makeText(BillAddActivity.this, "1:" + Float.parseFloat(before)
+//            + "2:" + Float.parseFloat(after), Toast.LENGTH_SHORT).show();
+//            moneyTv.setText(String.valueOf(current));
+//            before = String.valueOf(current);
+//        }
+//    }
+//
+//    protected void doMinus(){
+//        isDot = false;
+//        num = "0";
+//        dotNum = ".00";
+//        if(!isMinus) {
+//            before = moneyTv.getText().toString();
+//            finish.setText("=");
+//            isMinus = true;
+//        }else {
+//            after = moneyTv.getText().toString();
+//            float current = Float.parseFloat(before) - Float.parseFloat(after);
+//            moneyTv.setText(String.valueOf(current));
+//            before = String.valueOf(current);
+//        }
+//    }
+//
+//    protected void dofinish(){
+//        isDot = false;
+//        if(isPlus) {
+//            float current = Float.parseFloat(before) + Float.parseFloat(after);
+//            moneyTv.setText(String.valueOf(current));
+//            isPlus = false;
+//        } else if (isMinus) {
+//            float current = Float.parseFloat(before) - Float.parseFloat(after);
+//            moneyTv.setText(String.valueOf(current));
+//            isMinus = false;
+//        }
+//        float result = Float.parseFloat(moneyTv.getText().toString());
+//        float intResult = (int)result;
+//        num = String.valueOf((int)result);
+//
+//        dotNum = "" + (result - intResult)*10;
+//        finish.setText("完成");
+//    }
 
     /**
      * 监听Activity返回结果
