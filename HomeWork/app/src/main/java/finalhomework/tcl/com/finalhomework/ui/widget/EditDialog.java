@@ -47,6 +47,7 @@ public class EditDialog extends Dialog {
         builder.create().show();
     }
 
+
     public String getInput(){
         return this.input;
     }

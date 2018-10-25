@@ -14,7 +14,6 @@
         android:layout_centerVertical="true"
         >
         <finalhomework.tcl.com.finalhomework.ui.widget.CircleImageView
-            android:id="@+id/circle_bg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/item_click"

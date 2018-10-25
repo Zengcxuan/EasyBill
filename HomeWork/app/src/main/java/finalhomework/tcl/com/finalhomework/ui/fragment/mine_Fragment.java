@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -187,20 +188,11 @@ public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
                         break;
                     case 5:
                         // TODO: 18-10-8 评分, 上架后才能测试
-                        try
-                        {
-                            Uri uri = Uri.parse("market://details?id=" + PackageName);
-                            Intent it = new Intent(new Intent(Intent.ACTION_VIEW, uri));
-                            it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            getActivity().startActivity(it);
-                        }
-                        catch (Exception ex)
-                        {
-                            Toast.makeText(mContext, "Couldn't launch the market !", Toast.LENGTH_SHORT).show();
-                        }
+                        comments();
                         break;
                     case 6:
                         // TODO: 18-10-8 帮助
+                        Toast.makeText(mContext, "使用文档尚未完成", Toast.LENGTH_SHORT).show();
                         break;
                 }
 
@@ -225,12 +217,12 @@ public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
     protected  void setItemReact(){
         // TODO: 18-10-9 分享
         Intent intent=new Intent(Intent.ACTION_SEND);
-        intent.setType("image/png");
+        intent.setType("image/*");
         intent.putExtra(Intent.EXTRA_SUBJECT, "Share");
-        intent.putExtra(Intent.EXTRA_TEXT, "快来记账吧");
+        intent.putExtra(Intent.EXTRA_TEXT, "快来跟我一起记账吧");
         File f = new File(Environment.getExternalStorageDirectory()+"/shared.png");
 //        Uri uri = Uri.fromFile(f);
-        intent.putExtra(Intent.EXTRA_STREAM, R.mipmap.shared);
+//        intent.putExtra(Intent.EXTRA_STREAM, R.mipmap.shared);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(Intent.createChooser(intent, "选择分享途径"));
     }
@@ -296,5 +288,46 @@ public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
     public void loadDataError(Throwable throwable) {
         SnackbarUtils.show(mActivity, throwable.getMessage());
         Log.e(TAG, "loadDataError: "+throwable );
+    }
+
+    private void comments(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setTitle("评分");
+        builder.setMessage("选择应用商店");
+        builder.setPositiveButton("T-store", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent();
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.setAction("com.example.user.t_store.action.Main");
+                intent.addCategory(Intent.CATEGORY_DEFAULT);
+                if(mContext.getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_ALL)
+                        .size() > 0){
+                    mContext.startActivity(intent);
+                }
+            }
+        }).setNegativeButton("Google Play", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(mContext, "还没上架哦", Toast.LENGTH_LONG).show();
+                try
+                {
+                    Uri uri = Uri.parse("market://details?id=" + PackageName);
+                    Intent it = new Intent(new Intent(Intent.ACTION_VIEW, uri));
+                    it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    getActivity().startActivity(it);
+                }
+                catch (Exception ex)
+                {
+                    Toast.makeText(mContext, "Couldn't launch the market !", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }).setNeutralButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(mContext, "取消", Toast.LENGTH_LONG).show();
+            }
+        });
+        builder.create().show();
     }
 }

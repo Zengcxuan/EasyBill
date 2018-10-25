@@ -1,13 +1,6 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme1" parent="Base.Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowNoTitle">true</item>
-    </style>
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!--状态栏颜色-->
@@ -40,15 +33,8 @@
     </style>
 
     <!-- 颜色 -->
-    <color name="color_normal">#ffffff</color>
-    <color name="color_pressed">#d9d9d9</color>
-    <color name="color_text">#131313</color>
     <!-- 字体大小 -->
-    <dimen name="text_size">17sp</dimen>
     <!-- 字符串 -->
-    <string name="text_camera">拍照</string>
-    <string name="text_photo">从相册选择</string>
-    <string name="text_cancel">取消</string>
     <!-- 样式 -->
     <style name="ActionSheetDialogStyle" parent="@android:style/Theme.Dialog">
         <!-- 背景透明 -->
@@ -79,15 +65,5 @@
         <item name="android:windowTranslucentNavigation">true</item>
         <!--Android 5.x开始需要把颜色设置透明，否则导航栏会呈现系统默认的浅灰色-->
         <item name="android:statusBarColor">@android:color/transparent</item>
-    </style>
-    <style name="TransparentTheme" parent="Theme.AppCompat.NoActionBar">
-        <!--不设置activity进入和退出动画样式-->
-        <item name="android:windowAnimationStyle">@null</item>
-        <!--设置窗口的背景为透明，设置透明背景必须要设置此项-->
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <!--设置窗口的背景是否为半透明，设置透明背景必须要设置此项-->
-        <item name="android:windowIsTranslucent">true</item>
-        <!--设置状态栏的背景为半透明-->
-        <item name="android:windowTranslucentStatus">true</item>
     </style>
 </resources>

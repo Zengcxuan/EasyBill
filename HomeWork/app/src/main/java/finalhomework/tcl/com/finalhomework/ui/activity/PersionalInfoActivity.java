@@ -1,30 +1,41 @@
 package finalhomework.tcl.com.finalhomework.ui.activity;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.Date;
-import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import cn.bmob.v3.b.V;
 import finalhomework.tcl.com.finalhomework.R;
 import finalhomework.tcl.com.finalhomework.Utils.DateUtils;
-import finalhomework.tcl.com.finalhomework.Utils.ProgressUtils;
 import finalhomework.tcl.com.finalhomework.Utils.SnackbarUtils;
 import finalhomework.tcl.com.finalhomework.Utils.StringUtils;
-import finalhomework.tcl.com.finalhomework.mvp.model.impl.UserInfoModelImp;
 import finalhomework.tcl.com.finalhomework.mvp.presenter.UserInfoPresenter;
 import finalhomework.tcl.com.finalhomework.mvp.presenter.impl.UserInfoPresenterImp;
 import finalhomework.tcl.com.finalhomework.mvp.views.UserInfoView;
 import finalhomework.tcl.com.finalhomework.pojo.Person;
-import finalhomework.tcl.com.finalhomework.pojo.User;
+import finalhomework.tcl.com.finalhomework.ui.widget.RoundImageView;
 import finalhomework.tcl.com.finalhomework.ui.widget.TextWithImg;
 
 public class PersionalInfoActivity extends BaseActivity implements UserInfoView {
@@ -36,6 +47,8 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView 
     TextWithImg email;
     @BindView(R.id.share_text)
     TextWithImg shareAccount;
+    @BindView(R.id.persional_head)
+    RoundImageView perisonalHead;
 
     private UserInfoPresenter presenter;
 
@@ -49,6 +62,14 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView 
     protected static final int GENDER_MAN = 0;
     protected static final int GENDER_FEMALE = 1;
     private static final int CROP_SMALL_PICTURE = 2;
+    private File file;
+    private Uri imageUri;
+
+    private String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.CAMERA, Manifest.permission.MEDIA_CONTENT_CONTROL};
+
+
+
 
     @Override
     protected void initEventAndData() {
@@ -73,6 +94,7 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView 
                changUserName();
                break;
            case R.id.head_persional:
+               changeHead();
                break;
            case R.id.gender_persional:
                changeGender();
@@ -236,6 +258,112 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView 
         builder.create().show();
     }
 
+    /**
+     * 修改头像
+     */
+    private void changeHead(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+            // 检查该权限是否已经获取
+            for(int i = 0; i < 3; i++){
+                if(ContextCompat.checkSelfPermission(this, permissions[i]) !=
+                        PackageManager.PERMISSION_GRANTED){
+                    ActivityCompat.requestPermissions(this, permissions,111);
+                }
+            }
+        }
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setTitle("选择模式");
+        builder.setPositiveButton("相册", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_PICK);
+                intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, 1);
+            }
+        }).setNegativeButton("拍照", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(mContext, "拍照", Toast.LENGTH_LONG).show();
+                imageUri = createImageUri(PersionalInfoActivity.this);
+                Intent intent = new Intent();
+                intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);//如果不设置EXTRA_OUTPUT getData()  获取的是bitmap数据  是压缩后的
+                startActivityForResult(intent, 2);
+
+            }
+        });
+        builder.create().show();
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_CANCELED) {
+            delteImageUri(mContext, imageUri);
+            return;
+        }else {
+            switch (requestCode) {
+                // 如果是直接从相册获取
+                case 1:
+                    try {
+                        imageUri = data.getData();
+                        Log.e("TAG", imageUri.toString());
+                        perisonalHead.setImageURI(imageUri);
+                        Bitmap photo = data.getParcelableExtra("data");
+                        saveBitmap(photo);
+//                        perisonalHead.setImageBitmap(photo);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                // 如果是调用相机拍照时
+                case 2:
+                    imageUri = data.getData();
+                    Log.e("TAG", imageUri.toString());
+                    perisonalHead.setImageURI(imageUri);
+                    Bitmap photo = data.getParcelableExtra("data");
+//                    perisonalHead.setImageBitmap(photo);
+//                    saveBitmap(photo);
+                    break;
+                default:
+                    break;
+
+            }
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+
+
+    private static Uri createImageUri(Context context) {
+        String name = "takePhoto" + System.currentTimeMillis();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(MediaStore.Images.Media.TITLE, name);
+        contentValues.put(MediaStore.Images.Media.DISPLAY_NAME, name + ".jpeg");
+        contentValues.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+        Uri uri = context.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+        return uri;
+    }
+
+
+    public static void delteImageUri(Context context, Uri uri) {
+        context.getContentResolver().delete(uri, null, null);
+
+    }
+
+    @Override
+    protected void onPause() {
+        presenter = new UserInfoPresenterImp(this);
+        userName.setText(currentUser.getUsername());
+        gender.setText(getGender(currentUser.getGender()));
+        email.setText(currentUser.getEmail());
+        getShareNumber();
+        super.onPause();
+    }
+
     @Override
     public void loadDataSuccess(Person tData) {
 
@@ -244,5 +372,31 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView 
     @Override
     public void loadDataError(Throwable throwable) {
 
+    }
+
+    public void saveBitmap(Bitmap bitmap) {
+        // 首先保存图片
+        File appDir = new File(Environment.getExternalStorageDirectory(),"mine_head");
+        if (!appDir.exists()) {
+            appDir.mkdir();
+        }
+        String fileName = "mine_head" + ".png";
+        file = new File(appDir, fileName);
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            fos.flush();
+            fos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        // 把文件插入到系统图库
+        try {
+            MediaStore.Images.Media.insertImage(this.getContentResolver(), file.getAbsolutePath(), fileName, null);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        // 通知图库更新
+        sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + "/sdcard/namecard/")));
     }
 }

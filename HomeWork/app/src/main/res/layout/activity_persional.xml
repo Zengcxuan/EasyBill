@@ -24,7 +24,6 @@
             android:layout_weight="0.3">
 
             <TextView
-                android:id="@+id/textView14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -35,9 +34,9 @@
                 tools:layout_editor_absoluteY="271dp" />
 
             <finalhomework.tcl.com.finalhomework.ui.widget.RoundImageView
-                android:id="@+id/head_img"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:id="@+id/persional_head"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_gravity="end|center"
                 android:scaleType="fitXY"
                 android:src="@mipmap/sort_class"
@@ -51,7 +50,6 @@
             android:layout_weight="0.1">
 
             <TextView
-                android:id="@+id/textView16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/name"
@@ -73,7 +71,6 @@
             android:layout_weight="0.1">
 
             <TextView
-                android:id="@+id/textView17"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/gender"
@@ -94,7 +91,6 @@
             android:layout_weight="0.1">
 
             <TextView
-                android:id="@+id/textView20"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/mail"
@@ -114,7 +110,6 @@
             android:layout_height="25dp">
 
             <TextView
-                android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.1"
@@ -132,7 +127,6 @@
     </TableLayout>
 
     <TextView
-        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
@@ -187,7 +181,6 @@
         app:layout_constraintGuide_percent="0.63" />
 
     <android.support.constraint.Guideline
-        android:id="@+id/guideline32"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
