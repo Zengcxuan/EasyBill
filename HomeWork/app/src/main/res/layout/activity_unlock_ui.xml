@@ -12,7 +12,7 @@
         android:layout_gravity="top"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:text="绘制你的图案"
+        android:text="@string/draw"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
     <finalhomework.tcl.com.finalhomework.ui.widget.LockView

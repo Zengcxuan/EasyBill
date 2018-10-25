@@ -52,7 +52,7 @@
     <!-- 样式 -->
     <style name="ActionSheetDialogStyle" parent="@android:style/Theme.Dialog">
         <!-- 背景透明 -->
-        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:windowBackground">@null</item>
         <!-- 是否有遮盖 -->
         <item name="android:windowContentOverlay">@null</item>
         <!-- 浮于Activity之上 -->

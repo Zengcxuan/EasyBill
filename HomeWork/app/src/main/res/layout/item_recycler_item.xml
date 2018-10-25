@@ -9,7 +9,6 @@
 
    <RelativeLayout
        android:id="@+id/item_layout"
-       android:background="@drawable/bg_click"
        android:layout_width="match_parent"
        android:layout_height="match_parent"
        >
@@ -27,9 +26,9 @@
           android:layout_height="41dp"
           android:layout_marginLeft="15dp"
           android:layout_centerVertical="true"
-          android:src="@mipmap/sort_amusement"
           android:scaleType="centerCrop"
           />
+      <!--android:src="@mipmap/sort_amusement"-->
 
 
       <TextView
@@ -39,10 +38,9 @@
           android:layout_centerVertical="true"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="消费类型"
           android:textColor="@color/text_black3"
           android:textSize="16sp"/>
-
+     <!-- android:text="消费类型"-->
       <TextView
           android:id="@+id/item_money"
           android:layout_alignParentRight="true"
@@ -50,10 +48,9 @@
           android:layout_centerVertical="true"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="0.00"
           android:textColor="@color/text_black3"
           android:textSize="18sp"/>
-
+      <!-- android:text="0.00"-->
 
       <View
           android:layout_marginLeft="15dp"
@@ -70,7 +67,7 @@
 
        <Button
                android:id="@+id/item_edit"
-               android:text="编辑"
+               android:text="@string/change"
                android:textColor="#ffffff"
                android:textSize="14sp"
                android:layout_width="100dp"
@@ -78,7 +75,7 @@
                android:background="@color/material_grey_600"/>
       <Button
           android:id="@+id/item_delete"
-          android:text="删除"
+          android:text="@string/delete"
           android:textColor="#ffffff"
           android:textSize="14sp"
           android:layout_width="100dp"
