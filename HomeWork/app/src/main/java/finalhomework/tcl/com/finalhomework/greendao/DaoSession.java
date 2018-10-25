@@ -8,11 +8,11 @@ import org.greenrobot.greendao.database.Database;
 import org.greenrobot.greendao.identityscope.IdentityScopeType;
 import org.greenrobot.greendao.internal.DaoConfig;
 
-import finalhomework.tcl.com.finalhomework.pojo.ShareBill;
-import finalhomework.tcl.com.finalhomework.pojo.SortBill;
-import finalhomework.tcl.com.finalhomework.pojo.TotalBill;
-import finalhomework.tcl.com.finalhomework.pojo.BPay;
-import finalhomework.tcl.com.finalhomework.pojo.Person;
+import com.tcl.easybill.pojo.ShareBill;
+import com.tcl.easybill.pojo.SortBill;
+import com.tcl.easybill.pojo.TotalBill;
+import com.tcl.easybill.pojo.BPay;
+import com.tcl.easybill.pojo.Person;
 
 import finalhomework.tcl.com.finalhomework.greendao.ShareBillDao;
 import finalhomework.tcl.com.finalhomework.greendao.SortBillDao;

@@ -183,7 +183,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/horizontal_head1">
 
-                <finalhomework.tcl.com.finalhomework.ui.widget.RoundImageView
+                <com.tcl.easybill.ui.widget.RoundImageView
                     android:id="@+id/headimage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -289,7 +289,7 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/back_arrow" />
 
-        <finalhomework.tcl.com.finalhomework.ui.widget.ImageButtonWithText
+        <com.tcl.easybill.ui.widget.ImageButtonWithText
             android:id="@+id/head_mine"
             style="@style/Theme.AppCompat.Light"
             android:layout_width="wrap_content"

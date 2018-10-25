@@ -13,7 +13,7 @@
         android:layout_height="35dp"
         android:layout_centerVertical="true"
         >
-        <finalhomework.tcl.com.finalhomework.ui.widget.CircleImageView
+        <com.tcl.easybill.ui.widget.CircleImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/item_click"

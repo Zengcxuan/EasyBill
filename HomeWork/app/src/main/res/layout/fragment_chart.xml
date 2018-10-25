@@ -271,7 +271,7 @@
             android:background="@drawable/back_arrow"
             android:checked="true" />
 
-        <finalhomework.tcl.com.finalhomework.ui.widget.ImageButtonWithText
+        <com.tcl.easybill.ui.widget.ImageButtonWithText
             android:id="@+id/head_chart"
             style="@style/Theme.AppCompat.Light"
             android:layout_width="wrap_content"

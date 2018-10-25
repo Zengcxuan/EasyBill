@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<finalhomework.tcl.com.finalhomework.Utils.SwipeMenuView
+<com.tcl.easybill.Utils.SwipeMenuView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/swipe_menu"
     android:background="@color/white"
@@ -13,7 +13,7 @@
        android:layout_height="match_parent"
        >
 
-      <finalhomework.tcl.com.finalhomework.ui.widget.CircleImageView
+      <com.tcl.easybill.ui.widget.CircleImageView
           android:layout_width="41dp"
           android:layout_height="41dp"
           android:layout_marginLeft="15dp"
@@ -84,4 +84,4 @@
 
    </LinearLayout>
 
-</finalhomework.tcl.com.finalhomework.Utils.SwipeMenuView>
+</com.tcl.easybill.Utils.SwipeMenuView>

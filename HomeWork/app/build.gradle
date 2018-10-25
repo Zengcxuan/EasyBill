@@ -4,7 +4,7 @@ apply plugin: 'org.greenrobot.greendao'
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId "finalhomework.tcl.com.finalhomework"
+        applicationId "com.tcl.easybill"
         minSdkVersion 23
         targetSdkVersion 27
         versionCode 1

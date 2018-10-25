@@ -39,7 +39,7 @@
                 android:orientation="horizontal"
                 app:layout_constraintGuide_percent="0.07" />
 
-            <finalhomework.tcl.com.finalhomework.ui.MyViewPager
+            <com.tcl.easybill.ui.MyViewPager
                 android:id="@+id/viewpager"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"

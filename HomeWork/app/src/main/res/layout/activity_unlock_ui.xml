@@ -15,7 +15,7 @@
         android:text="@string/draw"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
-    <finalhomework.tcl.com.finalhomework.ui.widget.LockView
+    <com.tcl.easybill.ui.widget.LockView
         android:id="@+id/unlock_lockview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
