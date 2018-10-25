@@ -124,7 +124,6 @@ public class NotifyActivity extends BaseActivity{
                 PendingIntent pi = PendingIntent.getBroadcast(mContext, 0, intent,
                         0);
                 Calendar c = Calendar.getInstance();
-                c.setTimeInMillis(System.currentTimeMillis());
                 //用户选择时间
                 c.set(Calendar.HOUR, hourOfDay);
                 c.set(Calendar.MINUTE, minute);
@@ -180,6 +179,7 @@ public class NotifyActivity extends BaseActivity{
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+
                 nAdapter.removeData(index);
                 if(mDatas.size() == 0){
                     LockViewUtil.setIsSet(mContext,false);

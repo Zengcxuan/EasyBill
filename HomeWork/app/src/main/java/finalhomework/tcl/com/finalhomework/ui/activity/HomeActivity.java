@@ -164,15 +164,18 @@ public class HomeActivity extends BaseActivity  {
         floatingActionButton.setBackground(mContext.getDrawable(R.drawable.add_bill3));
         SubActionButton.Builder itemBuilder = new SubActionButton.Builder(this);
         ImageView itemIcon = new ImageView(mContext);
-//        itemIcon.setImageDrawable(mContext.getDrawable(R.drawable.add));
+//        itemIcon.setImageDrawable(mContext.getDrawable(R.mipmap.add_icon));
+//        itemIcon.setBackground(mContext.getDrawable(R.drawable.add_icon));
 //        itemIcon.setBackground(mContext.getDrawable(R.drawable.add_bill3));
         SubActionButton addbill = itemBuilder.build();
-        addbill.setBackground(mContext.getDrawable(R.drawable.add));
+        addbill.setBackground(mContext.getDrawable(R.drawable.add_icon));
+//        addbill.setBackground(mContext.getDrawable(R.drawable.add_icon));
+
 //        ImageView itemIcon2 = new ImageView(mContext);
 //        itemIcon2.setImageDrawable(mContext.getDrawable(R.drawable.add_bill3));
 //        SubActionButton refreshbill = itemBuilder.setContentView(itemIcon2).build();
         SubActionButton refreshbill = itemBuilder.build();
-        refreshbill.setBackground(mContext.getDrawable(R.drawable.add));
+        refreshbill.setBackground(mContext.getDrawable(R.drawable.refresh_icon));
 
         FloatingActionMenu actionMenu = new FloatingActionMenu.Builder(this)
                 .addSubActionView(addbill)
