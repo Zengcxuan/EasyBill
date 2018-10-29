@@ -58,21 +58,20 @@ import static android.view.Gravity.CENTER;
 
 
 public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
-    @BindView(R.id.record_days)  //记录总天数
+    @BindView(R.id.record_days)  //days of record
     TextView recordDays;
-    @BindView(R.id.record_deals) //记录总笔数
+    @BindView(R.id.record_deals) //deals of record
     TextView recordDeals;
-    @BindView(R.id.surplus)     //结余
+    @BindView(R.id.surplus)     //surplus
     TextView recordSurplus;
     @BindView(R.id.button_list)
     GridView listView;
-    @BindView(R.id.headimage)
-    RoundImageView headImage; //加载头像的圆形ImageView
+    @BindView(R.id.headimage) //headImage
+    RoundImageView headImage;
     @BindView(R.id.name)
-    TextView userName; //用户名字
+    TextView userName; //userName
     private Boolean isOpen = true;
     private TotalRecordPresenter presenter;
-
     private int[] typeIcon = new int[]{
             R.mipmap.voice, R.mipmap.notify, R.mipmap.yusuan, R.mipmap.cyper, R.mipmap.outport,
             R.mipmap.count, R.mipmap.help
@@ -105,10 +104,13 @@ public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
         return fragment;
     }
 
-    @OnClick ({R.id.headimage, R.id.head_mine})
+    /**
+     * onClick react, open the PersionalInfoActivity
+     * @param view
+     */
+    @OnClick ({R.id.headimage})
     protected void onClick(View view){
         switch (view.getId()) {
-
             case R.id.headimage:
                 // TODO: 18-10-9  开启个人信息界面
                 Intent intent = new Intent(mContext, PersionalInfoActivity.class);
@@ -157,7 +159,7 @@ public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
 //                Toast.makeText(getActivity(),"pick"+position, Toast.LENGTH_LONG).show();
                 switch (position) {
                     case 0:
-                        // TODO: 18-10-8  声音开关
+                        /*switch of voice*/
                         ImageView imageView = getActivity().findViewById(R.id.image_right);
                         if(isOpen) {
                             imageView.setImageDrawable(getActivity().getDrawable(R.drawable.close_switch));
@@ -169,29 +171,29 @@ public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
                         isOpen = !isOpen;
                         break;
                     case 1:
-                        // TODO: 18-10-8 定时提醒
+                        /*set alarm to send notify*/
                         Intent notifyIntent = new Intent(mContext, NotifyActivity.class);
                         mContext.startActivity(notifyIntent);
                         break;
                     case 2:
-                        // TODO: 18-10-8 预算
+                        /*budget*/
                         Intent intent = new Intent(getActivity(), BudgetActivity.class);
                         getActivity().startActivity(intent);
                         break;
                     case 3:
-                        // TODO: 18-10-8 手势密码
+                        /*sign password*/
                         Intent intent1 = new Intent(getActivity(), LockViewUi.class);
                         getActivity().startActivity(intent1);
                         break;
                     case 4:
-                        // TODO: 18-10-8 导出账单
+                        /*outport the bill*/
                         break;
                     case 5:
-                        // TODO: 18-10-8 评分, 上架后才能测试
+                        /*comments*/
                         comments();
                         break;
                     case 6:
-                        // TODO: 18-10-8 帮助
+                        /*help*/
                         Toast.makeText(mContext, "使用文档尚未完成", Toast.LENGTH_SHORT).show();
                         break;
                 }
@@ -205,13 +207,13 @@ public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
 
 
     /**
-     * 设置菜单图标
+     * set toolbar right icon
      */
     @Override
     protected  int getItemMenu(){return R.menu.menu_share;}
 
     /**
-     * 设置菜单项的响应事件,这里应该是分享
+     * set right icon onClick
      */
     @Override
     protected  void setItemReact(){
@@ -242,7 +244,23 @@ public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
         presenter = new TotalRecordPresenterImpl(this);
         presenter.getTotalRecord(User.getCurrentUser().getObjectId());
         Log.e(TAG, "importantData: "+ User.getCurrentUser().getObjectId());
+        if(LockViewUtil.getIschange(mContext)){
+            headImage.setImageURI(Uri.parse(LockViewUtil.getImage(mContext)));
+        }
     }
+
+    /**
+     *set headImage
+     */
+    @Override
+    public void onPause() {
+        super.onPause();
+        if(LockViewUtil.getIschange(mContext)){
+            headImage.setImageURI(Uri.parse(LockViewUtil.getImage(mContext)));
+        }
+    }
+
+
     @Override
     public void loadDataSuccess(DataSum tData) {
         float money = tData.getTotalIncome()-tData.getTotalOutcome();
@@ -255,34 +273,11 @@ public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
 
     }
 
-
-    /**
-     * 返回键名字
-     * */
-    @Override
-    protected ImageButton getBackBtn(){
-        return getActivity().findViewById(R.id.back_mine);
-    }
-
-    @Override
-    protected DrawerLayout getDrawerLayout(){ return getActivity().findViewById(R.id.drawerlayout_mine); }
-
     @Override
     protected  Toolbar getToolbar(){ return getActivity().findViewById(R.id.tl_mine); }
 
     @Override
-    protected LinearLayout getLeftWindow(){ return getActivity().findViewById(R.id.navigationview_mine);}
-
-    @Override
     protected  int getLayoutId(){ return R.layout.fragment_persionalmsg; }
-
-    /**
-     * 返回头像
-     * */
-    @Override
-    protected ImageButtonWithText getHead(){
-        return getActivity().findViewById(R.id.head_mine);
-    }
 
     @Override
     public void loadDataError(Throwable throwable) {
@@ -290,6 +285,9 @@ public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
         Log.e(TAG, "loadDataError: "+throwable );
     }
 
+    /**
+     * comments, Google Play or T-store
+     */
     private void comments(){
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setTitle("评分");

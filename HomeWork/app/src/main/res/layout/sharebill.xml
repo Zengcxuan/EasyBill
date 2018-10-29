@@ -7,16 +7,19 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
+        android:layout_height="200dp"
         android:layout_gravity="top"
-        android:elevation="8sp"
-        android:layout_height="160dp">
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="2dp"
+        android:elevation="8sp">
 
         <ImageView
             android:id="@+id/imageView_share"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline31"
@@ -36,23 +39,22 @@
         android:layout_width="match_parent"
         android:layout_height="103dp"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="2dp"
-        android:layout_marginLeft="2dp"
-        android:layout_marginRight="2dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
         android:background="@color/white"
         android:elevation="4sp">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:gravity="center|left"
             android:text="共享账本"
             android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
-            app:layout_constraintBottom_toTopOf="@+id/tableLayout3"
+            app:layout_constraintBottom_toTopOf="@+id/guideline4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline25"
             app:layout_constraintTop_toTopOf="parent" />
@@ -74,21 +76,21 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="111"
+                    android:text="0"
                     android:textColor="@color/black"
                     android:textSize="15sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="111"
+                    android:text="0"
                     android:textColor="@color/black"
-                    android:textSize="15sp"/>
+                    android:textSize="15sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="111元"
+                    android:text="0.00元"
                     android:textColor="@color/black"
                     android:textSize="15sp" />
             </TableRow>
@@ -126,6 +128,7 @@
             app:layout_constraintGuide_percent="0.4" />
 
         <android.support.constraint.Guideline
+            android:id="@+id/guideline4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"

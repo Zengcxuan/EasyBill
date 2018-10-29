@@ -1,17 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:custom="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/drawerlayout_mine"
-    android:background="@color/white">
-
-
-    <FrameLayout
+<FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -185,10 +177,10 @@
 
                 <com.tcl.easybill.ui.widget.RoundImageView
                     android:id="@+id/headimage"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:scaleType="fitXY"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
                     android:layout_gravity="center_horizontal"
+                    android:scaleType="fitXY"
                     android:src="@mipmap/ic_launcher"
                     app:type="circle" />
 
@@ -264,45 +256,4 @@
                 android:orientation="horizontal"
                 app:layout_constraintGuide_percent="0.34" />
         </android.support.constraint.ConstraintLayout>
-    </FrameLayout>
-    <!--<android.support.design.widget.NavigationView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:id="@+id/navigationview_mine"-->
-        <!--android:layout_gravity="left"-->
-        <!--app:headerLayout="@layout/bill_drawerlayout_header"-->
-        <!--app:menu="@menu/bill_drawerlayout_menu"-->
-        <!--android:fitsSystemWindows="true">-->
-    <!--</android.support.design.widget.NavigationView>-->
-    <LinearLayout
-        android:id="@+id/navigationview_mine"
-        android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_gravity="start"
-        android:background="@color/white"
-        android:layout_height="match_parent">
-        <ImageButton
-            android:id="@+id/back_mine"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/back_arrow" />
-
-        <com.tcl.easybill.ui.widget.ImageButtonWithText
-            android:id="@+id/head_mine"
-            style="@style/Theme.AppCompat.Light"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="我的"
-            custom:picture="@mipmap/ic_launcher" />
-        <include
-            layout="@layout/mybill" />
-
-        <include
-            layout="@layout/sharebill"/>
-
-    </LinearLayout>
-
-</android.support.v4.widget.DrawerLayout>
+</FrameLayout>

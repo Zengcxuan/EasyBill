@@ -7,16 +7,19 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
+        android:layout_height="200dp"
         android:layout_gravity="top"
-        android:elevation="8sp"
-        android:layout_height="160dp">
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="2dp"
+        android:elevation="8sp">
 
         <ImageView
             android:id="@+id/imageView_my"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline31"
@@ -36,10 +39,8 @@
         android:layout_width="match_parent"
         android:layout_height="103dp"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="2dp"
-        android:layout_marginLeft="2dp"
-        android:layout_marginRight="2dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
         android:background="@color/white"
         android:elevation="4sp">
 

@@ -2,6 +2,7 @@ package com.tcl.easybill.ui.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.net.Uri;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.ViewGroup;
@@ -36,8 +37,8 @@ public class ImageButtonWithText extends LinearLayout {
         imageView = new RoundImageView(context, attrs);
         imageView.setPadding(0, 0, 0, 0);
         // TODO: 18-10-9 给imageview加上大小限制
-        imageView.setLayoutParams(new ViewGroup.LayoutParams(180,
-                120));
+        imageView.setLayoutParams(new ViewGroup.LayoutParams(80,
+                80));
 
         /**
          * Sets a drawable as the content of this ImageView.
@@ -65,6 +66,7 @@ public class ImageButtonWithText extends LinearLayout {
                 ViewGroup.LayoutParams.WRAP_CONTENT));
         setTextColor(R.color.startColor);
         setOrientation(LinearLayout.VERTICAL);
+        setGravity(CENTER_HORIZONTAL);
         addView(imageView);
         addView(textView);
     }
@@ -81,5 +83,6 @@ public class ImageButtonWithText extends LinearLayout {
         textView.setTextColor(color);
     }
     public void setImageView(int image){imageView.setImageDrawable(getResources().getDrawable(image));}
+    public void setImageUri(Uri uri){imageView.setImageURI(uri);}
 
 }

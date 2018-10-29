@@ -47,23 +47,9 @@ public class LoginFragment extends Fragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mUnBinder = ButterKnife.bind(this, view);
-//        initEventAndData();
     }
 
-//    @OnClick({R.id.login_button})
-//    protected void onClick(View v){
-//        switch (v.getId()){
-//            case R.id.login_button:
-//                Toast.makeText(mContext, "正在登陆", Toast.LENGTH_LONG).show();
-//                Intent intent = new Intent();
-//                intent.setClass(getActivity().getApplicationContext(), HomeActivity.class);
-//                startActivity(intent);
-//                getActivity().finish();
-//                break;
-//            default:
-//                break;
-//        }
-//    }
+
 
     @Override
     public void onDestroyView() {

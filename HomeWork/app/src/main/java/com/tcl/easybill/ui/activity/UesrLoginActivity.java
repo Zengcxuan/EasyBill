@@ -46,7 +46,6 @@ public class UesrLoginActivity extends BaseActivity implements UserLoginView{
     private RegisterFragment registerFragment;
     private UserLoginPresenter userLoginPresenter;
     private boolean isLogin = true;
-    private static boolean isLock = false;
 
     @Override
     protected int getLayout() {
@@ -184,13 +183,6 @@ public class UesrLoginActivity extends BaseActivity implements UserLoginView{
         transaction.commit();
     }
 
-    public static void setLock(boolean lock) {
-        isLock = lock;
-    }
-
-    public boolean isLock() {
-        return isLock;
-    }
 
     public void animationShow(){
         AnimationSet aset=new AnimationSet(true);

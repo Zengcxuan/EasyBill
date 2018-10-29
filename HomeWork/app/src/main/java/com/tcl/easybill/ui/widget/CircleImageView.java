@@ -3,6 +3,7 @@ package com.tcl.easybill.ui.widget;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -178,7 +179,26 @@ public class CircleImageView extends AppCompatImageView {
     @Override
     public void setImageURI(Uri uri) {
         super.setImageURI(uri);
-        mBitmap = getBitmapFromDrawable(getDrawable());
+//        mBitmap = getBitmapFromDrawable(getDrawable());
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        // 设置仅解码边缘,图片不会真正加载到内存中，解码器加载返回null，
+        // 但是图片的输出字段会进行赋值
+        // 比如说 图片的宽，高
+        String filePath = uri.getPath();
+        options.inJustDecodeBounds = true;
+
+        BitmapFactory.decodeFile(filePath, options);
+
+        int outHeight = options.outHeight;
+        int outWidth = options.outWidth;
+
+        int scale = Math.max(outHeight / 300, outWidth / 300);
+        //scale向下取整,真实取值 2的n次幂
+        options.inSampleSize = scale;
+
+        options.inJustDecodeBounds = false;
+
+        mBitmap = BitmapFactory.decodeFile(filePath,options);
         setup();
     }
 

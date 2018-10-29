@@ -33,15 +33,6 @@ public class NotifyAdpter extends RecyclerView.Adapter<NotifyAdpter.MyViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull NotifyAdpter.MyViewHolder holder, int position) {
-//        holder.tv.setText(mdatas.get(position));
-//        int Hour = mdatas.get(position).get(Calendar.HOUR);
-//        int Minu = mdatas.get(position).get(Calendar.MINUTE);
-//        String show = String.valueOf(Hour) + ":" + String.valueOf(Minu);
-//        holder.tv.setText(show);
-//        Date date = DateUtils.longToDate(mdatas.get(position));
-//        int Hour = date.getHours();
-//        int Minu = date.getMinutes();
-//        String show = String.valueOf(Hour) + ":" + String.valueOf(Minu)
         Log.i("----",mdatas.get(position));
         holder.tv.setText(mdatas.get(position));
     }
@@ -51,18 +42,23 @@ public class NotifyAdpter extends RecyclerView.Adapter<NotifyAdpter.MyViewHolder
         return mdatas.size();
     }
 
+    /**
+     * add new item
+     * @param position
+     * @param time
+     */
     public void addData(int position, String time) {
-        //      在list中添加数据，并通知条目加入一条
         mdatas.add(position, time);
-        //添加动画
         notifyItemInserted(position);
 
     }
 
-    //  删除数据
+    /**
+     * delete item
+     * @param position
+     */
     public void removeData(int position) {
         mdatas.remove(position);
-        //删除动画
         notifyItemRemoved(position);
         notifyDataSetChanged();
     }
@@ -87,7 +83,7 @@ public class NotifyAdpter extends RecyclerView.Adapter<NotifyAdpter.MyViewHolder
     }
 
     /**
-     * 自定义分类选择接口
+     * onClick interface
      */
     public interface OnNotifyClickListener {
         void OnClick(int index);

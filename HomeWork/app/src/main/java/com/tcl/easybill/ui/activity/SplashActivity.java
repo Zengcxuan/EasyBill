@@ -15,27 +15,19 @@ import com.tcl.easybill.Utils.LockViewUtil;
 
 public class SplashActivity extends AwesomeSplash {
 
-    //DO NOT OVERRIDE onCreate()!
-    //if you need to start some services do it in initSplash()!
-
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        if(LockViewUtil.getIsfirst(this)){
-//            Intent intent = new Intent(this, WelcomeActivity.class);
-//            startActivity(intent);
-//            finish();
-//        }
-//        super.onCreate(savedInstanceState);
-//    }
-
     @Override
     protected void onPostResume() {
         super.onPostResume();
         LockViewUtil.setIsfirst(this, false);
     }
 
+    /**
+     * Show the Splash
+     * @param configSplash
+     */
     @Override
     public void initSplash(ConfigSplash configSplash) {
+        /*If it is the first time to use app, start the WelcomeActivity*/
         if(LockViewUtil.getIsfirst(this)){
             Intent intent = new Intent(this, WelcomeActivity.class);
             startActivity(intent);
@@ -44,7 +36,6 @@ public class SplashActivity extends AwesomeSplash {
 
         /* you don't have to override every property */
 
-        //Customize Circular Reveal
         //设置主题颜色
         configSplash.setBackgroundColor(R.color.startColor);
 
@@ -76,8 +67,6 @@ public class SplashActivity extends AwesomeSplash {
     @Override
     public void animationsFinished() {
 
-        //transit to another activity here
-        //or do whatever you want
         Intent intent  = new Intent(this,UesrLoginActivity.class);
         startActivityForResult(intent,0);
         finish();

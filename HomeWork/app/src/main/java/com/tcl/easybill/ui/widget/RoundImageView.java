@@ -10,7 +10,9 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 
@@ -23,21 +25,21 @@ import com.tcl.easybill.R;
 
 public class RoundImageView extends android.support.v7.widget.AppCompatImageView {
     /**
-     * 圆形模式
+     * circle
      */
     private static final int MODE_CIRCLE = 1;
     /**
-     * 普通模式
+     * normal
      */
     private static final int MODE_NONE = 0;
     /**
-     * 圆角模式
+     * round
      */
     private static final int MODE_ROUND = 2;
     private Paint mPaint;
     private int currMode = 0;
     /**
-     * 圆角半径
+     * radius
      */
     private int currRound = dp2px(10);
 
@@ -70,7 +72,7 @@ public class RoundImageView extends android.support.v7.widget.AppCompatImageView
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         /**
-         * 当模式为圆形模式的时候，我们强制让宽高一致
+         * if is circle, set high = width
          */
         if (currMode == MODE_CIRCLE) {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
@@ -148,5 +150,15 @@ public class RoundImageView extends android.support.v7.widget.AppCompatImageView
 
     private int dp2px(float value) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value, getResources().getDisplayMetrics());
+    }
+
+    @Override
+    public void setImageURI(@Nullable Uri uri) {
+        super.setImageURI(uri);
+    }
+
+    @Override
+    public void setImageBitmap(Bitmap bm) {
+        super.setImageBitmap(bm);
     }
 }
