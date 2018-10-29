@@ -71,7 +71,7 @@ public class HomeActivity extends BaseActivity  {
     protected void initEventAndData() {
         Log.e(TAG, "initEventAndData: " );
         TAG = "meng111";
-        //FAB
+        /*FloatingActionButton*/
         initFab();
         //第一次进入将默认账单分类添加到数据库
         if(SharedPUtils.isFirstStart(mContext)){
@@ -83,7 +83,6 @@ public class HomeActivity extends BaseActivity  {
             LocalRepository.getInstance().saveBPays(note.getPayinfo());
         }
         viewPager.setOffscreenPageLimit(5);
-       /* bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);*/
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -110,14 +109,8 @@ public class HomeActivity extends BaseActivity  {
             }
             @Override
             public void onPageSelected(int position) {
-          /*      if (menuItem != null) {
-                    menuItem.setChecked(false);
-                } else {
-                    bottomNavigationView.getMenu().getItem(0).setChecked(true);
-                }*/
                 menuItem = bottomNavigationView.getMenu().getItem(position);
                 menuItem.setChecked(true);
-                //changeBottomState(position);
             }
 
             @Override
@@ -133,7 +126,7 @@ public class HomeActivity extends BaseActivity  {
 
 
 
-    //切换界面
+    //fragment change
     private void setupViewPager(ViewPager viewPager) {
         Log.e(TAG, "setupViewPager: " );
         adapter= new ViewPagerAdapter(getSupportFragmentManager());
@@ -176,7 +169,7 @@ public class HomeActivity extends BaseActivity  {
             @Override
             public void onClick(View v) {
                 ProgressUtils.show(HomeActivity.this, "正在加载...");
-                //开启账单添加
+                /*open BillAddActivity*/
                 Intent intent = new Intent(HomeActivity.this, BillAddActivity.class);
                 startActivityForResult(intent,RESULTCODE);
                 actionMenu.close(true);
@@ -186,7 +179,7 @@ public class HomeActivity extends BaseActivity  {
         refreshbill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: 18-10-18 数据更新
+                /*refresh the data*/
                 Log.e(TAG, "onClick: " );
                 BmobRepository.getInstance().syncBill(currentUser.getObjectId());
                 actionMenu.close(true);
