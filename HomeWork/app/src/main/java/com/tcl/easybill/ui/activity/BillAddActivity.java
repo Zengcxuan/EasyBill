@@ -404,12 +404,6 @@ public class BillAddActivity extends BaseActivity implements BillView {
             case R.id.tb_calc_num_del://删除
                 doDelete();
                 break;
-//            case R.id.plus://加法
-//                doPlus();
-//                break;
-//            case R.id.minus://减法
-//                doMinus();
-//                break;
         }
     }
 
@@ -582,59 +576,6 @@ public class BillAddActivity extends BaseActivity implements BillView {
             moneyTv.setText(num + dotNum);
         }
     }
-//
-//    protected void doPlus(){
-//        isDot = false;
-//        num = "0";
-//        dotNum = ".00";
-//        if(!isPlus) {
-//            before = moneyTv.getText().toString();
-//            finish.setText("=");
-//            isPlus = true;
-//        }else {
-//            after = moneyTv.getText().toString();
-//            float current = Float.parseFloat(before) + Float.parseFloat(after);
-//            Toast.makeText(BillAddActivity.this, "1:" + Float.parseFloat(before)
-//            + "2:" + Float.parseFloat(after), Toast.LENGTH_SHORT).show();
-//            moneyTv.setText(String.valueOf(current));
-//            before = String.valueOf(current);
-//        }
-//    }
-//
-//    protected void doMinus(){
-//        isDot = false;
-//        num = "0";
-//        dotNum = ".00";
-//        if(!isMinus) {
-//            before = moneyTv.getText().toString();
-//            finish.setText("=");
-//            isMinus = true;
-//        }else {
-//            after = moneyTv.getText().toString();
-//            float current = Float.parseFloat(before) - Float.parseFloat(after);
-//            moneyTv.setText(String.valueOf(current));
-//            before = String.valueOf(current);
-//        }
-//    }
-//
-//    protected void dofinish(){
-//        isDot = false;
-//        if(isPlus) {
-//            float current = Float.parseFloat(before) + Float.parseFloat(after);
-//            moneyTv.setText(String.valueOf(current));
-//            isPlus = false;
-//        } else if (isMinus) {
-//            float current = Float.parseFloat(before) - Float.parseFloat(after);
-//            moneyTv.setText(String.valueOf(current));
-//            isMinus = false;
-//        }
-//        float result = Float.parseFloat(moneyTv.getText().toString());
-//        float intResult = (int)result;
-//        num = String.valueOf((int)result);
-//
-//        dotNum = "" + (result - intResult)*10;
-//        finish.setText("完成");
-//    }
 
     /**
      * 监听Activity返回结果

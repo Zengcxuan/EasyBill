@@ -82,7 +82,6 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
     private MonthDetailAdapter adapter;
     private List<MonthDetailAccount.DaylistBean> list;
     meng_MyUtils meng_util = new meng_MyUtils();
-    private Unbinder unbinder;
 
     @BindView(R.id.money_in)
     TextView tOutcome;
@@ -96,8 +95,6 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
     EditText currentDate;
     @BindView(R.id.bill_time_year)
     EditText currentYear;
-//    @BindView(R.id.bill_add)
-//    ImageButton bill_add;
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event(SyncEvent event) {
@@ -254,6 +251,7 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
         customDatePicker1.show(/*currentDate.getText().toString()*/now);
         Log.e("mengtime","settime");
     }
+
     private void initDatePicker() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
         String now = sdf.format(new Date());
@@ -290,9 +288,7 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
             //getBills(Constants.currentUserId, setYear, setMonth);
        getBills(currentUser.getObjectId(), setYear, setMonth);
     }
-    /**
-     * 布局加载
-     */
+
     public static bill_Fragment newInstance(String info) {
         Bundle args = new Bundle();
         bill_Fragment fragment = new bill_Fragment();
@@ -301,30 +297,11 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
         return fragment;
 
     }
+
     @Override
     protected void beforeDestroy() {
         EventBus.getDefault().unregister(this);
     }
-
-    /**
-     * 原悬浮按钮
-     */
-//    @OnClick(R.id.bill_add)
-//    public void addBill() {
-//        Intent intent = new Intent(getActivity(), BillAddActivity.class);
-//        startActivityForResult(intent,RESULTCODE);
-//        /*Person person = Person.getCurrentUser(Person.class);
-//        BmobRepository.getInstance().syncBill(person.getObjectId());*/
-//    }
-
-    /**
-     * 开启个人信息界面
-     * */
-//    @OnClick(R.id.head_bill)
-//    public void showHead(){
-//        Intent intent = new Intent(mContext, PersionalInfoActivity.class);
-//        startActivity(intent);
-//    }
 
     @Override
     public void myToolbar(){
@@ -344,6 +321,10 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
 
     }
 
+    /**
+     * set toolbar right icon
+     * @return
+     */
     @Override
     protected int getItemMenu(){ return R.menu.menu_main; }
 
@@ -352,31 +333,10 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
         Intent intent = new Intent(getActivity(), SearchAll.class);
         startActivity(intent);
     }
-    @Override
-    protected DrawerLayout getDrawerLayout(){ return getActivity().findViewById(R.id.drawerlayout_bill); }
 
     @Override
     protected  Toolbar getToolbar(){
         return getActivity().findViewById(R.id.toolbar_bill);
-    }
-
-    @Override
-    protected LinearLayout getLeftWindow(){ return getActivity().findViewById(R.id.navigationview_bill); }
-
-    /**
-     * 返回头像
-     * */
-    @Override
-    protected ImageButtonWithText getHead(){
-        return getActivity().findViewById(R.id.head_bill);
-    }
-
-    /**
-     * 返回键名字
-     * */
-    @Override
-    protected ImageButton getBackBtn(){
-        return getActivity().findViewById(R.id.back_bill);
     }
 
     @Override

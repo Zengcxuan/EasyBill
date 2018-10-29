@@ -20,6 +20,9 @@ public class LockViewUtil {
     //时间记录，用于定时提醒
     private static final String TIME_H = "hour";
     private static final String IS_SET = "set";
+    //记录是否更改了头像
+    private static final String ISCHANGE = "head";
+    private static final String IMAGE = "image";
     public static void savePwd(Context mContext , List<Integer> password){
         SharedPreferences sp = mContext.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
         sp.edit().putString(SP_KEY, listToString(password)).commit();
@@ -91,6 +94,31 @@ public class LockViewUtil {
     public static String getCalender(Context mContext){
         SharedPreferences sp = mContext.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
        return  sp.getString(TIME_H, "");
+    }
+
+    public static void setIschange(Context mContext, Boolean ischange){
+        SharedPreferences sp = mContext.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
+        sp.edit().putBoolean(ISCHANGE, ischange).commit();
+    }
+
+    public static boolean getIschange(Context mContext){
+        SharedPreferences sp = mContext.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
+        return sp.getBoolean(ISCHANGE, false);
+    }
+
+    public static void saveImage(Context mContext, String image){
+        SharedPreferences sp = mContext.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);;
+        sp.edit().putString(IMAGE, image).apply();
+    }
+
+    public static String getImage(Context mContext){
+        SharedPreferences sp = mContext.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
+        return  sp.getString(IMAGE, "");
+    }
+
+    public static void clearImage(Context mContext){
+        SharedPreferences sp = mContext.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
+        sp.edit().remove(IMAGE).commit();
     }
 }
 

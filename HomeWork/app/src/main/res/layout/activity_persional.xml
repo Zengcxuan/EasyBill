@@ -35,8 +35,8 @@
 
             <com.tcl.easybill.ui.widget.RoundImageView
                 android:id="@+id/persional_head"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
                 android:layout_gravity="end|center"
                 android:scaleType="fitXY"
                 android:src="@mipmap/sort_class"

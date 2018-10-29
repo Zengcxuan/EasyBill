@@ -82,8 +82,6 @@ public class HomeActivity extends BaseActivity  {
             LocalRepository.getInstance().saveBsorts(sorts);
             LocalRepository.getInstance().saveBPays(note.getPayinfo());
         }
-       /* viewPager = findViewById(R.id.viewpager);*/
-       //viewPager = new MyViewPager(getApplicationContext());
         viewPager.setOffscreenPageLimit(5);
        /* bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);*/
         bottomNavigationView.setOnNavigationItemSelectedListener(
@@ -104,8 +102,6 @@ public class HomeActivity extends BaseActivity  {
                         return false;
                     }
                 });
-/*        menuItem = bottomNavigationView.getMenu().getItem(0);
-        menuItem.setChecked(true);*/
         bottomNavigationView.setItemIconTintList(null);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
@@ -141,15 +137,12 @@ public class HomeActivity extends BaseActivity  {
     private void setupViewPager(ViewPager viewPager) {
         Log.e(TAG, "setupViewPager: " );
         adapter= new ViewPagerAdapter(getSupportFragmentManager());
-       /* adapter.addFragment(bill_Fragment.newInstance("账单"));
-        adapter.addFragment(chart_Fragment.newInstance("图表"));
-        adapter.addFragment(mine_Fragment.newInstance("我的"));*/
-       bill_fFragment = new bill_Fragment();
-       chart_fragment = new chart_Fragment();
-       mine_fragment = new mine_Fragment();
-       adapter.addFragment(bill_fFragment);
-       adapter.addFragment(chart_fragment);
-       adapter.addFragment(mine_fragment);
+        bill_fFragment = new bill_Fragment();
+        chart_fragment = new chart_Fragment();
+        mine_fragment = new mine_Fragment();
+        adapter.addFragment(bill_fFragment);
+        adapter.addFragment(chart_fragment);
+        adapter.addFragment(mine_fragment);
         viewPager.setAdapter(adapter);
     }
 
@@ -157,37 +150,28 @@ public class HomeActivity extends BaseActivity  {
      * 添加悬浮按钮
      */
     private void initFab(){
-//        ImageView image = new ImageView(mContext);
-//        image.setImageDrawable(mContext.getDrawable(R.drawable.add_bill3));
-        FloatingActionButton floatingActionButton
-                = new FloatingActionButton.Builder(this).build();
+        /*parent button*/
+        FloatingActionButton floatingActionButton = new FloatingActionButton.Builder(this).build();
         floatingActionButton.setBackground(mContext.getDrawable(R.drawable.add_bill3));
+        /*item button*/
         SubActionButton.Builder itemBuilder = new SubActionButton.Builder(this);
-        ImageView itemIcon = new ImageView(mContext);
-//        itemIcon.setImageDrawable(mContext.getDrawable(R.mipmap.add_icon));
-//        itemIcon.setBackground(mContext.getDrawable(R.drawable.add_icon));
-//        itemIcon.setBackground(mContext.getDrawable(R.drawable.add_bill3));
         SubActionButton addbill = itemBuilder.build();
         addbill.setBackground(mContext.getDrawable(R.drawable.add_icon));
-//        addbill.setBackground(mContext.getDrawable(R.drawable.add_icon));
-
-//        ImageView itemIcon2 = new ImageView(mContext);
-//        itemIcon2.setImageDrawable(mContext.getDrawable(R.drawable.add_bill3));
-//        SubActionButton refreshbill = itemBuilder.setContentView(itemIcon2).build();
         SubActionButton refreshbill = itemBuilder.build();
         refreshbill.setBackground(mContext.getDrawable(R.drawable.refresh_icon));
 
-        FloatingActionMenu actionMenu = new FloatingActionMenu.Builder(this)
+        /*set FloatingActionMenu*/
+        final FloatingActionMenu actionMenu = new FloatingActionMenu.Builder(this)
                 .addSubActionView(addbill)
                 .addSubActionView(refreshbill)
                 .attachTo(floatingActionButton)
                 .build();
-
-        FrameLayout.LayoutParams params =
-                new FrameLayout.LayoutParams(180, 180);
+        /*size and locate*/
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(180, 180);
         params.setMargins(0, 0, 0, 100);
         floatingActionButton.setPosition(4, params);
 
+        /*onClick react*/
         addbill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -195,16 +179,17 @@ public class HomeActivity extends BaseActivity  {
                 //开启账单添加
                 Intent intent = new Intent(HomeActivity.this, BillAddActivity.class);
                 startActivityForResult(intent,RESULTCODE);
+                actionMenu.close(true);
 
             }
         });
-
         refreshbill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // TODO: 18-10-18 数据更新
                 Log.e(TAG, "onClick: " );
                 BmobRepository.getInstance().syncBill(currentUser.getObjectId());
+                actionMenu.close(true);
             }
         });
     }
@@ -213,32 +198,7 @@ public class HomeActivity extends BaseActivity  {
         Log.e(TAG, "onActivityResult: " );
         super.onActivityResult(requestCode, resultCode, data);
         adapter.notifyDataSetChanged();
-        //getBills(Constants.currentUserId, setYear, setMonth);
-        //ProgressUtils.setDialog(new ProgressDialog(getApplicationContext()));
         ProgressUtils.dismiss();
 
     }
-
-
-/*public void changeBottomState(int position) {
-        menuItem = bottomNavigationView.getMenu().getItem(position);
-        switch (position){
-            case 0:
-                menuItem.setIcon(R.mipmap.bill_parent_color);
-                bottomNavigationView.getMenu().getItem(1).setIcon(R.mipmap.chart_parent);
-                bottomNavigationView.getMenu().getItem(2).setIcon(R.mipmap.mine_parent);
-                break;
-            case 1:
-                menuItem.setIcon(R.mipmap.chart_parent_color);
-                bottomNavigationView.getMenu().getItem(0).setIcon(R.mipmap.bill_parent);
-                bottomNavigationView.getMenu().getItem(2).setIcon(R.mipmap.mine_parent);
-                break;
-            case 2:
-                menuItem.setIcon(R.mipmap.mine_parent_color);
-                bottomNavigationView.getMenu().getItem(0).setIcon(R.mipmap.bill_parent);
-                bottomNavigationView.getMenu().getItem(1).setIcon(R.mipmap.chart_parent);
-                break;
-        }
-    }*/
-
 }

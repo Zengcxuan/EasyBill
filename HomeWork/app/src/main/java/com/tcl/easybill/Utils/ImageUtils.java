@@ -2,6 +2,7 @@ package com.tcl.easybill.Utils;
 
 import android.graphics.*;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 
 
 import java.io.File;
@@ -67,6 +68,25 @@ public class ImageUtils {
         return localPath;
     }
 
+    /**
+     * 根据uri读取并压缩图片
+     */
+    public static Bitmap getBitmapByUri(Uri uri){
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        String filePath = uri.getPath();
+        options.inJustDecodeBounds = true;
+
+        BitmapFactory.decodeFile(filePath, options);
+
+        int outHeight = options.outHeight;
+        int outWidth = options.outWidth;
+
+        int scale = Math.max(outHeight / 300, outWidth / 300);
+        //scale向下取整,真实取值 2的n次幂
+        options.inSampleSize = scale;
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeFile(filePath,options);
+    }
     /**
      * 转换图片成圆形
      *

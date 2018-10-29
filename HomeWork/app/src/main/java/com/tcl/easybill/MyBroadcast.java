@@ -7,6 +7,11 @@ import android.util.Log;
 import com.tcl.easybill.ui.widget.NotificationTool;
 
 public class MyBroadcast extends BroadcastReceiver {
+    /**
+     * use to send a notification
+     * @param context
+     * @param intent
+     */
     @Override
     public void onReceive(Context context, Intent intent) {
         String extras = intent.getStringExtra("msg");

@@ -3,6 +3,7 @@ package com.tcl.easybill.ui.fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -28,7 +29,9 @@ import java.util.Objects;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import com.tcl.easybill.R;
+import com.tcl.easybill.Utils.LockViewUtil;
 import com.tcl.easybill.pojo.Person;
+import com.tcl.easybill.ui.activity.AccountActivity;
 import com.tcl.easybill.ui.activity.PersionalInfoActivity;
 import com.tcl.easybill.ui.widget.ImageButtonWithText;
 
@@ -115,13 +118,13 @@ public abstract class HomeBaseFragment extends Fragment {
         /* set  toolbar  and show */
         toolbar = getToolbar();
 //        toolbar.getMenu().clear();
-        navigationView = getLeftWindow();
-        mDrawerLayout = getDrawerLayout();
-        navigationView.setFitsSystemWindows(true);
-        navigationView.findViewById(R.id.imageView_my)
-                .setBackground(mContext.getDrawable(R.drawable.persional));
-        navigationView.findViewById(R.id.imageView_share)
-                .setBackground(mContext.getDrawable(R.drawable.shared));
+//        navigationView = getLeftWindow();
+//        mDrawerLayout = getDrawerLayout();
+//        navigationView.setFitsSystemWindows(true);
+//        navigationView.findViewById(R.id.imageView_my)
+//                .setBackground(mContext.getDrawable(R.drawable.persional));
+//        navigationView.findViewById(R.id.imageView_share)
+//                .setBackground(mContext.getDrawable(R.drawable.shared));
         toolbar.setTitle("");//设置Toolbar标题
 //        toolbar.setTitleTextColor(Color.parseColor("#ffffff")); //设置标题颜色
 //        navigationView.setItemIconTintList(null);
@@ -129,72 +132,53 @@ public abstract class HomeBaseFragment extends Fragment {
         ((AppCompatActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);
         //创建返回键，并实现打开关/闭监听
 
-        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);//禁止滑动
-        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(getActivity(), mDrawerLayout,
-                toolbar, R.string.open, R.string.close) {
-
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-                //mAnimationDrawable.stop();
-                drawerView.setClickable(true);
-                mDrawerLayout.bringChildToFront(getLeftWindow());
-                ImageButton backBtn = getBackBtn();
-                backBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mDrawerLayout.closeDrawers();
-                    }
-                });
-
-            }
-
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                super.onDrawerClosed(drawerView);
-                // mAnimationDrawable.start();
-            }
-            @Override
-            public void onDrawerSlide(View drawerView, float slideOffset) {
-                super.onDrawerSlide(drawerView, slideOffset);
-            }
-
-
-
-        };
-        mDrawerToggle.syncState();
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-//        navigationView.setOnClickListener(new View.OnClickListener() {
+//        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);//禁止滑动
+//        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(getActivity(), mDrawerLayout,
+//                toolbar, R.string.open, R.string.close) {
+//
 //            @Override
-//            public void onClick(View v) {
-//               mDrawerLayout.closeDrawers();
+//            public void onDrawerOpened(View drawerView) {
+//                super.onDrawerOpened(drawerView);
+//                //mAnimationDrawable.stop();
+//                drawerView.setClickable(true);
+//                mDrawerLayout.bringChildToFront(getLeftWindow());
+//                ImageButton backBtn = getBackBtn();
+//                backBtn.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        mDrawerLayout.closeDrawers();
+//                    }
+//                });
+//
 //            }
-//        });
-//        Objects.requireNonNull(((AppCompatActivity) getActivity()).getSupportActionBar())
-//                .setDisplayHomeAsUpEnabled(true);//设置toolbar的图标可显示
-//        Objects.requireNonNull(((AppCompatActivity) getActivity()).getSupportActionBar())
-//                .setHomeAsUpIndicator(R.drawable.menu);//设置图标
-        //        Objects.requireNonNull(((AppCompatActivity) getActivity()).getSupportActionBar()).
-        // setDisplayHomeAsUpEnabled(true);
+//
+//            @Override
+//            public void onDrawerClosed(View drawerView) {
+//                super.onDrawerClosed(drawerView);
+//                // mAnimationDrawable.start();
+//            }
+//            @Override
+//            public void onDrawerSlide(View drawerView, float slideOffset) {
+//                super.onDrawerSlide(drawerView, slideOffset);
+//            }
+//
+//
+//
+//        };
+//        mDrawerToggle.syncState();
+//        mDrawerLayout.setDrawerListener(mDrawerToggle);
         toolbar.setNavigationIcon(R.drawable.menu);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mDrawerLayout.openDrawer(Gravity.LEFT);
+//                mDrawerLayout.openDrawer(Gravity.LEFT);
+                Intent accountIntent = new Intent(mContext, AccountActivity.class);
+                startActivity(accountIntent);
             }
         });
 
-        ImageButtonWithText headView = getHead();
-        headView.setText("我的");
-        headView.setImageView(R.mipmap.sort_kid);
-        headView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mContext, PersionalInfoActivity.class);
-                startActivity(intent);
-            }
-        });
     }
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
@@ -267,14 +251,14 @@ public abstract class HomeBaseFragment extends Fragment {
     protected void setToolbar(View v){
         getToolbar().addView(v);
     }
-    protected abstract DrawerLayout getDrawerLayout();
+//    protected abstract DrawerLayout getDrawerLayout();
     protected abstract Toolbar getToolbar();
-    protected abstract LinearLayout getLeftWindow();
+//    protected abstract LinearLayout getLeftWindow();
     protected abstract int getLayoutId();
     protected abstract void beforeDestroy();
     protected abstract int getItemMenu();
     protected abstract void setItemReact();
-    protected abstract ImageButton getBackBtn();
-    protected abstract ImageButtonWithText getHead();
+//    protected abstract ImageButton getBackBtn();
+//    protected abstract ImageButtonWithText getHead();
 
 }

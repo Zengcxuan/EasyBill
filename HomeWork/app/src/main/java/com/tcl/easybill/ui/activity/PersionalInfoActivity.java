@@ -9,9 +9,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -21,14 +21,14 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.tcl.easybill.R;
 import com.tcl.easybill.Utils.DateUtils;
+import com.tcl.easybill.Utils.ImageUtils;
+import com.tcl.easybill.Utils.LockViewUtil;
 import com.tcl.easybill.Utils.SnackbarUtils;
 import com.tcl.easybill.Utils.StringUtils;
 import com.tcl.easybill.mvp.presenter.UserInfoPresenter;
@@ -38,7 +38,7 @@ import com.tcl.easybill.pojo.Person;
 import com.tcl.easybill.ui.widget.RoundImageView;
 import com.tcl.easybill.ui.widget.TextWithImg;
 
-public class PersionalInfoActivity extends BaseActivity implements UserInfoView {
+public class PersionalInfoActivity extends BaseActivity implements UserInfoView{
     @BindView(R.id.name_text)
     TextWithImg userName;
     @BindView(R.id.gender_text)
@@ -78,6 +78,9 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView 
         gender.setText(getGender(currentUser.getGender()));
         email.setText(currentUser.getEmail());
         getShareNumber();
+        if(LockViewUtil.getIschange(mContext)){
+            perisonalHead.setImageURI(Uri.parse(LockViewUtil.getImage(mContext)));
+        }
     }
 
     @Override
@@ -94,7 +97,7 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView 
                changUserName();
                break;
            case R.id.head_persional:
-               changeHead();
+               askPermission();
                break;
            case R.id.gender_persional:
                changeGender();
@@ -115,7 +118,7 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView 
        }
     }
     /**
-     * 更改Email
+     * modify email
      */
     private void changeEmail(){
         final EditText emailEditText = new EditText(PersionalInfoActivity.this);
@@ -174,7 +177,7 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView 
 
     }
     /**
-     * 更改username
+     * modify username
      */
     private void changUserName(){
         SnackbarUtils.show(mContext, "社会人行不改名，坐不改姓！！！！");
@@ -237,7 +240,7 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView 
         return gender;
     }
     /**
-     * 退出登陆并返回到登陆界面
+     * logout
      */
     private void logout(){
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
@@ -259,19 +262,25 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView 
     }
 
     /**
-     * 修改头像
+     * getPermission
      */
-    private void changeHead(){
+    private void askPermission(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-
-            // 检查该权限是否已经获取
-            for(int i = 0; i < 3; i++){
+            /*check permissions*/
+            for(int i = 0; i < 4; i++){
                 if(ContextCompat.checkSelfPermission(this, permissions[i]) !=
                         PackageManager.PERMISSION_GRANTED){
                     ActivityCompat.requestPermissions(this, permissions,111);
                 }
             }
         }
+        changeHead();
+    }
+
+    /**
+     * change the headImage
+     */
+    private void changeHead(){
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setTitle("选择模式");
         builder.setPositiveButton("相册", new DialogInterface.OnClickListener() {
@@ -289,14 +298,14 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView 
                 imageUri = createImageUri(PersionalInfoActivity.this);
                 Intent intent = new Intent();
                 intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);//如果不设置EXTRA_OUTPUT getData()  获取的是bitmap数据  是压缩后的
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
                 startActivityForResult(intent, 2);
-
             }
         });
         builder.create().show();
 
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -306,27 +315,38 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView 
             return;
         }else {
             switch (requestCode) {
-                // 如果是直接从相册获取
+                // read pictures
                 case 1:
                     try {
+                        /*delete the image that save before*/
+                        if(LockViewUtil.getIschange(mContext)){
+                            LockViewUtil.clearImage(mContext);
+                        }
                         imageUri = data.getData();
-                        Log.e("TAG", imageUri.toString());
-                        perisonalHead.setImageURI(imageUri);
-                        Bitmap photo = data.getParcelableExtra("data");
-                        saveBitmap(photo);
-//                        perisonalHead.setImageBitmap(photo);
+                        Bitmap photo = ImageUtils.getBitmapByUri(imageUri);
+                        perisonalHead.setImageBitmap(photo);
+                        /*save the image*/
+                        LockViewUtil.saveImage(mContext,imageUri.toString());
+                        LockViewUtil.setIschange(mContext,true);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                     break;
-                // 如果是调用相机拍照时
+                // capture
                 case 2:
-                    imageUri = data.getData();
-                    Log.e("TAG", imageUri.toString());
-                    perisonalHead.setImageURI(imageUri);
-                    Bitmap photo = data.getParcelableExtra("data");
-//                    perisonalHead.setImageBitmap(photo);
-//                    saveBitmap(photo);
+                    try {
+                        /*delete the image that save before*/
+                        if(LockViewUtil.getIschange(mContext)){
+                            LockViewUtil.clearImage(mContext);
+                        }
+                        Bitmap photo = ImageUtils.getBitmapByUri(imageUri);
+                        perisonalHead.setImageBitmap(photo);
+                        /*save the image*/
+                        LockViewUtil.saveImage(mContext,imageUri.toString());
+                        LockViewUtil.setIschange(mContext,true);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     break;
                 default:
                     break;
@@ -337,7 +357,11 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView 
     }
 
 
-
+    /**
+     * create a uri to save the photo of capture
+     * @param context
+     * @return
+     */
     private static Uri createImageUri(Context context) {
         String name = "takePhoto" + System.currentTimeMillis();
         ContentValues contentValues = new ContentValues();
@@ -355,16 +379,6 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView 
     }
 
     @Override
-    protected void onPause() {
-        presenter = new UserInfoPresenterImp(this);
-        userName.setText(currentUser.getUsername());
-        gender.setText(getGender(currentUser.getGender()));
-        email.setText(currentUser.getEmail());
-        getShareNumber();
-        super.onPause();
-    }
-
-    @Override
     public void loadDataSuccess(Person tData) {
 
     }
@@ -374,29 +388,4 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView 
 
     }
 
-    public void saveBitmap(Bitmap bitmap) {
-        // 首先保存图片
-        File appDir = new File(Environment.getExternalStorageDirectory(),"mine_head");
-        if (!appDir.exists()) {
-            appDir.mkdir();
-        }
-        String fileName = "mine_head" + ".png";
-        file = new File(appDir, fileName);
-        try {
-            FileOutputStream fos = new FileOutputStream(file);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-            fos.flush();
-            fos.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        // 把文件插入到系统图库
-        try {
-            MediaStore.Images.Media.insertImage(this.getContentResolver(), file.getAbsolutePath(), fileName, null);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        // 通知图库更新
-        sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + "/sdcard/namecard/")));
-    }
 }

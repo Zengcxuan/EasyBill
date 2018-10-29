@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -51,6 +52,7 @@ public class NotifyActivity extends BaseActivity{
         return R.layout.notify;
     }
 
+    /*read the alarm that set before*/
     @Override
     protected void initEventAndData() {
         if(LockViewUtil.getIsSet(mContext)){
@@ -85,7 +87,7 @@ public class NotifyActivity extends BaseActivity{
     }
 
     /**
-     * 弹出对话框,获取提醒内容,获取后调用clockSetting设置闹钟
+     * call a dialog to set the notify msg
      */
     private void clockSet(){
         final EditText editText = new EditText(mContext);
@@ -110,7 +112,7 @@ public class NotifyActivity extends BaseActivity{
     }
 
     /**
-     * 闹钟设置, 到点发送广播
+     * alarm setting
      */
     private void clockSetting(final String string){
         Log.v(TAG + ":clockSetting", string);
@@ -118,26 +120,19 @@ public class NotifyActivity extends BaseActivity{
         new TimePickerDialog(mContext, 0, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                // TODO: 18-10-10 设置闹钟
+                /*set alarm to send a Broadcast*/
                 Intent intent = new Intent(mContext, MyBroadcast.class);
                 intent.putExtra("msg", string);
                 PendingIntent pi = PendingIntent.getBroadcast(mContext, 0, intent,
                         0);
                 Calendar c = Calendar.getInstance();
-                //用户选择时间
+                //set alarm time
                 c.set(Calendar.HOUR, hourOfDay);
                 c.set(Calendar.MINUTE, minute);
-                //获取系统的AlarmManager
-                Log.i(TAG, "System time" + System.currentTimeMillis());
-                Log.i(TAG, "choice time" + c.getTimeInMillis());
+                //get the system's AlarmManager
                 AlarmManager alarmManager = (AlarmManager) mContext.getSystemService(ALARM_SERVICE);
                 alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pi);
-//                alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(),INTERVAL_DAY, pi);
-//                alarmManager.setWindow(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(),
-//                        100, pi);
-
-
-//                android 4.4(19)以下使用set, 19以上set时间不准确, 需使用setExact
+//                if version <= android 4.4(19), use set()
 //                alarmManager.set(AlarmManager.RTC_WAKEUP,c.getTimeInMillis(), pi);
                 int Hour = c.get(Calendar.HOUR_OF_DAY);
                 int Minu = c.get(Calendar.MINUTE);
@@ -146,7 +141,8 @@ public class NotifyActivity extends BaseActivity{
                 }else {
                     show = String.valueOf(Hour) + ":0" + String.valueOf(Minu);
                 }
-//                if(LockViewUtil.getIsfirst(mContext)) {
+
+                /*call initRecyclerView() if it's the first time to set alarm*/
                 if(!LockViewUtil.getIsSet(mContext)) {
                     initRecyclerView(show);
                     Log.i("----","isfirst");
@@ -159,6 +155,9 @@ public class NotifyActivity extends BaseActivity{
         }, currentTime.get(Calendar.HOUR_OF_DAY), currentTime.get(Calendar.MINUTE), false).show();
     }
 
+    /**
+     *set the first alarm
+     */
     private void initRecyclerView(String time){
         mDatas = new ArrayList<String>();
         mDatas.add(time);
@@ -172,6 +171,9 @@ public class NotifyActivity extends BaseActivity{
         });
     }
 
+    /**
+     * delete the alarm
+     */
     private void  delete(final int index) {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setTitle("定时提醒" + (index + 1));
@@ -194,6 +196,9 @@ public class NotifyActivity extends BaseActivity{
         builder.create().show();
     }
 
+    /**
+     * save the data when this activity is finished
+     */
     @Override
     protected void onDestroy() {
         LockViewUtil.saveCalender(mContext, mDatas);

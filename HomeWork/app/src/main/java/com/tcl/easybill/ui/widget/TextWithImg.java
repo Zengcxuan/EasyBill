@@ -21,18 +21,8 @@ public class TextWithImg extends LinearLayout{
     public TextWithImg(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ImageButtonWithText);
-        /*
-        * 在attrs.xml添加属性：
-        *   <declare-styleable name="ImageButtonWithText">
-             <attr name="picture" format="reference"/>
-            </declare-styleable>
-        * */
-        int picture_id = a.getResourceId(R.styleable.ImageButtonWithText_picture, -1);
-        /**
-         * Recycle the TypedArray, to be re-used by a later caller. After calling
-         * this function you must not ever touch the typed array again.
-         */
         a.recycle();
+        /*textView*/
         textView = new TextView(context, attrs);
         textView.setGravity(Gravity.END|CENTER_VERTICAL);
         textView.setPadding(0, 0, 10, 0);
@@ -40,6 +30,7 @@ public class TextWithImg extends LinearLayout{
                 ViewGroup.LayoutParams.WRAP_CONTENT));
         textView.setTextSize(18);
         textView.setTextColor(getResources().getColor(R.color.persion_text));
+        /*imageView*/
         imageView = new RoundImageView(context, attrs);
         imageView.setPadding(5, 0, 5, 0);
         // TODO: 18-10-9 给imageview加上大小限制
@@ -48,6 +39,7 @@ public class TextWithImg extends LinearLayout{
         imageView.setScaleType(ImageView.ScaleType.FIT_XY);
 //        imageView.setImageResource(picture_id);
         imageView.setBackground(getResources().getDrawable(R.drawable.arrow));
+        /*set the textView display with a imageView*/
         setClickable(true);
         setFocusable(true);
         setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,

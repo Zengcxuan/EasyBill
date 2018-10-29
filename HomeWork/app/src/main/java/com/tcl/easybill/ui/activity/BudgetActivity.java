@@ -26,6 +26,7 @@ public class BudgetActivity extends BaseActivity{
         super.onCreate(savedInstanceState);
     }
 
+    @Override
     protected  int getLayout(){
         return R.layout.budget;
     }
@@ -34,6 +35,9 @@ public class BudgetActivity extends BaseActivity{
 
     }
 
+    /**
+     * set the surplus
+     */
     @OnClick (R.id.edit_surplus)
     public void editSurplus(){
         final EditText enterSurplus = new EditText(this);
@@ -60,6 +64,8 @@ public class BudgetActivity extends BaseActivity{
         });
         builder.create().show();
     }
+
+
     @OnClick (R.id.budget_back)
     public void backToParent(){
         finish();

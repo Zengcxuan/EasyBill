@@ -45,7 +45,6 @@
         </activity>
         <activity android:name=".ui.activity.BillEditActivity"/>
         <activity android:name=".ui.activity.BudgetActivity"/>
-        <service android:name=".MyService"/>
         <activity android:name=".ui.activity.UesrLoginActivity"/>
         <receiver android:name=".MyBroadcast"/>
         <activity android:name=".ui.activity.LockViewUi"/>
@@ -53,6 +52,7 @@
         <activity android:name=".ui.activity.PersionalInfoActivity"/>
         <activity android:name=".ui.activity.WelcomeActivity"/>
         <activity android:name=".ui.activity.NotifyActivity"/>
+        <activity android:name=".ui.activity.AccountActivity"/>
     </application>
 
 </manifest>

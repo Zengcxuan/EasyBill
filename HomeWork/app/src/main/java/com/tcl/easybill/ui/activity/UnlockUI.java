@@ -16,6 +16,9 @@ public class UnlockUI extends BaseActivity {
         return R.layout.activity_unlock_ui;
     }
 
+    /**
+     * unlock UI
+     */
     @Override
     protected void initEventAndData() {
         lockView.setOnLockListener(new LockView.OnLockListener() {

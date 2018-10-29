@@ -26,6 +26,9 @@ public class WelcomeActivity extends BaseActivity {
         return R.layout.activity_welcome;
     }
 
+    /**
+     * show the welcome page if it is the first time to use the app
+     */
     @Override
     protected void initEventAndData() {
         tabViews = new ArrayList<>();
@@ -44,7 +47,7 @@ public class WelcomeActivity extends BaseActivity {
             @Override
             public Object instantiateItem(ViewGroup container, int position) {
                 container.addView(tabViews.get(position));
-                //滑到最后一个页面，显示button
+                /*set the button visible in second page*/
                 if(position == tabViews.size()-1)
                 {
                     Button button= (Button) tabViews.get(position).findViewById(R.id.button);
@@ -54,7 +57,6 @@ public class WelcomeActivity extends BaseActivity {
                     aset.addAnimation(aa);
                     button.setVisibility(View.VISIBLE);
                     button.startAnimation(aset);
-//                    button.setVisibility(View.VISIBLE);
                     button.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -76,18 +78,21 @@ public class WelcomeActivity extends BaseActivity {
     }
 
     private void initData() {
-        //引入一个布局，三个共用，设置不同的背景图片
+        /*set background of viewPaper*/
         LayoutInflater tabs = LayoutInflater.from(WelcomeActivity.this);
         View tab1 = tabs.inflate(R.layout.tab_01, null);
         tab1.setBackgroundResource(R.mipmap.persional);
 
         View tab2 = tabs.inflate(R.layout.tab_01, null);
         tab2.setBackgroundResource(R.mipmap.shared);
-        //添加到列表里
+        /*add to viewPaper*/
         tabViews.add(tab1);
         tabViews.add(tab2);
     }
 
+    /**
+     * if finish, set Isfirst to false
+     */
     @Override
     protected void onDestroy() {
         super.onDestroy();

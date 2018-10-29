@@ -111,10 +111,8 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
     private float[] outcomeValues = {0f,0f,0f,0f,0f,0f,0f};
     //private float[][] outcomeValues = {{0f,0f,0f,0f,0f,0f,0f},{0f,0f,0f,0f,0f,0f,0f}};
     //private float[] data = {10f,20f,30f,40f,65f,10f,77f};
-    /**
-     * 按钮事件处理
-     */
-    @OnClick({R.id.thisweek, R.id.lastweek, R.id.head_chart})
+
+    @OnClick({R.id.thisweek, R.id.lastweek})
     public void onClick(View view) {
 
         switch (view.getId()) {
@@ -131,11 +129,6 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
                 tableRow.setGravity(START);
                 isThisWeek =false;
                 presenter.getMonthChartBills(currentUser.getObjectId(), setYear, setMonth);
-                break;
-            case R.id.head_chart:
-                //开启个人信息界面
-                Intent intent = new Intent(mContext, PersionalInfoActivity.class);
-                startActivity(intent);
                 break;
             default:
                 break;
@@ -290,25 +283,25 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
     protected void loadData() {
         tableRow.setGravity(END);
     }
-    /**
-     * 返回键名字
-     */
-    @Override
-    protected ImageButton getBackBtn() {
-        return getActivity().findViewById(R.id.back_chart);
-    }
+//    /**
+//     * 返回键名字
+//     */
+//    @Override
+//    protected ImageButton getBackBtn() {
+//        return getActivity().findViewById(R.id.back_chart);
+//    }
 
     @Override
     protected void beforeDestroy() {
     }
-    /**
-     * 重写父类抽象方法,返回DrawerLayout的ID
-     */
-    @Override
-    protected DrawerLayout getDrawerLayout() {
-        DrawerLayout mDrawerLayout = (DrawerLayout) getActivity().findViewById(R.id.drawerlayout_chart);
-        return mDrawerLayout;
-    }
+//    /**
+//     * 重写父类抽象方法,返回DrawerLayout的ID
+//     */
+//    @Override
+//    protected DrawerLayout getDrawerLayout() {
+//        DrawerLayout mDrawerLayout = (DrawerLayout) getActivity().findViewById(R.id.drawerlayout_chart);
+//        return mDrawerLayout;
+//    }
     @Override
     protected int getItemMenu() {
         return R.menu.menu_main;
@@ -329,13 +322,13 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
 //        View viewToolbar = getActivity().findViewById(R.id.toolbar_chart);
         return getActivity().findViewById(R.id.toolbar_chart);
     }
-    /**
-     * 重写父类抽象方法,返回navigationView的ID
-     */
-    @Override
-    protected LinearLayout getLeftWindow() {
-        return getActivity().findViewById(R.id.navigationview_chart);
-    }
+//    /**
+//     * 重写父类抽象方法,返回navigationView的ID
+//     */
+//    @Override
+//    protected LinearLayout getLeftWindow() {
+//        return getActivity().findViewById(R.id.navigationview_chart);
+//    }
 
     @Override
     public void loadDataError(Throwable throwable) {
@@ -347,27 +340,22 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
     @Override
     public void myToolbar() {
         super.myToolbar();
+        /*set spinner*/
         Spinner type = new Spinner(getActivity());
         List<String> dataOfType = new ArrayList<String>();
         dataOfType.add("收入");
         dataOfType.add("支出");
-//        LinkedList<String> dataOfType=new LinkedList<>(Arrays.asList("收入", "支出"));
-//        type.attachDataSource(dataOfType);
         ArrayAdapter<String> typeAdapter = new ArrayAdapter<String>(getActivity(),
                 R.layout.spinner_style, dataOfType);
         typeAdapter.setDropDownViewResource(R.layout.spinner_drop_style);
         type.setAdapter(typeAdapter);
-//        title.setTextColor(getResources().getColor(R.color.white))
-//        type.setDropDownHorizontalOffset(0);
         type.setDropDownVerticalOffset(60);
         type.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT));
         type.setPopupBackgroundDrawable(getResources().getDrawable(R.color.center_color));
-//        type.setBackground(getResources().getDrawable(R.drawable.shape_color_blue));
         type.setLayoutParams(new Toolbar.LayoutParams(CENTER));
         type.setBackground(getResources().getDrawable(R.drawable.spinner_background));
         setToolbar(type);
-        //下拉框的点击监听
         type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -401,14 +389,6 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
         return fragment;
     }
 
-    /**
-     * 返回头像
-     */
-    @Override
-    protected ImageButtonWithText getHead() {
-        return getActivity().findViewById(R.id.head_chart);
-
-    }
 
     /**
      * 切换fragment重新加载数据

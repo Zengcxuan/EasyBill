@@ -32,12 +32,10 @@ import com.tcl.easybill.pojo.Person;
 public abstract class BaseActivity extends AppCompatActivity {
 
     protected Activity mContext;
-    //当前用户
-    protected Person currentUser;
+    protected Person currentUser;//current user
     private Unbinder mUnBinder;
 
-    // 要申请的权限
-    private String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+    private String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};//permissions
     private AlertDialog dialog;
 
     protected static String TAG;
@@ -45,26 +43,26 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        // 设置 Activity 屏幕方向
+        /*set the screen orientation*/
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        // 隐藏 ActionBar
+        /*hide action bar*/
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         // 设置 TAG
         TAG = this.getClass().getSimpleName();
         //
         super.onCreate(savedInstanceState);
         mContext = this;
-        // 设置主题色，，，一定要在setView之前
-//        ThemeManager.getInstance().init(this);
+
+        /*set the app is fullScreen*/
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(getLayoutInflater().inflate(getLayout(), null, true));
-        //注册 ButterKnife
+        /*register ButterKnife*/
         mUnBinder = ButterKnife.bind(this);
-        //获取当前账户信息
+        /*get the info of currentUser*/
         currentUser= Person.getCurrentUser(Person.class);
 
-        // 版本判断。当手机系统大于 23 时，才有必要去判断权限是否获取
+        /*if version is higher than 23, ask the permissions*/
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
             // 检查该权限是否已经获取
@@ -130,7 +128,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     // 提示用户去应用设置界面手动开启权限
-
     private void showDialogTipUserGoToAppSettting() {
 
         dialog = new AlertDialog.Builder(this)
@@ -194,7 +191,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
 
-    //进入后台，不退出程序
+    /*keep the app alive when it goto background*/
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
