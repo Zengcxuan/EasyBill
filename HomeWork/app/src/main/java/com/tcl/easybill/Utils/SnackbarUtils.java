@@ -6,7 +6,6 @@ import android.support.design.widget.Snackbar;
 import android.view.View;
 
 /**
- * Created by zhouas666 on 2017/12/28.
  * ProgressDialog封装工具类
  */
 public class SnackbarUtils {

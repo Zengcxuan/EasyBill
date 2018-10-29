@@ -7,19 +7,19 @@ import org.greenrobot.greendao.annotation.Generated;
 @Entity
 public class TotalBill {
     @Id(autoincrement = true)
-    private Long id;  //本地id
+    private Long id;
 
-    private String rid;  //服务器端id
-    private float cost;  //金额
-    private String content;  //内容
-    private String userid;  //用户id
-    private String payName;  //支付方式
-    private String payImg;  //
-    private String sortName;  //账单分类
+    private String rid;  //objectID in server
+    private float cost;
+    private String content;  //remarks in bill
+    private String userid;
+    private String payName;
+    private String payImg;
+    private String sortName;  //sort of bill
     private String sortImg;  //
-    private long crdate;  //创建时间
-    private boolean income;  //收入支出
-    private int version;  //版本
+    private long crdate;  //bill's create date
+    private boolean income;  //whether is income
+    private int version;  //bill's version ,use to revise data
 
     @Generated(hash = 47599085)
     public TotalBill(Long id, String rid, float cost, String content, String userid,

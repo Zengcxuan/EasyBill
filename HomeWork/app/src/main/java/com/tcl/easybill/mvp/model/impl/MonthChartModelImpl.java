@@ -60,7 +60,7 @@ public class MonthChartModelImpl implements MonthChartModel {
     }
 
     /**
-     * 回调接口
+     * call back
      */
     public interface MonthChartOnListener {
 

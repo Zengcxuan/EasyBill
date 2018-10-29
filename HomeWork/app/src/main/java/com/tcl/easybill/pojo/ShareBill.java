@@ -11,17 +11,17 @@ import cn.bmob.v3.BmobObject;
 @Entity
 public class ShareBill extends BmobObject {
     @Id
-    private String id;  //服务器端id
-    private float cost;  //金额
-    private String content;  //内容
-    private String userid;  //用户id
-    private String payName;  //支付方式
-    private String payImg;  //
-    private String sortName;  //账单分类
-    private String sortImg;  //
-    private long crdate;  //创建时间
-    private boolean income;  //收入支出
-    private int version;  //版本
+    private String id;  //objectID in server
+    private float cost;
+    private String content;  //remarks in bill
+    private String userid;
+    private String payName;
+    private String payImg;
+    private String sortName; //sort of bill
+    private String sortImg;
+    private long crdate;  //bill's create date
+    private boolean income;  //whether is income
+    private int version;  //bill's version ,use to revise data
 
     public ShareBill(TotalBill TotalBill) {
         this.cost = TotalBill.getCost();

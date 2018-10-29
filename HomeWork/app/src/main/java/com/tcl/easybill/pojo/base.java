@@ -3,7 +3,7 @@ package com.tcl.easybill.pojo;
 public class base {
     /**
      * status : 100
-     * message : 成功！
+     * message : success
      */
 
     private int status;

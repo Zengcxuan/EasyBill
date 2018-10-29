@@ -6,12 +6,12 @@ import com.tcl.easybill.pojo.base;
 public interface  MonthDetailView extends BaseView<MonthDetailAccount> {
 
     /**
-     * 本地当月账单
+     * local monthly bill
      * @param list
      */
     void loadDataSuccess(MonthDetailAccount list);
     /**
-     * 删除成功
+     * delete data success
      * @param tData
      */
     void loadDataSuccess(base tData);

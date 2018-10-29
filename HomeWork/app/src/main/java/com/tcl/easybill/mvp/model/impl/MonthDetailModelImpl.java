@@ -19,7 +19,7 @@ public class MonthDetailModelImpl implements MonthDetailModel{
         this.listener = listener;
     }
     /**
-     * 回调接口
+     * call back
      */
     public interface MonthDetailOnListener {
 

@@ -4,9 +4,6 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Created by zhouas666 on 2017/12/12.
- */
 public class StringUtils {
 
     /**

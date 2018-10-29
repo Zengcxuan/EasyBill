@@ -9,14 +9,14 @@ public class BasePresenter {
     CompositeDisposable mCompositeDisposable = new CompositeDisposable();
 
     /**
-     * RXjava取消注册，以避免内存泄露
+     * RXjava cancel register
      */
     public void unSubscribe() {
         mCompositeDisposable.clear();
     }
 
     /**
-     * RXjava注册
+     * RXjava register
      * @param disposable
      */
     public void register(Disposable disposable) {

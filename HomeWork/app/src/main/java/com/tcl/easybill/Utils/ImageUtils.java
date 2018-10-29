@@ -12,9 +12,7 @@ import java.io.IOException;
 import com.tcl.easybill.R;
 import com.tcl.easybill.base.MyApplication;
 
-/**
- * Created by zhouas666 on 2017/12/26.
- */
+
 public class ImageUtils {
 
     /**

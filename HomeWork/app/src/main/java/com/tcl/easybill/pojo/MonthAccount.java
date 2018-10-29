@@ -3,8 +3,8 @@ package com.tcl.easybill.pojo;
 import java.util.List;
 
 public class MonthAccount extends base {
-    float totalOut;    //总支出
-    float totalIn;    //总收入
+    float totalOut;    //total outcome
+    float totalIn;    //total income
     List<PayTypeListBean> list;    //账单分类统计支出
 
     public float getTotalOut() {

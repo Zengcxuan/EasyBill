@@ -2,13 +2,13 @@ package com.tcl.easybill.mvp.views;
 
 public interface BaseView<T> {
     /**
-     * 请求数据成功
+     * load data success
      * @param tData
      */
     void loadDataSuccess(T tData);
 
     /**
-     * 请求数据错误
+     * load data error
      * @param throwable
      */
     void loadDataError(Throwable throwable);

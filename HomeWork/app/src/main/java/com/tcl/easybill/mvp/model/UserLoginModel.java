@@ -2,12 +2,12 @@ package com.tcl.easybill.mvp.model;
 
 public interface UserLoginModel {
     /**
-     * 用户登陆
+     * user login
      */
     void login(String username, String password);
 
     /**
-     * 用户注册
+     * user register
      */
     void signup(String username, String password, String mail);
 

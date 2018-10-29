@@ -21,7 +21,7 @@ public class BillMdelImpl implements BillModel {
     }
 
     /**
-     * 回调方法
+     * call back
      */
     public interface BillOnListener {
         void onSuccess(base bean);

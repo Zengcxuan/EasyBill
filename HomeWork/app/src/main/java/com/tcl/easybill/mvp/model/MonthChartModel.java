@@ -2,7 +2,7 @@ package com.tcl.easybill.mvp.model;
 
 public interface MonthChartModel {
     /**
-     * 每月账单图表数据
+     * monthly billing chart data
      */
     void getMonthChartBills(String id, String year, String month);
 

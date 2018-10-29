@@ -104,7 +104,7 @@ public class HomeActivity extends BaseActivity  {
                         return false;
                     }
                 });
-/*        menuItem = bottomNavigationView.getMenu().getItem(0);
+/*      menuItem = bottomNavigationView.getMenu().getItem(0);
         menuItem.setChecked(true);*/
         bottomNavigationView.setItemIconTintList(null);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

@@ -35,7 +35,7 @@ public class UserInfoModelImp implements UserInfoModel {
     }
 
     /**
-     * 回调接口
+     * call back
      */
     public interface UserInfoOnListener {
 

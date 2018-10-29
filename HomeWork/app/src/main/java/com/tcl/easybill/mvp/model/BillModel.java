@@ -7,15 +7,15 @@ public interface BillModel {
 
     void getNote();
     /**
-     * 添加账单
+     * add bill
      */
     void add(TotalBill totalBill);
     /**
-     * 修改账单
+     * revise bill
      */
     void update(TotalBill totalBill);
     /**
-     * 删除账单
+     * delete bill
      */
     void delete(Long id);
 

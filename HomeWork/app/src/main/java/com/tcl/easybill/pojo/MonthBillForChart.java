@@ -13,8 +13,8 @@ public class MonthBillForChart extends base {
        super();
     }
 
-    float totalOut;    //总支出
-    float totalIn;    //总收入
+    float totalOut;    //total out come
+    float totalIn;    //total income
     List<SortTypeList> outSortlist;    //账单分类统计支出
     List<SortTypeList> inSortlist;    //账单分类统计收入
     private List<MonthDetailAccount.DaylistBean> daylist;

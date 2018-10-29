@@ -11,7 +11,10 @@ import com.tcl.easybill.pojo.AllSortBill;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
-
+/**
+ * Override RxJava
+ * @param <T>
+ */
 public abstract class BaseObserver<T> implements Observer<T> {
     protected Context mContext;
 
@@ -61,7 +64,7 @@ public abstract class BaseObserver<T> implements Observer<T> {
     }
 
     /**
-     * 返回成功
+     * return success
      *
      * @param t
      * @throws Exception
@@ -69,7 +72,7 @@ public abstract class BaseObserver<T> implements Observer<T> {
     protected abstract void onSuccees(T t) throws Exception;
 
     /**
-     * 返回成功了,但是code错误
+     * return success but code has error
      *
      * @param t
      * @throws Exception
@@ -79,10 +82,10 @@ public abstract class BaseObserver<T> implements Observer<T> {
     }
 
     /**
-     * 返回失败
+     * return error
      *
      * @param e
-     * @param isNetWorkError 是否是网络错误
+     * @param isNetWorkError whether is Internet error
      * @throws Exception
      */
     protected abstract void onFailure(Throwable e, boolean isNetWorkError) throws Exception;

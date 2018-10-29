@@ -6,23 +6,23 @@ import com.tcl.easybill.pojo.TotalBill;
 public abstract  class BillPresenter extends BasePresenter {
 
     /**
-     * 获取信息
+     * get total data
      */
     public abstract void getNote();
 
     /**
-     * 添加账单
+     * add bill
      */
     public abstract void add(TotalBill totalBill);
 
     /**
-     * 修改账单
+     * revise bill
      */
     public abstract void update(TotalBill totalBill);
 
 
     /**
-     * 删除账单
+     * delete bill
      */
     public abstract void delete(Long id);
 }

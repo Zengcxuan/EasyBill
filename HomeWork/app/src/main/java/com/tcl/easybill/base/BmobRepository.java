@@ -43,7 +43,7 @@ public class BmobRepository {
         return sInstance;
     }
     /**
-     * 删除账单
+     * delete bill
      */
     public void deleteBills(String id){
         ShareBill shareBill = new ShareBill();
@@ -59,9 +59,9 @@ public class BmobRepository {
             }
         });
     }
-    /**********************批量操作***************************/
+    /**********************batch operate***************************/
     /**
-     * 批量上传账单
+     * batch upload bill
      *
      * @param list
      */
@@ -73,7 +73,7 @@ public class BmobRepository {
                 if (e == null) {
                     for (int i = 0, n = o.size(); i < n; i++) {
                         if (o.get(i).isSuccess()) {
-                            //上传成功后更新本地账单，否则会重复同步
+                            //when upload success update local-bill ,prevent repeat sync bill
                             TotalBill TotalBill = listB.get(i);
                             TotalBill.setRid(o.get(i).getObjectId());
                             LocalRepository.getInstance().updateTotalBillByBmob(TotalBill);
@@ -86,7 +86,7 @@ public class BmobRepository {
     }
 
     /**
-     * 批量更新账单
+     * batch update bill
      *
      * @param list
      */
@@ -104,7 +104,7 @@ public class BmobRepository {
     }
 
     /**
-     * 批量更新账单
+     * batch delete bill
      *
      * @param list
      */
@@ -121,28 +121,28 @@ public class BmobRepository {
         });
     }
 
-    /**************************同步账单******************************/
+    /**************************sync bill******************************/
     /**
-     * 同步账单
+     * sync bill
      */
     public void syncBill(String userid) {
 
         BmobQuery<ShareBill> query = new BmobQuery<>();
         query.addWhereEqualTo("userid", userid);
-        //返回50条数据，如果不加上这条语句，默认返回10条数据
+        //force return 50 data,default return 10 data
         query.setLimit(500);
-        //执行查询方法
+        //executing query method
         query.findObjects(new FindListener<ShareBill>() {
             @Override
             public void done(List<ShareBill> object, BmobException e) {
                 if (e == null) {
                     List<TotalBill> TotalBills = LocalRepository.getInstance().getTotalBills();
-                    //需要上传的账单
+                    //bills to upload
                     List<BmobObject> listUpload = new ArrayList<>();
                     List<TotalBill> listTotalBillUpdate = new ArrayList<>();
-                    //需要更新的账单
+                    //bills to update
                     List<BmobObject> listUpdate = new ArrayList<>();
-                    //需要删除的账单
+                    //bills to delete
                     List<BmobObject> listDelete = new ArrayList<>();
 
                     HashMap<String, TotalBill> bMap = new HashMap<>();
@@ -150,7 +150,7 @@ public class BmobRepository {
 
                     for (TotalBill TotalBill : TotalBills) {
                         if (TotalBill.getRid() == null) {
-                            //服务器端id为空，则表示为上传
+                            //upload success
                             listUpload.add(new ShareBill(TotalBill));
                             //以便账单成功上传后更新本地数据
                             listTotalBillUpdate.add(TotalBill);
@@ -171,7 +171,7 @@ public class BmobRepository {
                         TotalBill TotalBill=entry.getValue();
                         if (cMap.containsKey(rid)) {
                             if (TotalBill.getVersion() < 0) {
-                                //需要删除的账单
+                                //bills to delete
                                 listDelete.add(new ShareBill(TotalBill));
                                 listdelete.add(TotalBill);
                             } else {
@@ -183,14 +183,14 @@ public class BmobRepository {
                             cMap.remove(rid);
                         }
                     }
-                    //提交服务器数据的批量操作
+                    //batch submit to server
                     if(!listUpload.isEmpty()) saveBills(listUpload,listTotalBillUpdate);
                     if(!listUpdate.isEmpty()) updateBills(listUpdate);
                     if(!listDelete.isEmpty()) deleteBills(listDelete);
 
                     //ShareBill==》TotalBill
                     for (Map.Entry<String, ShareBill> entry : cMap.entrySet()) {
-                        //需要保存到本地的账单
+                        //bills to save to local
                         listsave.add(BillUtils.toTotalBill(entry.getValue()));
                     }
                     //向本地数据库提交的批量操作

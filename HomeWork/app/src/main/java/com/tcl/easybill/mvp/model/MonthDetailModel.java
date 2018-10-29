@@ -4,7 +4,7 @@ import com.tcl.easybill.pojo.TotalBill;
 
 public interface MonthDetailModel {
     /**
-     * 每月账单详情
+     * monthly billing details
      */
     void getMonthDetailBills(String id, String year, String month);
 
@@ -13,7 +13,7 @@ public interface MonthDetailModel {
      */
     void getDayCost(int id,String year,String month/*,String date*/);
     /**
-     * 删除账单
+     * delete bill
      */
     void delete(Long id);
 
