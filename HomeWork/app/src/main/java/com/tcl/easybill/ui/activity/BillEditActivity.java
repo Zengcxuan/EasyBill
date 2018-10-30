@@ -22,7 +22,7 @@ import static com.tcl.easybill.Utils.DateUtils.FORMAT_Y;
 import static com.tcl.easybill.Utils.DateUtils.FORMAT_YMD;
 
 /**
- * 修改账单
+ * revise bill
  */
 public class BillEditActivity extends BillAddActivity implements BillView {
 
@@ -39,42 +39,42 @@ public class BillEditActivity extends BillAddActivity implements BillView {
     protected void initEventAndData() {
 
         presenter=new BillPresenterImpl(this);
-        //获取旧数据
+        //get old data
         setOldBill();
 
-        //初始化分类数据
+        // initialize sort data
         initSortView();
 
-        //设置日期选择器初始日期
+        /*set up begin day of time choicer*/
         mYear = Integer.parseInt(DateUtils.getCurYear(FORMAT_Y));
         mMonth = Integer.parseInt(DateUtils.getCurMonth(FORMAT_M));
 
     }
     /**
-     * 获取旧数据
+     * get old data
      */
     private void setOldBill() {
 
         bundle = getIntent().getBundleExtra("bundle");
         if (bundle == null)
             return;
-        //设置账单日期
+        //set up bill's date
         days = DateUtils.long2Str(bundle.getLong("date"), FORMAT_YMD);
         dateTv.setText(days);
         isOutcome = !bundle.getBoolean("income");
         remarkInput = bundle.getString("content");
         DecimalFormat df = new DecimalFormat("######0.00");
         String money = df.format(bundle.getDouble("cost"));
-        //小数取整
+        //decimal rounding
         num = money.split("\\.")[0];
-        //截取小数部分
+        //get decimal number
         dotNum = "." + money.split("\\.")[1];
-        //设置金额
+        //set up money
         moneyTv.setText(num + dotNum);
     }
 
     /**
-     * 通过name查询分类信息
+     * select bill's data depend on  name
      *
      * @param name
      * @return
@@ -97,21 +97,20 @@ public class BillEditActivity extends BillAddActivity implements BillView {
     @Override
     public void loadDataSuccess(AllSortBill tData) {
         noteBean=tData;
-        //成功后加载布局
         setTitleStatus();
     }
 
     /**
-     * 设置状态
+     * set up status
      */
     protected void setTitleStatus() {
 
-        //设置类型
+
         setTitle();
 
         lastBean = findSortByName(bundle.getString("sortName"));
-        //当前分类未查询到次账单的分类
-        //存在该分类被删除的情况，以及切换账单收入支出类型
+        // could not find bill in this sort
+        //whether this bill has been delete or change income and outcome
         if (lastBean==null)
             lastBean=mDatas.get(0);
         sortTv.setText(lastBean.getSortName());
@@ -121,7 +120,7 @@ public class BillEditActivity extends BillAddActivity implements BillView {
     }
 
     /**
-     * 提交账单
+     * add bill
      */
     public void doCommit() {
         final SimpleDateFormat sdf = new SimpleDateFormat(" HH:mm:ss");

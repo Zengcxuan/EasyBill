@@ -2,35 +2,7 @@ package com.tcl.easybill.base;
 
 public class Constants {
 
-    //网络请求
-    public static final String BASE_URL = "";
-    public static final String USER_LOGIN = "";
-    public static final String USER_SIGN = "";
-    public static final String USER_UPDATE = "";
-    public static final String USER_CHANGEPW = "";
-    public static final String USER_FORGETPW = "";
-    public static final String BILL_MONTH_DETIAL = "";
-    public static final String BILL_MONTH_CHART = "";
-    public static final String BILL_MONTH_CARD = "";
-    public static final String BILL_DELETE = "";
-    public static final String BILL_UPDATE = "";
-    public static final String BILL_ADD = "";
-    public static final String NOTE_USER = "";
-    public static final String NOTE_SORT_ADD = "";
-    public static final String NOTE_SORT_UPDATE = "";
-    public static final String NOTE_PAY_ADD = "";
-    public static final String NOTE_PAY_UPDATE = "";
-    public static final String IMAGE_USER = "";
-    public static final String IMAGE_SORT = "";
-    public static final String IMAGE_PAY = "";
-
-
-    public static final String CACHE = "";
-
-    //当前用户
-    public static int currentUserId = 0;
-
-    //默认note(账单分类和支付方式)
+    /*base data*/
     public static String BILL_NOTE = "{\"status\":100,\"message\":\"处理成功！\"," +
             "\"outSortList\":[" +
             "{\"id\":1,\"uid\":0,\"sortName\":\"餐饮\",\"sortImg\":\"sort_meal.png\",\"priority\":0,\"income\":false}," +

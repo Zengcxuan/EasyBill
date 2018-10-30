@@ -66,10 +66,10 @@ public class MonthBillForChart extends base {
 
     public static class SortTypeList {
         private String back_color;
-        private float  money;    //此分类下的当月总收支
-        private String sortName;  //此分类
+        private float  money;    //monthly expense under this sort
+        private String sortName;  //bill'sort name
         private String sortImg;
-        private List<TotalBill> list;  //此分类下的当月账单
+        private List<TotalBill> list;  //monthly bill under this sort
 
         public String getBack_color() {
             return back_color;

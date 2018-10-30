@@ -58,22 +58,22 @@ import static com.tcl.easybill.Utils.DateUtils.FORMAT_M;
 import static com.tcl.easybill.Utils.DateUtils.FORMAT_Y;
 
 /**
- * 添加账单
+ * add bill
  */
 public class BillAddActivity extends BaseActivity implements BillView {
 
     @BindView(R.id.tb_note_income)
-    TextView incomeTv;    //收入按钮
+    TextView incomeTv;    //income button
     @BindView(R.id.tb_note_outcome)
-    TextView outcomeTv;   //支出按钮
+    TextView outcomeTv;   //outcome button
     @BindView(R.id.item_tb_type_tv)
-    TextView sortTv;     //显示选择的分类
+    TextView sortTv;     //show bill's sort
     @BindView(R.id.tb_note_money)
-    TextView moneyTv;     //金额
+    TextView moneyTv;
     @BindView(R.id.tb_note_date)
-    TextView dateTv;      //时间选择
+    TextView dateTv;      //date choice
     @BindView(R.id.tb_note_remark)
-    ImageView remarkIv;   //
+    ImageView remarkIv;
     @BindView(R.id.viewpager_item)
     ViewPager viewpagerItem;
     @BindView(R.id.layout_icon)
@@ -83,30 +83,29 @@ public class BillAddActivity extends BaseActivity implements BillView {
 
 
     public boolean isOutcome = false;
-    //计算器
+    /*counter */
     protected boolean isDot;
-    protected String num = "0";               //整数部分
-    protected String dotNum = ".00";          //小数部分
-    protected final int MAX_NUM = 9999999;    //最大整数
-    protected final int DOT_NUM = 2;          //小数部分最大位数
+    protected String num = "0";               //integer part
+    protected String dotNum = ".00";          //decimal part
+    protected final int MAX_NUM = 9999999;    //max number
+    protected final int DOT_NUM = 2;          //max number in decimal part
     protected int count = 0;
-    //选择器
+    /*choicer*/
     protected OptionsPickerView pvCustomOptions;
     protected List<String> cardItem;
-    protected int selectedPayinfoIndex = 0;      //选择的支付方式序号
-    //viewpager数据
+    /*viewpager data*/
     protected int page;
     protected boolean isTotalPage;
     protected int sortPage = -1;
     protected List<SortBill> mDatas;
     protected List<SortBill> tempList;
-    //记录上一次点击后的分类
+    /*note the last sort's click*/
     public SortBill lastBean;
 
-    //备注对话框
+
     protected AlertDialog alertDialog;
 
-    //选择时间
+    /*time choicer*/
     protected int mYear;
     protected int mMonth;
     protected int mDay;
@@ -114,15 +113,11 @@ public class BillAddActivity extends BaseActivity implements BillView {
     private SimpleDateFormat simpleDateFormat;
 
 
-    //备注
+    /*notes*/
     protected String remarkInput = "";
     protected AllSortBill noteBean = null;
 
-    //记录加减
-    protected Boolean isPlus = false;
-    protected Boolean isMinus = false;
-    protected String before;
-    protected String after;
+
 
 
     @Override
@@ -137,13 +132,13 @@ public class BillAddActivity extends BaseActivity implements BillView {
 
         presenter = new BillPresenterImpl(this);
 
-        //初始化分类数据
+        //loading data
         initSortView();
 
-        //设置日期选择器初始日期
+        /*set up begin day of time choicer*/
         mYear = Integer.parseInt(DateUtils.getCurYear(FORMAT_Y));
         mMonth = Integer.parseInt(DateUtils.getCurMonth(FORMAT_M));
-        //设置当前 日期
+        /*set up now */
         days = DateUtils.getCurDateStr("yyyy-MM-dd");
         simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");// HH:mm:ss
         Date date = new Date(System.currentTimeMillis());
@@ -159,7 +154,7 @@ public class BillAddActivity extends BaseActivity implements BillView {
     @Override
     public void loadDataSuccess(AllSortBill tData) {
         noteBean=tData;
-        //成功后加载布局
+        //load data when success
         setTitleStatus();
     }
 
@@ -178,40 +173,40 @@ public class BillAddActivity extends BaseActivity implements BillView {
         SnackbarUtils.show(mContext,throwable.getMessage());
     }
     /**
-     * 初始化分类数据
+     * load sort data
      */
     protected void initSortView() {
         noteBean= SharedPUtils.getUserNoteBean(this);
-        //本地获取失败后
+        //get local data fail
         if (noteBean==null){
-            //同步获取分类、支付方式信息
+            //sync data
             presenter.getNote();
         }else {
-            //成功后加载布局
+            //load data when success
             setTitleStatus();
         }
     }
     /**
-     * 设置状态
+     * set up status
      */
     protected void setTitleStatus() {
 
         setTitle();
-        //默认选择第一个分类
+        //default choice first sort
         lastBean = mDatas.get(0);
-        //设置选择的分类
+        //set up choice sort
         sortTv.setText(lastBean.getSortName());
         initViewPager();
     }
 
     protected void setTitle(){
         if (isOutcome) {
-            //设置支付状态
+            //set up payment
             outcomeTv.setSelected(true);
             incomeTv.setSelected(false);
             mDatas = noteBean.getOutSortList();
         } else {
-            //设置收入状态
+            //set up income status
             incomeTv.setSelected(true);
             outcomeTv.setSelected(false);
             mDatas = noteBean.getInSortList();
@@ -219,13 +214,10 @@ public class BillAddActivity extends BaseActivity implements BillView {
     }
 
     protected void initViewPager() {
-        LayoutInflater inflater = this.getLayoutInflater();// 获得一个视图管理器LayoutInflater
-        viewList = new ArrayList<>();// 创建一个View的集合对象
-        //声明一个局部变量来存储分类集合
-        //否则在收入支出类型切换时末尾一直添加选项
-        List<SortBill> tempData=new ArrayList<>();
+        LayoutInflater inflater = this.getLayoutInflater();
+        viewList = new ArrayList<>();
+        List<SortBill> tempData=new ArrayList<>();//use for store up sort
         tempData.addAll(mDatas);
-        //末尾加上添加选项
         //tempData.add(new SortBill(null,"添加", "sort_tianjia.png",0,null));
         if (tempData.size() % 15 == 0)
             isTotalPage = true;
@@ -249,7 +241,7 @@ public class BillAddActivity extends BaseActivity implements BillView {
                 @Override
                 public void OnClick(int index) {
 
-                    //获取真实index
+                    //get index
                     index=index + viewpagerItem.getCurrentItem() * 15;
                     /*if (index==mDatas.size()) {
                         //修改分类
@@ -257,7 +249,7 @@ public class BillAddActivity extends BaseActivity implements BillView {
                         intent.putExtra("type", isOutcome);
                         startActivityForResult(intent, 0);
                     } else{*/
-                        //选择分类
+                        //select sort
                         lastBean = mDatas.get(index);
                         sortTv.setText(lastBean.getSortName());
 
@@ -277,7 +269,7 @@ public class BillAddActivity extends BaseActivity implements BillView {
 
         viewpagerItem.setAdapter(new MonthAccountAdapter(viewList));
         viewpagerItem.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        viewpagerItem.setOffscreenPageLimit(1);//预加载数据页
+        viewpagerItem.setOffscreenPageLimit(1);//preload data
         viewpagerItem.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -308,7 +300,7 @@ public class BillAddActivity extends BaseActivity implements BillView {
     protected ImageView[] icons;
 
     /**
-     * 添加账单分类指示器
+     * add bill sort indicator
      */
     protected void initIcon() {
         icons = new ImageView[viewList.size()];
@@ -329,11 +321,7 @@ public class BillAddActivity extends BaseActivity implements BillView {
             viewpagerItem.setCurrentItem(sortPage);
     }
 
-    /**
-     * 监听点击事件
-     *
-     * @param view
-     */
+
     @OnClick({R.id.tb_note_income, R.id.tb_note_outcome, R.id.tb_note_date,
             R.id.tb_note_remark, R.id.tb_calc_num_done, R.id.tb_calc_num_del, R.id.tb_calc_num_1,
             R.id.tb_calc_num_2, R.id.tb_calc_num_3, R.id.tb_calc_num_4, R.id.tb_calc_num_5,
@@ -344,21 +332,21 @@ public class BillAddActivity extends BaseActivity implements BillView {
             case R.id.back_btn:
                 finish();
                 break;
-            case R.id.tb_note_income://收入
+            case R.id.tb_note_income://income
                 isOutcome = false;
                 setTitleStatus();
                 break;
-            case R.id.tb_note_outcome://支出
+            case R.id.tb_note_outcome://outcome
                 isOutcome = true;
                 setTitleStatus();
                 break;
-            case R.id.tb_note_date://日期
+            case R.id.tb_note_date://date
                 showTimeSelector();
                 break;
-            case R.id.tb_note_remark://备注
+            case R.id.tb_note_remark://note
                 showContentDialog();
                 break;
-            case R.id.tb_calc_num_done://确定
+            case R.id.tb_calc_num_done://commit
                 doCommit();
                 break;
             case R.id.tb_calc_num_1:
@@ -398,10 +386,10 @@ public class BillAddActivity extends BaseActivity implements BillView {
                 }
                 moneyTv.setText(num + dotNum);
                 break;
-            case R.id.tb_note_clear://清空
+            case R.id.tb_note_clear:
                 doClear();
                 break;
-            case R.id.tb_calc_num_del://删除
+            case R.id.tb_calc_num_del:
                 doDelete();
                 break;
         }

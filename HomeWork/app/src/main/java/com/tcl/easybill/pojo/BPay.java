@@ -5,7 +5,7 @@ import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 
 /**
- * 支付方式bean
+ * payment
  */
 @Entity
 public class BPay {

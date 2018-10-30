@@ -65,11 +65,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         /*if version is higher than 23, ask the permissions*/
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
-            // 检查该权限是否已经获取
+            // check whether has this permission
             int i = ContextCompat.checkSelfPermission(this, permissions[0]);
-            // 权限是否已经 授权 GRANTED---授权  DINIED---拒绝
+            // check whether has this permission  GRANTED---get  DINIED---defense
             if (i != PackageManager.PERMISSION_GRANTED) {
-                // 如果没有授予该权限，就去提示用户请求
                 showDialogTipUserRequestPermission();
             }
         }
@@ -80,7 +79,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
 
-    // 提示用户该请求权限的弹出框
+    // ask for permission
     private void showDialogTipUserRequestPermission() {
 
         new AlertDialog.Builder(this)
@@ -100,12 +99,12 @@ public abstract class BaseActivity extends AppCompatActivity {
                 }).setCancelable(false).show();
     }
 
-    // 开始提交请求权限
+    //  start request to get permission
     private void startRequestPermission() {
         ActivityCompat.requestPermissions(this, permissions, 321);
     }
 
-    // 用户权限 申请 的回调方法
+    // request permission callback
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -113,11 +112,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (requestCode == 321) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-                    // 判断用户是否 点击了不再提醒。(检测该权限是否还可以申请)
+                    // check whether user refuse
                     boolean b = shouldShowRequestPermissionRationale(permissions[0]);
                     if (!b) {
-                        // 用户还是想用我的 APP 的
-                        // 提示用户去应用设置界面手动开启权限
+                        // prompt user to turn on permission
                         showDialogTipUserGoToAppSettting();
                     } else
                         finish();
@@ -128,7 +126,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-    // 提示用户去应用设置界面手动开启权限
+    // prompt user to turn on permission in Setting
     private void showDialogTipUserGoToAppSettting() {
 
         dialog = new AlertDialog.Builder(this)
@@ -149,7 +147,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 }).setCancelable(false).show();
     }
 
-    // 跳转到当前应用的设置界面
+    // jump to Setting
     private void goToAppSetting() {
         Intent intent = new Intent();
 
@@ -167,11 +165,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (requestCode == 123) {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                // 检查该权限是否已经获取
+                // check whether has permission
                 int i = ContextCompat.checkSelfPermission(this, permissions[0]);
-                // 权限是否已经 授权 GRANTED---授权  DINIED---拒绝
+                // check whether has this permission  GRANTED---get  DINIED---defense
                 if (i != PackageManager.PERMISSION_GRANTED) {
-                    // 提示用户应该去应用设置界面手动开启权限
                     showDialogTipUserGoToAppSettting();
                 } else {
                     if (dialog != null && dialog.isShowing()) {

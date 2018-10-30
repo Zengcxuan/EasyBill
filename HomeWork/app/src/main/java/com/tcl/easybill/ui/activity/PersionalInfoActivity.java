@@ -125,7 +125,7 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView{
     private void changeEmail(){
         final EditText emailEditText = new EditText(PersionalInfoActivity.this);
         emailEditText.setText(currentUser.getEmail());
-        //将光标移至文字末尾
+        /*Move cursor to end of text*/
         emailEditText.setSelection(currentUser.getEmail().length());
         if (emailDialog == null) {
             emailDialog = new android.support.v7.app.AlertDialog.Builder(this)
@@ -157,7 +157,7 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView{
         }
     }
     /**
-     * 根据注册时间随即生成分享码
+     * Generate the share code according to the registration time.
      */
     public void getShareNumber(){
         if (currentUser.getShareid() == 0){
@@ -220,7 +220,7 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView{
         }
     }
     /**
-     * 更新同步
+     * sync data
      */
     public void doUpdate() {
         if (currentUser == null)
@@ -230,7 +230,7 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView{
 
     }
     /**
-     * 修改性别
+     * revise gender
      */
     public String getGender(int i){
         String gender ;

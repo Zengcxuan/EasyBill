@@ -60,7 +60,7 @@ public class UesrLoginActivity extends BaseActivity implements UserLoginView{
 
     }
     /**
-     * 监听点击事件
+     * onclick listener
      *
      * @param view
      */
@@ -163,7 +163,7 @@ public class UesrLoginActivity extends BaseActivity implements UserLoginView{
     }
 
     /**
-     * 切换至登陆界面
+     *Switch to login interface
      */
     private void openLoginFragment(){
         FragmentManager manager = getSupportFragmentManager();
@@ -174,7 +174,7 @@ public class UesrLoginActivity extends BaseActivity implements UserLoginView{
     }
 
     /**
-     * 切换至注册界面
+     * switch to register interface
      */
     private void openRigsterFragment(){
         FragmentManager manager = getSupportFragmentManager();

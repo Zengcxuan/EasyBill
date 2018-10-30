@@ -26,8 +26,8 @@ import static com.tcl.easybill.Utils.DateUtils.FORMAT_YMD_CN;
 
 
 /**
- * 悬浮头部项
- * 可侧滑编辑、删除
+ * head item
+ * Sideslip edit and delete
  */
 public class MonthDetailAdapter extends StickyHeaderGridAdapter {
 
@@ -96,9 +96,6 @@ public class MonthDetailAdapter extends StickyHeaderGridAdapter {
 
         TotalBill bBill=mDatas.get(section).getList().get(position);
         holder.item_title.setText(bBill.getSortName());
-//        Glide.with(mContext).load(Constants.BASE_URL+Constants.IMAGE_SORT
-//                + bBill.getSortImg())
-//                .into(holder.item_img);
         holder.item_img.setImageDrawable(ImageUtils.getDrawable(bBill.getSortImg()));
         if (bBill.isIncome()) {
             holder.item_money.setText("+" + bBill.getCost());
@@ -106,14 +103,13 @@ public class MonthDetailAdapter extends StickyHeaderGridAdapter {
             holder.item_money.setText("-" + bBill.getCost());
         }
 
-        //监听侧滑删除事件
+        /*Monitor side-slip delete event*/
         holder.item_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final int section = getAdapterPositionSection(holder.getAdapterPosition());
                 final int offset = getItemSectionOffset(section, holder.getAdapterPosition());
-
-//                确认删除
+                /*delete data*/
                 new AlertDialog.Builder(mContext).setTitle("是否删除此条记录")
                         .setNegativeButton("取消", null)
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -126,7 +122,7 @@ public class MonthDetailAdapter extends StickyHeaderGridAdapter {
                         .show();
             }
         });
-        //监听侧滑编辑事件
+        /*Monitor side-slip revise event*/
         holder.item_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,7 +132,7 @@ public class MonthDetailAdapter extends StickyHeaderGridAdapter {
                         mDatas.get(section).getList().get(offset), section, offset);
             }
         });
-        //监听单击显示详情事件
+        /*monitor click to show */
         holder.item_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -175,7 +171,7 @@ public class MonthDetailAdapter extends StickyHeaderGridAdapter {
     }
 
     /**
-     * 自定义编辑、删除接口
+     *Custom edit and delete interface
      */
     public interface OnStickyHeaderClickListener {
         void OnDeleteClick(TotalBill item, int section, int offset);

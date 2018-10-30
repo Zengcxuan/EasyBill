@@ -49,7 +49,7 @@ public class BudgetActivity extends BaseActivity{
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //获得设置的预算
+                /*get setting budget*/
                 input = enterSurplus.getText().toString();
                 budgetText.setText(input);
                 surplusProgressBar.setMax(Integer.valueOf(input));

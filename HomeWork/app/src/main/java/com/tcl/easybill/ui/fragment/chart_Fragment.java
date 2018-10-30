@@ -1,10 +1,11 @@
 package com.tcl.easybill.ui.fragment;
 
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import android.support.v4.widget.DrawerLayout;
+
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,8 +17,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
+
 import android.widget.Spinner;
 import android.widget.TableRow;
 
@@ -25,7 +25,6 @@ import java.util.ArrayList;
 
 import java.util.Date;
 import java.util.List;
-
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -38,11 +37,10 @@ import com.tcl.easybill.mvp.presenter.impl.MonthChartPresenterImpl;
 import com.tcl.easybill.mvp.views.MonthChartView;
 import com.tcl.easybill.pojo.MonthBillForChart;
 import com.tcl.easybill.pojo.MonthDetailAccount;
-import com.tcl.easybill.ui.activity.PersionalInfoActivity;
+
 import com.tcl.easybill.ui.activity.SearchAll;
 import com.tcl.easybill.ui.adapter.ChartAdapter;
 import com.tcl.easybill.ui.adapter.MonthChartAdapter;
-import com.tcl.easybill.ui.widget.ImageButtonWithText;
 
 import static android.view.Gravity.CENTER;
 import static android.view.Gravity.END;
@@ -65,24 +63,22 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
     RecyclerView mRecyclerView;
     private MonthChartAdapter adapter;
 
-    private boolean TYPE = true;//默认总收入true
     private final static int FULL_SPAN = 3;
     private final static int MULTI_SPAN = 2;
     private final static int SINGLE_SPAN = 1;
     private String TAG = "meng111";
 
     private  GridLayoutManager mLayoutManager;
-    private Context context;
     private String setYear = DateUtils.getCurYear(FORMAT_Y);
     private String setMonth = DateUtils.getCurMonth(FORMAT_M);
     private MonthChartPresenter presenter;
     private ChartAdapter chartAdapter;
-   // private List<Entry> values = new ArrayList<>();
 
     List<MonthBillForChart.SortTypeList> listInComeData ;
     List<MonthBillForChart.SortTypeList> listOutComeData;
     List<MonthDetailAccount.DaylistBean> detailList;
-    //private int now=4;
+
+    private Context context;
     private String crdate;
     private int week;
     private String allMoney;
@@ -94,11 +90,10 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
     private Date endDayOfWeek;
     private Date beginDayOfLastWeek;
     private Date endDayOfLastWeek;
-    //private float[][] incomeValues = {{0f,0f,0f,0f,0f,0f,0f},{0f,0f,0f,0f,0f,0f,0f}};
+
     private float[] incomeValues = {0f,0f,0f,0f,0f,0f,0f};
     private float[] outcomeValues = {0f,0f,0f,0f,0f,0f,0f};
-    //private float[][] outcomeValues = {{0f,0f,0f,0f,0f,0f,0f},{0f,0f,0f,0f,0f,0f,0f}};
-    //private float[] data = {10f,20f,30f,40f,65f,10f,77f};
+
 
     @OnClick({R.id.thisweek, R.id.lastweek})
     public void onClick(View view) {
@@ -126,7 +121,7 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
     }
     public void data(){
         Log.e(TAG, "data: " );
-        /*判断是收入还是支出，图表和view显示数据*/
+        /*Determine whether income or expenditure and display data*/
         if (isIncome ){
             if (isThisWeek){//isIncome=true,isThisWeek=true
                 WeekData(beginDayOfWeek,endDayOfWeek);
@@ -149,9 +144,8 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
         }
     }
     /**
-     * 加载数据成功
+     * load data success
      *
-     * @param tData 所有数据
      */
     @Override
     public void loadDataSuccess(MonthBillForChart tData) {
@@ -170,13 +164,13 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
         }
 
     /**
-     * 本周或者上周的收入和支出
+     * Revenue and expenditure this week or last week
      */
     public void WeekData(Date beginDay,Date endDay){
 
         for (int i =0;i<detailList.size();i++){
             crdate=detailList.get(i).getTime();
-            crdate = crdate+" 12:00:00";//防止特殊时间报错
+            crdate = crdate+" 12:00:00";
             if (DateUtils.belongCalendar(DateUtils.str2Date(crdate),beginDay,endDay)){
                 try {
                     week =  DateUtils.DayForWeek(crdate);
@@ -196,14 +190,14 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
 
     }
     /**
-     * 下拉刷新和加载数据
+     * Drop-down refresh and load data
      */
     public void flash(){
         swipe.setColorSchemeColors(getResources().getColor(R.color.text_red), getResources().getColor(R.color.text_red));
-        //设置向下拉多少出现刷新
-        swipe.setDistanceToTriggerSync(50);
-        //设置刷新出现的位置
-        swipe.setProgressViewEndTarget(false, 250);
+
+        swipe.setDistanceToTriggerSync(50);//set up how much refresh has been set to pull down.
+        swipe.setProgressViewEndTarget(false, 250);//Set refresh position
+
         swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -214,7 +208,7 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
     }
 
     /**
-     * 加入图表
+     * add chart
      * @param values
      * @param isThisWeek
      */
@@ -224,14 +218,14 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
         mRecyclerView.setAdapter(chartAdapter);
     }
     /**
-     * 加入listview
+     * add listview
      */
     public void setList(List<MonthBillForChart.SortTypeList> Data){
         adapter = new MonthChartAdapter(getActivity(),Data);
         rvList.setAdapter(adapter);
     }
     /**
-     * 返回Toolbar的菜单项（右边）
+     *Returns the menu right item  of Toolbar.
      */
     @Override
     protected void importantData() {
@@ -258,73 +252,46 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
         setChart(mValues,isThisWeek);
 
     }
-    /**
-     * 设置菜单项的响应事件,这里是开启查询
-     */
+
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_chart;
     }
 
-    /**
-     * 重写父类方法,初始化数据
-     */
+
     @Override
     protected void loadData() {
     }
-//    /**
-//     * 返回键名字
-//     */
-//    @Override
-//    protected ImageButton getBackBtn() {
-//        return getActivity().findViewById(R.id.back_chart);
-//    }
+
 
     @Override
     protected void beforeDestroy() {
     }
-//    /**
-//     * 重写父类抽象方法,返回DrawerLayout的ID
-//     */
-//    @Override
-//    protected DrawerLayout getDrawerLayout() {
-//        DrawerLayout mDrawerLayout = (DrawerLayout) getActivity().findViewById(R.id.drawerlayout_chart);
-//        return mDrawerLayout;
-//    }
+
     @Override
     protected int getItemMenu() {
         return R.menu.menu_main;
     }
     /**
-     * * 设置菜单项的响应事件,这里是开启查询
+     * open the query button
      */
     @Override
     protected void setItemReact() {
         Intent intent = new Intent(getActivity(), SearchAll.class);
         startActivity(intent);
     }
-    /**
-     * 重写父类抽象方法,返回Toolbar的ID
-     */
     @Override
     protected Toolbar getToolbar() {
-//        View viewToolbar = getActivity().findViewById(R.id.toolbar_chart);
         return getActivity().findViewById(R.id.toolbar_chart);
     }
-//    /**
-//     * 重写父类抽象方法,返回navigationView的ID
-//     */
-//    @Override
-//    protected LinearLayout getLeftWindow() {
-//        return getActivity().findViewById(R.id.navigationview_chart);
-//    }
+
 
     @Override
     public void loadDataError(Throwable throwable) {
         SnackbarUtils.show(mActivity, throwable.getMessage());
     }
     /**
-     * 重写myToolbar,添加Spinner作为下拉框,添加监听事件
+     * override myToolBar ,add spinner as drop-down box, add OnclickListener
      */
     @Override
     public void myToolbar() {
@@ -354,12 +321,12 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
                         //isThisWeek=true;
                         presenter.getMonthChartBills(currentUser.getObjectId(), setYear, setMonth);
 
-                        break;//收入
+                        break;
                     case 1:
                         isIncome = false;
                         //isThisWeek=true;
                         presenter.getMonthChartBills(currentUser.getObjectId(), setYear, setMonth);
-                        break;//支出
+                        break;
                 }
             }
 
@@ -380,8 +347,7 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
 
 
     /**
-     * 切换fragment重新加载数据
-     * @param isVisibleToUser
+     *when Switch fragment ,reload data
      */
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {

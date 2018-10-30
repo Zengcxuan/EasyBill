@@ -4,7 +4,7 @@ public class SyncEvent {
 
     /**
      * state : 100
-     * message : 成功！
+     * message : success
      */
 
     private int state;

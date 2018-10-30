@@ -26,8 +26,8 @@ public class BookNoteAdapter extends RecyclerView.Adapter<BookNoteAdapter.ViewHo
     private BillEditActivity eContext;
     private LayoutInflater mInflater;
     private List<SortBill> mDatas;
-    //定义一个集合记录选中的item
-    private List<Boolean> isClicks;
+
+    private List<Boolean> isClicks; //定义一个集合记录选中的item
 
     private OnBookNoteClickListener onBookNoteClickListener;
 
@@ -41,7 +41,7 @@ public class BookNoteAdapter extends RecyclerView.Adapter<BookNoteAdapter.ViewHo
         this.mInflater = LayoutInflater.from(context);
         this.mDatas = datas;
 
-        //集合所有item设为非选中
+        /*集合所有item设为非选中*/
         isClicks = new ArrayList<>();
         for(int i = 0;i<datas.size();i++){
             isClicks.add(false);
@@ -95,12 +95,9 @@ public class BookNoteAdapter extends RecyclerView.Adapter<BookNoteAdapter.ViewHo
         holder.itemView.setTag(holder.img);
         //判断更改属性
         if(isClicks.get(position)){
-//            holder.title.setTextColor(Color.parseColor("#ff0000"));
             holder.img.setBackground(mContext.getDrawable(R.drawable.item_click));
-//            holder.img.setBackgroundColor(mContext.getResources().getColor(R.color.center_color));
         }else{
             holder.img.setBackground(mContext.getDrawable(R.drawable.item_unclick));
-//            holder.img.setBackgroundColor(mContext.getResources().getColor(R.color.transparent));
         }
     }
 

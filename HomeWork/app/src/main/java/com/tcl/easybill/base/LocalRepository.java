@@ -57,7 +57,7 @@ public class LocalRepository {
     }
 
     /**
-     * 批量添加账单
+     * batch add bills
      * @param TotalBills
      */
     public void saveTotalBills( List<TotalBill> TotalBills) {
@@ -71,16 +71,7 @@ public class LocalRepository {
     }
 
     /**
-     * 批量添加账单分类
-     *
-     * @param sorts
-     */
-    public void saveSortBills(List<SortBill> sorts) {
-        for (SortBill sort : sorts)
-            saveSortBill(sort);
-    }
-    /**
-     * 批量添加支付方式
+     * batch add payment
      *
      * @param pays
      */
@@ -90,7 +81,7 @@ public class LocalRepository {
     }
 
     /**
-     * 批量添加账单分类
+     * batch add bill's sort
      *
      * @param sorts
      */
@@ -100,7 +91,7 @@ public class LocalRepository {
     }
 
     /**
-     * 批量添加账单
+     * batch add bill
      * @param
      */
 
@@ -166,24 +157,6 @@ public class LocalRepository {
                 .where(TotalBillDao.Properties.Userid.eq(id));
         return queryListToRx(queryBuilder);
     }
-    /*public Observable<List<TotalBill>> getTotalBillByUserIdWithYMD(int id, String year, String month, String day) {
-        String startStr = year + "-" + month +"-"+ day+" 00:00:00";
-        Date date = DateUtils.str2Date(startStr);
-
-        Calendar calendar =Calendar.getInstance();
-        calendar.setTime(date);
-        int i = calendar.get(Calendar.DAY_OF_WEEK);
-        Date begin = DateUtils.addDay(date,-i);
-        Date end = DateUtils.addDay(date,i);
-
-        Date endDate = DateUtils.addMonth(date, 1);
-        QueryBuilder<TotalBill> queryBuilder = mSession.getTotalBillDao()
-                .queryBuilder()
-                .where(TotalBillDao.Properties.Crdate.between(DateUtils.getMillis(begin), DateUtils.getMillis(end)))
-                .where(TotalBillDao.Properties.Version.ge(0))
-                .orderDesc(TotalBillDao.Properties.Crdate);
-        return queryListToRx(queryBuilder);
-    }*/
 
     public Observable<List<SortBill>> getSortBill(boolean income){
         QueryBuilder<SortBill> queryBuilder = mSession.getSortBillDao()
@@ -198,13 +171,10 @@ public class LocalRepository {
         return queryListToRx(queryBuilder);
     }
 
-
-
-
     /******************************update**************************************/
 
     /**
-     * 更新账单（用于同步）
+     * sync bill
      * @param bill
      */
     public void updateTotalBillByBmob(TotalBill bill) {
@@ -212,7 +182,7 @@ public class LocalRepository {
     }
 
     /**
-     * 更新账单
+     * update bill
      * @param bill
      * @return
      */
@@ -230,7 +200,7 @@ public class LocalRepository {
 
     /******************************delete**************************************/
     /**
-     * 删除账单分类
+     * delete bill's sort
      * @param id
      */
     public void deleteSortBillById(Long id){
@@ -240,7 +210,7 @@ public class LocalRepository {
     /**
 
     /**
-     * 批量删除账单（便于账单同步）
+     * sync bill (delete bill)
      * @param TotalBills
      */
     public void deleteBills(List<TotalBill> TotalBills){
@@ -248,7 +218,7 @@ public class LocalRepository {
     }
 
     /**
-     * 删除本地所有账单
+     * delete total local bill
      */
     public void deleteAllBills(){
         deleteBills(getTotalBills());
