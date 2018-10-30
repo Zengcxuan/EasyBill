@@ -16,14 +16,13 @@ public class DaoDBHelper {
 
     private  DaoDBHelper(){
 
-        //封装数据库的创建、更新、删除
+        /*package database operate*/
         DaoMaster.DevOpenHelper openHelper = new DaoMaster.DevOpenHelper(MyApplication.getContext(),DB_NAME,null);
-        //获取数据库
+        /*get database*/
         mDb = openHelper.getWritableDatabase();
-        //封装数据库中表的创建、更新、删除
-        mDaoMaster = new DaoMaster(mDb);  //合起来就是对数据库的操作
-        //对表操作的对象。
-        mSession = mDaoMaster.newSession(); //可以认为是对数据的操作
+        mDaoMaster = new DaoMaster(mDb);
+        //operate data
+        mSession = mDaoMaster.newSession();
     }
 
 

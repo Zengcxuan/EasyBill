@@ -45,22 +45,22 @@ public class LockViewUi extends BaseActivity{
     @OnClick ({R.id.switch_lockview, R.id.modify_lockview, R.id.back_persional})
     protected void onClick(View v){
         switch (v.getId()) {
-            //退出当前Activity
+            //login out this activity
             case R.id.back_persional:
                 finish();
                 break;
-            //开关按钮
+            //switch button
 //            case R.id.switch_lockview:
 //                swhHandle();
 //                break;
-            //修改手势密码,点击后直接清除当前存储密码
+            /*after user revise gesture password,click this button will clear the gesture password */
             case R.id.modify_lockview:
                 modifyHandle();
                 break;
         }
     }
     /**
-     * 根据当前状态做出反应
+     * React according to current state
      */
     private void setLockView(){
         lockView.setOnLockListener(new LockView.OnLockListener() {
@@ -93,9 +93,10 @@ public class LockViewUi extends BaseActivity{
 
     /**
      * Switch
-     * 点击开启会获取手势密码的当前状态,无密码点击无效；有密码先看是否已验证,没验证无效,验证了则启用手势密
-     * 码
-     * 点击关闭直接停用手势密码（不清除记录）
+     * Click on Open to get the current status of the gesture password,
+     * no password click invalid; password to see if it has been verified,
+     * no validation invalid, then turn on the gesture password click Close direct stop gesture password
+     * (not clear record)
      */
     private void swhHandle(){
         CompoundButton.OnCheckedChangeListener listener = new CompoundButton.OnCheckedChangeListener(){
@@ -126,7 +127,9 @@ public class LockViewUi extends BaseActivity{
     }
 
     /**
-     * 修改密码,已验证则点击清除当前密码,没验证点击无效
+     *Used to modify the password,
+     * has been verified to click to clear the current password,
+     * did not verify clicks invalid.
      */
     private void modifyHandle(){
         if(lockView.getCurrentStatus() == STATUS_NO_PWD){

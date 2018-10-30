@@ -27,8 +27,8 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public int getItemPosition(@NonNull Object object) {
         /**
-         * 解决 adapter.notifyDataSetChanged();无反应问题
-         * 只重新加载了bill_fragment
+         * resolve adapter.notifyDataSetChanged() adiaphoria
+         * just reload bill_fragment
          */
         if (object.getClass().getName().equals(bill_Fragment.class.getName())
                 || object.getClass().getName().equals(bill_Fragment.class.getName())) {

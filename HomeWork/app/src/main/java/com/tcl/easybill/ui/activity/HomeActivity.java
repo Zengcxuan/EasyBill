@@ -73,7 +73,7 @@ public class HomeActivity extends BaseActivity  {
         TAG = "meng111";
         /*FloatingActionButton*/
         initFab();
-        //第一次进入将默认账单分类添加到数据库
+        // it is the first the user open this APP
         if(SharedPUtils.isFirstStart(mContext)){
             Log.i(TAG,"第一次进入将默认账单分类添加到数据库");
             AllSortBill note= new Gson().fromJson(Constants.BILL_NOTE, AllSortBill.class);
@@ -142,7 +142,7 @@ public class HomeActivity extends BaseActivity  {
     }
 
     /**
-     * 添加悬浮按钮
+     * add suspend button
      */
     private void initFab(){
         /*parent button*/

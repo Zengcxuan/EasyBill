@@ -24,12 +24,12 @@ public class MyApplication extends MultiDexApplication {
         application = this;
         context = getApplicationContext();
 
-        //第一：默认初始化
+        //base data to connect BOMB
         Bmob.initialize(this, "67c270494e715778bc806baefbb410c3");
     }
 
     /**
-     * 获取上下文
+     * get context
      * @return
      */
     public static Context getContext() {

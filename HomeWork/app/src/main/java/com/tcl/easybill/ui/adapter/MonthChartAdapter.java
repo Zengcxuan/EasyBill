@@ -81,7 +81,6 @@ public class MonthChartAdapter extends RecyclerView.Adapter<MonthChartAdapter.Vi
 
         }
 
-
         @Override
         public void onClick(View view) {
             switch (view.getId()) {

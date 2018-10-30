@@ -3,26 +3,19 @@ package com.tcl.easybill.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+
 import android.widget.TextView;
 
 import com.liuwan.customdatepicker.widget.CustomDatePicker;
-import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
-import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
-import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
+
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -35,15 +28,12 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import butterknife.Unbinder;
+
 import com.tcl.easybill.R;
 
 import com.tcl.easybill.Utils.DateUtils;
 import com.tcl.easybill.Utils.SnackbarUtils;
 import com.tcl.easybill.Utils.stickyheader.StickyHeaderGridLayoutManager;
-import com.tcl.easybill.base.BmobRepository;
-import com.tcl.easybill.base.Constants;
-import com.tcl.easybill.base.LocalRepository;
 import com.tcl.easybill.base.SyncEvent;
 import com.tcl.easybill.mvp.presenter.MonthDetailPresenter;
 import com.tcl.easybill.mvp.presenter.impl.MonthDetailPresenterImpl;
@@ -52,18 +42,11 @@ import com.tcl.easybill.pojo.MonthDetailAccount;
 import com.tcl.easybill.pojo.Person;
 import com.tcl.easybill.pojo.ShareBill;
 import com.tcl.easybill.pojo.TotalBill;
-import com.tcl.easybill.pojo.User;
 import com.tcl.easybill.pojo.base;
-import com.tcl.easybill.ui.activity.PersionalInfoActivity;
-import com.tcl.easybill.ui.activity.BillAddActivity;
 import com.tcl.easybill.ui.activity.BillEditActivity;
 import com.tcl.easybill.ui.activity.SearchAll;
-
 import com.tcl.easybill.Utils.meng_MyUtils;
-
 import com.tcl.easybill.ui.adapter.MonthDetailAdapter;
-import com.tcl.easybill.ui.widget.ImageButtonWithText;
-
 import static android.view.Gravity.CENTER;
 import static com.tcl.easybill.Utils.DateUtils.FORMAT_M;
 import static com.tcl.easybill.Utils.DateUtils.FORMAT_Y;
@@ -77,7 +60,6 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
 
     int part, index;
     private static final int SPAN_SIZE = 1;
-    private static final int RESULTCODE =0;
     private StickyHeaderGridLayoutManager mLayoutManager;
     private MonthDetailAdapter adapter;
     private List<MonthDetailAccount.DaylistBean> list;
@@ -109,15 +91,14 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
     @Override
     protected void importantData() {
         left();
-        //注册 EventBus
+        //register EventBus
         EventBus.getDefault().register(this);
 
         flash();
 
         presenter=new MonthDetailPresenterImpl(this);
 
-        //请求当月数据
-        //getBills(Constants.currentUserId, setYear, setMonth);
+        //Request monthly data
         getBills(currentUser.getObjectId(), setYear, setMonth);
         initDatePicker();
     }
@@ -125,7 +106,7 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
     protected void loadData() {
     }
     /**
-     * 监听list侧拉
+     *Monitor list's side pull
      */
     public void left(){
         ShareBill shareBill = new ShareBill();
@@ -148,8 +129,10 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
             @Override
             public void OnDeleteClick(TotalBill item, int section, int offset) {
                 item.setVersion(-1);
-                //将删除的账单版本号设置为负，而非直接删除
-                //便于同步删除服务器数据
+
+
+                /*The deleted version number of the bill is set to negative instead of directly deleted.*/
+                /*sync bills convenient*/
                 presenter.updateBill(item);
                /* BmobRepository.getInstance().deleteBills(shareBill.getObjectId());*/
                 part = section;
@@ -175,7 +158,7 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
         });
     }
     /**
-     * 借口回调
+     * call back
      * @param tData
      */
     @Override
@@ -199,49 +182,41 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
     }
 
     /**
-     * 下拉刷新和加载数据
+     *Drop-down refresh and load data
      */
     public void flash(){
         swipe.setColorSchemeColors(getResources().getColor(R.color.text_red), getResources().getColor(R.color.text_red));
-        //设置向下拉多少出现刷新
-        swipe.setDistanceToTriggerSync(200);
-        //设置刷新出现的位置
-        swipe.setProgressViewEndTarget(false, 200);
+
+        swipe.setDistanceToTriggerSync(200);//set up how much refresh has been set to pull down.
+                swipe.setProgressViewEndTarget(false, 200); //设置刷新出现的位置
+
         swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 swipe.setRefreshing(false);
                 getBills(currentUser.getObjectId(), setYear, setMonth);
-                //getBills( User.getCurrentUser().getObjectId(), setYear, setMonth);
-               //getBills(currentUser.getObjectId(), setYear, setMonth);
+
             }
         });
 
     }
     /**
-     * 刷新数据
+     * refresh data
      */
     public void flashData(){
         /*getBills(Person.getCurrentUser().getObjectId(),setYear,setMonth);*/
-        presenter.getMonthDetailBills(Person.getCurrentUser().getObjectId(), setYear, setMonth);
+        //presenter.getMonthDetailBills(Person.getCurrentUser().getObjectId(), setYear, setMonth);
+        getBills(currentUser.getObjectId(), setYear, setMonth);
     }
     /**
-     * 获取账单数据
-     *
-     * @param userid
-     * @param year
-     * @param month
+     * get bills data
      */
-    public void getBills(String userid, String year, String month) {
-        //请求数据前清空数据
-        /*adapter.clear();
-        tOutcome.setText("0.00");
-        tIncome.setText("0.00");*/
-        //请求某年某月数据
-        presenter.getMonthDetailBills(userid, setYear, setMonth);
+    public void getBills(String userId, String year, String month) {
+
+        presenter.getMonthDetailBills(userId, setYear, setMonth);
     }
     /**
-     * 时间选择
+     * date choicer
      */
     /*id = R.id.bill_time setTime on the editext*/
     @OnClick({R.id.bill_time_year,R.id.bill_time_month})

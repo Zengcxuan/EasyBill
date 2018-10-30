@@ -1,10 +1,11 @@
 package com.tcl.easybill.ui.fragment;
 
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import android.support.v4.widget.DrawerLayout;
+
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,8 +17,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
+
 import android.widget.Spinner;
 import android.widget.TableRow;
 
@@ -25,7 +25,6 @@ import java.util.ArrayList;
 
 import java.util.Date;
 import java.util.List;
-
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -38,11 +37,10 @@ import com.tcl.easybill.mvp.presenter.impl.MonthChartPresenterImpl;
 import com.tcl.easybill.mvp.views.MonthChartView;
 import com.tcl.easybill.pojo.MonthBillForChart;
 import com.tcl.easybill.pojo.MonthDetailAccount;
-import com.tcl.easybill.ui.activity.PersionalInfoActivity;
+
 import com.tcl.easybill.ui.activity.SearchAll;
 import com.tcl.easybill.ui.adapter.ChartAdapter;
 import com.tcl.easybill.ui.adapter.MonthChartAdapter;
-import com.tcl.easybill.ui.widget.ImageButtonWithText;
 
 import static android.view.Gravity.CENTER;
 import static android.view.Gravity.END;
@@ -61,14 +59,6 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
     View thisView;
     @BindView(R.id.tableRow)
     TableRow tableRow;
-//    @BindView(R.id.button_week)
-//    Button weekBtn;
-//    @BindView(R.id.button_month)
-//    Button monthBtn;
-//    @BindView(R.id.button_year)
-//    Button yearBtn;
-    /*@BindView(R.id.chart)
-    LineChart chart;//显示线条的自定义View*/
     @BindView(R.id.rv_list_chart)
     RecyclerView rvList;
     @BindView(R.id.swipe2)
@@ -77,24 +67,22 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
     RecyclerView mRecyclerView;
     private MonthChartAdapter adapter;
 
-    private boolean TYPE = true;//默认总收入true
     private final static int FULL_SPAN = 3;
     private final static int MULTI_SPAN = 2;
     private final static int SINGLE_SPAN = 1;
     private String TAG = "meng111";
 
     private  GridLayoutManager mLayoutManager;
-    private Context context;
     private String setYear = DateUtils.getCurYear(FORMAT_Y);
     private String setMonth = DateUtils.getCurMonth(FORMAT_M);
     private MonthChartPresenter presenter;
     private ChartAdapter chartAdapter;
-   // private List<Entry> values = new ArrayList<>();
 
     List<MonthBillForChart.SortTypeList> listInComeData ;
     List<MonthBillForChart.SortTypeList> listOutComeData;
     List<MonthDetailAccount.DaylistBean> detailList;
-    //private int now=4;
+
+    private Context context;
     private String crdate;
     private int week;
     private String allMoney;
@@ -106,11 +94,10 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
     private Date endDayOfWeek;
     private Date beginDayOfLastWeek;
     private Date endDayOfLastWeek;
-    //private float[][] incomeValues = {{0f,0f,0f,0f,0f,0f,0f},{0f,0f,0f,0f,0f,0f,0f}};
+
     private float[] incomeValues = {0f,0f,0f,0f,0f,0f,0f};
     private float[] outcomeValues = {0f,0f,0f,0f,0f,0f,0f};
-    //private float[][] outcomeValues = {{0f,0f,0f,0f,0f,0f,0f},{0f,0f,0f,0f,0f,0f,0f}};
-    //private float[] data = {10f,20f,30f,40f,65f,10f,77f};
+
 
     @OnClick({R.id.thisweek, R.id.lastweek})
     public void onClick(View view) {
@@ -136,7 +123,7 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
     }
     public void data(){
         Log.e(TAG, "data: " );
-        /*判断是收入还是支出，图表和view显示数据*/
+        /*Determine whether income or expenditure and display data*/
         if (isIncome ){
             if (isThisWeek){//isIncome=true,isThisWeek=true
                 WeekData(beginDayOfWeek,endDayOfWeek);
@@ -159,9 +146,8 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
         }
     }
     /**
-     * 加载数据成功
+     * load data success
      *
-     * @param tData 所有数据
      */
     @Override
     public void loadDataSuccess(MonthBillForChart tData) {
@@ -180,13 +166,13 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
         }
 
     /**
-     * 本周或者上周的收入和支出
+     * Revenue and expenditure this week or last week
      */
     public void WeekData(Date beginDay,Date endDay){
 
         for (int i =0;i<detailList.size();i++){
             crdate=detailList.get(i).getTime();
-            crdate = crdate+" 12:00:00";//防止特殊时间报错
+            crdate = crdate+" 12:00:00";
             if (DateUtils.belongCalendar(DateUtils.str2Date(crdate),beginDay,endDay)){
                 try {
                     week =  DateUtils.DayForWeek(crdate);
@@ -283,25 +269,12 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
     protected void loadData() {
         tableRow.setGravity(END);
     }
-//    /**
-//     * 返回键名字
-//     */
-//    @Override
-//    protected ImageButton getBackBtn() {
-//        return getActivity().findViewById(R.id.back_chart);
-//    }
+
 
     @Override
     protected void beforeDestroy() {
     }
-//    /**
-//     * 重写父类抽象方法,返回DrawerLayout的ID
-//     */
-//    @Override
-//    protected DrawerLayout getDrawerLayout() {
-//        DrawerLayout mDrawerLayout = (DrawerLayout) getActivity().findViewById(R.id.drawerlayout_chart);
-//        return mDrawerLayout;
-//    }
+
     @Override
     protected int getItemMenu() {
         return R.menu.menu_main;
@@ -322,13 +295,7 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
 //        View viewToolbar = getActivity().findViewById(R.id.toolbar_chart);
         return getActivity().findViewById(R.id.toolbar_chart);
     }
-//    /**
-//     * 重写父类抽象方法,返回navigationView的ID
-//     */
-//    @Override
-//    protected LinearLayout getLeftWindow() {
-//        return getActivity().findViewById(R.id.navigationview_chart);
-//    }
+
 
     @Override
     public void loadDataError(Throwable throwable) {

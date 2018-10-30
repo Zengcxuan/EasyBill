@@ -5,7 +5,7 @@ import java.util.List;
 public class MonthAccount extends base {
     float totalOut;    //total outcome
     float totalIn;    //total income
-    List<PayTypeListBean> list;    //账单分类统计支出
+    List<PayTypeListBean> list;    //bill's sort statistics
 
     public float getTotalOut() {
         return totalOut;

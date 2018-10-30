@@ -152,14 +152,14 @@ public class BmobRepository {
                         if (TotalBill.getRid() == null) {
                             //upload success
                             listUpload.add(new ShareBill(TotalBill));
-                            //以便账单成功上传后更新本地数据
+                            //when upload bill ,update local data
                             listTotalBillUpdate.add(TotalBill);
                         } else
                             bMap.put(TotalBill.getRid(), TotalBill);
                     }
 
                     HashMap<String, ShareBill> cMap = new HashMap<>();
-                    //服务器账单==》键值对
+                    //storage server bill to map
                     for (ShareBill ShareBill : object) {
                         cMap.put(ShareBill.getObjectId(), ShareBill);
                     }
@@ -193,10 +193,10 @@ public class BmobRepository {
                         //bills to save to local
                         listsave.add(BillUtils.toTotalBill(entry.getValue()));
                     }
-                    //向本地数据库提交的批量操作
+                    //batch operate local database
                     LocalRepository.getInstance().saveTotalBills(listsave);
                     LocalRepository.getInstance().deleteBills(listdelete);
-                    // 发送同步成功事件
+                    // sync success
                     EventBus.getDefault().post(new SyncEvent(100));
                 }
                 else
