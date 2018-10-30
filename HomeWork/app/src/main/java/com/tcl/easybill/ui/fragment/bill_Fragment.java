@@ -188,7 +188,7 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
         swipe.setColorSchemeColors(getResources().getColor(R.color.text_red), getResources().getColor(R.color.text_red));
 
         swipe.setDistanceToTriggerSync(200);//set up how much refresh has been set to pull down.
-                swipe.setProgressViewEndTarget(false, 200); //设置刷新出现的位置
+        swipe.setProgressViewEndTarget(false, 200); //Set refresh position
 
         swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

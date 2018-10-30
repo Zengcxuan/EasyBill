@@ -192,14 +192,14 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
 
     }
     /**
-     * 下拉刷新和加载数据
+     * Drop-down refresh and load data
      */
     public void flash(){
         swipe.setColorSchemeColors(getResources().getColor(R.color.text_red), getResources().getColor(R.color.text_red));
-        //设置向下拉多少出现刷新
-        swipe.setDistanceToTriggerSync(50);
-        //设置刷新出现的位置
-        swipe.setProgressViewEndTarget(false, 250);
+
+        swipe.setDistanceToTriggerSync(50);//set up how much refresh has been set to pull down.
+        swipe.setProgressViewEndTarget(false, 250);//Set refresh position
+
         swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -210,7 +210,7 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
     }
 
     /**
-     * 加入图表
+     * add chart
      * @param values
      * @param isThisWeek
      */
@@ -220,14 +220,14 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
         mRecyclerView.setAdapter(chartAdapter);
     }
     /**
-     * 加入listview
+     * add listview
      */
     public void setList(List<MonthBillForChart.SortTypeList> Data){
         adapter = new MonthChartAdapter(getActivity(),Data);
         rvList.setAdapter(adapter);
     }
     /**
-     * 返回Toolbar的菜单项（右边）
+     *Returns the menu right item  of Toolbar.
      */
     @Override
     protected void importantData() {
@@ -254,17 +254,13 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
         setChart(mValues,isThisWeek);
 
     }
-    /**
-     * 设置菜单项的响应事件,这里是开启查询
-     */
+
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_chart;
     }
 
-    /**
-     * 重写父类方法,初始化数据
-     */
+
     @Override
     protected void loadData() {
         tableRow.setGravity(END);
@@ -280,19 +276,15 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
         return R.menu.menu_main;
     }
     /**
-     * * 设置菜单项的响应事件,这里是开启查询
+     * open the query button
      */
     @Override
     protected void setItemReact() {
         Intent intent = new Intent(getActivity(), SearchAll.class);
         startActivity(intent);
     }
-    /**
-     * 重写父类抽象方法,返回Toolbar的ID
-     */
     @Override
     protected Toolbar getToolbar() {
-//        View viewToolbar = getActivity().findViewById(R.id.toolbar_chart);
         return getActivity().findViewById(R.id.toolbar_chart);
     }
 
@@ -302,7 +294,7 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
         SnackbarUtils.show(mActivity, throwable.getMessage());
     }
     /**
-     * 重写myToolbar,添加Spinner作为下拉框,添加监听事件
+     * override myToolBar ,add spinner as drop-down box, add OnclickListener
      */
     @Override
     public void myToolbar() {
@@ -332,12 +324,12 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
                         //isThisWeek=true;
                         presenter.getMonthChartBills(currentUser.getObjectId(), setYear, setMonth);
 
-                        break;//收入
+                        break;
                     case 1:
                         isIncome = false;
                         //isThisWeek=true;
                         presenter.getMonthChartBills(currentUser.getObjectId(), setYear, setMonth);
-                        break;//支出
+                        break;
                 }
             }
 
@@ -358,8 +350,7 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
 
 
     /**
-     * 切换fragment重新加载数据
-     * @param isVisibleToUser
+     *when Switch fragment ,reload data
      */
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {

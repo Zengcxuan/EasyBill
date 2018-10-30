@@ -120,7 +120,7 @@ public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
     }
 
     /**
-     * 载入数据
+     * load data
      */
     @Override
     protected  void loadData(){
@@ -128,15 +128,15 @@ public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
 
 
     /**
-     * 载入用户数据
+     * load user data
      */
     private void initData(){
         // TODO: 18-10-9 载入头像名字，账单数据
-        recordDays.setText("0"); //总天数
-        recordDeals.setText("0"); //总笔数
-        recordSurplus.setText("0.0"); //结余
+        recordDays.setText("0"); //total day
+        recordDeals.setText("0"); //total bill
+        recordSurplus.setText("0.0"); //balance
 
-        //初始化GridView，添加itemClickListener，下方多行栏目的监听
+        /*load GridView and add itemClickListener*/
         final List<Map<String, Object>> dataList;
         SimpleAdapter adapter;
         dataList = new ArrayList<Map<String, Object>>();
@@ -200,8 +200,7 @@ public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
 
             }
         });
-//        //取消按键音效
-//        listView.setSoundEffectsEnabled(false);
+
     }
 
 
@@ -223,8 +222,7 @@ public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
         intent.putExtra(Intent.EXTRA_SUBJECT, "Share");
         intent.putExtra(Intent.EXTRA_TEXT, "快来跟我一起记账吧");
         File f = new File(Environment.getExternalStorageDirectory()+"/shared.png");
-//        Uri uri = Uri.fromFile(f);
-//        intent.putExtra(Intent.EXTRA_STREAM, R.mipmap.shared);
+
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(Intent.createChooser(intent, "选择分享途径"));
     }
