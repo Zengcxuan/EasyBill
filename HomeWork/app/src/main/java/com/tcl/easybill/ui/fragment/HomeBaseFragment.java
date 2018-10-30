@@ -95,84 +95,24 @@ public abstract class HomeBaseFragment extends Fragment {
         lazyLoad();
     }
 
-//    @OnClick ({R.id.head})
-//    protected void onClick(View v){
-//        Toast.makeText(getActivity(), "你点击了我", Toast.LENGTH_LONG).show();
-//
-//    }
 
     public void myToolbar(){
-        /**
+        /*
          * 这里获取屏幕的宽和高并赋予给侧滑栏，使其全屏显示
          * */
-        /*DisplayMetrics metric = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(metric);*/
         DisplayMetrics metric=getActivity().getResources().getDisplayMetrics();
-        /*int windowsWight = metric.widthPixels;
-        int windowsHeight = metric.heightPixels;*/
-//        View leftMenu = getLeftWindow();
-//        ViewGroup.LayoutParams leftParams = leftMenu.getLayoutParams();
-//        leftParams.height =metric.heightPixels;
-//        leftParams.width = metric.widthPixels;
-//        leftMenu.setLayoutParams(leftParams);
         /* set  toolbar  and show */
         toolbar = getToolbar();
-//        toolbar.getMenu().clear();
-//        navigationView = getLeftWindow();
-//        mDrawerLayout = getDrawerLayout();
-//        navigationView.setFitsSystemWindows(true);
-//        navigationView.findViewById(R.id.imageView_my)
-//                .setBackground(mContext.getDrawable(R.drawable.persional));
-//        navigationView.findViewById(R.id.imageView_share)
-//                .setBackground(mContext.getDrawable(R.drawable.shared));
         toolbar.setTitle("");//设置Toolbar标题
-//        toolbar.setTitleTextColor(Color.parseColor("#ffffff")); //设置标题颜色
-//        navigationView.setItemIconTintList(null);
         toolbar.inflateMenu(getItemMenu());
         ((AppCompatActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);
-        //创建返回键，并实现打开关/闭监听
-
-//        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);//禁止滑动
-//        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(getActivity(), mDrawerLayout,
-//                toolbar, R.string.open, R.string.close) {
-//
-//            @Override
-//            public void onDrawerOpened(View drawerView) {
-//                super.onDrawerOpened(drawerView);
-//                //mAnimationDrawable.stop();
-//                drawerView.setClickable(true);
-//                mDrawerLayout.bringChildToFront(getLeftWindow());
-//                ImageButton backBtn = getBackBtn();
-//                backBtn.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        mDrawerLayout.closeDrawers();
-//                    }
-//                });
-//
-//            }
-//
-//            @Override
-//            public void onDrawerClosed(View drawerView) {
-//                super.onDrawerClosed(drawerView);
-//                // mAnimationDrawable.start();
-//            }
-//            @Override
-//            public void onDrawerSlide(View drawerView, float slideOffset) {
-//                super.onDrawerSlide(drawerView, slideOffset);
-//            }
-//
-//
-//
-//        };
-//        mDrawerToggle.syncState();
-//        mDrawerLayout.setDrawerListener(mDrawerToggle);
         toolbar.setNavigationIcon(R.drawable.menu);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                mDrawerLayout.openDrawer(Gravity.LEFT);
-                Intent accountIntent = new Intent(mContext, AccountActivity.class);
+                /*暂时不开启账单切换Activity*/
+                Intent accountIntent = new Intent(mContext, PersionalInfoActivity.class);
                 startActivity(accountIntent);
             }
         });
@@ -216,26 +156,6 @@ public abstract class HomeBaseFragment extends Fragment {
     }
 
     private void lazyLoad() {
-        //这里进行双重标记判断,是因为setUserVisibleHint会多次回调,
-        // 并且会在onCreateView执行前回调,必须确保onCreateView加载完毕且页面可见,才加载数据
-//        if (isViewCreated && isUIVisible) {
-//            loadData();
-//            //数据加载完毕,恢复标记,防止重复加载
-//            isViewCreated = false;
-//            isUIVisible = false;
-//            ImageButton backBtn = getBackBtn();
-//            backBtn.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    mDrawerLayout.closeDrawers();
-//                }
-//            });
-//
-//            ImageButtonWithText headView = getHead();
-//            headView.setText("我的");
-//            headView.setImageView(R.mipmap.sort_kid);
-//
-//        }
     }
 
     @Override
@@ -251,14 +171,11 @@ public abstract class HomeBaseFragment extends Fragment {
     protected void setToolbar(View v){
         getToolbar().addView(v);
     }
-//    protected abstract DrawerLayout getDrawerLayout();
     protected abstract Toolbar getToolbar();
-//    protected abstract LinearLayout getLeftWindow();
     protected abstract int getLayoutId();
     protected abstract void beforeDestroy();
     protected abstract int getItemMenu();
     protected abstract void setItemReact();
-//    protected abstract ImageButton getBackBtn();
-//    protected abstract ImageButtonWithText getHead();
+
 
 }

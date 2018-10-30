@@ -45,8 +45,8 @@
 
             <ImageView
                 android:id="@+id/image_left"
-                android:layout_width="40px"
-                android:layout_height="40px"
+                android:layout_width="50px"
+                android:layout_height="50px"
                 android:scaleType="fitCenter" />
 
             <Button

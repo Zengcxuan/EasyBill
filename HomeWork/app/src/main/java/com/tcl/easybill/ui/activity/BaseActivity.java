@@ -76,6 +76,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         initEventAndData();
         //ActivityManagerUtils.mActivities.add(this);
+
     }
 
 
@@ -191,11 +192,18 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
 
-    /*keep the app alive when it goto background*/
+    /**
+     * keep the app alive when it goto background
+     * finish the activity when press the back
+     * @param keyCode
+     * @param event
+     * @return
+     */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             moveTaskToBack(false);
+            finish();
             return true;
         }
         return super.onKeyDown(keyCode, event);
@@ -203,4 +211,5 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected abstract int getLayout();
     protected abstract void initEventAndData();
+
 }

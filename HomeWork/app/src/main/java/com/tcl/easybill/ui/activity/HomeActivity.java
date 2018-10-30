@@ -12,12 +12,14 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
@@ -31,6 +33,7 @@ import com.tcl.easybill.R;
 import com.tcl.easybill.Utils.DateUtils;
 import com.tcl.easybill.Utils.ProgressUtils;
 import com.tcl.easybill.Utils.SharedPUtils;
+import com.tcl.easybill.Utils.ToastUtils;
 import com.tcl.easybill.base.BmobRepository;
 import com.tcl.easybill.base.Constants;
 import com.tcl.easybill.base.LocalRepository;
@@ -56,6 +59,7 @@ public class HomeActivity extends BaseActivity  {
     private bill_Fragment bill_fFragment;
     private chart_Fragment chart_fragment;
     private mine_Fragment mine_fragment;
+    private long mExitTime;
     ViewPagerAdapter adapter;
     @BindView(R.id.viewpager)
     MyViewPager viewPager ;
@@ -195,5 +199,35 @@ public class HomeActivity extends BaseActivity  {
         adapter.notifyDataSetChanged();
         ProgressUtils.dismiss();
 
+    }
+
+    /**
+     * call the exit() when press the back twice
+     * @param keyCode
+     * @param event
+     * @return
+     */
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            exit();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    /**
+     * finish the app
+     */
+    private void exit() {
+        if ((System.currentTimeMillis() - mExitTime) > 2000) {
+            ToastUtils.show(mContext, "再按一次退出应用");
+            mExitTime = System.currentTimeMillis();
+        } else {
+            //用户退出处理
+            finish();
+            System.exit(0);
+        }
     }
 }

@@ -30,7 +30,7 @@ android {
 }
 greendao{
     schemaVersion 1
-    daoPackage 'finalhomework.tcl.com.finalhomework.greendao'
+    daoPackage 'com.tcl.easybill.greendao'
     targetGenDir 'src/main/java'
 }
 

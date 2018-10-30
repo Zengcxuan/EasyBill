@@ -23,7 +23,6 @@
             <TableLayout
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:layout_marginStart="8dp"
                 app:layout_constraintBottom_toTopOf="@+id/horizontal1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/guideline19">
@@ -37,32 +36,15 @@
                         android:id="@+id/lastweek"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
+                        android:background="@drawable/chart_button_unclick"
                         android:text="上周" />
 
                     <Button
                         android:id="@+id/thisweek"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
+                        android:background="@drawable/chart_button_click"
                         android:text="这周" />
-                </TableRow>
-
-                <TableRow
-                    android:id="@+id/tableRow"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="end">
-
-                    <View
-                        android:id="@+id/view_this"
-                        style="@style/horizontal_decoration_style.chart"
-                        android:background="@drawable/shape_color_blue" />
-
-                    <!--<View-->
-                    <!--android:id="@+id/view_this"-->
-                    <!--style="@style/horizontal_decoration_style.chart" />-->
                 </TableRow>
 
             </TableLayout>
@@ -85,10 +67,7 @@
                 android:id="@+id/swipe2"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="3dp"
-                android:background="@android:color/white"
+                android:background="@drawable/chart_button_click"
                 android:elevation="4sp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline24"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -100,8 +79,7 @@
                     android:id="@+id/recycler_view"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:scrollbars="vertical">
-                </android.support.v7.widget.RecyclerView>
+                    android:scrollbars="vertical"></android.support.v7.widget.RecyclerView>
 
 
             </android.support.v4.widget.SwipeRefreshLayout>
@@ -176,7 +154,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.51" />
+                app:layout_constraintGuide_percent="0.49" />
             <!--<lecho.lib.hellocharts.view.ColumnChartView
                 android:id="@+id/test_content"
                 android:layout_width="0dp"
@@ -201,8 +179,8 @@
                 android:id="@+id/rv_list_chart"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
                 android:scrollbars="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -214,11 +192,10 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
                 android:gravity="start|center_vertical"
-                android:text="本月账单"
+                android:text="本月账单:"
                 android:textSize="25sp"
+                android:background="@drawable/chart_button_unclick"
                 app:layout_constraintBottom_toTopOf="@+id/rv_list_chart"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

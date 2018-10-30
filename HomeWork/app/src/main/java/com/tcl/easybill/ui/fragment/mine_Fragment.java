@@ -38,6 +38,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import com.tcl.easybill.MyBroadcast;
 import com.tcl.easybill.R;
+import com.tcl.easybill.Utils.ToastUtils;
 import com.tcl.easybill.ui.activity.NotifyActivity;
 import com.tcl.easybill.ui.activity.PersionalInfoActivity;
 import com.tcl.easybill.Utils.LockViewUtil;
@@ -72,6 +73,7 @@ public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
     TextView userName; //userName
     private Boolean isOpen = true;
     private TotalRecordPresenter presenter;
+    protected static final int PERSIONAL_INFO = 1;
     private int[] typeIcon = new int[]{
             R.mipmap.voice, R.mipmap.notify, R.mipmap.yusuan, R.mipmap.cyper, R.mipmap.outport,
             R.mipmap.count, R.mipmap.help
@@ -79,7 +81,7 @@ public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
     private String[] buttonContent = new String[]{
        "声音开关", "定时提醒", "每月预算", "手势密码", "导出账单", "评分", "帮助"
     };
-    private String PackageName = "finalhomework.tcl.com.finalhomework";
+    private String PackageName = "com.tcl.easybill";
     private int[] rightIcon = new int[]{
             R.drawable.voice_switch, R.drawable.arrow, R.drawable.arrow, R.drawable.arrow, R.drawable.arrow,
             R.drawable.arrow, R.drawable.arrow
@@ -114,7 +116,7 @@ public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
             case R.id.headimage:
                 // TODO: 18-10-9  开启个人信息界面
                 Intent intent = new Intent(mContext, PersionalInfoActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, PERSIONAL_INFO);
                 break;
         }
     }
@@ -164,9 +166,11 @@ public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
                         if(isOpen) {
                             imageView.setImageDrawable(getActivity().getDrawable(R.drawable.close_switch));
                             Toast.makeText(getActivity(), "声音关闭", Toast.LENGTH_LONG).show();
+                            listView.setSoundEffectsEnabled(false);
                         }else {
                             imageView.setImageDrawable(getActivity().getDrawable(R.drawable.voice_switch));
                             Toast.makeText(getActivity(), "声音开启", Toast.LENGTH_LONG).show();
+                            listView.setSoundEffectsEnabled(true);
                         }
                         isOpen = !isOpen;
                         break;
@@ -187,6 +191,7 @@ public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
                         break;
                     case 4:
                         /*outport the bill*/
+                        ToastUtils.show(mContext,"功能尚未完善");
                         break;
                     case 5:
                         /*comments*/
@@ -200,8 +205,6 @@ public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
 
             }
         });
-//        //取消按键音效
-//        listView.setSoundEffectsEnabled(false);
     }
 
 
@@ -249,17 +252,6 @@ public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
         }
     }
 
-    /**
-     *set headImage
-     */
-    @Override
-    public void onPause() {
-        super.onPause();
-        if(LockViewUtil.getIschange(mContext)){
-            headImage.setImageURI(Uri.parse(LockViewUtil.getImage(mContext)));
-        }
-    }
-
 
     @Override
     public void loadDataSuccess(DataSum tData) {
@@ -283,6 +275,17 @@ public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
     public void loadDataError(Throwable throwable) {
         SnackbarUtils.show(mActivity, throwable.getMessage());
         Log.e(TAG, "loadDataError: "+throwable );
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == PERSIONAL_INFO){
+            /*set the image*/
+            if(LockViewUtil.getIschange(mContext)){
+                headImage.setImageURI(Uri.parse(LockViewUtil.getImage(mContext)));
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     /**
