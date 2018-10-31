@@ -2,24 +2,17 @@ package com.tcl.easybill.ui.activity;
 
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
-import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.AnimationSet;
 import android.widget.Button;
-import android.widget.EditText;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
+
 import com.tcl.easybill.R;
 import com.tcl.easybill.Utils.LockViewUtil;
 import com.tcl.easybill.Utils.ProgressUtils;
@@ -29,12 +22,8 @@ import com.tcl.easybill.mvp.presenter.UserLoginPresenter;
 import com.tcl.easybill.mvp.presenter.impl.UserLoginPresenterImpl;
 import com.tcl.easybill.mvp.views.UserLoginView;
 import com.tcl.easybill.pojo.Person;
-import com.tcl.easybill.pojo.User;
 import com.tcl.easybill.ui.fragment.login.LoginFragment;
 import com.tcl.easybill.ui.fragment.login.RegisterFragment;
-import com.tcl.easybill.ui.widget.LockView;
-
-import static com.tcl.easybill.Utils.UiUtils.getContext;
 
 public class UesrLoginActivity extends BaseActivity implements UserLoginView{
     @BindView(R.id.button_left)
@@ -57,7 +46,10 @@ public class UesrLoginActivity extends BaseActivity implements UserLoginView{
     protected void initEventAndData() {
         openLoginFragment();
         userLoginPresenter = new UserLoginPresenterImpl(this);
-
+        if(LockViewUtil.getIslogin(mContext)){
+            ProgressUtils.show(this, "正在登录...");
+            userLoginPresenter.login(LockViewUtil.getUser(mContext),LockViewUtil.getPassword(mContext));
+        }
     }
     /**
      * onclick listener
@@ -112,7 +104,8 @@ public class UesrLoginActivity extends BaseActivity implements UserLoginView{
             SnackbarUtils.show(mContext, "用户名或密码不能为空");
             //return;
         }
-
+        LockViewUtil.saveUser(mContext, username);
+        LockViewUtil.savePassword(mContext, password);
         ProgressUtils.show(this, "正在登录...");
         userLoginPresenter.login(username,password);
        // userLoginPresenter.login("1", "1");
@@ -143,7 +136,7 @@ public class UesrLoginActivity extends BaseActivity implements UserLoginView{
             }
             setResult(RESULT_OK, new Intent());
             finish();
-
+            LockViewUtil.setIslogin(mContext, true);
         }else {
             ToastUtils.show(mContext, "注册成功");
         }
