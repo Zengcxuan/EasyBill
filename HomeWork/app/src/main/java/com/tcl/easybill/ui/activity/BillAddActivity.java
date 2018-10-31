@@ -140,14 +140,7 @@ public class BillAddActivity extends BaseActivity implements BillView {
         mMonth = Integer.parseInt(DateUtils.getCurMonth(FORMAT_M));
         /*set up now */
         days = DateUtils.getCurDateStr("yyyy-MM-dd");
-        simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");// HH:mm:ss
-        Date date = new Date(System.currentTimeMillis());
-        if (simpleDateFormat.format(date).equals(days)) {
-            dateTv.setText("今天");
-        } else {
-            dateTv.setText(days);
-
-        }
+        dateTv.setText(days);
     }
 
 
@@ -427,13 +420,7 @@ public class BillAddActivity extends BaseActivity implements BillView {
 
                 }
                 dateTv.setText(days);
-                Date date = new Date(System.currentTimeMillis());
-                if (simpleDateFormat.format(date).equals(days)) {
-                    dateTv.setText("今天");
-                } else {
-                    dateTv.setText(days);
 
-                }
             }
         }, mYear, mMonth, mDay).show();
     }
