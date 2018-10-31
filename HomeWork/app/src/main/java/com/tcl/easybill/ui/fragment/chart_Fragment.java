@@ -55,10 +55,6 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
     Button thisWeekBtn;
     @BindView(R.id.lastweek)
     Button lastWeekBtn;
-    @BindView(R.id.view_this)
-    View thisView;
-    @BindView(R.id.tableRow)
-    TableRow tableRow;
     @BindView(R.id.rv_list_chart)
     RecyclerView rvList;
     @BindView(R.id.swipe2)
@@ -105,15 +101,17 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
         switch (view.getId()) {
             case R.id.thisweek:
                 lastWeekBtn.setTextColor(getResources().getColor(R.color.tab_unclicked));
+                lastWeekBtn.setBackground(getResources().getDrawable(R.drawable.chart_button_unclick));
                 thisWeekBtn.setTextColor(getResources().getColor(R.color.tab_clicked));
-                tableRow.setGravity(END);
+                thisWeekBtn.setBackground(getResources().getDrawable(R.drawable.chart_button_click));
                 isThisWeek =true;
                 presenter.getMonthChartBills(currentUser.getObjectId(), setYear, setMonth);
                 break;
             case R.id.lastweek:
                 thisWeekBtn.setTextColor(getResources().getColor(R.color.tab_unclicked));
+                thisWeekBtn.setBackground(getResources().getDrawable(R.drawable.chart_button_unclick));
                 lastWeekBtn.setTextColor(getResources().getColor(R.color.tab_clicked));
-                tableRow.setGravity(START);
+                lastWeekBtn.setBackground(getResources().getDrawable(R.drawable.chart_button_click));
                 isThisWeek =false;
                 presenter.getMonthChartBills(currentUser.getObjectId(), setYear, setMonth);
                 break;
@@ -263,7 +261,6 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
 
     @Override
     protected void loadData() {
-        tableRow.setGravity(END);
     }
 
 

@@ -10,8 +10,10 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -61,11 +63,9 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView{
     protected static final int TAKE_PICTURE = 1;
     protected static final int GENDER_MAN = 0;
     protected static final int GENDER_FEMALE = 1;
-    private static final int CROP_SMALL_PICTURE = 2;
-    private File file;
     private Uri imageUri;
 
-    private String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE,
+    private String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.CAMERA, Manifest.permission.MEDIA_CONTENT_CONTROL};
 
 
@@ -80,6 +80,9 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView{
         getShareNumber();
         if(LockViewUtil.getIschange(mContext)){
             perisonalHead.setImageURI(Uri.parse(LockViewUtil.getImage(mContext)));
+            Log.i("----", "have image");
+        }else {
+            Log.i("----","no image");
         }
     }
 
@@ -112,7 +115,6 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView{
                finish();
                break;
             case R.id.share_account:
-
                break;
 
        }
@@ -267,10 +269,9 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView{
     private void askPermission(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             /*check permissions*/
-            for(int i = 0; i < 4; i++){
-                if(ContextCompat.checkSelfPermission(this, permissions[i]) !=
-                        PackageManager.PERMISSION_GRANTED){
-                    ActivityCompat.requestPermissions(this, permissions,111);
+            for (String permission : permissions) {
+                if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(this, permissions, 111);
                 }
             }
         }
@@ -289,7 +290,7 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView{
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_PICK);
                 intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent, 1);
+                startActivityForResult(intent, CHOOSE_PICTURE);
             }
         }).setNegativeButton("拍照", new DialogInterface.OnClickListener() {
             @Override
@@ -299,7 +300,7 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView{
                 Intent intent = new Intent();
                 intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-                startActivityForResult(intent, 2);
+                startActivityForResult(intent, TAKE_PICTURE);
             }
         });
         builder.create().show();
@@ -312,20 +313,21 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView{
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_CANCELED) {
             delteImageUri(mContext, imageUri);
+            Log.i("----","cancel");
             return;
         }else {
             switch (requestCode) {
                 // read pictures
-                case 1:
+                case CHOOSE_PICTURE:
                     try {
+                        imageUri = data.getData();
+                        perisonalHead.setImageURI(imageUri);
+                        /*save the image*/
                         /*delete the image that save before*/
                         if(LockViewUtil.getIschange(mContext)){
                             LockViewUtil.clearImage(mContext);
+                            Log.i("----", "have image");
                         }
-                        imageUri = data.getData();
-                        Bitmap photo = ImageUtils.getBitmapByUri(imageUri);
-                        perisonalHead.setImageBitmap(photo);
-                        /*save the image*/
                         LockViewUtil.saveImage(mContext,imageUri.toString());
                         LockViewUtil.setIschange(mContext,true);
                     } catch (Exception e) {
@@ -333,15 +335,15 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView{
                     }
                     break;
                 // capture
-                case 2:
+                case TAKE_PICTURE:
                     try {
+                        Log.i("----", "change image");
+                        perisonalHead.setImageURI(imageUri);
                         /*delete the image that save before*/
                         if(LockViewUtil.getIschange(mContext)){
                             LockViewUtil.clearImage(mContext);
+                            Log.i("----", "have image");
                         }
-                        Bitmap photo = ImageUtils.getBitmapByUri(imageUri);
-                        perisonalHead.setImageBitmap(photo);
-                        /*save the image*/
                         LockViewUtil.saveImage(mContext,imageUri.toString());
                         LockViewUtil.setIschange(mContext,true);
                     } catch (Exception e) {
@@ -355,6 +357,7 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView{
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
+
 
 
     /**

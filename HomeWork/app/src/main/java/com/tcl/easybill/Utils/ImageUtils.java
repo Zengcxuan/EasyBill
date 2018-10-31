@@ -72,19 +72,22 @@ public class ImageUtils {
     public static Bitmap getBitmapByUri(Uri uri){
         BitmapFactory.Options options = new BitmapFactory.Options();
         String filePath = uri.getPath();
-        options.inJustDecodeBounds = true;
-
-        BitmapFactory.decodeFile(filePath, options);
-
-        int outHeight = options.outHeight;
-        int outWidth = options.outWidth;
-
-        int scale = Math.max(outHeight / 300, outWidth / 300);
-        //scale向下取整,真实取值 2的n次幂
-        options.inSampleSize = scale;
-        options.inJustDecodeBounds = false;
-        return BitmapFactory.decodeFile(filePath,options);
+//        options.inJustDecodeBounds = true;
+//        int outHeight = options.outHeight;
+//        int outWidth = options.outWidth;
+//        int scale = Math.max(outHeight / 3000, outWidth / 3000);
+//        //scale向下取整,真实取值 2的n次幂
+//        options.inSampleSize = scale;
+//        options.inJustDecodeBounds = false;
+//        Bitmap bitmap = BitmapFactory.decodeFile(filePath,options);
+        Bitmap bitmap = BitmapFactory.decodeFile(filePath);
+        Matrix matrix = new Matrix();
+        matrix.setScale(0.7f, 0.7f);
+        return Bitmap.createBitmap( bitmap, 0, 0,  100, 100,
+                matrix, false);
     }
+
+
     /**
      * 转换图片成圆形
      *

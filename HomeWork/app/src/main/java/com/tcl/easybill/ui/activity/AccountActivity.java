@@ -54,10 +54,10 @@ public class AccountActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(LockViewUtil.getIschange(mContext)){
-            Bitmap photo = ImageUtils.getBitmapByUri(Uri.parse(LockViewUtil.getImage(mContext)));
-            headImage.setImageBitmap(photo);
-        }
+//        if(LockViewUtil.getIschange(mContext)){
+//            Bitmap photo = ImageUtils.getBitmapByUri(Uri.parse(LockViewUtil.getImage(mContext)));
+//            headImage.setImageBitmap(photo);
+//        }
 
     }
 

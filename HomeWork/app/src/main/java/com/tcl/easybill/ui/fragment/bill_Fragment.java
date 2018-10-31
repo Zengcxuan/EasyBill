@@ -264,9 +264,9 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
      */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        getBills(currentUser.getObjectId(), setYear, setMonth);
         super.onActivityResult(requestCode, resultCode, data);
             //getBills(Constants.currentUserId, setYear, setMonth);
-       getBills(currentUser.getObjectId(), setYear, setMonth);
     }
 
     public static bill_Fragment newInstance(String info) {

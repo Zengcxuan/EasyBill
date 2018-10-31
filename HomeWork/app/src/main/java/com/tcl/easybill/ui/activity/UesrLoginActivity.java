@@ -24,6 +24,7 @@ import com.tcl.easybill.R;
 import com.tcl.easybill.Utils.LockViewUtil;
 import com.tcl.easybill.Utils.ProgressUtils;
 import com.tcl.easybill.Utils.SnackbarUtils;
+import com.tcl.easybill.Utils.ToastUtils;
 import com.tcl.easybill.mvp.presenter.UserLoginPresenter;
 import com.tcl.easybill.mvp.presenter.impl.UserLoginPresenterImpl;
 import com.tcl.easybill.mvp.views.UserLoginView;
@@ -112,7 +113,7 @@ public class UesrLoginActivity extends BaseActivity implements UserLoginView{
             //return;
         }
 
-        ProgressUtils.show(this, "正在登陆...");
+        ProgressUtils.show(this, "正在登录...");
         userLoginPresenter.login(username,password);
        // userLoginPresenter.login("1", "1");
 
@@ -144,7 +145,7 @@ public class UesrLoginActivity extends BaseActivity implements UserLoginView{
             finish();
 
         }else {
-            SnackbarUtils.show(mContext, "注册成功");
+            ToastUtils.show(mContext, "注册成功");
         }
     }
 
