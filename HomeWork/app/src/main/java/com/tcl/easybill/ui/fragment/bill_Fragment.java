@@ -164,8 +164,6 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
      */
     @Override
     public void loadDataSuccess(MonthDetailAccount tData) {
-        /*BigDecimal outcome = UiUtils.getNumber(Float.valueOf(tData.getT_outcome()));
-        BigDecimal income = UiUtils.getNumber(Float.valueOf(tData.getT_income()));*/
         BigDecimal outcome = UiUtils.getSmallNumber(tData.getT_outcome());
         BigDecimal income = UiUtils.getSmallNumber(tData.getT_income());
         tOutcome.setText(outcome.toString());
@@ -209,8 +207,6 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
      * refresh data
      */
     public void flashData(){
-        /*getBills(Person.getCurrentUser().getObjectId(),setYear,setMonth);*/
-        //presenter.getMonthDetailBills(Person.getCurrentUser().getObjectId(), setYear, setMonth);
         getBills(currentUser.getObjectId(), setYear, setMonth);
     }
     /**
