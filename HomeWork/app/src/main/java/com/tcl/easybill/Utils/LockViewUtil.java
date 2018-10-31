@@ -23,6 +23,10 @@ public class LockViewUtil {
     //记录是否更改了头像
     private static final String ISCHANGE = "head";
     private static final String IMAGE = "image";
+    //是否登录
+    private static final String ISLOGIN = "login";
+    private static final String USER = "null";
+    private static final String PASSWORD = "null";
     public static void savePwd(Context mContext , List<Integer> password){
         SharedPreferences sp = mContext.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
         sp.edit().putString(SP_KEY, listToString(password)).commit();
@@ -98,7 +102,7 @@ public class LockViewUtil {
 
     public static void setIschange(Context mContext, Boolean ischange){
         SharedPreferences sp = mContext.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
-        sp.edit().putBoolean(ISCHANGE, ischange).commit();
+        sp.edit().putBoolean(ISCHANGE, ischange).apply();
     }
 
     public static boolean getIschange(Context mContext){
@@ -118,7 +122,40 @@ public class LockViewUtil {
 
     public static void clearImage(Context mContext){
         SharedPreferences sp = mContext.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
-        sp.edit().remove(IMAGE).commit();
+        sp.edit().remove(IMAGE).apply();
+    }
+
+    /*save user and password */
+    public static void setIslogin(Context mContext, Boolean islogin){
+        SharedPreferences sp = mContext.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
+        sp.edit().putBoolean(ISLOGIN, islogin).apply();
+    }
+
+    public static Boolean getIslogin(Context mContext){
+        SharedPreferences sp = mContext.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
+        return sp.getBoolean(ISLOGIN, false);
+    }
+
+    public static void saveUser(Context mContext, String user){
+        SharedPreferences sp = mContext.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
+        sp.edit().remove(USER).apply();
+        sp.edit().putString(USER, user).apply();
+    }
+
+    public static String getUser(Context mContext){
+        SharedPreferences sp = mContext.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
+        return  sp.getString(USER, "");
+    }
+
+    public static void savePassword(Context mContext, String password){
+        SharedPreferences sp = mContext.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
+        sp.edit().remove(PASSWORD).apply();
+        sp.edit().putString(PASSWORD, password).apply();
+    }
+
+    public static String getPassword(Context mContext){
+        SharedPreferences sp = mContext.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
+        return  sp.getString(PASSWORD, "");
     }
 }
 

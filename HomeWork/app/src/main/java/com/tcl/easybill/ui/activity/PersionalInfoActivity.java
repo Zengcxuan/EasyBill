@@ -80,6 +80,7 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView{
         getShareNumber();
         if(LockViewUtil.getIschange(mContext)){
             perisonalHead.setImageURI(Uri.parse(LockViewUtil.getImage(mContext)));
+            Log.i("----", LockViewUtil.getImage(mContext));
             Log.i("----", "have image");
         }else {
             Log.i("----","no image");
@@ -251,6 +252,7 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView{
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // TODO: 18-10-18 这里注销
+                LockViewUtil.setIslogin(mContext, false);
                 Intent intent  = new Intent(mContext,UesrLoginActivity.class);
                 startActivity(intent);
                 finish();
@@ -326,7 +328,7 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView{
                         /*delete the image that save before*/
                         if(LockViewUtil.getIschange(mContext)){
                             LockViewUtil.clearImage(mContext);
-                            Log.i("----", "have image");
+                            Log.i("----", "have image" + imageUri.toString());
                         }
                         LockViewUtil.saveImage(mContext,imageUri.toString());
                         LockViewUtil.setIschange(mContext,true);
@@ -342,7 +344,7 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView{
                         /*delete the image that save before*/
                         if(LockViewUtil.getIschange(mContext)){
                             LockViewUtil.clearImage(mContext);
-                            Log.i("----", "have image");
+                            Log.i("----", "have image" + imageUri.toString());
                         }
                         LockViewUtil.saveImage(mContext,imageUri.toString());
                         LockViewUtil.setIschange(mContext,true);

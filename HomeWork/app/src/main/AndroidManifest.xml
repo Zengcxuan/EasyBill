@@ -53,6 +53,7 @@
         <activity android:name=".ui.activity.WelcomeActivity"/>
         <activity android:name=".ui.activity.NotifyActivity"/>
         <activity android:name=".ui.activity.AccountActivity"/>
+        <activity android:name=".ui.activity.LockOnActivity"/>
     </application>
 
 </manifest>

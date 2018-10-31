@@ -34,6 +34,8 @@ public class SplashActivity extends AwesomeSplash {
             finish();
         }
 
+
+
         /* you don't have to override every property */
 
         //设置主题颜色
