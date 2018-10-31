@@ -1,6 +1,8 @@
 package com.tcl.easybill.base;
 
 
+import android.util.Log;
+
 import org.greenrobot.greendao.query.QueryBuilder;
 
 import java.util.Calendar;
@@ -137,10 +139,12 @@ public class LocalRepository {
                 .where(TotalBillDao.Properties.Userid.eq(id))
                 .where(TotalBillDao.Properties.Version.ge(0))
                 .orderDesc(TotalBillDao.Properties.Crdate);
+        Log.e("mengss", "getDataSum: "+queryBuilder.toString() );
         return queryListToRx(queryBuilder);
     }
     public Observable<List<TotalBill>> getTotalBillByUserIdWithYM2(String id, String year, String month) {
-        String startStr = year + "-" + month + "-00 00:00:00";
+        String startStr = year + "-" + month + "-01 00:00:00";
+        Log.e("Local", "getTotalBillByUserIdWithYM2: "+startStr );
         Date date = DateUtils.str2Date(startStr);
         Date endDate = DateUtils.addMonth(date, 1);
         QueryBuilder<TotalBill> queryBuilder = mSession.getTotalBillDao()
@@ -252,6 +256,7 @@ public class LocalRepository {
             @Override
             public void subscribe(ObservableEmitter<List<T>> e) throws Exception {
                 List<T> data = builder.list();
+                Log.e("m2", "subscribe: "+data.size());
                 e.onNext(data);
                 e.onComplete();
             }

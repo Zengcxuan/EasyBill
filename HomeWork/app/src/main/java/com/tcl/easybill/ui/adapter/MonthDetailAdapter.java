@@ -12,11 +12,14 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.util.List;
 
 import com.tcl.easybill.Utils.DateUtils;
 import com.tcl.easybill.Utils.ImageUtils;
 import com.tcl.easybill.Utils.SwipeMenuView;
+import com.tcl.easybill.Utils.UiUtils;
 import com.tcl.easybill.Utils.stickyheader.StickyHeaderGridAdapter;
 import com.tcl.easybill.pojo.MonthDetailAccount;
 import com.tcl.easybill.pojo.TotalBill;
@@ -32,6 +35,7 @@ import static com.tcl.easybill.Utils.DateUtils.FORMAT_YMD_CN;
 public class MonthDetailAdapter extends StickyHeaderGridAdapter {
 
     private Context mContext;
+
 
     private OnStickyHeaderClickListener onStickyHeaderClickListener;
 
@@ -95,12 +99,13 @@ public class MonthDetailAdapter extends StickyHeaderGridAdapter {
         final MyItemViewHolder holder = (MyItemViewHolder) viewHolder;
 
         TotalBill bBill=mDatas.get(section).getList().get(position);
+        BigDecimal money= UiUtils.getNumber(bBill.getCost());
         holder.item_title.setText(bBill.getSortName());
         holder.item_img.setImageDrawable(ImageUtils.getDrawable(bBill.getSortImg()));
         if (bBill.isIncome()) {
-            holder.item_money.setText("+" + bBill.getCost());
+            holder.item_money.setText("+" + money);
         } else {
-            holder.item_money.setText("-" + bBill.getCost());
+            holder.item_money.setText("-" + money);
         }
 
         /*Monitor side-slip delete event*/
@@ -150,13 +155,15 @@ public class MonthDetailAdapter extends StickyHeaderGridAdapter {
                 TextView tv_btn = (TextView) window.findViewById(R.id.dialog_bill_btn);
 
                 TotalBill bBill=mDatas.get(section).getList().get(offset);
+                /**/
 
+                BigDecimal money=UiUtils.getNumber(bBill.getCost());
                 iv_bill.setImageDrawable(ImageUtils.getDrawable(bBill.getSortImg()));
                 String content = bBill.getContent();
                 if (content!=null) tv_content.setText("备注信息：" + content);
-                tv_title.setText("因" + bBill.getSortName()+ "消费" + Math.abs(bBill.getCost()) + "元");
+                tv_title.setText("因" + bBill.getSortName()+ "消费" + money + "元");
                 if (bBill.isIncome())
-                    tv_title.setText("因" + bBill.getSortName()+ "收入" + bBill.getCost() + "元");
+                    tv_title.setText("因" + bBill.getSortName()+ "收入" + money + "元");
                 tv_date.setText(DateUtils.long2Str(bBill.getCrdate(), FORMAT_YMD_CN)
                         + "\n\n" + DateUtils.long2Str(bBill.getCrdate(), FORMAT_HMS_CN));
                 tv_btn.setOnClickListener(new View.OnClickListener() {

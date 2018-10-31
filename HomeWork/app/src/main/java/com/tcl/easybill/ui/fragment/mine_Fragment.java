@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -38,6 +39,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import com.tcl.easybill.MyBroadcast;
 import com.tcl.easybill.R;
+import com.tcl.easybill.Utils.UiUtils;
 import com.tcl.easybill.ui.activity.NotifyActivity;
 import com.tcl.easybill.ui.activity.PersionalInfoActivity;
 import com.tcl.easybill.Utils.LockViewUtil;
@@ -79,7 +81,7 @@ public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
     private String[] buttonContent = new String[]{
        "声音开关", "定时提醒", "每月预算", "手势密码", "导出账单", "评分", "帮助"
     };
-    private String PackageName = "finalhomework.tcl.com.finalhomework";
+    private String PackageName = "com.tcl.easybill";
     private int[] rightIcon = new int[]{
             R.drawable.voice_switch, R.drawable.arrow, R.drawable.arrow, R.drawable.arrow, R.drawable.arrow,
             R.drawable.arrow, R.drawable.arrow
@@ -266,7 +268,8 @@ public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
         Log.e("meng666", "day"+tData.getRecordDay()+"number"+tData.getRecordNumber()+"money"+money );
         recordDays.setText(String.valueOf(tData.getRecordDay())); //总天数
         recordDeals.setText(String.valueOf(tData.getRecordNumber())); //总笔数
-        recordSurplus.setText(String.valueOf(money)); //结余
+        BigDecimal decimal = UiUtils.getNumber(money);
+        recordSurplus.setText(String.valueOf(decimal)); //结余
         userName.setText(currentUser.getUsername());
 
     }

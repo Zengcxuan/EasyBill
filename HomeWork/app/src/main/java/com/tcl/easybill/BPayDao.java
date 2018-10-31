@@ -1,4 +1,4 @@
-package finalhomework.tcl.com.finalhomework.greendao;
+package com.tcl.easybill;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;

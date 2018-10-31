@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under parent.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("finalhomework.tcl.com.finalhomework", appContext.getPackageName());
+        assertEquals("com.tcl.easybill", appContext.getPackageName());
     }
 }
