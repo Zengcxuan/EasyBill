@@ -167,7 +167,10 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
      * Revenue and expenditure this week or last week
      */
     public void WeekData(Date beginDay,Date endDay){
-
+        for (int i=0;i<7;i++){
+            incomeValues[i]=0f;
+            outcomeValues[i]=0f;
+        }
         for (int i =0;i<detailList.size();i++){
             crdate=detailList.get(i).getTime();
             crdate = crdate+" 12:00:00";

@@ -48,7 +48,6 @@ import com.tcl.easybill.mvp.presenter.TotalRecordPresenter;
 import com.tcl.easybill.mvp.presenter.impl.TotalRecordPresenterImpl;
 import com.tcl.easybill.mvp.views.TotalRecordView;
 import com.tcl.easybill.pojo.DataSum;
-import com.tcl.easybill.pojo.TotalBill;
 import com.tcl.easybill.pojo.User;
 import com.tcl.easybill.ui.activity.BudgetActivity;
 import com.tcl.easybill.ui.activity.LockViewUi;
@@ -106,7 +105,6 @@ public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
         fragment.setArguments(args);
         return fragment;
     }
-
     /**
      * onClick react, open the PersionalInfoActivity
      * @param view
@@ -121,15 +119,12 @@ public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
                 break;
         }
     }
-
     /**
      * load data
      */
     @Override
     protected  void loadData(){
     }
-
-
     /**
      * load user data
      */
