@@ -2,6 +2,7 @@ package com.tcl.easybill.Utils;
 
 import android.util.Log;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -31,6 +32,8 @@ public class BillUtils {
         float income = 0;
         float outcome = 0;
 
+
+
         String preDay = "";  //记录前一天的时间
         for (int i = 0; i < list.size(); i++) {
             TotalBill TotalBill = list.get(i);
@@ -57,7 +60,7 @@ public class BillUtils {
                 tmpList.addAll(beanList);
                 MonthDetailAccount.DaylistBean tmpDay = new MonthDetailAccount.DaylistBean();
                 tmpDay.setList(tmpList);
-                tmpDay.setMoney("支出：" + outcome + " 收入：" + income);
+                tmpDay.setMoney("支出：" + UiUtils.getNumber(outcome) + " 收入：" + UiUtils.getNumber(income));
                 tmpDay.setTime(preDay);
                 daylist.add(tmpDay);
 
@@ -82,7 +85,7 @@ public class BillUtils {
             tmpList.addAll(beanList);
             MonthDetailAccount.DaylistBean tmpDay = new MonthDetailAccount.DaylistBean();
             tmpDay.setList(tmpList);
-            tmpDay.setMoney("支出：" + outcome + " 收入：" + income);
+            tmpDay.setMoney("支出：" + UiUtils.getNumber(outcome) + " 收入：" + UiUtils.getNumber(income));
             tmpDay.setTime(DateUtils.getDay(beanList.get(0).getCrdate()));
             daylist.add(tmpDay);
 
@@ -133,7 +136,7 @@ public class BillUtils {
                 tmpList.addAll(beanList);
                 MonthDetailAccount.DaylistBean tmpDay = new MonthDetailAccount.DaylistBean();
                 tmpDay.setList(tmpList);
-                tmpDay.setMoney("支出：" + outcome + " 收入：" + income);
+                tmpDay.setMoney("支出：" + UiUtils.getNumber(outcome) + " 收入：" + UiUtils.getNumber(income));
                 tmpDay.setTime(preDay);
                 //daylist.add添加数据，获得最终结果
                 daylist.add(tmpDay);
@@ -159,7 +162,7 @@ public class BillUtils {
             tmpList.addAll(beanList);
             MonthDetailAccount.DaylistBean tmpDay = new MonthDetailAccount.DaylistBean();
             tmpDay.setList(tmpList);
-            tmpDay.setMoney("支出：" + outcome + " 收入：" + income);
+            tmpDay.setMoney("支出：" + UiUtils.getNumber(outcome) + " 收入：" + UiUtils.getNumber(income));
             tmpDay.setTime(DateUtils.getDay(beanList.get(0).getCrdate()));
             if (tmpDay.getTime().equals(DateUtils.getCurDay()))
                 isToday = true;

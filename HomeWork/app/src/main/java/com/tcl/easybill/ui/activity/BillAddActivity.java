@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,6 +28,7 @@ import com.google.gson.Gson;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -393,13 +395,11 @@ public class BillAddActivity extends BaseActivity implements BillView {
                 break;
         }
     }
-
-
-
     /**
-     * 显示日期选择器
+     * show date choicer
      */
     public void showTimeSelector() {
+        Calendar ca = Calendar.getInstance();
         new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
@@ -434,7 +434,7 @@ public class BillAddActivity extends BaseActivity implements BillView {
 
                 }
             }
-        }, mYear, mMonth, mDay).show();
+        }, ca.get(Calendar.YEAR), ca.get(Calendar.MONTH), ca.get(Calendar.DAY_OF_MONTH)).show();
     }
 
     /**
@@ -482,6 +482,7 @@ public class BillAddActivity extends BaseActivity implements BillView {
     public void doCommit() {
         final SimpleDateFormat sdf = new SimpleDateFormat(" HH:mm:ss");
         final String crDate = days + sdf.format(new Date());
+        Log.e(TAG, "doCommit: "+crDate );
         if ((num + dotNum).equals("0.00")) {
             Toast.makeText(this, "请输入金额", Toast.LENGTH_SHORT).show();
             return;

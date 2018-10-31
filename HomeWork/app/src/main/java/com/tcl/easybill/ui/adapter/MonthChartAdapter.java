@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.util.List;
 import com.tcl.easybill.R;
 import com.tcl.easybill.Utils.ImageUtils;
+import com.tcl.easybill.Utils.UiUtils;
 import com.tcl.easybill.pojo.MonthBillForChart;
 /**
  * ChartFragment
@@ -58,9 +59,9 @@ public class MonthChartAdapter extends RecyclerView.Adapter<MonthChartAdapter.Vi
         holder.title.setText(name);
         holder.image.setImageDrawable(drawable);
         if(isIncome)
-            holder.money.setText("+"+come);
+            holder.money.setText("+"+ UiUtils.getSmallNumber(come));
         else
-            holder.money.setText("-"+come);
+            holder.money.setText("-"+UiUtils.getSmallNumber(come));
 
     }
 

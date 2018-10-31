@@ -21,6 +21,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -33,6 +34,7 @@ import com.tcl.easybill.R;
 
 import com.tcl.easybill.Utils.DateUtils;
 import com.tcl.easybill.Utils.SnackbarUtils;
+import com.tcl.easybill.Utils.UiUtils;
 import com.tcl.easybill.Utils.stickyheader.StickyHeaderGridLayoutManager;
 import com.tcl.easybill.base.SyncEvent;
 import com.tcl.easybill.mvp.presenter.MonthDetailPresenter;
@@ -100,6 +102,7 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
 
         //Request monthly data
         getBills(currentUser.getObjectId(), setYear, setMonth);
+        Log.e(TAG, "importantData: year"+setYear+"month"+setMonth );
         initDatePicker();
     }
     @Override
@@ -129,8 +132,6 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
             @Override
             public void OnDeleteClick(TotalBill item, int section, int offset) {
                 item.setVersion(-1);
-
-
                 /*The deleted version number of the bill is set to negative instead of directly deleted.*/
                 /*sync bills convenient*/
                 presenter.updateBill(item);
@@ -163,8 +164,12 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
      */
     @Override
     public void loadDataSuccess(MonthDetailAccount tData) {
-        tOutcome.setText(tData.getT_outcome());
-        tIncome.setText(tData.getT_income());
+        /*BigDecimal outcome = UiUtils.getNumber(Float.valueOf(tData.getT_outcome()));
+        BigDecimal income = UiUtils.getNumber(Float.valueOf(tData.getT_income()));*/
+        BigDecimal outcome = UiUtils.getSmallNumber(tData.getT_outcome());
+        BigDecimal income = UiUtils.getSmallNumber(tData.getT_income());
+        tOutcome.setText(outcome.toString());
+        tIncome.setText(income.toString());
         list = tData.getDaylist();
         adapter.setmDatas(list);
         adapter.notifyAllSectionsDataSetChanged();//需调用此方法刷新
@@ -188,7 +193,7 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
         swipe.setColorSchemeColors(getResources().getColor(R.color.text_red), getResources().getColor(R.color.text_red));
 
         swipe.setDistanceToTriggerSync(200);//set up how much refresh has been set to pull down.
-        swipe.setProgressViewEndTarget(false, 200); //Set refresh position
+                swipe.setProgressViewEndTarget(false, 200); //Set refresh position
 
         swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

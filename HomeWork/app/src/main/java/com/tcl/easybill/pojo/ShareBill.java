@@ -53,11 +53,9 @@ public class ShareBill extends BmobObject {
         this.income = income;
         this.version = version;
     }
-
     @Generated(hash = 524624103)
     public ShareBill() {
     }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

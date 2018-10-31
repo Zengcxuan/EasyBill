@@ -27,6 +27,7 @@ public class TotalRecordModelImpl implements TotalRecordModel {
                     @Override
                     protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
                         listener.onFailure(e);
+                        e.printStackTrace();
                     }
                 });
     }

@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -36,8 +37,8 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import com.tcl.easybill.MyBroadcast;
 import com.tcl.easybill.R;
+import com.tcl.easybill.Utils.UiUtils;
 import com.tcl.easybill.Utils.ToastUtils;
 import com.tcl.easybill.ui.activity.LockOnActivity;
 import com.tcl.easybill.ui.activity.NotifyActivity;
@@ -48,7 +49,6 @@ import com.tcl.easybill.mvp.presenter.TotalRecordPresenter;
 import com.tcl.easybill.mvp.presenter.impl.TotalRecordPresenterImpl;
 import com.tcl.easybill.mvp.views.TotalRecordView;
 import com.tcl.easybill.pojo.DataSum;
-import com.tcl.easybill.pojo.TotalBill;
 import com.tcl.easybill.pojo.User;
 import com.tcl.easybill.ui.activity.BudgetActivity;
 import com.tcl.easybill.ui.widget.RoundImageView;
@@ -104,7 +104,6 @@ public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
         fragment.setArguments(args);
         return fragment;
     }
-
     /**
      * onClick react, open the PersionalInfoActivity
      * @param view
@@ -119,15 +118,12 @@ public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
                 break;
         }
     }
-
     /**
      * load data
      */
     @Override
     protected  void loadData(){
     }
-
-
     /**
      * load user data
      */
@@ -258,7 +254,8 @@ public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
         Log.e("meng666", "day"+tData.getRecordDay()+"number"+tData.getRecordNumber()+"money"+money );
         recordDays.setText(String.valueOf(tData.getRecordDay())); //总天数
         recordDeals.setText(String.valueOf(tData.getRecordNumber())); //总笔数
-        recordSurplus.setText(String.valueOf(money)); //结余
+        BigDecimal decimal = UiUtils.getNumber(money);
+        recordSurplus.setText(String.valueOf(decimal)); //结余
         userName.setText(currentUser.getUsername());
 
     }

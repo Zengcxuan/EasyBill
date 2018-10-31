@@ -11,8 +11,24 @@ import android.view.View;
 
 import com.tcl.easybill.base.MyApplication;
 
-public class UiUtils {
+import java.math.BigDecimal;
 
+public class UiUtils {
+    /**
+     * 防止数字用科学计数法
+     */
+    public static BigDecimal getNumber(Float f){
+        BigDecimal d1 = new BigDecimal(Float.toString(f));
+        BigDecimal d2 = new BigDecimal(Integer.toString(1));
+        BigDecimal bigDecimal=d1.divide(d2).setScale(2,java.math.BigDecimal.ROUND_HALF_UP);
+        return bigDecimal;
+    }
+    public static BigDecimal getSmallNumber(String s){
+        BigDecimal d1 = new BigDecimal(String.valueOf(s));
+        BigDecimal d2 = new BigDecimal(Integer.toString(1));
+        BigDecimal bigDecimal = d1.divide(d2).setScale(0, BigDecimal.ROUND_HALF_UP);
+        return bigDecimal;
+    }
     /**
      * 获取上下文
      */
