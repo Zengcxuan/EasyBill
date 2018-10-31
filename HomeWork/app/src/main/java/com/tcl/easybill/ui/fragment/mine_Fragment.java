@@ -51,8 +51,6 @@ import com.tcl.easybill.pojo.DataSum;
 import com.tcl.easybill.pojo.TotalBill;
 import com.tcl.easybill.pojo.User;
 import com.tcl.easybill.ui.activity.BudgetActivity;
-import com.tcl.easybill.ui.activity.LockViewUi;
-import com.tcl.easybill.ui.widget.ImageButtonWithText;
 import com.tcl.easybill.ui.widget.RoundImageView;
 
 import static android.content.Context.ALARM_SERVICE;
@@ -187,7 +185,6 @@ public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
                         break;
                     case 3:
                         /*sign password*/
-//                        Intent intent1 = new Intent(getActivity(), LockViewUi.class);
                         Intent intent1 = new Intent(getActivity(), LockOnActivity.class);
                         getActivity().startActivity(intent1);
                         break;
