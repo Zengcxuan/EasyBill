@@ -14,11 +14,6 @@
         <item name="color">@android:color/white</item>
     </style>
     <!--图表界面的水平装饰线-->
-    <style name="horizontal_decoration_style.chart">
-        <item name="android:layout_width">70dp</item>
-        <item name="android:layout_height">3px</item>
-        <item name="background">@drawable/shape_color_blue</item>
-    </style>
     <!--水平装饰线-->
     <style name="horizontal_decoration_style">
         <item name="android:layout_width">match_parent</item>
@@ -66,4 +61,7 @@
         <!--Android 5.x开始需要把颜色设置透明，否则导航栏会呈现系统默认的浅灰色-->
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
+
+    <!--设置toolbar弹出菜单的位置-->
+    <!--修改toolbar弹出剩余隐藏菜单条目按钮的样式-->
 </resources>

@@ -39,7 +39,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/unlock_tv"
-        app:preference_id="1" />
+        app:preference_id="1"
+        app:color_no_finger="@color/gray"
+        app:color_finger_on="@color/black"/>
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline14"

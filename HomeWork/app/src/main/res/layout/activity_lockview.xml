@@ -37,7 +37,6 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/tv_prompt_lock_on"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -75,7 +74,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline12"
-        app:preference_id="1" />
+        app:preference_id="1"
+        app:color_no_finger="@color/gray"
+        app:color_finger_on="@color/black"/>
 
     <TextView
         android:id="@+id/lockview_text"
