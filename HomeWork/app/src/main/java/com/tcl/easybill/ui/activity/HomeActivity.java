@@ -60,6 +60,7 @@ public class HomeActivity extends BaseActivity  {
     private chart_Fragment chart_fragment;
     private mine_Fragment mine_fragment;
     private long mExitTime;
+    private int currentItem = 0;
     ViewPagerAdapter adapter;
     @BindView(R.id.viewpager)
     MyViewPager viewPager ;
@@ -86,7 +87,7 @@ public class HomeActivity extends BaseActivity  {
             LocalRepository.getInstance().saveBsorts(sorts);
             LocalRepository.getInstance().saveBPays(note.getPayinfo());
         }
-        viewPager.setOffscreenPageLimit(5);
+//        viewPager.setOffscreenPageLimit(3);
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -94,12 +95,15 @@ public class HomeActivity extends BaseActivity  {
                         switch (item.getItemId()) {
                             case R.id.item_bill:
                                 viewPager.setCurrentItem(0);
+                                currentItem = 0;
                                 break;
                             case R.id.item_chart:
                                 viewPager.setCurrentItem(1);
+                                currentItem = 1;
                                 break;
                             case R.id.item_mine:
                                 viewPager.setCurrentItem(2);
+                                currentItem = 2;
                                 break;
                         }
                         return false;
@@ -198,6 +202,14 @@ public class HomeActivity extends BaseActivity  {
         super.onActivityResult(requestCode, resultCode, data);
         adapter.notifyDataSetChanged();
         ProgressUtils.dismiss();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setupViewPager(viewPager);
+        viewPager.setCurrentItem(currentItem);
 
     }
 

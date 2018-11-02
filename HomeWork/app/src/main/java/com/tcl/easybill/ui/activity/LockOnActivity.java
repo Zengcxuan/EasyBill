@@ -178,13 +178,19 @@ public class LockOnActivity extends BaseActivity{
                     gesturePasswordSettingListener();
                     gestureRetryLimitListener();
                 }else {
-                    if(isVerify) {
-                        modifyHandle();
-                        mGestureLockViewGroup.setVisibility(INVISIBLE);
-                        LockViewUtil.setIslock(mContext, false);
+                    if(LockViewUtil.getIslock(mContext)) {
+                        if (isVerify) {
+                            modifyHandle();
+                            mGestureLockViewGroup.setVisibility(INVISIBLE);
+                            LockViewUtil.setIslock(mContext, false);
+                        }else {
+                            lockViewSwh.setChecked(true);
+                            tv_state.setText("请先验证密码!");
+                        }
                     }else {
-                        lockViewSwh.setChecked(true);
-                        tv_state.setText("请先验证密码!");
+                        mGestureLockViewGroup.setVisibility(INVISIBLE);
+                        mGestureLockViewGroup.removePassword();
+                        mGestureLockViewGroup.resetView();
                     }
                 }
             }

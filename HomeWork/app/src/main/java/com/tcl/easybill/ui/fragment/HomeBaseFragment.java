@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
@@ -24,6 +25,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 
+import java.io.File;
 import java.util.Objects;
 
 import butterknife.ButterKnife;
@@ -33,6 +35,7 @@ import com.tcl.easybill.Utils.LockViewUtil;
 import com.tcl.easybill.pojo.Person;
 import com.tcl.easybill.ui.activity.AccountActivity;
 import com.tcl.easybill.ui.activity.PersionalInfoActivity;
+import com.tcl.easybill.ui.activity.SearchAll;
 import com.tcl.easybill.ui.widget.ImageButtonWithText;
 
 
@@ -85,27 +88,29 @@ public abstract class HomeBaseFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+
+    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         isViewCreated = true;
         currentUser= Person.getCurrentUser(Person.class);
         setHasOptionsMenu(true);
-        importantData();
         myToolbar();
+        importantData();
         lazyLoad();
     }
 
 
     public void myToolbar(){
-        /*
-         * 这里获取屏幕的宽和高并赋予给侧滑栏，使其全屏显示
-         * */
-        DisplayMetrics metric=getActivity().getResources().getDisplayMetrics();
         /* set  toolbar  and show */
         toolbar = getToolbar();
+        ((AppCompatActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);
         toolbar.setTitle("");//设置Toolbar标题
         toolbar.inflateMenu(getItemMenu());
-        ((AppCompatActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.menu);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,7 +141,19 @@ public abstract class HomeBaseFragment extends Fragment {
         {
             case R.id.action_edit:
                 setItemReact();
+//                Intent intent = new Intent(getActivity(), SearchAll.class);
+//                startActivity(intent);
                 break;
+//            case R.id.action_share:
+//                Intent shareIt=new Intent(Intent.ACTION_SEND);
+//                shareIt.setType("image/*");
+//                shareIt.putExtra(Intent.EXTRA_SUBJECT, "Share");
+//                shareIt.putExtra(Intent.EXTRA_TEXT, "快来跟我一起记账吧");
+//                File f = new File(Environment.getExternalStorageDirectory()+"/shared.png");
+//
+//                shareIt.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                startActivity(Intent.createChooser(shareIt, "选择分享途径"));
+//                break;
             default:
                 break;
         }
