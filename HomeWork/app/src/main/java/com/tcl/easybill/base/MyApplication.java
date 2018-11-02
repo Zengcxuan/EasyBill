@@ -25,7 +25,7 @@ public class MyApplication extends MultiDexApplication {
         context = getApplicationContext();
 
         //base data to connect BOMB
-        Bmob.initialize(this, "a2284cc606090881b3197abd8cbf4b90");
+        Bmob.initialize(this, "67c270494e715778bc806baefbb410c3");
     }
 
     /**
