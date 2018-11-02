@@ -3,23 +3,15 @@ package com.tcl.easybill.ui.activity;
 
 
 
-import android.app.Dialog;
-import android.app.Fragment;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
@@ -30,7 +22,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import com.tcl.easybill.R;
-import com.tcl.easybill.Utils.DateUtils;
 import com.tcl.easybill.Utils.ProgressUtils;
 import com.tcl.easybill.Utils.SharedPUtils;
 import com.tcl.easybill.Utils.ToastUtils;
@@ -41,13 +32,9 @@ import com.tcl.easybill.pojo.AllSortBill;
 import com.tcl.easybill.pojo.SortBill;
 import com.tcl.easybill.ui.MyViewPager;
 import com.tcl.easybill.ui.adapter.ViewPagerAdapter;
-import com.tcl.easybill.ui.fragment.bill_Fragment;
-import com.tcl.easybill.ui.fragment.chart_Fragment;
-import com.tcl.easybill.ui.fragment.mine_Fragment;
-
-import static android.view.Gravity.CENTER;
-import static com.tcl.easybill.Utils.DateUtils.FORMAT_M;
-import static com.tcl.easybill.Utils.DateUtils.FORMAT_Y;
+import com.tcl.easybill.ui.fragment.BillFragment;
+import com.tcl.easybill.ui.fragment.ChartFragment;
+import com.tcl.easybill.ui.fragment.MineFragment;
 
 
 public class HomeActivity extends BaseActivity  {
@@ -56,9 +43,9 @@ public class HomeActivity extends BaseActivity  {
     private MenuItem menuItem;
     private static final int RESULTCODE =0;
     /*private BottomNavigationView bottomNavigationView;*/
-    private bill_Fragment bill_fFragment;
-    private chart_Fragment chart_fragment;
-    private mine_Fragment mine_fragment;
+    private BillFragment bill_fFragment;
+    private ChartFragment chart_fragment;
+    private MineFragment mine_fragment;
     private long mExitTime;
     private int currentItem = 0;
     ViewPagerAdapter adapter;
@@ -140,9 +127,9 @@ public class HomeActivity extends BaseActivity  {
     private void setupViewPager(ViewPager viewPager) {
         Log.e(TAG, "setupViewPager: " );
         adapter= new ViewPagerAdapter(getSupportFragmentManager());
-        bill_fFragment = new bill_Fragment();
-        chart_fragment = new chart_Fragment();
-        mine_fragment = new mine_Fragment();
+        bill_fFragment = new BillFragment();
+        chart_fragment = new ChartFragment();
+        mine_fragment = new MineFragment();
         adapter.addFragment(bill_fFragment);
         adapter.addFragment(chart_fragment);
         adapter.addFragment(mine_fragment);

@@ -41,7 +41,6 @@ import com.tcl.easybill.mvp.presenter.MonthDetailPresenter;
 import com.tcl.easybill.mvp.presenter.impl.MonthDetailPresenterImpl;
 import com.tcl.easybill.mvp.views.MonthDetailView;
 import com.tcl.easybill.pojo.MonthDetailAccount;
-import com.tcl.easybill.pojo.Person;
 import com.tcl.easybill.pojo.ShareBill;
 import com.tcl.easybill.pojo.TotalBill;
 import com.tcl.easybill.pojo.base;
@@ -53,7 +52,7 @@ import static android.view.Gravity.CENTER;
 import static com.tcl.easybill.Utils.DateUtils.FORMAT_M;
 import static com.tcl.easybill.Utils.DateUtils.FORMAT_Y;
 
-public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
+public class BillFragment extends HomeBaseFragment implements MonthDetailView {
     private CustomDatePicker customDatePicker1;
     private String setYear = DateUtils.getCurYear(FORMAT_Y);
     private String setMonth = DateUtils.getCurMonth(FORMAT_M);
@@ -265,9 +264,9 @@ public class bill_Fragment extends HomeBaseFragment implements MonthDetailView {
             //getBills(Constants.currentUserId, setYear, setMonth);
     }
 
-    public static bill_Fragment newInstance(String info) {
+    public static BillFragment newInstance(String info) {
         Bundle args = new Bundle();
-        bill_Fragment fragment = new bill_Fragment();
+        BillFragment fragment = new BillFragment();
         args.putString("info", info);
         fragment.setArguments(args);
         return fragment;

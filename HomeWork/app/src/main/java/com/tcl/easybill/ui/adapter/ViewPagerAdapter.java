@@ -3,14 +3,12 @@ package com.tcl.easybill.ui.adapter;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.tcl.easybill.ui.fragment.bill_Fragment;
+import com.tcl.easybill.ui.fragment.BillFragment;
 
 
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
@@ -30,8 +28,8 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
          * resolve adapter.notifyDataSetChanged() adiaphoria
          * just reload bill_fragment
          */
-        if (object.getClass().getName().equals(bill_Fragment.class.getName())
-                || object.getClass().getName().equals(bill_Fragment.class.getName())) {
+        if (object.getClass().getName().equals(BillFragment.class.getName())
+                || object.getClass().getName().equals(BillFragment.class.getName())) {
             return POSITION_NONE;
         }
 

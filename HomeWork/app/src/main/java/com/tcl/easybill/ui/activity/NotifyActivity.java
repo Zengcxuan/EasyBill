@@ -131,7 +131,8 @@ public class NotifyActivity extends BaseActivity{
                 c.set(Calendar.MINUTE, minute);
                 //get the system's AlarmManager
                 AlarmManager alarmManager = (AlarmManager) mContext.getSystemService(ALARM_SERVICE);
-                alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pi);
+                /*不建议使用RTC_WAKEUP*/
+                alarmManager.setExact(AlarmManager.RTC, c.getTimeInMillis(), pi);
 //                if version <= android 4.4(19), use set()
 //                alarmManager.set(AlarmManager.RTC_WAKEUP,c.getTimeInMillis(), pi);
                 int Hour = c.get(Calendar.HOUR_OF_DAY);
