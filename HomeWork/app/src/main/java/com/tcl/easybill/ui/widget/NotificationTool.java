@@ -30,16 +30,18 @@ public class NotificationTool {
         Intent intent = new Intent(mContext, HomeActivity.class);
         PendingIntent pi = PendingIntent.getActivity(mContext, 1, intent, 0);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            /**
+            /*
              * 安卓O之后新增要求,需要添加一个Channel
              */
-            NotificationChannel mChannel = new NotificationChannel("777", "canxuan",NotificationManager.IMPORTANCE_HIGH);
+            NotificationChannel mChannel = new NotificationChannel("777", "定时提醒",NotificationManager.IMPORTANCE_DEFAULT);
             mChannel.setDescription("for EasyBill");
             mChannel.enableLights(true);
             mChannel.setLightColor(Color.BLUE);
             mChannel.enableVibration(true);
             mChannel.setVibrationPattern(new long[]{100,200,300,400,500,400,300,200,400});
-            nm.createNotificationChannel(mChannel);
+            if (nm != null) {
+                nm.createNotificationChannel(mChannel);
+            }
             NotificationCompat.Builder builder = new NotificationCompat.Builder(mContext)
                     .setSmallIcon(R.mipmap.start)
                     .setContentTitle(title)
@@ -55,14 +57,14 @@ public class NotificationTool {
             NotificationCompat.Builder builder = new NotificationCompat.Builder(mContext)
 //                .setAutoCancel(true)
                     .setTicker("有新消息")
-                    .setSmallIcon(R.mipmap.sort_kid)
+                    .setSmallIcon(R.mipmap.start)
                     .setContentTitle(title)
                     .setContentText(msg)
                     .setAutoCancel(true);
 //                .setDefaults(android.app.Notification.DEFAULT_SOUND)
 //                .setWhen(System.currentTimeMillis());
 //                .setContentIntent(pi);
-            nm.notify(1, builder.build());
+            nm.notify(NOTIFICATION_ID, builder.build());
         }
     }
 

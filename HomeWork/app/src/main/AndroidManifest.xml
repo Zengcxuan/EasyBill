@@ -46,7 +46,11 @@
         <activity android:name=".ui.activity.BillEditActivity"/>
         <activity android:name=".ui.activity.BudgetActivity"/>
         <activity android:name=".ui.activity.UesrLoginActivity"/>
-        <receiver android:name=".MyBroadcast"/>
+        <receiver android:name=".MyBroadcast">
+            <intent-filter>
+                <action android:name="com.tcl.easybill.RECEVIER"/>
+            </intent-filter>
+        </receiver>
         <activity android:name=".ui.activity.UnlockUI" android:theme="@style/TranslucentTheme"/>
         <activity android:name=".ui.activity.PersionalInfoActivity"/>
         <activity android:name=".ui.activity.WelcomeActivity"/>

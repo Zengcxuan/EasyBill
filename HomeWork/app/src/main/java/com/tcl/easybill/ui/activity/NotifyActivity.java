@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
@@ -55,7 +56,7 @@ public class NotifyActivity extends BaseActivity{
     /*read the alarm that set before*/
     @Override
     protected void initEventAndData() {
-        if(LockViewUtil.getIsSet(mContext)){
+        if(LockViewUtil.getIsSet(mContext) && !(LockViewUtil.getCalender(mContext).equals(""))){
             String data = LockViewUtil.getCalender(mContext);
             Gson gson = new Gson();
             Type listType = new TypeToken<List<String>>() {
@@ -121,20 +122,23 @@ public class NotifyActivity extends BaseActivity{
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 /*set alarm to send a Broadcast*/
-                Intent intent = new Intent(mContext, MyBroadcast.class);
+                Intent intent = new Intent();
+                intent.setAction("com.tcl.easybill.RECEVIER");
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    intent.setComponent(new ComponentName("com.tcl.easybill",
+                            "com.tcl.easybill.MyBroadcast"));
+                }
                 intent.putExtra("msg", string);
                 PendingIntent pi = PendingIntent.getBroadcast(mContext, 0, intent,
                         0);
                 Calendar c = Calendar.getInstance();
                 //set alarm time
-                c.set(Calendar.HOUR, hourOfDay);
+                c.set(Calendar.HOUR_OF_DAY, hourOfDay);
                 c.set(Calendar.MINUTE, minute);
                 //get the system's AlarmManager
                 AlarmManager alarmManager = (AlarmManager) mContext.getSystemService(ALARM_SERVICE);
                 /*不建议使用RTC_WAKEUP*/
-                alarmManager.setExact(AlarmManager.RTC, c.getTimeInMillis(), pi);
-//                if version <= android 4.4(19), use set()
-//                alarmManager.set(AlarmManager.RTC_WAKEUP,c.getTimeInMillis(), pi);
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pi);
                 int Hour = c.get(Calendar.HOUR_OF_DAY);
                 int Minu = c.get(Calendar.MINUTE);
                 if(Minu >= 10) {
@@ -143,6 +147,7 @@ public class NotifyActivity extends BaseActivity{
                     show = String.valueOf(Hour) + ":0" + String.valueOf(Minu);
                 }
 
+                pi.cancel();
                 /*call initRecyclerView() if it's the first time to set alarm*/
                 if(!LockViewUtil.getIsSet(mContext)) {
                     initRecyclerView(show);
