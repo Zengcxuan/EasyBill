@@ -21,6 +21,7 @@ public class NotificationTool {
     private String title, msg;
     public  NotificationTool(Context context){
         this.mContext = context;
+
     }
 
     public void sendNotify(){
