@@ -14,6 +14,10 @@ public class Person extends BmobUser{
     private int ID;
     private String NAME;
     private int PASSWORD;
+    private int gender;
+    private int phonenumber;
+    private String budget;
+    private int shareid;
 
     @Override
     public String toString() {
@@ -45,11 +49,11 @@ public class Person extends BmobUser{
         this.phonenumber = phonenumber;
     }
 
-    public Float getBudget() {
+    public String getBudget() {
         return budget;
     }
 
-    public void setBudget(Float budget) {
+    public void setBudget(String budget) {
         this.budget = budget;
     }
 
@@ -81,14 +85,11 @@ public class Person extends BmobUser{
         return Objects.hash(ID, NAME, PASSWORD, gender, phonenumber, budget, shareid);
     }
 
-    private int gender;
-    private int phonenumber;
-    private Float budget;
-    private int shareid;
 
-    @Generated(hash = 1373662836)
+
+    @Generated(hash = 1417542635)
     public Person(int ID, String NAME, int PASSWORD, int gender, int phonenumber,
-            Float budget, int shareid) {
+            String budget, int shareid) {
         this.ID = ID;
         this.NAME = NAME;
         this.PASSWORD = PASSWORD;

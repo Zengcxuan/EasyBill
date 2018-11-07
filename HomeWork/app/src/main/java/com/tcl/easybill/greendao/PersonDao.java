@@ -29,7 +29,7 @@ public class PersonDao extends AbstractDao<Person, Integer> {
         public final static Property PASSWORD = new Property(2, int.class, "PASSWORD", false, "PASSWORD");
         public final static Property Gender = new Property(3, int.class, "gender", false, "GENDER");
         public final static Property Phonenumber = new Property(4, int.class, "phonenumber", false, "PHONENUMBER");
-        public final static Property Budget = new Property(5, Float.class, "budget", false, "BUDGET");
+        public final static Property Budget = new Property(5, String.class, "budget", false, "BUDGET");
         public final static Property Shareid = new Property(6, int.class, "shareid", false, "SHAREID");
     }
 
@@ -51,7 +51,7 @@ public class PersonDao extends AbstractDao<Person, Integer> {
                 "\"PASSWORD\" INTEGER NOT NULL ," + // 2: PASSWORD
                 "\"GENDER\" INTEGER NOT NULL ," + // 3: gender
                 "\"PHONENUMBER\" INTEGER NOT NULL ," + // 4: phonenumber
-                "\"BUDGET\" REAL," + // 5: budget
+                "\"BUDGET\" TEXT," + // 5: budget
                 "\"SHAREID\" INTEGER NOT NULL );"); // 6: shareid
     }
 
@@ -74,9 +74,9 @@ public class PersonDao extends AbstractDao<Person, Integer> {
         stmt.bindLong(4, entity.getGender());
         stmt.bindLong(5, entity.getPhonenumber());
  
-        Float budget = entity.getBudget();
+        String budget = entity.getBudget();
         if (budget != null) {
-            stmt.bindDouble(6, budget);
+            stmt.bindString(6, budget);
         }
         stmt.bindLong(7, entity.getShareid());
     }
@@ -94,9 +94,9 @@ public class PersonDao extends AbstractDao<Person, Integer> {
         stmt.bindLong(4, entity.getGender());
         stmt.bindLong(5, entity.getPhonenumber());
  
-        Float budget = entity.getBudget();
+        String budget = entity.getBudget();
         if (budget != null) {
-            stmt.bindDouble(6, budget);
+            stmt.bindString(6, budget);
         }
         stmt.bindLong(7, entity.getShareid());
     }
@@ -114,7 +114,7 @@ public class PersonDao extends AbstractDao<Person, Integer> {
             cursor.getInt(offset + 2), // PASSWORD
             cursor.getInt(offset + 3), // gender
             cursor.getInt(offset + 4), // phonenumber
-            cursor.isNull(offset + 5) ? null : cursor.getFloat(offset + 5), // budget
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // budget
             cursor.getInt(offset + 6) // shareid
         );
         return entity;
@@ -127,7 +127,7 @@ public class PersonDao extends AbstractDao<Person, Integer> {
         entity.setPASSWORD(cursor.getInt(offset + 2));
         entity.setGender(cursor.getInt(offset + 3));
         entity.setPhonenumber(cursor.getInt(offset + 4));
-        entity.setBudget(cursor.isNull(offset + 5) ? null : cursor.getFloat(offset + 5));
+        entity.setBudget(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
         entity.setShareid(cursor.getInt(offset + 6));
      }
     
