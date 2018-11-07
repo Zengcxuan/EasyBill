@@ -1,7 +1,11 @@
 package com.tcl.easybill.base;
 
-public class Constants {
+import java.security.PublicKey;
 
+public class Constants {
+    public static int HOME =0;
+    public static int BUDGET=1;
+    public static int NOTIFY=0;
     /*base data*/
     public static String BILL_NOTE = "{\"status\":100,\"message\":\"处理成功！\"," +
             "\"outSortList\":[" +

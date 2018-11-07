@@ -155,22 +155,18 @@ public class BillAddActivity extends BaseActivity implements BillView {
     @Override
     public void loadDataSuccess(AllSortBill tData) {
         noteBean=tData;
-        //load data when success
-        setTitleStatus();
+        setTitleStatus();//load data when success
     }
 
     @Override
     public void loadDataSuccess(base tData) {
-        //ProgressUtils.dismiss();
         Intent intent = new Intent();
         setResult(RESULT_OK, intent);
         finish();
-       // ProgressUtils.dismiss();
     }
 
     @Override
     public void loadDataError(Throwable throwable) {
-        //ProgressUtils.dismiss();
         SnackbarUtils.show(mContext,throwable.getMessage());
     }
     /**

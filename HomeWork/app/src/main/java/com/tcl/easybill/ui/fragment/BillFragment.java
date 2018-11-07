@@ -26,6 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -45,12 +46,14 @@ import com.tcl.easybill.pojo.ShareBill;
 import com.tcl.easybill.pojo.TotalBill;
 import com.tcl.easybill.pojo.base;
 import com.tcl.easybill.ui.activity.BillEditActivity;
+import com.tcl.easybill.ui.activity.HomeActivity;
 import com.tcl.easybill.ui.activity.SearchAll;
 import com.tcl.easybill.Utils.meng_MyUtils;
 import com.tcl.easybill.ui.adapter.MonthDetailAdapter;
 import static android.view.Gravity.CENTER;
 import static com.tcl.easybill.Utils.DateUtils.FORMAT_M;
 import static com.tcl.easybill.Utils.DateUtils.FORMAT_Y;
+
 
 public class BillFragment extends HomeBaseFragment implements MonthDetailView {
     private CustomDatePicker customDatePicker1;
@@ -165,6 +168,7 @@ public class BillFragment extends HomeBaseFragment implements MonthDetailView {
     public void loadDataSuccess(MonthDetailAccount tData) {
         BigDecimal outcome = UiUtils.getSmallNumber(tData.getT_outcome());
         BigDecimal income = UiUtils.getSmallNumber(tData.getT_income());
+        ((HomeActivity)getActivity()).setmData(outcome.toString());
         tOutcome.setText(outcome.toString());
         tIncome.setText(income.toString());
         list = tData.getDaylist();
@@ -214,7 +218,9 @@ public class BillFragment extends HomeBaseFragment implements MonthDetailView {
     public void getBills(String userId, String year, String month) {
 
         presenter.getMonthDetailBills(userId, setYear, setMonth);
+
     }
+
     /**
      * date choicer
      */

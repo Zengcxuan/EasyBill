@@ -3,6 +3,8 @@ package com.tcl.easybill.ui.activity;
 
 
 
+
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -41,6 +43,7 @@ public class HomeActivity extends BaseActivity  {
 
    /* private MyViewPager viewPager;*/
     private MenuItem menuItem;
+    public String mData;
     private static final int RESULTCODE =0;
     /*private BottomNavigationView bottomNavigationView;*/
     private BillFragment bill_fFragment;
@@ -54,11 +57,22 @@ public class HomeActivity extends BaseActivity  {
     @BindView(R.id.bottom_navigation)
     BottomNavigationView bottomNavigationView;
 
+    public static Context getContext() {
+        return getContext();
+    }
+
     @Override
     protected int getLayout() {
         return R.layout.activity_home;
     }
 
+    public String getmData() {
+        return mData;
+    }
+
+    public void setmData(String mData) {
+        this.mData = mData;
+    }
     @Override
     protected void initEventAndData() {
         Log.e(TAG, "initEventAndData: " );
@@ -199,6 +213,7 @@ public class HomeActivity extends BaseActivity  {
         viewPager.setCurrentItem(currentItem);
 
     }
+
 
     /**
      * call the exit() when press the back twice

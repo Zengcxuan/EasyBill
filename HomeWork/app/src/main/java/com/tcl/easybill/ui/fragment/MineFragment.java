@@ -1,6 +1,9 @@
 package com.tcl.easybill.ui.fragment;
 
 import android.app.AlertDialog;
+import android.app.NotificationManager;
+
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -20,6 +23,7 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.math.BigDecimal;
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,7 +34,9 @@ import butterknife.OnClick;
 import com.tcl.easybill.R;
 import com.tcl.easybill.Utils.UiUtils;
 import com.tcl.easybill.Utils.ToastUtils;
+import com.tcl.easybill.ui.activity.HomeActivity;
 import com.tcl.easybill.ui.activity.LockOnActivity;
+import com.tcl.easybill.ui.activity.NotificationActivity;
 import com.tcl.easybill.ui.activity.NotifyActivity;
 import com.tcl.easybill.ui.activity.PersionalInfoActivity;
 import com.tcl.easybill.Utils.LockViewUtil;
@@ -43,6 +49,8 @@ import com.tcl.easybill.pojo.User;
 import com.tcl.easybill.ui.activity.BudgetActivity;
 import com.tcl.easybill.ui.widget.RoundImageView;
 
+import static com.tcl.easybill.base.Constants.HOME;
+import static com.tcl.easybill.base.Constants.NOTIFY;
 
 public class MineFragment extends HomeBaseFragment implements TotalRecordView {
     @BindView(R.id.record_days)  //days of record
@@ -119,7 +127,7 @@ public class MineFragment extends HomeBaseFragment implements TotalRecordView {
         recordDays.setText("0"); //total day
         recordDeals.setText("0"); //total bill
         recordSurplus.setText("0.0"); //balance
-
+        BudgetNotify();
         /*load GridView and add itemClickListener*/
         final List<Map<String, Object>> dataList;
         SimpleAdapter adapter;
@@ -164,6 +172,8 @@ public class MineFragment extends HomeBaseFragment implements TotalRecordView {
                     case 2:
                         /*budget*/
                         Intent intent = new Intent(getActivity(), BudgetActivity.class);
+                        String outcome= ((HomeActivity)getActivity()).getmData();
+                        intent.putExtra("outcome",outcome);
                         getActivity().startActivity(intent);
                         break;
                     case 3:
@@ -190,7 +200,19 @@ public class MineFragment extends HomeBaseFragment implements TotalRecordView {
     }
 
 
-
+    public void BudgetNotify(){
+        String budget = currentUser.getBudget();
+        if (budget!=null && !budget.isEmpty()) {
+            String outcome = ((HomeActivity) getActivity()).getmData();
+            Float sum = Float.valueOf(budget) - Float.valueOf(outcome);
+            if (sum <= 0 && NOTIFY == 0) {
+                NotificationManager mNotificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+                NotificationActivity activity = new NotificationActivity(mNotificationManager, getActivity().getApplicationContext(), HOME);
+                activity.notification();
+                NOTIFY = 1;
+            }
+        }
+    }
     /**
      * set toolbar right icon
      */

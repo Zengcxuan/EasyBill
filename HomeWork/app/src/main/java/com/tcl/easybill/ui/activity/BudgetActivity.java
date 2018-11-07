@@ -1,7 +1,10 @@
 package com.tcl.easybill.ui.activity;
 
 import android.app.AlertDialog;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -19,6 +22,8 @@ import com.tcl.easybill.R;
 import com.tcl.easybill.Utils.SnackbarUtils;
 import com.tcl.easybill.Utils.ToastUtils;
 import com.tcl.easybill.base.SyncEvent;
+import com.tcl.easybill.mvp.presenter.UserInfoPresenter;
+import com.tcl.easybill.mvp.presenter.impl.UserInfoPresenterImp;
 import com.tcl.easybill.mvp.views.MonthDetailView;
 import com.tcl.easybill.mvp.views.UserInfoView;
 import com.tcl.easybill.pojo.MonthDetailAccount;
@@ -30,31 +35,29 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import static android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD;
+import static com.tcl.easybill.base.Constants.BUDGET;
+import static com.tcl.easybill.base.Constants.NOTIFY;
 
 public class BudgetActivity extends BaseActivity implements UserInfoView{
     @BindView(R.id.all_content)
     TextView budgetText;
     @BindView(R.id.progressBar)
     ProgressBar surplusProgressBar;
+    @BindView(R.id.totaloutcome)
+    TextView totaloutcome;
+    @BindView(R.id.shengyu_content)
+    TextView last;
     private String input;
-    /*@Subscribe(threadMode = ThreadMode.MAIN)*/
-   /* public void Event(SyncEvent event) {
-        if (event.getState()==100)
-            budgetText.setText(currentUser.getGender());
-    }*/
-    /*@Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        //register EventBus
-        EventBus.getDefault().register(this);
-    }*/
-
+    private UserInfoPresenter presenter;
+    /*private Float sum;*/
     @Override
     protected  int getLayout(){
         return R.layout.budget;
     }
 
     protected  void initEventAndData(){
+        setBudget();
+        presenter = new UserInfoPresenterImp(this);
 
     }
 
@@ -75,9 +78,11 @@ public class BudgetActivity extends BaseActivity implements UserInfoView{
                 /*get setting budget*/
                 input = enterSurplus.getText().toString();
                 budgetText.setText(input);
-                currentUser.setBudget(Float.valueOf(input));
                 surplusProgressBar.setMax(Integer.valueOf(input));
                 surplusProgressBar.setProgress((Integer.valueOf(input))/2);
+                currentUser.setBudget(input);
+                presenter.update(currentUser);
+
                 Toast.makeText(mContext, "设置成功", Toast.LENGTH_LONG).show();
             }
         }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -88,7 +93,29 @@ public class BudgetActivity extends BaseActivity implements UserInfoView{
         });
         builder.create().show();
     }
+    public void setBudget(){
+        if (currentUser.getBudget()!=null && !currentUser.getBudget().isEmpty()){
+            Intent intent = getIntent();
+            String budget = currentUser.getBudget();
+            String outcome = intent.getStringExtra("outcome");
+            budgetText.setText(budget);
+            totaloutcome.setText(outcome);
+            Float sum=0f;
+            try {
+                 sum = Float.valueOf(budget) - Float.valueOf(outcome);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
 
+            if (sum <=0 && NOTIFY<2){
+                NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                NotificationActivity activity = new NotificationActivity(mNotificationManager,getApplicationContext(),BUDGET);
+                activity.notification();
+                NOTIFY=2;
+            }
+            last.setText(sum.toString());
+        }
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -103,23 +130,11 @@ public class BudgetActivity extends BaseActivity implements UserInfoView{
 
     @Override
     public void loadDataSuccess(Person tData) {
-     /*   Log.e("meng00", "loadDataSuccess: "+tData.toString() );
-        tData.setBudget(Float.valueOf(input));
-        tData.save(new SaveListener() {
-            @Override
-            public void done(Object o, BmobException e) {
-                if (e==null){
-                    ToastUtils.show(getApplicationContext(),"修改成功");
-                }else {
-                    e.printStackTrace();
-                }
-
-            }
-        });*/
+        setBudget();
     }
 
     @Override
     public void loadDataError(Throwable throwable) {
-        /*EventBus.getDefault().unregister(this);*/
+       /* EventBus.getDefault().unregister(this);*/
     }
 }
