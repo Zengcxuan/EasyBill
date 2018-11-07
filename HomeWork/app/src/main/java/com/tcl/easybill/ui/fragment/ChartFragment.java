@@ -19,7 +19,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 
 import android.widget.Spinner;
-import android.widget.TableRow;
 
 import java.util.ArrayList;
 
@@ -43,13 +42,11 @@ import com.tcl.easybill.ui.adapter.ChartAdapter;
 import com.tcl.easybill.ui.adapter.MonthChartAdapter;
 
 import static android.view.Gravity.CENTER;
-import static android.view.Gravity.END;
-import static android.view.Gravity.START;
 import static com.tcl.easybill.Utils.DateUtils.FORMAT_M;
 import static com.tcl.easybill.Utils.DateUtils.FORMAT_Y;
 
 
-public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView,*/MonthChartView/*bill_Fragment.DailyDatas*/ {
+public class ChartFragment extends HomeBaseFragment implements /*MonthChartView,*/MonthChartView/*BillFragment.DailyDatas*/ {
 
     @BindView(R.id.thisweek)
     Button thisWeekBtn;
@@ -340,9 +337,9 @@ public class chart_Fragment extends HomeBaseFragment implements /*MonthChartView
         });
     }
 
-    public static chart_Fragment newInstance(String info) {
+    public static ChartFragment newInstance(String info) {
         Bundle args = new Bundle();
-        chart_Fragment fragment = new chart_Fragment();
+        ChartFragment fragment = new ChartFragment();
         args.putString("info", info);
         fragment.setArguments(args);
         return fragment;

@@ -15,6 +15,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -63,10 +64,10 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView{
     protected static final int TAKE_PICTURE = 1;
     protected static final int GENDER_MAN = 0;
     protected static final int GENDER_FEMALE = 1;
+    protected static final int ASK_CAMERA = 2;
     private Uri imageUri;
 
-    private String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.CAMERA, Manifest.permission.MEDIA_CONTENT_CONTROL};
+    private String[] permissions = {Manifest.permission.CAMERA};
 
 
 
@@ -101,7 +102,7 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView{
                changUserName();
                break;
            case R.id.head_persional:
-               askPermission();
+               changeHead();
                break;
            case R.id.gender_persional:
                changeGender();
@@ -273,11 +274,12 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView{
             /*check permissions*/
             for (String permission : permissions) {
                 if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(this, permissions, 111);
+                    ActivityCompat.requestPermissions(this, permissions, ASK_CAMERA);
+                }else {
+                    takePicture();
                 }
             }
         }
-        changeHead();
     }
 
     /**
@@ -298,11 +300,7 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView{
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Toast.makeText(mContext, "拍照", Toast.LENGTH_LONG).show();
-                imageUri = createImageUri(PersionalInfoActivity.this);
-                Intent intent = new Intent();
-                intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-                startActivityForResult(intent, TAKE_PICTURE);
+                askPermission();
             }
         });
         builder.create().show();
@@ -310,6 +308,13 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView{
     }
 
 
+    private void takePicture(){
+        imageUri = createImageUri(PersionalInfoActivity.this);
+        Intent intent = new Intent();
+        intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+        startActivityForResult(intent, TAKE_PICTURE);
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -377,6 +382,19 @@ public class PersionalInfoActivity extends BaseActivity implements UserInfoView{
         return uri;
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode){
+            case ASK_CAMERA:
+                        if (grantResults.length > 0 && grantResults[0]==PackageManager.PERMISSION_GRANTED){
+                            takePicture();
+                        }else {
+                            Toast.makeText(this, "你拒绝了该要求", Toast.LENGTH_SHORT).show();
+                        }
+                break;
+            default:
+        }
+    }
 
     public static void delteImageUri(Context context, Uri uri) {
         context.getContentResolver().delete(uri, null, null);

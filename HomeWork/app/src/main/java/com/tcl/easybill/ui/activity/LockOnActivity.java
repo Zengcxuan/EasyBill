@@ -207,4 +207,6 @@ public class LockOnActivity extends BaseActivity{
         mGestureLockViewGroup.resetView();
     }
 
+
+
 }

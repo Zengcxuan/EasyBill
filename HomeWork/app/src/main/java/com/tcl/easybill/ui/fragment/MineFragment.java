@@ -1,10 +1,8 @@
 package com.tcl.easybill.ui.fragment;
 
-import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.app.TimePickerDialog;
+
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,20 +10,14 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 
@@ -33,7 +25,6 @@ import java.io.File;
 import java.math.BigDecimal;
 import java.security.PublicKey;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -58,14 +49,10 @@ import com.tcl.easybill.pojo.User;
 import com.tcl.easybill.ui.activity.BudgetActivity;
 import com.tcl.easybill.ui.widget.RoundImageView;
 
-import static android.content.Context.ALARM_SERVICE;
-import static android.view.Gravity.CENTER;
-import static com.tcl.easybill.base.Constants.BUDGET;
 import static com.tcl.easybill.base.Constants.HOME;
 import static com.tcl.easybill.base.Constants.NOTIFY;
 
-
-public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
+public class MineFragment extends HomeBaseFragment implements TotalRecordView {
     @BindView(R.id.record_days)  //days of record
     TextView recordDays;
     @BindView(R.id.record_deals) //deals of record
@@ -105,9 +92,9 @@ public class mine_Fragment extends HomeBaseFragment implements TotalRecordView {
         }
     }
 
-    public static mine_Fragment newInstance(String info) {
+    public static MineFragment newInstance(String info) {
         Bundle args = new Bundle();
-        mine_Fragment fragment = new mine_Fragment();
+        MineFragment fragment = new MineFragment();
         args.putString("info", info);
         fragment.setArguments(args);
         return fragment;
