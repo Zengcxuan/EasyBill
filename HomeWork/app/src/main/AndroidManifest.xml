@@ -48,7 +48,7 @@
         <activity android:name=".ui.activity.UesrLoginActivity"/>
         <receiver android:name=".MyBroadcast">
             <intent-filter>
-                <action android:name="com.tcl.easybill.RECEVIER"/>
+                <action android:name="com.tcl.easybill.RECEIVER"/>
             </intent-filter>
         </receiver>
         <activity android:name=".ui.activity.UnlockUI" android:theme="@style/TranslucentTheme"/>

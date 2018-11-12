@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:gravity="center_vertical"
-        android:background="@drawable/shape_color_blue">
+        android:background="@color/startColor">
 
         <RelativeLayout
             android:layout_width="wrap_content"

@@ -10,12 +10,16 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -270,8 +274,16 @@ public class MineFragment extends HomeBaseFragment implements TotalRecordView {
     }
 
     @Override
-    protected  Toolbar getToolbar(){ return getActivity().findViewById(R.id.tl_mine); }
+    protected  Toolbar getToolbar(){
+        View layout = getActivity().findViewById(R.id.tl_mine);
+        return layout.findViewById(R.id.toolbar);
+    }
 
+    @Override
+    protected ImageView getIv() {
+        View layout = getActivity().findViewById(R.id.tl_mine);
+        return layout.findViewById(R.id.title);
+    }
     @Override
     protected  int getLayoutId(){ return R.layout.fragment_persionalmsg; }
 

@@ -28,7 +28,10 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import com.tcl.easybill.pojo.Person;
 
-
+/**
+ * BaseActivity
+ * Bind the ButterKnife
+ */
 public abstract class BaseActivity extends AppCompatActivity {
 
     protected Activity mContext;
@@ -53,9 +56,14 @@ public abstract class BaseActivity extends AppCompatActivity {
         //
         super.onCreate(savedInstanceState);
         mContext = this;
+//
+//        View decorView = getWindow().getDecorView();
+//        int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+//        decorView.setSystemUiVisibility(option);
+//        getWindow().setStatusBarColor(Color.TRANSPARENT);
 
         /*set the app is fullScreen*/
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(getLayoutInflater().inflate(getLayout(), null, true));
         /*register ButterKnife*/
         mUnBinder = ButterKnife.bind(this);

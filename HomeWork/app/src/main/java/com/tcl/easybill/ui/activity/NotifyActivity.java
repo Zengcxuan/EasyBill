@@ -123,7 +123,7 @@ public class NotifyActivity extends BaseActivity{
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 /*set alarm to send a Broadcast*/
                 Intent intent = new Intent();
-                intent.setAction("com.tcl.easybill.RECEVIER");
+                intent.setAction("com.tcl.easybill.RECEIVER");
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     intent.setComponent(new ComponentName("com.tcl.easybill",
                             "com.tcl.easybill.MyBroadcast"));
@@ -146,8 +146,6 @@ public class NotifyActivity extends BaseActivity{
                 }else {
                     show = String.valueOf(Hour) + ":0" + String.valueOf(Minu);
                 }
-
-                pi.cancel();
                 /*call initRecyclerView() if it's the first time to set alarm*/
                 if(!LockViewUtil.getIsSet(mContext)) {
                     initRecyclerView(show);

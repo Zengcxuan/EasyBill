@@ -19,6 +19,9 @@ import static android.content.Context.NOTIFICATION_SERVICE;
 public class NotificationTool {
     private Context mContext;
     private String title, msg;
+    public static final  String CHANNEL_ID          = "Notify";
+    private static final String CHANNEL_NAME        = "Default Channel";
+    private static final String CHANNEL_DESCRIPTION = "定时提醒";
     public  NotificationTool(Context context){
         this.mContext = context;
 
@@ -34,16 +37,13 @@ public class NotificationTool {
             /*
              * 安卓O之后新增要求,需要添加一个Channel
              */
-            NotificationChannel mChannel = new NotificationChannel("777", "定时提醒",NotificationManager.IMPORTANCE_DEFAULT);
-            mChannel.setDescription("for EasyBill");
-            mChannel.enableLights(true);
-            mChannel.setLightColor(Color.BLUE);
-            mChannel.enableVibration(true);
-            mChannel.setVibrationPattern(new long[]{100,200,300,400,500,400,300,200,400});
+            NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, "定时提醒",NotificationManager.IMPORTANCE_DEFAULT);
+            mChannel.setDescription(CHANNEL_DESCRIPTION);
+            mChannel.setName(CHANNEL_NAME);
             if (nm != null) {
                 nm.createNotificationChannel(mChannel);
             }
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(mContext)
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(mContext, CHANNEL_ID)
                     .setSmallIcon(R.mipmap.start)
                     .setContentTitle(title)
                     .setContentText(msg)
@@ -51,7 +51,6 @@ public class NotificationTool {
                     .setDefaults(NotificationCompat.DEFAULT_SOUND)
                     .setOngoing(true)
                     .setAutoCancel(true)
-                    .setChannelId("777")
                     .setContentIntent(pi);
             nm.notify(NOTIFICATION_ID, builder.build());
         }else {
@@ -67,6 +66,7 @@ public class NotificationTool {
 //                .setContentIntent(pi);
             nm.notify(NOTIFICATION_ID, builder.build());
         }
+
     }
 
     public void setTitle(String string){

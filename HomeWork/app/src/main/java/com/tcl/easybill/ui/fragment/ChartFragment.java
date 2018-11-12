@@ -18,6 +18,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
@@ -282,9 +285,15 @@ public class ChartFragment extends HomeBaseFragment implements /*MonthChartView,
     }
     @Override
     protected Toolbar getToolbar() {
-        return getActivity().findViewById(R.id.toolbar_chart);
+        View layout = getActivity().findViewById(R.id.toolbar_chart);
+        return layout.findViewById(R.id.toolbar);
     }
 
+    @Override
+    protected ImageView getIv() {
+        View layout = getActivity().findViewById(R.id.toolbar_chart);
+        return layout.findViewById(R.id.title);
+    }
 
     @Override
     public void loadDataError(Throwable throwable) {

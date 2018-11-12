@@ -3,6 +3,7 @@ package com.tcl.easybill.ui.fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -22,6 +23,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 
@@ -112,6 +114,7 @@ public abstract class HomeBaseFragment extends Fragment {
         toolbar.setTitle("");//设置Toolbar标题
         toolbar.inflateMenu(getItemMenu());
         toolbar.setNavigationIcon(R.drawable.menu);
+
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,9 +124,18 @@ public abstract class HomeBaseFragment extends Fragment {
                 startActivity(accountIntent);
             }
         });
-
+        int height = getStatusBarHeight();
+        ViewGroup.LayoutParams params = getIv().getLayoutParams();
+        params.height = height;
+        getIv().setLayoutParams(params);
     }
 
+
+    public int getStatusBarHeight() {
+        Resources resources = mContext.getResources();
+        int resourceId = resources.getIdentifier("status_bar_height", "dimen","android");
+        return resources.getDimensionPixelSize(resourceId);
+    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
@@ -189,6 +201,7 @@ public abstract class HomeBaseFragment extends Fragment {
         getToolbar().addView(v);
     }
     protected abstract Toolbar getToolbar();
+    protected abstract ImageView getIv();
     protected abstract int getLayoutId();
     protected abstract void beforeDestroy();
     protected abstract int getItemMenu();

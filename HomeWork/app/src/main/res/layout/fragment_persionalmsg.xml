@@ -28,18 +28,13 @@
                     android:orientation="horizontal"
                     app:layout_constraintGuide_percent="0.18" />
 
-                <android.support.v7.widget.Toolbar
+                <include
                     android:id="@+id/tl_mine"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:minHeight="35dp"
-                    android:padding="5dp"
-                    android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                    layout="@layout/base_toolbar"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
+                    app:layout_constraintTop_toTopOf="parent" />
             </android.support.constraint.ConstraintLayout>
 
             <android.support.constraint.Guideline

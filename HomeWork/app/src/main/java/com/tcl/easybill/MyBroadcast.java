@@ -15,7 +15,7 @@ public class MyBroadcast extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         String extras = intent.getStringExtra("msg");
-        Log.i("111", extras);
+        Log.e("111", extras);
         NotificationTool notificationTool = new NotificationTool(context);
         notificationTool.setTitle("定时提醒");
         notificationTool.setMsg(extras);

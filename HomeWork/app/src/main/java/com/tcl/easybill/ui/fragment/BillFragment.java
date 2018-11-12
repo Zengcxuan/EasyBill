@@ -9,9 +9,12 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.liuwan.customdatepicker.widget.CustomDatePicker;
@@ -299,7 +302,6 @@ public class BillFragment extends HomeBaseFragment implements MonthDetailView {
         title.setLayoutParams(new Toolbar.LayoutParams(CENTER));
         title.setGravity(CENTER);
         setToolbar(title);
-
     }
 
     /**
@@ -317,7 +319,14 @@ public class BillFragment extends HomeBaseFragment implements MonthDetailView {
 
     @Override
     protected  Toolbar getToolbar(){
-        return getActivity().findViewById(R.id.toolbar_bill);
+        View layout = getActivity().findViewById(R.id.toolbar_bill);
+        return layout.findViewById(R.id.toolbar);
+    }
+
+    @Override
+    protected ImageView getIv() {
+        View layout = getActivity().findViewById(R.id.toolbar_bill);
+        return layout.findViewById(R.id.title);
     }
 
     @Override
